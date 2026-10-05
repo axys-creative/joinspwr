@@ -96,9 +96,9 @@
 			"label": "Home Page",
 			"files": [
 				{
-					"name": "hero_simple",
+					"name": "hero_image_circle",
 					"label": "Hero",
-					"file": "src/lib/content/page_home/hero-simple.json",
+					"file": "src/lib/content/page_home/hero-image-circle.json",
 					"fields": [
 						{
 							"name": "eyebrowText",
@@ -116,13 +116,34 @@
 						{
 							"name": "title",
 							"label": "Title",
-							"widget": "string"
+							"widget": "string",
+							"hint": "Wrap a word in *asterisks* to draw a scribble under it."
 						},
 						{
 							"name": "description",
 							"label": "Description",
 							"widget": "text",
 							"required": false
+						},
+						{
+							"name": "images",
+							"label": "Circle images",
+							"widget": "list",
+							"min": 4,
+							"hint": "The cards that spin around the circles.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
 						},
 						{
 							"name": "cta",
@@ -214,23 +235,6 @@
 							]
 						},
 						{
-							"name": "layout",
-							"label": "Layout",
-							"widget": "select",
-							"options": ["column", "row"],
-							"default": "column",
-							"required": false,
-							"hint": "Row puts the description beside the title on wider screens."
-						},
-						{
-							"name": "align",
-							"label": "Alignment",
-							"widget": "select",
-							"options": ["start", "center"],
-							"default": "center",
-							"required": false
-						},
-						{
 							"name": "showEyebrow",
 							"label": "Show eyebrow",
 							"widget": "boolean",
@@ -257,6 +261,76 @@
 							"widget": "boolean",
 							"default": true,
 							"required": false
+						}
+					]
+				},
+				{
+					"name": "video_section",
+					"label": "Video",
+					"file": "src/lib/content/page_home/video-section.json",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "video",
+							"label": "Video",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Video file URL",
+									"widget": "string",
+									"hint": "A self-hosted or CDN video file."
+								},
+								{
+									"name": "poster",
+									"label": "Poster image",
+									"widget": "image",
+									"required": false
+								},
+								{
+									"name": "title",
+									"label": "Accessible name",
+									"widget": "string",
+									"required": false
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "headline",
+					"label": "Headline",
+					"file": "src/lib/content/page_home/headline.json",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "string",
+							"required": false,
+							"hint": "Icon file name without .svg (e.g. bolt). See /style-guide for examples."
+						},
+						{
+							"name": "text",
+							"label": "Statement",
+							"widget": "text",
+							"hint": "HTML works, so <em> and <strong> accents are possible."
 						}
 					]
 				}
@@ -1140,11 +1214,18 @@
 							"hint": "Puts each social icon in a box in the solid button style."
 						},
 						{
+							"name": "copyrightName",
+							"label": "Copyright name",
+							"widget": "string",
+							"required": false,
+							"hint": "The name in the copyright line, such as SPWR or SunPower. Leave empty for the site name."
+						},
+						{
 							"name": "copyright",
 							"label": "Copyright",
 							"widget": "string",
 							"required": false,
-							"hint": "Leave empty for the year, the site name and \"All rights reserved.\""
+							"hint": "Replaces the whole line, including the year. Leave empty to use the year, the name above and \"All rights reserved.\""
 						},
 						{
 							"name": "fullScreen",

@@ -1,5 +1,6 @@
 <script module lang="ts">
 	import type { ComponentProps, Snippet } from 'svelte';
+	import type { ScribbleOptions } from '$lib/attachments/scribble';
 	import type CtaGroup from './cta-group.svelte';
 
 	export type SectionCopyProps = {
@@ -7,7 +8,10 @@
 		/** Icon name from `static/icons`. */
 		eyebrowIcon?: string;
 		eyebrowDirection?: 'row' | 'column';
+		/** Wrap a word in `*asterisks*` to draw a scribble under it (see `titleScribble`). */
 		title?: string;
+		/** Scribble options for the `*marked*` words in the title. Without it the asterisks are only dropped. */
+		titleScribble?: ScribbleOptions;
 		/** Heading level of the title. A page's hero is 1, other sections are 2. */
 		level?: 1 | 2 | 3 | 4 | 5 | 6;
 		/** Looks like another heading size without changing the level. */
@@ -28,6 +32,7 @@
 </script>
 
 <script lang="ts">
+	import { scribble } from '$lib/attachments/scribble';
 	import Eyebrow from './eyebrow.svelte';
 	import CtaGroupComponent from './cta-group.svelte';
 
@@ -36,6 +41,7 @@
 		eyebrowIcon,
 		eyebrowDirection = 'row',
 		title,
+		titleScribble,
 		level = 2,
 		titleStyle,
 		description,
@@ -52,6 +58,9 @@
 	const hasEyebrow = $derived(showEyebrow && !!(eyebrowText || eyebrowIcon));
 	const hasTitle = $derived(showTitle && !!title);
 	const hasDescription = $derived(showDescription && !!description);
+	const titleParts = $derived(
+		(title ?? '').split(/\*([^*]+)\*/).map((text, index) => ({ text, marked: index % 2 === 1 }))
+	);
 	const hasCta = $derived(showCta && !!cta);
 </script>
 
@@ -63,7 +72,11 @@
 					<Eyebrow text={eyebrowText} icon={eyebrowIcon} direction={eyebrowDirection} />
 				{/if}
 				{#if hasTitle}
-					<svelte:element this={`h${level}`} class={titleStyle}>{title}</svelte:element>
+					<svelte:element this={`h${level}`} class={titleStyle}
+						>{#each titleParts as { text, marked }, index (index)}{#if marked && titleScribble}<span
+									{@attach scribble(titleScribble)}>{text}</span
+								>{:else}{text}{/if}{/each}</svelte:element
+					>
 				{/if}
 			</div>
 		{/if}

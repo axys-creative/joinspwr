@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../../styles/styles.scss';
+	import { bgDust } from '$lib/attachments/bg-dust';
 	import AlertStack from '$lib/components/alert-stack.svelte';
 	import FooterGnomon, { type FooterGnomonProps } from '$lib/components/footer-gnomon.svelte';
 	import PageTransition from '$lib/components/page-transition.svelte';
@@ -15,6 +16,7 @@
 	let { children } = $props();
 </script>
 
+<svelte:body {@attach bgDust({ fixed: true })} />
 <SmoothScroll />
 <PageTransition name="fade" preserveHeader />
 

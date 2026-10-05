@@ -20,7 +20,7 @@
 		type,
 		name,
 		label,
-		value = $bindable(type === 'color' ? '#e48c66' : 50),
+		value = $bindable(type === 'color' ? '#fdfd00' : 50),
 		min = 0,
 		max = 100,
 		step,

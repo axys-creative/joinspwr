@@ -378,7 +378,7 @@
 		margin: auto;
 		padding: calc(var(--play-size) * 0.3);
 		border: 0;
-		border-radius: 50%;
+		border-radius: var(--radius-btn);
 		background: var(--play-bg);
 		color: var(--play-color);
 		cursor: pointer;
@@ -434,7 +434,7 @@
 		height: 40px;
 		padding: 10px;
 		border: 0;
-		border-radius: 50%;
+		border-radius: var(--radius-btn);
 		background: var(--color-accent);
 		color: var(--color-on-accent);
 		font-size: 20px;
@@ -561,6 +561,7 @@
 		top: 0;
 		bottom: 0;
 		width: 44px;
+		padding-block: 24px;
 		z-index: 1;
 		pointer-events: none;
 	}
@@ -600,7 +601,7 @@
 		height: 44px;
 		padding: 0;
 		border: 0;
-		border-radius: 50%;
+		border-radius: var(--radius-btn);
 		background: var(--color-accent);
 		color: var(--color-on-accent);
 		font-size: 22px;
@@ -626,6 +627,7 @@
 
 	.volume {
 		--range-width: 96px;
+		--ink: var(--color-on-accent);
 
 		position: absolute;
 		top: 0;
@@ -634,10 +636,12 @@
 		width: 44px;
 		height: 44px;
 		overflow: hidden;
-		border-radius: 22px;
+		border-radius: var(--radius-btn);
 		background: var(--color-accent);
 
 		&.frosted {
+			--ink: var(--color-text);
+
 			background: var(--glass-tint, var(--color-glass));
 			color: var(--color-text);
 		}
@@ -685,7 +689,11 @@
 		margin: 0;
 		appearance: none;
 		border-radius: 4px;
-		background: linear-gradient(to right, white var(--value), rgb(255 255 255 / 0.4) var(--value));
+		background: linear-gradient(
+			to right,
+			var(--ink) var(--value),
+			color-mix(in srgb, var(--ink) 35%, transparent) var(--value)
+		);
 		cursor: pointer;
 
 		&::-webkit-slider-thumb {
@@ -694,7 +702,7 @@
 			height: 12px;
 			border: 0;
 			border-radius: 50%;
-			background: white;
+			background: var(--ink);
 		}
 
 		&::-moz-range-thumb {
@@ -702,11 +710,11 @@
 			height: 12px;
 			border: 0;
 			border-radius: 50%;
-			background: white;
+			background: var(--ink);
 		}
 
 		&:focus-visible {
-			outline: 2px solid white;
+			outline: 2px solid var(--ink);
 			outline-offset: 4px;
 		}
 	}

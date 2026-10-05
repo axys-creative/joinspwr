@@ -1,5 +1,6 @@
-$font-heading: 'Funnel Display', system-ui, sans-serif;
-$font-body: 'Funnel Display', system-ui, sans-serif;
+$font-heading: 'Fander', system-ui, sans-serif;
+$font-body: 'Geist', system-ui, sans-serif;
+$font-accent: 'Sloop', cursive;
 $font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
 
 $black: #0a0a0a;
@@ -8,7 +9,7 @@ $grey-dark: #292929;
 $grey-light: #ececec;
 $grey-lighter: #f1f1f1;
 $white: #fafafa;
-$coral: #e48c66;
+$spwr-yellow: #fdfd00;
 $blue: #ada4e3;
 $green: #a4d1a2;
 
@@ -20,7 +21,7 @@ $green: #a4d1a2;
 	--color-text: #{$black};
 	--color-text-muted: #{$grey-dark};
 	--color-border: #{$grey-light};
-	--color-accent-text: #b3501f;
+	--color-accent-text: #757500;
 	--color-error: #dc143c;
 	--color-glass: rgb(255 255 255 / 0.25);
 }
@@ -30,6 +31,7 @@ $green: #a4d1a2;
 
 	--font-heading: #{$font-heading};
 	--font-body: #{$font-body};
+	--font-accent: #{$font-accent};
 	--font-mono: #{$font-mono};
 
 	--color-bg: #{$black};
@@ -37,10 +39,11 @@ $green: #a4d1a2;
 	--color-text: #{$white};
 	--color-text-muted: #{$grey-light};
 	--color-border: #{$grey-dark};
-	--color-accent: #{$coral};
-	--color-accent-text: #{$coral};
+	--spwr-yellow: #{$spwr-yellow};
+	--color-accent: var(--spwr-yellow);
+	--color-accent-text: #{$spwr-yellow};
 	// Text and icons on an accent background are the same in both themes.
-	--color-on-accent: #{$white};
+	--color-on-accent: #141414;
 	--color-secondary: #{$blue};
 	--color-tertiary: #{$green};
 	--color-error: #dc143c;
@@ -49,7 +52,7 @@ $green: #a4d1a2;
 	--color-warning: #e8b84f;
 	--color-glass: rgb(0 0 0 / 0.25);
 
-	--content-width: 1280px;
+	--content-width: 1200px;
 
 	--body-padding: 64px;
 	--body-padding-double: calc(var(--body-padding) * 2);
@@ -60,7 +63,7 @@ $green: #a4d1a2;
 	--radius-btn: 4px;
 
 	--btn-font-size: 16px;
-	--btn-font-weight: 500;
+	--btn-font-weight: 400;
 	--btn-padding: 8px 16px;
 	--btn-padding-sm: 6px 12px;
 	--btn-padding-lg: 12px 24px;

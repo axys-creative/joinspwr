@@ -80,7 +80,7 @@
 		left: 0;
 		translate: -100% 100%;
 		rotate: -8deg;
-		font-family: cursive;
+		font-family: var(--font-accent);
 		pointer-events: none;
 
 		@include mixins.max-lg {

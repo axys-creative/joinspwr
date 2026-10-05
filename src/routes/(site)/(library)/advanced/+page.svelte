@@ -107,8 +107,8 @@
 			<BackgroundFrame
 				effect={bgDust({
 					colors: {
-						dark: { base: '#140a05', highlight: '#e98a63' },
-						light: { base: '#fff8f4', highlight: '#e98a63' }
+						dark: { base: '#141400', highlight: '#fdfd00' },
+						light: { base: '#fffff0', highlight: '#fdfd00' }
 					},
 					ripple: { enabled: false },
 					lobes: { count: 4, formMin: 0.3 },

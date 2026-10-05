@@ -119,7 +119,7 @@
 		border: 0;
 		border-radius: var(--radius-btn);
 		background: none;
-		font-family: var(--font-body);
+		font-family: var(--font-heading);
 		font-size: var(--btn-font-size);
 		font-weight: var(--btn-font-weight);
 		line-height: 1.2;

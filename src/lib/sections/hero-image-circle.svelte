@@ -145,6 +145,15 @@
 		.inner {
 			width: 100%;
 		}
+
+		@include mixins.max-lg {
+			justify-content: flex-start;
+			min-height: 80lvh;
+
+			.inner {
+				flex: 1;
+			}
+		}
 	}
 
 	.inner {
@@ -156,13 +165,12 @@
 		margin-inline: auto;
 		padding: var(--body-padding-double) var(--body-padding);
 
-		// Stacked, the section is about a screen tall. The copy keeps its room at the top and the circle takes what is
-		// left, rather than the other way round, and sits at the bottom edge.
+		// Stacked, the copy has extra room at the top, under the floating header, and the circle is cropped to its top
+		// third and sits at the bottom edge.
 		@include mixins.max-lg {
 			flex-direction: column;
 			justify-content: flex-start;
-			min-height: 100lvh;
-			padding-block-end: 0;
+			padding-block: calc(var(--body-padding-double) + 72px) 0;
 		}
 	}
 
@@ -177,10 +185,10 @@
 			// Runs edge to edge, past the section's side padding.
 			width: calc(100% + var(--body-padding) * 2);
 			margin-inline: calc(var(--body-padding) * -1);
-			// The circle stays round and the box shows its top half, plus the room the cards need above it.
-			aspect-ratio: 100 / calc(50 + var(--lift, 0));
+			// The circle stays round and the box shows only the top of it, plus the room the cards need above it.
+			aspect-ratio: 100 / calc(30 + var(--lift, 0));
 			// Never more than about half a screen, so a wide phone does not show a huge circle.
-			max-height: 55lvh;
+			max-height: 40lvh;
 			margin-block-start: auto;
 			overflow: hidden;
 		}

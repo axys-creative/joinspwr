@@ -161,7 +161,7 @@
 	.accent {
 		flex-shrink: 0;
 		align-self: center;
-		font-family: cursive;
+		font-family: var(--font-accent);
 		font-size: clamp(32px, 4vw, 56px);
 		rotate: -6deg;
 		white-space: nowrap;

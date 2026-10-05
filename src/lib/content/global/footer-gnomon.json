@@ -1,11 +1,11 @@
 {
-	"title": "Let’s build something great together",
+	"title": "Join America’s leading solar sales company",
 	"cta": {
-		"text": "Get Started",
-		"textDescription": "Get started with joinspwr",
-		"url": "/",
+		"text": "Join the squad",
+		"textDescription": "Join the squad",
+		"url": "/join",
 		"newTab": false,
-		"type": "outline"
+		"type": "solid"
 	},
 	"linksets": [
 		{
@@ -17,69 +17,55 @@
 					"newTab": false
 				},
 				{
-					"text": "Blog",
-					"url": "/blog",
+					"text": "Culture",
+					"url": "/culture",
 					"newTab": false
 				},
 				{
-					"text": "Style Guide",
-					"url": "/style-guide",
+					"text": "Platform",
+					"url": "/platform",
+					"newTab": false
+				},
+				{
+					"text": "About",
+					"url": "/about",
+					"newTab": false
+				},
+				{
+					"text": "OSS",
+					"url": "/oss",
 					"newTab": false
 				}
 			]
 		},
 		{
-			"title": "Library",
+			"title": "Company",
 			"links": [
 				{
-					"text": "Advanced",
-					"url": "/advanced",
+					"text": "Privacy Policy",
+					"url": "/privacy-policy",
 					"newTab": false
 				},
 				{
-					"text": "Attachments",
-					"url": "/attachments",
+					"text": "Terms & Conditions",
+					"url": "/terms-of-service",
 					"newTab": false
 				},
 				{
-					"text": "Components",
-					"url": "/components",
-					"newTab": false
-				},
-				{
-					"text": "Combos",
-					"url": "/combos",
-					"newTab": false
-				},
-				{
-					"text": "Sections",
-					"url": "/sections",
-					"newTab": false
-				},
-				{
-					"text": "Transitions",
-					"url": "/transitions",
-					"newTab": false
-				}
-			]
-		},
-		{
-			"title": "joinspwr",
-			"links": [
-				{
-					"text": "Website",
+					"text": "Contact Us",
 					"url": "/",
 					"newTab": false
 				},
 				{
-					"text": "Tokens",
-					"url": "/style-guide",
-					"newTab": false
+					"text": "Sunpower",
+					"url": "https://www.sunpower.com",
+					"newTab": true
 				}
 			]
 		}
 	],
 	"copyright": "",
 	"fullScreen": false,
-	"socialSolid": true
+	"socialSolid": true,
+	"copyrightName": "SunPower Inc"
 }

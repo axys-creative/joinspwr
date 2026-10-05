@@ -5,6 +5,7 @@
 		eyebrowText?: string;
 		/** Icon name from `static/icons`. Works without `eyebrowText` too. */
 		eyebrowIcon?: string;
+		eyebrowDirection?: 'row' | 'column';
 		/** With a `name` the headline is wrapped in quotes and credited beneath. */
 		quote?: { name: string; role?: string; image?: { src: string; alt?: string } };
 		/** At least the height of the screen, with the statement centered. Taller content still grows past it. */
@@ -22,6 +23,7 @@
 		text,
 		eyebrowText,
 		eyebrowIcon,
+		eyebrowDirection = 'row',
 		quote,
 		fullScreen = false,
 		class: className
@@ -46,7 +48,7 @@
 
 <section class="headline {className ?? ''}" class:full-screen={fullScreen}>
 	<div class="inner">
-		<Eyebrow text={eyebrowText} icon={eyebrowIcon} />
+		<Eyebrow text={eyebrowText} icon={eyebrowIcon} direction={eyebrowDirection} align="center" />
 
 		{#if quoted && quote}
 			<figure class="quote">
@@ -93,9 +95,16 @@
 
 	.text {
 		display: block;
+		font-family: 'Antonio', var(--font-heading);
+		font-size: clamp(30px, 8vw, 72px);
 		max-width: 1000px;
 		opacity: 1;
 		text-wrap: balance;
+	}
+
+	.text :global(em) {
+		color: var(--color-accent-text);
+		font-style: normal;
 	}
 
 	.quote,

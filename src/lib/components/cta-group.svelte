@@ -23,7 +23,7 @@
 		})}
 	/>
 	{#if secondary}
-		<Button {...secondary} type="text" />
+		<Button {...secondary} type="outline" />
 	{/if}
 </div>
 

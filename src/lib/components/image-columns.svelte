@@ -297,7 +297,7 @@
 		left: 0.75em;
 		z-index: 2;
 		color: #fff;
-		font-family: cursive;
+		font-family: var(--font-accent);
 		font-size: clamp(20px, 2vw, 32px);
 		line-height: 1;
 		text-shadow: 0 1px 4px rgb(0 0 0 / 0.6);

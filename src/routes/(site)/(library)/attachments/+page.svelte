@@ -546,7 +546,7 @@
 			<span
 				{@attach glitchCycle({
 					words: ['creative', 'responsive', 'accessible', 'innovative', 'engaging'],
-					colors: ['#e48c66', '#007bff', 'var(--color-text)', '#c0c0c0', '#007bff'],
+					colors: ['#fdfd00', '#007bff', 'var(--color-text)', '#c0c0c0', '#007bff'],
 					interval: 2000
 				})}
 			>

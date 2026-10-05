@@ -6,13 +6,15 @@
 		/** Icon name from `static/icons`. */
 		icon?: string;
 		direction?: 'row' | 'column';
+		/** In a `column`, whether the icon and text line up at the start or the center. */
+		align?: 'start' | 'center';
 	};
 
-	let { text, icon, direction = 'row' }: Props = $props();
+	let { text, icon, direction = 'row', align = 'start' }: Props = $props();
 </script>
 
 {#if icon || text}
-	<div class="eyebrow" class:column={direction === 'column'}>
+	<div class="eyebrow" class:column={direction === 'column'} class:center={align === 'center'}>
 		{#if icon}
 			<span class="eyebrow-icon"><Icon name={icon} /></span>
 		{/if}
@@ -34,6 +36,10 @@
 	.eyebrow.column {
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.eyebrow.column.center {
+		align-items: center;
 	}
 
 	.eyebrow-icon {

@@ -46,7 +46,11 @@ export const ctaGroupProps = props(
 export const eyebrowProps = props(
 	['text', 'A string. The small label above a title.'],
 	['icon', 'An icon name from `static/icons`, shown before the text.'],
-	['direction', '`row | column`. How the icon and text sit together. Defaults to `row`.']
+	['direction', '`row | column`. How the icon and text sit together. Defaults to `row`.'],
+	[
+		'align',
+		'`start | center`. In a `column`, whether the icon and text line up at the start or the center. Defaults to `start`.'
+	]
 );
 
 export const iconProps = props(
@@ -122,7 +126,11 @@ export const sectionCopyProps = props(
 	['eyebrowText', 'A string for the eyebrow.'],
 	['eyebrowIcon', 'An icon name for the eyebrow.'],
 	['eyebrowDirection', '`row | column`. Defaults to `row`.'],
-	['title', 'A string.'],
+	['title', 'A string. Wrap a word in `*asterisks*` to scribble under it, with `titleScribble`.'],
+	[
+		'titleScribble',
+		"Scribble options (see Scribble under Attachments) for the `*marked*` words in the title, such as `{ curve: 'zigzag' }`. Without it the asterisks are only dropped."
+	],
 	[
 		'level',
 		'`1 | 2 | 3 | 4 | 5 | 6`. The heading level of the title. A page hero is `1`, other sections `2`. Defaults to `2`.'
@@ -1152,6 +1160,10 @@ export const headlineProps = props(
 	['eyebrowText', 'A string shown above the statement.'],
 	['eyebrowIcon', 'An icon name from `static/icons`. Works without `eyebrowText` too.'],
 	[
+		'eyebrowDirection',
+		"`row | column`. How the eyebrow's icon and text sit together, centered either way. Defaults to `row`."
+	],
+	[
 		'quote',
 		'An object of `{ name, role, image }`, where `image` is `{ src, alt }`. With a `name` the statement is wrapped in quotes and credited beneath, with the image, name and role. Leave it out for a plain headline.'
 	],
@@ -1246,7 +1258,7 @@ export const heroImageCircleProps = props(
 	],
 	[
 		'direction',
-		'`center | left`. `center` puts a circle on each side of centered copy. `left` keeps one circle, on the right, and left-aligns the copy. Below the `lg` breakpoint both stack the copy over the top half of one circle. Defaults to `center`.'
+		'`center | left`. `center` puts a circle on each side of centered copy. `left` keeps one circle, on the right, and left-aligns the copy. Below the `lg` breakpoint both stack the copy over the cropped top of one circle. Defaults to `center`.'
 	],
 	[
 		'scrub',
@@ -1318,6 +1330,7 @@ export const colorTokens = props(
 export const typographyTokens = props(
 	['--font-heading', 'The heading font.'],
 	['--font-body', 'The body font.'],
+	['--font-accent', 'The handwritten accent font.'],
 	['--font-mono', 'The mono-spaced font.'],
 	[
 		'.h1 to .h6',
@@ -1343,4 +1356,24 @@ export const videoBgProps = props(
 	['placement', '`br | bl | tr | tl`. The corner of the play / pause button. Defaults to `br`.'],
 	['toggleAttach', 'An attachment for the button, such as `magnet()`.'],
 	['title', "A string, the video's accessible name. Defaults to `Background video`."]
+);
+
+export const videoSectionProps = props(
+	[
+		'title, description, eyebrowText, eyebrowIcon, layout',
+		'The opening copy, from Section Copy (see the Style Guide). `layout` defaults to `row` here, putting the description beside the title.'
+	],
+	[
+		'id',
+		"A string, the section's anchor. A click on a link to `#id` plays the video as the page scrolls to it."
+	],
+	[
+		'video',
+		'An object of Video Player props (see Components), such as `{ src, poster, title }`. Required.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	['class', 'A string of extra classes.']
 );

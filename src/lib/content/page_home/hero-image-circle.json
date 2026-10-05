@@ -1,0 +1,71 @@
+{
+	"eyebrowText": "joinspwr",
+	"title": "JOIN AMERICA’S *LEADING* SOLAR SALES COMPANY",
+	"description": "",
+	"cta": {
+		"primary": {
+			"text": "Play video",
+			"textDescription": "Play the video",
+			"url": "#video",
+			"newTab": false,
+			"iconEnd": ""
+		},
+		"secondary": {
+			"text": "ABOUT SPWR",
+			"textDescription": "About SPWR",
+			"url": "/about",
+			"newTab": false,
+			"iconEnd": ""
+		}
+	},
+	"images": [
+		{
+			"src": "/images/img-sample-1.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-2.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-3.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-4.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-5.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-6.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-1.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-2.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-3.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-4.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-5.jpg",
+			"alt": ""
+		},
+		{
+			"src": "/images/img-sample-6.jpg",
+			"alt": ""
+		}
+	]
+}

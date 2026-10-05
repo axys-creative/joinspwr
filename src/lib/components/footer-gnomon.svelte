@@ -15,6 +15,9 @@
 		socialSolid?: boolean;
 		/** Up to three columns of links, at the bottom right. */
 		linksets?: { title?: string; links: ButtonProps[] }[];
+		/** The name in the default copyright line. Defaults to the site name. */
+		copyrightName?: string;
+		/** Replaces the whole copyright line. */
 		copyright?: string;
 		/** The notch at the top right, in px. These are minimums: it grows to hold the social links, however many. */
 		notch?: { width?: number; height?: number };
@@ -45,6 +48,7 @@
 		socialLinks = [],
 		socialSolid = false,
 		linksets = [],
+		copyrightName,
 		copyright,
 		notch,
 		radius = 28,
@@ -54,7 +58,8 @@
 	}: FooterGnomonProps = $props();
 
 	const copyrightText = $derived(
-		copyright || `© ${new Date().getFullYear()} ${site.siteName}. All rights reserved.`
+		copyright ||
+			`© ${new Date().getFullYear()} ${copyrightName || site.siteName}. All rights reserved.`
 	);
 
 	let width = $state(0);
@@ -197,6 +202,7 @@
 		position: absolute;
 		top: 0;
 		right: 0;
+		z-index: 1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -283,6 +289,10 @@
 		@include mixins.max-xs {
 			grid-template-columns: max-content;
 		}
+	}
+
+	.linksets :global(.label::before) {
+		content: none !important;
 	}
 
 	.linkset strong {

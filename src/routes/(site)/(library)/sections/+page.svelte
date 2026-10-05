@@ -16,6 +16,7 @@
 		scrollStackProps,
 		scrollTimelineProps,
 		tunnelProps,
+		videoSectionProps,
 		workGalleryProps
 	} from '$lib/library/component-props';
 	import LibrarySection from '$lib/library/library-section.svelte';
@@ -32,6 +33,7 @@
 	import ScrollStack from '$lib/sections/scroll-stack.svelte';
 	import ScrollTimeline from '$lib/sections/scroll-timeline.svelte';
 	import Tunnel from '$lib/sections/tunnel.svelte';
+	import VideoSection from '$lib/sections/video-section.svelte';
 	import WorkGallery from '$lib/sections/work-gallery.svelte';
 	import MouseCursor from '$lib/components/mouse-cursor.svelte';
 	import { navEntry } from '$lib/utils/nav';
@@ -448,7 +450,7 @@
 	<LibrarySection
 		title="Hero Image Circle"
 		type="Section"
-		description="A hero with circles of spinning images flanking the copy. They sit mostly off the screen, so only the cards that swing in show, and they bleed past the top and bottom of the section. Below the `lg` breakpoint the copy stacks over the top half of one circle."
+		description="A hero with circles of spinning images flanking the copy. They sit mostly off the screen, so only the cards that swing in show, and they bleed past the top and bottom of the section. Below the `lg` breakpoint the copy stacks over the cropped top of one circle."
 		props={heroImageCircleProps}
 	>
 		<HeroImageCircle
@@ -603,6 +605,24 @@
 		/>
 		<Tunnel class="full" centered reversed img={{ src: '/images/img-sample-4.jpg', alt: '' }} />
 	</LibrarySection>
+	<LibrarySection
+		title="Video Section"
+		type="Section"
+		description="A Video Player with optional copy above it. The title and description sit side by side in a row by default."
+		props={videoSectionProps}
+	>
+		<VideoSection
+			class="full"
+			title="Video Section"
+			description="A Video Player with its opening copy in a row above it."
+			video={{
+				src: 'https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1',
+				poster: '/images/img-sample-1.jpg',
+				title: 'Sample video'
+			}}
+		/>
+	</LibrarySection>
+
 	<LibrarySection
 		title="Work Gallery"
 		type="Section"
