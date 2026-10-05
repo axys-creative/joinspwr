@@ -90,7 +90,7 @@
 {#snippet buttons()}
 	{#if ctas.length}
 		<div class="ctas">
-			{#each ctas as cta (cta.url ?? cta.text)}
+			{#each ctas as cta (`${cta.url}|${cta.text}`)}
 				<Button {...cta} {@attach textRoll()} />
 			{/each}
 		</div>
@@ -126,7 +126,7 @@
 		<div class="corner">
 			{#if footerLinks.length}
 				<ul class="footer-links">
-					{#each footerLinks as link (link.url ?? link.text)}
+					{#each footerLinks as link (`${link.url}|${link.text}`)}
 						<li><Button {...link} type="underline" size="sm" {@attach textRoll()} /></li>
 					{/each}
 				</ul>
@@ -136,7 +136,7 @@
 		</div>
 	{:else if variant === 'center'}
 		<div class="previews" aria-hidden="true">
-			{#each links as link, index (link.url ?? link.text)}
+			{#each links as link, index (`${link.url}|${link.text}`)}
 				{#if loaded && link.images?.length}
 					<div class="preview" class:shown={active === index}>
 						{#each link.images.slice(0, 4) as image, picture (picture)}
@@ -195,7 +195,7 @@
 			<div class="footer">
 				{#if footerLinks.length}
 					<ul class="footer-links">
-						{#each footerLinks as link (link.url ?? link.text)}
+						{#each footerLinks as link (`${link.url}|${link.text}`)}
 							<li><Button {...link} type="underline" size="sm" {@attach textRoll()} /></li>
 						{/each}
 					</ul>

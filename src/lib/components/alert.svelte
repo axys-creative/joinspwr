@@ -62,7 +62,7 @@
 		{#if message}<p>{message}</p>{/if}
 		{#if links.length}
 			<div class="links">
-				{#each links.slice(0, 2) as link (link.url ?? link.text)}
+				{#each links.slice(0, 2) as link (`${link.url}|${link.text}`)}
 					<Button {...link} type="underline" size="sm" />
 				{/each}
 			</div>

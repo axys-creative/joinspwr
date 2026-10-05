@@ -1,20 +1,29 @@
 {
 	"links": [
 		{
-			"title": "Instagram",
-			"url": "https://www.instagram.com/sample",
-			"icon": "/uploads/social-instagram.svg"
+			"title": "TikTok",
+			"url": "https://www.tiktok.com/@joinspwr",
+			"icon": "/uploads/social-tiktok.svg"
 		},
-		{ "title": "X", "url": "https://twitter.com/sample", "icon": "/uploads/social-x.svg" },
 		{
-			"title": "LinkedIn",
-			"url": "https://linkedin.com/sample",
-			"icon": "/uploads/social-linkedin.svg"
+			"title": "YouTube",
+			"url": "https://www.youtube.com/@joinspwr",
+			"icon": "/uploads/social-youtube.svg"
 		},
 		{
 			"title": "Facebook",
-			"url": "https://facebook.com/sample",
+			"url": "https://www.facebook.com/sunpower",
 			"icon": "/uploads/social-facebook.svg"
+		},
+		{
+			"title": "Instagram",
+			"url": "https://www.instagram.com/joinspwr/",
+			"icon": "/uploads/social-instagram.svg"
+		},
+		{
+			"title": "LinkedIn",
+			"url": "https://www.linkedin.com/company/sunpower-corporation/posts/?feedView=all",
+			"icon": "/uploads/social-linkedin.svg"
 		}
 	]
 }

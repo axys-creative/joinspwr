@@ -3,13 +3,13 @@
 	"backend": {
 		"name": "git-gateway",
 		"branch": "main",
-		"repo": "https://github.com/axys-creative/axys-template.git"
+		"repo": "https://github.com/axys-creative/joinspwr.git"
 	},
 	"local_backend": true,
 	"media_folder": "static/uploads",
 	"public_folder": "/uploads",
-	"site_url": "https://axys-template.netlify.app",
-	"display_url": "https://axys-template.netlify.app",
+	"site_url": "https://joinspwr-dev.netlify.app",
+	"display_url": "https://joinspwr-dev.netlify.app",
 	"logo_url": "/images/admin/admin-logo.svg",
 	"collections": [
 		{
@@ -256,6 +256,161 @@
 							"label": "Show buttons",
 							"widget": "boolean",
 							"default": true,
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page_culture",
+			"label": "Culture Page",
+			"files": [
+				{
+					"name": "hero_simple",
+					"label": "Hero",
+					"file": "src/lib/content/page_culture/hero-simple.json",
+					"preview_path": "culture",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page_platform",
+			"label": "Platform Page",
+			"files": [
+				{
+					"name": "hero_simple",
+					"label": "Hero",
+					"file": "src/lib/content/page_platform/hero-simple.json",
+					"preview_path": "platform",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page_about",
+			"label": "About Page",
+			"files": [
+				{
+					"name": "hero_simple",
+					"label": "Hero",
+					"file": "src/lib/content/page_about/hero-simple.json",
+					"preview_path": "about",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page_oss",
+			"label": "OSS Page",
+			"files": [
+				{
+					"name": "hero_simple",
+					"label": "Hero",
+					"file": "src/lib/content/page_oss/hero-simple.json",
+					"preview_path": "oss",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page_join",
+			"label": "Join Page",
+			"files": [
+				{
+					"name": "hero_simple",
+					"label": "Hero",
+					"file": "src/lib/content/page_join/hero-simple.json",
+					"preview_path": "join",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
 							"required": false
 						}
 					]
@@ -741,342 +896,6 @@
 					]
 				},
 				{
-					"name": "header_simple",
-					"label": "Header (simple)",
-					"file": "src/lib/content/global/header-simple.json",
-					"fields": [
-						{
-							"name": "float",
-							"label": "Floating",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Inset, rounded bar with an outside gap."
-						},
-						{
-							"name": "glass",
-							"label": "Glass background",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Frosted glass with refracting edges in Chrome. Other browsers get the blur."
-						},
-						{
-							"name": "blur",
-							"label": "Blur background",
-							"widget": "boolean",
-							"default": false,
-							"required": false,
-							"hint": "A plain translucent, blurred background. Ignored when Glass is on."
-						},
-						{
-							"name": "hideOnScroll",
-							"label": "Hide on scroll down",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showSkipLink",
-							"label": "Show skip to content link",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Accessibility. Leave on."
-						},
-						{
-							"name": "linkPlacement",
-							"label": "Link placement",
-							"widget": "select",
-							"options": ["start", "center", "end"],
-							"default": "center"
-						},
-						{
-							"name": "navButton",
-							"label": "Mobile menu button",
-							"widget": "object",
-							"fields": [
-								{
-									"name": "symbol",
-									"label": "Symbol",
-									"widget": "select",
-									"options": ["burger", "oreo", "stairs", "chocolate", "kebab"],
-									"default": "burger",
-									"hint": "Burger is two lines, oreo is two lines with rounded outer corners that twirl into the X, stairs is three stepped lines (short, long, short) that form the X, chocolate is nine dots, kebab is three vertical dots."
-								},
-								{
-									"name": "shape",
-									"label": "Shape",
-									"widget": "select",
-									"options": ["square", "round"],
-									"default": "square"
-								},
-								{
-									"name": "type",
-									"label": "Style",
-									"widget": "select",
-									"options": ["icon", "button"],
-									"default": "icon",
-									"hint": "Button puts the symbol in a bordered box."
-								},
-								{
-									"name": "text",
-									"label": "Text beside the symbol",
-									"widget": "string",
-									"required": false,
-									"hint": "Optional, e.g. menu."
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "header_island",
-					"label": "Header (island)",
-					"file": "src/lib/content/global/header-island.json",
-					"fields": [
-						{
-							"name": "glass",
-							"label": "Glass background",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Frosted glass with refracting edges in Chrome. Other browsers get the blur."
-						},
-						{
-							"name": "blur",
-							"label": "Blur background",
-							"widget": "boolean",
-							"default": false,
-							"required": false,
-							"hint": "A plain translucent, blurred background. Ignored when Glass is on."
-						},
-						{
-							"name": "hideOnScroll",
-							"label": "Hide on scroll down",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showSkipLink",
-							"label": "Show skip to content link",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Accessibility. Leave on."
-						},
-						{
-							"name": "navButton",
-							"label": "Menu button",
-							"widget": "object",
-							"fields": [
-								{
-									"name": "symbol",
-									"label": "Symbol",
-									"widget": "select",
-									"options": ["burger", "oreo", "stairs", "chocolate", "kebab"],
-									"default": "burger",
-									"hint": "Burger is two lines, oreo is two lines with rounded outer corners that twirl into the X, stairs is three stepped lines (short, long, short) that form the X, chocolate is nine dots, kebab is three vertical dots."
-								},
-								{
-									"name": "shape",
-									"label": "Shape",
-									"widget": "select",
-									"options": ["square", "round"],
-									"default": "square"
-								},
-								{
-									"name": "type",
-									"label": "Style",
-									"widget": "select",
-									"options": ["icon", "button"],
-									"default": "icon",
-									"hint": "Button puts the symbol in a bordered box."
-								},
-								{
-									"name": "text",
-									"label": "Text beside the symbol",
-									"widget": "string",
-									"required": false,
-									"hint": "Optional, e.g. menu."
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "header_absolute",
-					"label": "Header (absolute)",
-					"file": "src/lib/content/global/header-absolute.json",
-					"fields": [
-						{
-							"name": "logoPlacement",
-							"label": "Logo placement",
-							"widget": "select",
-							"options": ["start", "center", "end"],
-							"default": "start",
-							"hint": "Where the logo sits along the top."
-						},
-						{
-							"name": "controlsPlacement",
-							"label": "Buttons placement",
-							"widget": "select",
-							"options": ["start", "center", "end"],
-							"default": "end",
-							"hint": "Where the buttons and menu button sit. Not the same side as the logo, or they overlap."
-						},
-						{
-							"name": "position",
-							"label": "Position",
-							"widget": "select",
-							"options": [
-								{
-									"label": "Fixed (stays on screen)",
-									"value": "fixed"
-								},
-								{
-									"label": "Absolute (scrolls away with the page)",
-									"value": "absolute"
-								}
-							],
-							"default": "fixed"
-						},
-						{
-							"name": "hideOnScroll",
-							"label": "Hide on scroll down",
-							"widget": "boolean",
-							"default": false,
-							"required": false,
-							"hint": "Only with Fixed."
-						},
-						{
-							"name": "blend",
-							"label": "Invert colors over the page",
-							"widget": "boolean",
-							"default": false,
-							"required": false,
-							"hint": "Keeps the logo and buttons readable over any picture or color. Works best with text or underline buttons."
-						},
-						{
-							"name": "desktopLayout",
-							"label": "Large screen layout",
-							"widget": "select",
-							"options": [
-								{
-									"label": "Links in the middle, with a strap",
-									"value": "links"
-								},
-								{
-									"label": "Buttons and menu button",
-									"value": "controls"
-								}
-							],
-							"default": "links",
-							"hint": "Links shows the navigation in the middle and a strap of social links in the corner, and the menu button only on small screens."
-						},
-						{
-							"name": "mobileNav",
-							"label": "Small screen menu",
-							"widget": "select",
-							"options": [
-								{
-									"label": "Slide-out panel from the right",
-									"value": "slide"
-								},
-								{
-									"label": "Full-screen overlay",
-									"value": "overlay"
-								}
-							],
-							"default": "slide",
-							"hint": "The slide-out covers about three quarters of the screen, with no backdrop, and all of it on the smallest screens."
-						},
-						{
-							"name": "navSurface",
-							"label": "Menu background",
-							"widget": "select",
-							"options": [
-								{
-									"label": "Solid",
-									"value": "solid"
-								},
-								{
-									"label": "Blur",
-									"value": "blur"
-								},
-								{
-									"label": "Glass",
-									"value": "glass"
-								}
-							],
-							"default": "solid",
-							"hint": "Solid is the page color. Blur is translucent and blurred. Glass adds refracting edges in Chrome, and blur elsewhere."
-						},
-						{
-							"name": "strapIcon",
-							"label": "Strap icon",
-							"widget": "string",
-							"required": false,
-							"default": "orbit",
-							"hint": "An icon name from the icons folder. A placeholder for now. Leave empty for none."
-						},
-						{
-							"name": "showCtas",
-							"label": "Show buttons beside the menu button",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "From the large breakpoint up. Only with the Buttons and menu button layout."
-						},
-						{
-							"name": "showSkipLink",
-							"label": "Show skip to content link",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Accessibility. Leave on."
-						},
-						{
-							"name": "navButton",
-							"label": "Menu button",
-							"widget": "object",
-							"fields": [
-								{
-									"name": "symbol",
-									"label": "Symbol",
-									"widget": "select",
-									"options": ["burger", "oreo", "stairs", "chocolate", "kebab"],
-									"default": "burger",
-									"hint": "Burger is two lines, oreo is two lines with rounded outer corners that twirl into the X, stairs is three stepped lines (short, long, short) that form the X, chocolate is nine dots, kebab is three vertical dots."
-								},
-								{
-									"name": "shape",
-									"label": "Shape",
-									"widget": "select",
-									"options": ["square", "round"],
-									"default": "square"
-								},
-								{
-									"name": "type",
-									"label": "Style",
-									"widget": "select",
-									"options": ["icon", "button"],
-									"default": "icon",
-									"hint": "Button puts the symbol in a bordered box."
-								},
-								{
-									"name": "text",
-									"label": "Text beside the symbol",
-									"widget": "string",
-									"required": false,
-									"hint": "Optional, e.g. menu."
-								}
-							]
-						}
-					]
-				},
-				{
 					"name": "header_basic",
 					"label": "Header (basic)",
 					"file": "src/lib/content/global/header-basic.json",
@@ -1186,378 +1005,6 @@
 									"hint": "Optional, e.g. menu."
 								}
 							]
-						}
-					]
-				},
-				{
-					"name": "footer_simple",
-					"label": "Footer",
-					"file": "src/lib/content/global/footer-simple.json",
-					"fields": [
-						{
-							"name": "float",
-							"label": "Floating",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Inset, rounded bar with an outside gap."
-						},
-						{
-							"name": "glass",
-							"label": "Glass background",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "Frosted glass with refracting edges in Chrome. Other browsers get the blur."
-						},
-						{
-							"name": "blur",
-							"label": "Blur background",
-							"widget": "boolean",
-							"default": false,
-							"required": false,
-							"hint": "A plain translucent, blurred background. Ignored when Glass is on."
-						},
-						{
-							"name": "includeTop",
-							"label": "Show top section",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "includeBottom",
-							"label": "Show bottom section",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "divider",
-							"label": "Show divider",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showThemeToggle",
-							"label": "Show theme toggle",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "message",
-							"label": "Message",
-							"widget": "text",
-							"required": false
-						},
-						{
-							"name": "linksets",
-							"label": "Link columns",
-							"widget": "list",
-							"label_singular": "Column",
-							"summary": "{{fields.title}}",
-							"fields": [
-								{
-									"name": "title",
-									"label": "Title",
-									"widget": "string",
-									"required": false
-								},
-								{
-									"name": "links",
-									"label": "Links",
-									"widget": "list",
-									"label_singular": "Link",
-									"summary": "{{fields.text}}",
-									"fields": [
-										{
-											"name": "text",
-											"label": "Text",
-											"widget": "string"
-										},
-										{
-											"name": "url",
-											"label": "URL",
-											"widget": "string",
-											"hint": "Page path (/about), anchor (#contact), or full URL."
-										},
-										{
-											"name": "newTab",
-											"label": "Open in new tab",
-											"widget": "boolean",
-											"default": false,
-											"required": false
-										},
-										{
-											"name": "textDescription",
-											"label": "Accessible description",
-											"widget": "string",
-											"required": false,
-											"hint": "Optional aria-label for screen readers"
-										}
-									]
-								}
-							],
-							"max": 3,
-							"min": 1,
-							"hint": "Up to three columns of links, each with its own title."
-						},
-						{
-							"name": "returnToTop",
-							"label": "Return to top button",
-							"widget": "object",
-							"required": false,
-							"fields": [
-								{
-									"name": "text",
-									"label": "Text",
-									"widget": "string"
-								},
-								{
-									"name": "url",
-									"label": "URL",
-									"widget": "string",
-									"hint": "Page path (/about), anchor (#contact), or full URL."
-								},
-								{
-									"name": "newTab",
-									"label": "Open in new tab",
-									"widget": "boolean",
-									"default": false,
-									"required": false
-								},
-								{
-									"name": "textDescription",
-									"label": "Accessible description",
-									"widget": "string",
-									"required": false,
-									"hint": "Optional aria-label for screen readers"
-								},
-								{
-									"name": "type",
-									"label": "Style",
-									"widget": "select",
-									"options": ["solid", "outline", "underline", "text"],
-									"default": "underline",
-									"required": false
-								},
-								{
-									"name": "iconStart",
-									"label": "Icon before text",
-									"widget": "string",
-									"required": false,
-									"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
-								},
-								{
-									"name": "iconEnd",
-									"label": "Icon after text",
-									"widget": "string",
-									"required": false,
-									"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
-								}
-							]
-						},
-						{
-							"name": "legalLinks",
-							"label": "Legal links",
-							"widget": "list",
-							"label_singular": "Link",
-							"summary": "{{fields.text}}",
-							"fields": [
-								{
-									"name": "text",
-									"label": "Text",
-									"widget": "string"
-								},
-								{
-									"name": "url",
-									"label": "URL",
-									"widget": "string",
-									"hint": "Page path (/about), anchor (#contact), or full URL."
-								},
-								{
-									"name": "newTab",
-									"label": "Open in new tab",
-									"widget": "boolean",
-									"default": false,
-									"required": false
-								},
-								{
-									"name": "textDescription",
-									"label": "Accessible description",
-									"widget": "string",
-									"required": false,
-									"hint": "Optional aria-label for screen readers"
-								}
-							]
-						},
-						{
-							"name": "copyright",
-							"label": "Copyright text",
-							"widget": "string",
-							"required": false,
-							"hint": "Leave empty for '© year site name. All rights reserved.'"
-						}
-					]
-				},
-				{
-					"name": "footer_scroll_reveal",
-					"label": "Footer (scroll reveal)",
-					"file": "src/lib/content/global/footer-scroll-reveal.json",
-					"fields": [
-						{
-							"name": "title",
-							"label": "Title",
-							"widget": "string",
-							"required": false
-						},
-						{
-							"name": "cta",
-							"label": "Buttons",
-							"widget": "object",
-							"required": false,
-							"fields": [
-								{
-									"name": "primary",
-									"label": "Primary button",
-									"widget": "object",
-									"fields": [
-										{
-											"name": "text",
-											"label": "Text",
-											"widget": "string"
-										},
-										{
-											"name": "textDescription",
-											"label": "Accessible description",
-											"widget": "string",
-											"required": false
-										},
-										{
-											"name": "url",
-											"label": "URL",
-											"widget": "string"
-										},
-										{
-											"name": "newTab",
-											"label": "Open in new tab",
-											"widget": "boolean",
-											"default": false,
-											"required": false
-										}
-									]
-								},
-								{
-									"name": "secondary",
-									"label": "Secondary button",
-									"widget": "object",
-									"required": false,
-									"fields": [
-										{
-											"name": "text",
-											"label": "Text",
-											"widget": "string"
-										},
-										{
-											"name": "url",
-											"label": "URL",
-											"widget": "string"
-										},
-										{
-											"name": "newTab",
-											"label": "Open in new tab",
-											"widget": "boolean",
-											"default": false,
-											"required": false
-										}
-									]
-								}
-							]
-						},
-						{
-							"name": "message",
-							"label": "Message",
-							"widget": "text",
-							"required": false
-						},
-						{
-							"name": "bigLink",
-							"label": "Large link",
-							"widget": "object",
-							"required": false,
-							"hint": "A big link beside the title, such as an email address.",
-							"fields": [
-								{
-									"name": "text",
-									"label": "Text",
-									"widget": "string"
-								},
-								{
-									"name": "textDescription",
-									"label": "Accessible description",
-									"widget": "string",
-									"required": false
-								},
-								{
-									"name": "url",
-									"label": "URL",
-									"widget": "string"
-								},
-								{
-									"name": "newTab",
-									"label": "Open in new tab",
-									"widget": "boolean",
-									"default": false,
-									"required": false
-								}
-							]
-						},
-						{
-							"name": "showThemeToggle",
-							"label": "Show theme toggle",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "copyright",
-							"label": "Copyright text",
-							"widget": "string",
-							"required": false,
-							"hint": "Leave empty for the year and the site name."
-						},
-						{
-							"name": "credit",
-							"label": "Credit line",
-							"widget": "object",
-							"required": false,
-							"fields": [
-								{
-									"name": "text",
-									"label": "Text",
-									"widget": "string"
-								},
-								{
-									"name": "linkText",
-									"label": "Link text",
-									"widget": "string"
-								},
-								{
-									"name": "url",
-									"label": "URL",
-									"widget": "string"
-								}
-							]
-						},
-						{
-							"name": "parallax",
-							"label": "Rise into place",
-							"widget": "boolean",
-							"default": true,
-							"required": false,
-							"hint": "The content rises and grows into place as the footer is revealed."
 						}
 					]
 				},
@@ -1819,52 +1266,6 @@
 							"label": "URL",
 							"widget": "string",
 							"hint": "The full address of the live site, without an end slash. Used for canonical links."
-						},
-						{
-							"name": "footerTemplate",
-							"label": "Footer template",
-							"widget": "select",
-							"options": [
-								{
-									"label": "Simple",
-									"value": "simple"
-								},
-								{
-									"label": "Scroll reveal",
-									"value": "scroll-reveal"
-								},
-								{
-									"label": "Gnomon",
-									"value": "gnomon"
-								}
-							],
-							"default": "simple",
-							"hint": "Which footer the site uses. Each is edited in its own Footer entry under Global."
-						},
-						{
-							"name": "headerTemplate",
-							"label": "Header template",
-							"widget": "select",
-							"options": [
-								{
-									"label": "Simple",
-									"value": "simple"
-								},
-								{
-									"label": "Island",
-									"value": "island"
-								},
-								{
-									"label": "Absolute",
-									"value": "absolute"
-								},
-								{
-									"label": "Basic",
-									"value": "basic"
-								}
-							],
-							"default": "simple",
-							"hint": "Which header the site uses. The links and buttons are shared, under Navigation. The look is edited in each header's own entry."
 						},
 						{
 							"name": "author",

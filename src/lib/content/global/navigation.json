@@ -24,57 +24,9 @@
 			]
 		},
 		{
-			"text": "Resources",
-			"links": [
-				{
-					"text": "Advanced",
-					"url": "/advanced",
-					"newTab": false,
-					"iconStart": "rocket"
-				},
-				{
-					"text": "Attachments",
-					"url": "/attachments",
-					"newTab": false,
-					"iconStart": "bolt"
-				},
-				{
-					"text": "Components",
-					"url": "/components",
-					"newTab": false,
-					"iconStart": "blocks"
-				},
-				{
-					"text": "Combos",
-					"url": "/combos",
-					"newTab": false,
-					"iconStart": "orbit"
-				},
-				{
-					"text": "Sections",
-					"url": "/sections",
-					"newTab": false,
-					"iconStart": "dashboard"
-				},
-				{
-					"text": "Transitions",
-					"url": "/transitions",
-					"newTab": false,
-					"iconStart": "infinity"
-				},
-				{
-					"text": "Style Guide",
-					"url": "/style-guide",
-					"newTab": false,
-					"iconStart": "palette"
-				},
-				{
-					"text": "Tokens",
-					"url": "https://axyscreative.com/tokens",
-					"newTab": true,
-					"iconStart": "inventory"
-				}
-			],
+			"text": "Culture",
+			"url": "/culture",
+			"newTab": false,
 			"images": [
 				{
 					"src": "/images/img-sample-5.jpg",
@@ -95,8 +47,8 @@
 			]
 		},
 		{
-			"text": "Blog",
-			"url": "/blog",
+			"text": "Platform",
+			"url": "/platform",
 			"newTab": false,
 			"images": [
 				{
@@ -116,14 +68,60 @@
 					"alt": ""
 				}
 			]
+		},
+		{
+			"text": "About",
+			"url": "/about",
+			"newTab": false,
+			"images": [
+				{
+					"src": "/images/img-sample-4.jpg",
+					"alt": ""
+				},
+				{
+					"src": "/images/img-sample-1.jpg",
+					"alt": ""
+				},
+				{
+					"src": "/images/img-sample-5.jpg",
+					"alt": ""
+				},
+				{
+					"src": "/images/img-sample-2.jpg",
+					"alt": ""
+				}
+			]
+		},
+		{
+			"text": "OSS",
+			"url": "/oss",
+			"newTab": false,
+			"images": [
+				{
+					"src": "/images/img-sample-7.jpg",
+					"alt": ""
+				},
+				{
+					"src": "/images/img-sample-3.jpg",
+					"alt": ""
+				},
+				{
+					"src": "/images/img-sample-6.jpg",
+					"alt": ""
+				},
+				{
+					"src": "/images/img-sample-5.jpg",
+					"alt": ""
+				}
+			]
 		}
 	],
 	"ctas": [
 		{
 			"text": "Join",
-			"textDescription": "Join AXYS Creative",
-			"url": "https://axyscreative.com",
-			"newTab": true,
+			"textDescription": "Join joinspwr",
+			"url": "/join",
+			"newTab": false,
 			"type": "outline"
 		}
 	],

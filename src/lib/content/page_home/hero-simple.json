@@ -1,6 +1,6 @@
 {
-	"eyebrowText": "axys-template",
-	"title": "Welcome to the axys template",
+	"eyebrowText": "joinspwr",
+	"title": "Welcome to joinspwr",
 	"description": "A fast, accessible starting point built with SvelteKit, SCSS and JSON content, edited through Decap CMS.",
 	"cta": {
 		"primary": {
@@ -12,8 +12,8 @@
 		},
 		"secondary": {
 			"text": "Get Started",
-			"textDescription": "Get started with AXYS Creative",
-			"url": "https://axyscreative.com",
+			"textDescription": "Visit joinspwr",
+			"url": "https://joinspwr-dev.netlify.app",
 			"newTab": true,
 			"iconEnd": "chevron-right"
 		}

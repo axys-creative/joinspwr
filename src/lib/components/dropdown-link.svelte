@@ -101,7 +101,7 @@
 			: undefined}
 	>
 		<ul class="list">
-			{#each links as link (link.url ?? link.text)}
+			{#each links as link (`${link.url}|${link.text}`)}
 				<li><Button {...link} type={link.type ?? 'text'} {@attach textRoll()} /></li>
 			{/each}
 		</ul>

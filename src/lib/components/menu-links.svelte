@@ -53,7 +53,7 @@
 		class={className}
 	>
 		<ul class="menu-links {direction}">
-			{#each links as { links: children, images, ...link }, index (link.url ?? link.text)}
+			{#each links as { links: children, images, ...link }, index (`${link.url}|${link.text}`)}
 				<li
 					onpointerenter={onactive ? () => onactive(index) : undefined}
 					onpointerleave={onactive ? () => onactive(null) : undefined}

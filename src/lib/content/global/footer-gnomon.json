@@ -2,9 +2,9 @@
 	"title": "Let’s build something great together",
 	"cta": {
 		"text": "Get Started",
-		"textDescription": "Get started with AXYS Creative",
-		"url": "https://axyscreative.com",
-		"newTab": true,
+		"textDescription": "Get started with joinspwr",
+		"url": "/",
+		"newTab": false,
 		"type": "outline"
 	},
 	"linksets": [
@@ -64,17 +64,17 @@
 			]
 		},
 		{
-			"title": "axys creative",
+			"title": "joinspwr",
 			"links": [
 				{
 					"text": "Website",
-					"url": "https://axyscreative.com",
-					"newTab": true
+					"url": "/",
+					"newTab": false
 				},
 				{
 					"text": "Tokens",
-					"url": "https://axyscreative.com/tokens",
-					"newTab": true
+					"url": "/style-guide",
+					"newTab": false
 				}
 			]
 		}

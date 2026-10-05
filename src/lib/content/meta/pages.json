@@ -8,6 +8,41 @@
 			"crawlPage": true
 		},
 		{
+			"path": "/culture",
+			"title": "Culture",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": true
+		},
+		{
+			"path": "/platform",
+			"title": "Platform",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": true
+		},
+		{
+			"path": "/about",
+			"title": "About",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": true
+		},
+		{
+			"path": "/oss",
+			"title": "OSS",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": true
+		},
+		{
+			"path": "/join",
+			"title": "Join",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": true
+		},
+		{
 			"path": "/blog",
 			"title": "Blog",
 			"description": "",
