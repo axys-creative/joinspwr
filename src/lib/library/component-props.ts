@@ -1017,7 +1017,7 @@ export const carouselTunnelProps = props(
 	],
 	[
 		'autoplay',
-		'An object of `{ interval, quickStart }`. `interval` is the milliseconds between slides, and `0` turns autoplay off (default `4500`). `quickStart` advances one slide as soon as the copy reveals instead of waiting a full interval. Autoplay holds while the carousel is hovered or focused, and is off when motion is reduced.'
+		'An object of `{ interval, quickStart }`. `interval` is the milliseconds between slides, and `0` turns autoplay off (default `4500`). `quickStart` advances one slide a second after the copy reveals (giving the trailing slides time to catch up) instead of waiting a full interval. Using the arrows, dots or a drag restarts the interval, and autoplay is off when motion is reduced.'
 	],
 	[
 		'titleEffect',
@@ -1033,8 +1033,12 @@ export const carouselTunnelProps = props(
 		'`arrows | dots | both`. Arrows alone scale better with many slides. Defaults to `arrows`.'
 	],
 	[
+		'ticks',
+		'A boolean. A faint row of thin surface-colored ticks behind the slides, fading in with the copy. Set the color with `--tick-color`. Defaults to `true`.'
+	],
+	[
 		'config',
-		'Optional tuning: `sectionHeight` (the total scroll distance, `220svh`), `slideWidth` (the resting slide width, which sets how much of the next ones peek in, `min(25vw, 720px)`), `slideGap` (`24px`), `slideAspect` (`2 / 1.25`), `scaleDuration` (the share of the scroll spent zooming, `0.6`), `revealDuration` (seconds, `0.6`) and `captionOffset` (`12px`). Anything left out keeps its default, including the smaller slide width on mobile.'
+		'Optional tuning: `sectionHeight` (the total scroll distance, `220svh`), `slideWidth` (the resting slide width, which sets how much of the next ones peek in, `min(25vw, 720px)`), `slideGap` (`24px`), `slideAspect` (`2 / 1.25`), `scaleDuration` (the share of the scroll spent zooming, `0.6`), `trail` (seconds the slides beside the active one take to catch up with the zoom, as if pulled behind it; two away take twice as long; `0` zooms them together, `0.35`), `revealDuration` (seconds, `0.6`) and `captionOffset` (`12px`). Anything left out keeps its default, including the smaller slide width on mobile.'
 	],
 	['label', 'A string, the carousel’s accessible name. Defaults to `Featured work`.'],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
@@ -1420,6 +1424,29 @@ export const ossProps = props(
 	[
 		'accent',
 		'A string, handwritten text in the accent color, tilted 12°, in the top right corner of the fan, and centered under the fan above the description below `md`. Rich text, so `{.br}` breaks the line.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	]
+);
+
+export const financeMarqueeProps = props(
+	[
+		'title, description, eyebrowText, eyebrowIcon, cta',
+		'Copy from Section Copy (see the Style Guide), split around the marquees: the eyebrow, title and description sit above them, and the call to action sits below.'
+	],
+	[
+		'logos',
+		'An array of `{ src, alt }`, repeated across both rows, each in a bordered, rounded box. Required.'
+	],
+	[
+		'accent',
+		'A string, handwritten text in the accent color, tilted, at the bottom left of the marquee, and centered under it below `md`. Rich text, so `{.br}` breaks the line.'
+	],
+	[
+		'marquee',
+		'Marquee settings (see Marquee in Components), such as `speed`, `scrub`, `reverse` or `pauseOnHover`. The two rows always run opposite ways. Defaults to `{ speed: 40, scrub: 0.5 }`.'
 	],
 	[
 		'fullScreen',

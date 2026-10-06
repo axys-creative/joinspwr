@@ -103,11 +103,12 @@ $font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
 	--btn-padding-icon: 8px;
 	--btn-gap: 0.5ch;
 
-	--space-eyebrow-title: 24px;
+	--space-eyebrow-title: 12px;
 	--space-title-paragraph: 24px;
 	--space-paragraph-cta-group: 12px;
 	--space-copy-columns: 48px; // between the heading and the description in a row layout
 	--max-width-text: 650px;
+	--max-width-description: 450px;
 
 	--float-offset: 16px;
 	--z-nav: 3;
@@ -131,13 +132,6 @@ $font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
 		--body-padding: 24px;
 		--float-offset: 12px;
 		--radius-lg: 12px;
-	}
-}
-
-// Without JS, follow the OS; the inline script in app.html sets data-theme otherwise.
-@media (prefers-color-scheme: light) {
-	:root:not([data-theme]) {
-		@include light-tokens;
 	}
 }
 

@@ -170,7 +170,7 @@
 		@include mixins.max-lg {
 			flex-direction: column;
 			justify-content: flex-start;
-			padding-block: calc(var(--body-padding-double) + 72px) 0;
+			padding-block: calc(var(--body-padding-double) + 112px) 0;
 		}
 	}
 

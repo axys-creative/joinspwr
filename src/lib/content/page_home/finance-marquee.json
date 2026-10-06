@@ -1,0 +1,45 @@
+{
+	"eyebrowIcon": "/uploads/icon-card-membership.svg",
+	"title": "Finance [Options]{.secondary-alt}",
+	"description": "With competitive financing options available, going solar has never been easier or more affordable.",
+	"accent": "Affordable Energy",
+	"logos": [
+		{
+			"src": "/images/logo-sample-1.svg",
+			"alt": "Sample logo 1"
+		},
+		{
+			"src": "/images/logo-sample-2.svg",
+			"alt": "Sample logo 2"
+		},
+		{
+			"src": "/images/logo-sample-3.svg",
+			"alt": "Sample logo 3"
+		},
+		{
+			"src": "/images/logo-sample-4.svg",
+			"alt": "Sample logo 4"
+		},
+		{
+			"src": "/images/logo-sample-5.svg",
+			"alt": "Sample logo 5"
+		},
+		{
+			"src": "/images/logo-sample-6.svg",
+			"alt": "Sample logo 6"
+		},
+		{
+			"src": "/images/logo-sample-7.svg",
+			"alt": "Sample logo 7"
+		}
+	],
+	"cta": {
+		"primary": {
+			"text": "Learn more",
+			"textDescription": "Learn more",
+			"url": "/platform",
+			"newTab": false,
+			"iconEnd": ""
+		}
+	}
+}

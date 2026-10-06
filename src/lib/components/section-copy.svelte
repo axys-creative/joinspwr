@@ -127,6 +127,7 @@
 
 	.description {
 		color: var(--color-text-muted);
+		max-width: var(--max-width-description);
 	}
 
 	[data-align='center'] {

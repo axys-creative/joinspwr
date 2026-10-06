@@ -509,7 +509,7 @@ export function bgDust(options: BgDustOptions = {}): Attachment<HTMLElement> {
 		const siteTheme = (): 'dark' | 'light' => {
 			const set = document.documentElement.dataset.theme;
 			if (set === 'light' || set === 'dark') return set;
-			return matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+			return 'dark';
 		};
 		const sectionTheme = (): 'dark' | 'light' => {
 			let active: 'dark' | 'light' = 'dark';

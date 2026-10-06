@@ -545,6 +545,112 @@
 					]
 				},
 				{
+					"name": "finance_marquee",
+					"label": "Finance Marquee",
+					"file": "src/lib/content/page_home/finance-marquee.json",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "string",
+							"required": false,
+							"hint": "Icon file name without .svg (e.g. bolt), or a path to an uploaded SVG."
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accent",
+							"label": "Handwritten text",
+							"widget": "string",
+							"required": false,
+							"hint": "Shown at the bottom left of the marquee, in the accent font. Use {.br} for a line break."
+						},
+						{
+							"name": "logos",
+							"label": "Logos",
+							"widget": "list",
+							"min": 2,
+							"hint": "Shown in two rows moving opposite ways.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right)."
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "oss",
 					"label": "OSS",
 					"file": "src/lib/content/page_home/oss.json",

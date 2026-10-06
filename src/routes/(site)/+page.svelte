@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
+	import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 	import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 	import Headline from '$lib/sections/headline.svelte';
 	import Oss from '$lib/sections/oss.svelte';
@@ -9,6 +10,7 @@
 	import hero from '$lib/content/page_home/hero-image-circle.json';
 	import carousel from '$lib/content/page_home/carousel-tunnel.json';
 	import gallery from '$lib/content/page_home/gallery-horizontal.json';
+	import financeMarquee from '$lib/content/page_home/finance-marquee.json';
 	import oss from '$lib/content/page_home/oss.json';
 	import headline from '$lib/content/page_home/headline.json';
 	import videoSection from '$lib/content/page_home/video-section.json';
@@ -39,5 +41,6 @@
 />
 <Headline {...headline} eyebrowDirection="column" />
 <GalleryHorizontal {...gallery} />
-<CarouselTunnel {...carousel} autoplay={{ interval: 4500, quickStart: true }} titleEffect="scale" />
+<CarouselTunnel {...carousel} autoplay={{ interval: 2400, quickStart: true }} titleEffect="scale" />
+<FinanceMarquee {...financeMarquee} />
 <Oss {...oss} />

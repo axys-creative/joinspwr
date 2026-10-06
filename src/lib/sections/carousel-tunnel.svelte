@@ -20,6 +20,8 @@
 		slideAspect?: string;
 		/** The share of the scroll (0–1) spent zooming out. The copy, captions and arrows reveal, and autoplay starts, when it ends. */
 		scaleDuration?: number;
+		/** Seconds the slide beside the active one takes to catch up with the zoom; two away take twice as long. `0` zooms them together. */
+		trail?: number;
 		/** Seconds for the fade of that reveal. */
 		revealDuration?: number;
 		/** Space between a caption and the slide's bottom left corner, e.g. `12px`. */
@@ -35,7 +37,7 @@
 		autoplay?: {
 			/** Milliseconds between slides. `0` turns autoplay off. */
 			interval?: number;
-			/** Advances one slide as soon as it reveals, instead of waiting a full interval. */
+			/** Advances one slide a second after it reveals, instead of waiting a full interval. */
 			quickStart?: boolean;
 		};
 		titleEffect?: TextEffect;
@@ -43,6 +45,8 @@
 		/** The share of a slide's width a drag must cross to change slides. Lower is more sensitive. */
 		dragThreshold?: number;
 		pagination?: 'arrows' | 'dots' | 'both';
+		/** A faint row of thin ticks behind the slides, revealed with the copy. */
+		ticks?: boolean;
 		config?: CarouselTunnelConfig;
 		/** The carousel's accessible name. */
 		label?: string;
@@ -71,6 +75,7 @@
 		descriptionEffect = 'none',
 		dragThreshold = 0.1,
 		pagination = 'arrows',
+		ticks = true,
 		config,
 		label = 'Featured work',
 		class: className
@@ -79,6 +84,7 @@
 	const interval = $derived(autoplay?.interval ?? 4500);
 	const quickStart = $derived(autoplay?.quickStart ?? false);
 	const scaleDuration = $derived(config?.scaleDuration ?? 0.6);
+	const trail = $derived(config?.trail ?? 0.35);
 
 	// Only what is set becomes a custom property, so the stylesheet's own defaults (including the smaller mobile
 	// slide width) stay in charge of the rest.
@@ -109,7 +115,6 @@
 	let armed = $state(false);
 	let revealed = $state(false);
 	let dragging = $state(false);
-	let paused = $state(false);
 	let videoOpen = $state(false);
 	let video = $state<NonNullable<CarouselTunnelSlide['video']>>();
 
@@ -139,6 +144,8 @@
 	let gsap: Awaited<ReturnType<typeof loadGsap>> | undefined;
 	let animating = false;
 	let timer: ReturnType<typeof setInterval> | undefined;
+	let quickStartPending = false;
+	const QUICK_START_DELAY = 1000;
 
 	const step = () => {
 		const first = track!.children[0] as HTMLElement;
@@ -181,14 +188,22 @@
 	function restart() {
 		clearInterval(timer);
 		timer = undefined;
-		if (revealed && !paused && !videoOpen && !calm && canLoop && interval > 0 && !document.hidden) {
-			timer = setInterval(next, interval);
+		if (revealed && !videoOpen && !calm && canLoop && interval > 0 && !document.hidden) {
+			if (quickStartPending) {
+				quickStartPending = false;
+				timer = setTimeout(() => {
+					next();
+					timer = setInterval(next, interval);
+				}, QUICK_START_DELAY);
+			} else {
+				timer = setInterval(next, interval);
+			}
 		}
 	}
 
 	$effect(() => {
 		// Rerun whenever any of these change.
-		void [revealed, paused, videoOpen, calm, interval, canLoop];
+		void [revealed, videoOpen, calm, interval, canLoop];
 		restart();
 		return () => clearInterval(timer);
 	});
@@ -309,16 +324,60 @@
 							if (done) {
 								titlePlay?.play();
 								descriptionPlay?.play();
-								if (quickStart && canLoop && interval > 0) next();
+								if (quickStart && canLoop && interval > 0) quickStartPending = true;
 							}
 						}
 					}
 				});
 				timeline.to(scaler!, { scale: 1, ease: 'power2.out', duration: scaleDuration }, 0);
+				if (trail > 0) {
+					// Each slide has its own scale chasing the scaler's, so the neighbors trail while scrolling and catch up when
+					// it stops. A slide's extra scale and shift, around the scaler's center, make it land on that scale.
+					const pull = { progress: 0 };
+					const slideEls = Array.from(track!.children) as HTMLElement[];
+					const own = slideEls.map(() => start);
+					const place = () => {
+						const zoom = Number(core.getProperty(scaler!, 'scale'));
+						const trackX = Number(core.getProperty(track!, 'x')) || 0;
+						const middle = scaler!.offsetWidth / 2;
+						slideEls.forEach((el, at) => {
+							const k = own[at] / zoom;
+							if (Math.abs(k - 1) < 0.0005) return core.set(el, { clearProps: 'transform' });
+							const center = trackX + el.offsetLeft + el.offsetWidth / 2 - middle;
+							core.set(el, { scale: k, x: center * (k - 1) });
+						});
+					};
+					const chase = () => {
+						const zoom = Number(core.getProperty(scaler!, 'scale'));
+						slideEls.forEach((_, at) => {
+							const distance = Math.abs(at - index);
+							core.killTweensOf(own, String(at));
+							if (distance < 1 || distance > 2) {
+								own[at] = zoom;
+								return;
+							}
+							core.to(own, {
+								[at]: zoom,
+								duration: trail * distance,
+								ease: 'power2.out',
+								onUpdate: place
+							});
+						});
+						place();
+					};
+					timeline.to(
+						pull,
+						{ progress: 1, ease: 'none', duration: scaleDuration, onUpdate: chase },
+						0
+					);
+				}
 				// Pads the timeline so the scrub keeps its dwell time after the zoom, instead of ending with it.
 				timeline.set({}, {}, 1);
 			}, pin);
-			cleanups.push(() => context.revert());
+			cleanups.push(() => {
+				context.revert();
+				core.set(track!.children, { clearProps: 'transform' });
+			});
 			refreshScrollTriggers();
 		})();
 
@@ -335,7 +394,6 @@
 	});
 </script>
 
-<!-- Hovering or focusing the carousel holds autoplay, so a slide can be looked at. -->
 <section
 	class="carousel-tunnel {className ?? ''}"
 	class:armed
@@ -343,10 +401,6 @@
 	aria-roledescription="carousel"
 	aria-label={label}
 	{style}
-	onpointerenter={() => (paused = true)}
-	onpointerleave={() => (paused = false)}
-	onfocusin={() => (paused = true)}
-	onfocusout={() => (paused = false)}
 >
 	<div class="pin" bind:this={pin}>
 		{#if eyebrowText || eyebrowIcon || title || description}
@@ -356,6 +410,7 @@
 		{/if}
 
 		<div class="viewport" bind:this={viewport}>
+			{#if ticks}<div class="ticks" aria-hidden="true"></div>{/if}
 			<div class="scaler" bind:this={scaler}>
 				<!-- Dragging with a pointer is an extra; the arrows and dots do the same with a keyboard. -->
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -368,9 +423,10 @@
 					{onpointerup}
 					onpointercancel={onpointerup}
 				>
-					{#each shown as { slide, clone, key } (key)}
+					{#each shown as { slide, clone, key }, at (key)}
 						<div
 							class="slide"
+							style:z-index={Math.max(0, 3 - Math.abs(at - index))}
 							role={clone ? undefined : 'group'}
 							aria-roledescription={clone ? undefined : 'slide'}
 							aria-hidden={clone ? 'true' : undefined}
@@ -499,10 +555,26 @@
 	}
 
 	.viewport {
+		position: relative;
 		width: 100%;
 	}
 
+	.ticks {
+		position: absolute;
+		inset-inline: 0;
+		top: 50%;
+		height: 16px;
+		translate: 0 -50%;
+		background: repeating-linear-gradient(
+			90deg,
+			var(--tick-color, var(--color-surface)) 0 1px,
+			transparent 1px 8px
+		);
+		pointer-events: none;
+	}
+
 	.scaler {
+		position: relative;
 		display: flex;
 		align-items: center;
 		width: 100%;
@@ -602,7 +674,8 @@
 	.armed {
 		.content,
 		.pagination,
-		.caption {
+		.caption,
+		.ticks {
 			visibility: hidden;
 			opacity: 0;
 			pointer-events: none;
@@ -618,7 +691,8 @@
 		&.revealed {
 			.content,
 			.pagination,
-			.caption {
+			.caption,
+			.ticks {
 				visibility: visible;
 				opacity: 1;
 			}

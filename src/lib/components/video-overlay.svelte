@@ -74,6 +74,7 @@
 		</div>
 	{/if}
 	<Button
+		special
 		iconStart="x-lg"
 		textDescription="Close video"
 		autofocus

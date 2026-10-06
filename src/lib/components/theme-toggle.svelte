@@ -4,7 +4,6 @@
 	import { theme, setTheme, type ThemePreference } from '$lib/theme.svelte';
 
 	const options: { value: ThemePreference; label: string; icon: string }[] = [
-		{ value: 'system', label: 'System', icon: 'desktop' },
 		{ value: 'light', label: 'Light', icon: 'sun' },
 		{ value: 'dark', label: 'Dark', icon: 'moon' }
 	];

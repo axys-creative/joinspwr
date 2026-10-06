@@ -71,18 +71,6 @@
 		}
 	}
 
-	@media (prefers-color-scheme: light) {
-		:global(:root:not([data-theme])) {
-			.light {
-				display: block;
-			}
-
-			.dark {
-				display: none;
-			}
-		}
-	}
-
 	img:not(.themed),
 	.mark {
 		width: var(--logo-size);

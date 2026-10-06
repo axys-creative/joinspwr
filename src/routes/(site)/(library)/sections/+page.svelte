@@ -5,6 +5,7 @@
 		blogArticleHeroProps,
 		carouselTunnelProps,
 		circleHighlightProps,
+		financeMarqueeProps,
 		galleryHorizontalProps,
 		headlineProps,
 		heroImageCircleProps,
@@ -23,6 +24,7 @@
 	import LibrarySection from '$lib/library/library-section.svelte';
 	import CircleHighlight from '$lib/sections/circle-highlight.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
+	import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 	import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 	import Headline from '$lib/sections/headline.svelte';
 	import HeroCarousel from '$lib/sections/hero-carousel.svelte';
@@ -376,6 +378,24 @@
 			radius={3}
 			gap={4}
 			image={{ srcLight: '/images/logo-black.svg', srcDark: '/images/logo-white.svg', alt: 'axys' }}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Finance Marquee"
+		type="Section"
+		description="Section Copy above two Marquee rows of logos that move opposite ways, on their own and with the scroll, with the call to action below."
+		props={financeMarqueeProps}
+	>
+		<FinanceMarquee
+			class="full"
+			title="Finance Marquee"
+			description="A short paragraph above the logos."
+			logos={Array.from({ length: 7 }, (_, index) => ({
+				src: `/images/logo-sample-${index + 1}.svg`,
+				alt: `Sample logo ${index + 1}`
+			}))}
+			{cta}
 		/>
 	</LibrarySection>
 

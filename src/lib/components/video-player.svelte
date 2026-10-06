@@ -441,7 +441,7 @@
 		flex-shrink: 0;
 		width: 40px;
 		height: 40px;
-		padding: 10px;
+		padding: 0;
 		border: 1px solid var(--btn-primary-border);
 		border-radius: var(--radius-btn);
 		background: var(--btn-primary-background);

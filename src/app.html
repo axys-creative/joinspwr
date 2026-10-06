@@ -6,11 +6,11 @@
 		<meta name="text-scale" content="scale" />
 		<script>
 			try {
-				const saved = localStorage.getItem('theme-preference') || 'system';
-				const dark = matchMedia('(prefers-color-scheme: dark)').matches;
-				document.documentElement.dataset.theme =
-					saved === 'system' ? (dark ? 'dark' : 'light') : saved;
-			} catch {}
+				const saved = localStorage.getItem('theme-preference');
+				document.documentElement.dataset.theme = saved === 'light' ? 'light' : 'dark';
+			} catch {
+				document.documentElement.dataset.theme = 'dark';
+			}
 		</script>
 		%sveltekit.head%
 	</head>

@@ -87,11 +87,12 @@
 		position: absolute;
 		top: 0;
 		right: 0;
+		translate: 25% -25%;
 		color: var(--color-accent);
 		font-family: var(--font-accent);
 		font-size: clamp(32px, 4vw, 56px);
-		line-height: 1;
-		rotate: 12deg;
+		line-height: 0.75;
+		rotate: 8deg;
 		white-space: nowrap;
 		pointer-events: none;
 
