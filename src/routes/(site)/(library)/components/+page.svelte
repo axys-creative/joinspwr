@@ -18,6 +18,7 @@
 	import Carousel from '$lib/components/carousel.svelte';
 	import CardGnomon from '$lib/components/card-gnomon.svelte';
 	import AvatarCycle from '$lib/components/avatar-cycle.svelte';
+	import RichText from '$lib/components/rich-text.svelte';
 	import Accordion from '$lib/components/accordion.svelte';
 	import AccordionTable from '$lib/components/accordion-table.svelte';
 	import { watchScroll } from '$lib/attachments/watch-scroll';
@@ -46,6 +47,7 @@
 		imageWaveProps,
 		mouseCursorProps,
 		postCardProps,
+		richTextProps,
 		scrollProgressProps,
 		solarSystemProps,
 		strapProps,
@@ -581,6 +583,19 @@
 				coverImage: '/images/img-sample-1.jpg'
 			}}
 		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Rich Text"
+		type="Component"
+		description={"Plain text with tokens for color, scribble and more, for any CMS text field: `[words]{.class}` styles those words and `{.br}` breaks the line. Everything else is escaped, so editors cannot break the page. Headline, Section Copy and Scroll Horizontal's message use it. To add a class, add its name to `richTextClasses` in `utils/rich-text.ts` and a rule in `attachments/rich-text.scss`. In a `.svelte` file write the string as `text={'...'}`, because Svelte reads braces in an attribute as code."}
+		props={richTextProps}
+	>
+		<p class="h3">
+			<RichText
+				text={'Join [America’s]{.primary} [leading]{.scribble} solar [sales]{.secondary} company, in [outline]{.stroke} and [italic]{.italic}.'}
+			/>
+		</p>
 	</LibrarySection>
 
 	<LibrarySection

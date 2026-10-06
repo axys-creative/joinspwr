@@ -8,6 +8,8 @@
 		url?: string;
 		newTab?: boolean;
 		type?: 'solid' | 'outline' | 'underline' | 'text';
+		/** For `solid`: the brand-yellow style (`--btn-special-*`), used by the header and footer calls to action. */
+		special?: boolean;
 		htmlType?: 'button' | 'submit' | 'reset';
 		size?: 'sm' | 'md' | 'lg';
 		disabled?: boolean;
@@ -34,6 +36,7 @@
 		url,
 		newTab = false,
 		type = 'solid',
+		special = false,
 		htmlType = 'button',
 		size = 'md',
 		disabled = false,
@@ -52,7 +55,9 @@
 	const label = $derived(
 		textDescription && newTab ? `${textDescription} (opens in a new tab)` : textDescription
 	);
-	const classes = $derived(`button ${type} ${size} ${text ? '' : 'icon-only'} ${className ?? ''}`);
+	const classes = $derived(
+		`button ${type} ${special ? 'special' : ''} ${size} ${text ? '' : 'icon-only'} ${className ?? ''}`
+	);
 </script>
 
 {#snippet content()}
@@ -148,12 +153,26 @@
 	}
 
 	.solid {
-		background: var(--color-accent);
-		color: var(--color-on-accent);
+		border-color: var(--btn-primary-border);
+		background: var(--btn-primary-background);
+		color: var(--btn-primary-on-background);
 
 		@include mixins.desktop-hover {
-			background: transparent;
-			color: var(--color-accent-text);
+			border-color: var(--btn-primary-hover-border);
+			background: var(--btn-primary-hover-background);
+			color: var(--btn-primary-hover-on-background);
+		}
+	}
+
+	.solid.special {
+		border-color: var(--btn-special-border);
+		background: var(--btn-special-background);
+		color: var(--btn-special-on-background);
+
+		@include mixins.desktop-hover {
+			border-color: var(--btn-special-hover-border);
+			background: var(--btn-special-hover-background);
+			color: var(--btn-special-hover-on-background);
 		}
 	}
 

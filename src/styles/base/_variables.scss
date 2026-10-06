@@ -3,24 +3,13 @@ $font-body: 'Geist', system-ui, sans-serif;
 $font-accent: 'Sloop', cursive;
 $font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
 
-$black: #0a0a0a;
-$grey-darker: #1a1a1a;
-$grey-dark: #292929;
-$grey-light: #ececec;
-$grey-lighter: #f1f1f1;
-$white: #fafafa;
-$spwr-yellow: #fdfd00;
-$blue: #ada4e3;
-$green: #a4d1a2;
-
 @mixin light-tokens {
 	color-scheme: light;
 
-	--color-bg: #{$white};
-	--color-surface: #{$grey-lighter};
-	--color-text: #{$black};
-	--color-text-muted: #{$grey-dark};
-	--color-border: #{$grey-light};
+	--color-bg: var(--spwr-white);
+	--color-text: var(--spwr-black);
+	--color-text-muted: var(--spwr-grey-dark);
+	--color-border: var(--spwr-grey-light);
 	--color-accent-text: #757500;
 	--color-error: #dc143c;
 	--color-glass: rgb(255 255 255 / 0.25);
@@ -34,21 +23,64 @@ $green: #a4d1a2;
 	--font-accent: #{$font-accent};
 	--font-mono: #{$font-mono};
 
-	--color-bg: #{$black};
-	--color-surface: #{$grey-darker};
-	--color-text: #{$white};
-	--color-text-muted: #{$grey-light};
-	--color-border: #{$grey-dark};
-	--spwr-yellow: #{$spwr-yellow};
-	--color-accent: var(--spwr-yellow);
-	--color-accent-text: #{$spwr-yellow};
+	--spwr-black: #141414;
+	--spwr-grey-dark: #6d7982;
+	--spwr-grey-light: #b6c2cc;
+	--spwr-white: #ffffff;
+	--spwr-yellow: #fdfd00;
+	--spwr-navy: #002d52;
+	--spwr-royal-dark: #003980;
+	--spwr-royal: #095cfb;
+	--spwr-royal-light: #00b7ff;
+	--spwr-orange: #ff8700;
+
+	// Semantic colors from the Figma variables. Edit these to restyle the common items; the rest of the site reads
+	// the --color-* tokens below, which point at them.
+	--nav-background: var(--spwr-grey-light);
+	--nav-on-background: var(--spwr-black);
+	--background: var(--spwr-navy);
+	--on-background: var(--spwr-white);
+	--on-background-alt: var(--spwr-royal-light);
+	--on-background-accent: var(--spwr-yellow);
+	--surface-1: var(--spwr-white);
+	--on-surface-1: var(--spwr-black);
+	--on-surface-1-alt: var(--spwr-royal);
+	--surface-2: var(--spwr-grey-light);
+	--on-surface-2: var(--spwr-black);
+	--brand-color--primary: var(--spwr-yellow);
+	--brand-color--secondary: var(--spwr-royal);
+	--brand-color--tertiary: var(--spwr-orange);
+	--btn-nav-background: var(--spwr-white);
+	--btn-nav-on-background: var(--spwr-black);
+	--btn-nav-border: var(--spwr-grey-light);
+	--btn-nav-hover-background: var(--spwr-royal);
+	--btn-nav-hover-on-background: var(--spwr-white);
+	--btn-nav-hover-border: var(--spwr-royal-dark);
+	--btn-primary-background: var(--spwr-royal);
+	--btn-primary-on-background: var(--spwr-white);
+	--btn-primary-border: var(--spwr-royal-dark);
+	--btn-primary-hover-background: var(--spwr-white);
+	--btn-primary-hover-on-background: var(--spwr-black);
+	--btn-primary-hover-border: var(--spwr-grey-light);
+	--btn-special-background: var(--brand-color--primary);
+	--btn-special-on-background: var(--spwr-black);
+	--btn-special-border: var(--brand-color--primary);
+	--btn-special-hover-background: transparent;
+	--btn-special-hover-on-background: var(--brand-color--primary);
+	--btn-special-hover-border: var(--brand-color--primary);
+
+	--color-bg: var(--background);
+	--color-surface: var(--spwr-royal-dark);
+	--color-text: var(--on-background);
+	--color-text-muted: var(--spwr-grey-light);
+	--color-border: var(--spwr-grey-dark);
+	--color-accent: var(--brand-color--primary);
+	--color-secondary: var(--brand-color--secondary);
+	--color-tertiary: var(--brand-color--tertiary);
+	--color-accent-text: var(--on-background-accent);
 	// Text and icons on an accent background are the same in both themes.
-	--color-on-accent: #141414;
-	--color-secondary: #{$blue};
-	--color-tertiary: #{$green};
+	--color-on-accent: var(--spwr-black);
 	--color-error: #dc143c;
-	--color-success: #{$green};
-	--color-info: #{$blue};
 	--color-warning: #e8b84f;
 	--color-glass: rgb(0 0 0 / 0.25);
 
@@ -59,8 +91,9 @@ $green: #a4d1a2;
 
 	--cta-group-gap: 24px;
 
-	--radius: 8px;
-	--radius-btn: 4px;
+	--radius: 6px;
+	--radius-lg: 24px;
+	--radius-btn: 6px;
 
 	--btn-font-size: 16px;
 	--btn-font-weight: 400;
@@ -70,7 +103,7 @@ $green: #a4d1a2;
 	--btn-padding-icon: 8px;
 	--btn-gap: 0.5ch;
 
-	--space-eyebrow-title: 4px;
+	--space-eyebrow-title: 24px;
 	--space-title-paragraph: 24px;
 	--space-paragraph-cta-group: 12px;
 	--space-copy-columns: 48px; // between the heading and the description in a row layout
@@ -97,6 +130,7 @@ $green: #a4d1a2;
 	:root {
 		--body-padding: 24px;
 		--float-offset: 12px;
+		--radius-lg: 12px;
 	}
 }
 

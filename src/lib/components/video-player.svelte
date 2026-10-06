@@ -331,8 +331,8 @@
 
 	.video-player {
 		--play-size: 80px;
-		--play-bg: var(--color-accent);
-		--play-color: var(--color-on-accent);
+		--play-bg: var(--btn-primary-background);
+		--play-color: var(--btn-primary-on-background);
 
 		width: 100%;
 
@@ -356,7 +356,7 @@
 	.frame {
 		position: relative;
 		overflow: hidden;
-		border-radius: var(--radius);
+		border-radius: var(--radius-lg);
 		background: black;
 	}
 
@@ -377,17 +377,26 @@
 		height: var(--play-size);
 		margin: auto;
 		padding: calc(var(--play-size) * 0.3);
-		border: 0;
+		border: 1px solid var(--btn-primary-border);
 		border-radius: var(--radius-btn);
 		background: var(--play-bg);
 		color: var(--play-color);
 		cursor: pointer;
 
+		@include mixins.desktop-hover {
+			border-color: var(--btn-primary-hover-border);
+			background: var(--btn-primary-hover-background);
+			color: var(--btn-primary-hover-on-background);
+		}
+
 		@include mixins.mq-motion-allow {
 			transition:
 				opacity 0.3s var(--ease),
 				scale 0.3s var(--ease),
-				visibility 0.3s;
+				visibility 0.3s,
+				background var(--duration) var(--ease),
+				color var(--duration) var(--ease),
+				border-color var(--duration) var(--ease);
 		}
 
 		@include mixins.desktop-hover {
@@ -433,12 +442,25 @@
 		width: 40px;
 		height: 40px;
 		padding: 10px;
-		border: 0;
+		border: 1px solid var(--btn-primary-border);
 		border-radius: var(--radius-btn);
-		background: var(--color-accent);
-		color: var(--color-on-accent);
+		background: var(--btn-primary-background);
+		color: var(--btn-primary-on-background);
 		font-size: 20px;
 		cursor: pointer;
+
+		@include mixins.mq-motion-allow {
+			transition:
+				background var(--duration) var(--ease),
+				color var(--duration) var(--ease),
+				border-color var(--duration) var(--ease);
+		}
+
+		@include mixins.desktop-hover {
+			border-color: var(--btn-primary-hover-border);
+			background: var(--btn-primary-hover-background);
+			color: var(--btn-primary-hover-on-background);
+		}
 
 		&:focus-visible {
 			outline: 2px solid var(--color-accent-text);
@@ -600,12 +622,25 @@
 		width: 44px;
 		height: 44px;
 		padding: 0;
-		border: 0;
+		border: 1px solid var(--btn-primary-border);
 		border-radius: var(--radius-btn);
-		background: var(--color-accent);
-		color: var(--color-on-accent);
+		background: var(--btn-primary-background);
+		color: var(--btn-primary-on-background);
 		font-size: 22px;
 		cursor: pointer;
+
+		@include mixins.mq-motion-allow {
+			transition:
+				background var(--duration) var(--ease),
+				color var(--duration) var(--ease),
+				border-color var(--duration) var(--ease);
+		}
+
+		@include mixins.desktop-hover {
+			border-color: var(--btn-primary-hover-border);
+			background: var(--btn-primary-hover-background);
+			color: var(--btn-primary-hover-on-background);
+		}
 
 		&.frosted {
 			background: var(--glass-tint, var(--color-glass));
@@ -627,7 +662,7 @@
 
 	.volume {
 		--range-width: 96px;
-		--ink: var(--color-on-accent);
+		--ink: var(--btn-primary-on-background);
 
 		position: absolute;
 		top: 0;
@@ -636,8 +671,9 @@
 		width: 44px;
 		height: 44px;
 		overflow: hidden;
+		border: 1px solid var(--btn-primary-border);
 		border-radius: var(--radius-btn);
-		background: var(--color-accent);
+		background: var(--btn-primary-background);
 
 		&.frosted {
 			--ink: var(--color-text);
@@ -648,7 +684,14 @@
 
 		.side-button {
 			flex-shrink: 0;
+			border-color: transparent;
 			background: none;
+
+			&:hover {
+				border-color: transparent;
+				background: none;
+				color: var(--btn-primary-on-background);
+			}
 		}
 
 		&.frosted .side-button {

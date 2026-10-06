@@ -114,10 +114,31 @@
 							"hint": "Icon file name without .svg (e.g. bolt). See /style-guide for examples."
 						},
 						{
+							"name": "eyebrowImage",
+							"label": "Eyebrow image",
+							"widget": "object",
+							"required": false,
+							"hint": "A picture in the eyebrow, such as a wide logo.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": false
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Wrap a word in *asterisks* to draw a scribble under it."
+							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -144,6 +165,16 @@
 									"required": false
 								}
 							]
+						},
+						{
+							"name": "scrub",
+							"label": "Scroll spin",
+							"widget": "number",
+							"value_type": "float",
+							"min": 0,
+							"default": 0,
+							"required": false,
+							"hint": "Spins the circles as the page scrolls, about a quarter turn over the section's pass at 1. 0 is off."
 						},
 						{
 							"name": "cta",
@@ -330,7 +361,292 @@
 							"name": "text",
 							"label": "Statement",
 							"widget": "text",
-							"hint": "HTML works, so <em> and <strong> accents are possible."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+						}
+					]
+				},
+				{
+					"name": "gallery_horizontal",
+					"label": "Gallery",
+					"file": "src/lib/content/page_home/gallery-horizontal.json",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "string",
+							"required": false,
+							"hint": "Icon file name without .svg (e.g. bolt). See /style-guide for examples."
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accent",
+							"label": "Handwritten text",
+							"widget": "string",
+							"required": false,
+							"hint": "Shown before the first group, in the accent font. Use {.br} for a line break, like Selected{.br}Work."
+						},
+						{
+							"name": "groups",
+							"label": "Groups",
+							"widget": "list",
+							"hint": "Each group is up to four images in a collage with a short paragraph between the halves.",
+							"fields": [
+								{
+									"name": "images",
+									"label": "Images",
+									"widget": "list",
+									"max": 4,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "caption",
+											"label": "Caption",
+											"widget": "string",
+											"required": false,
+											"hint": "Shown in the notch at the bottom left of the card."
+										}
+									]
+								},
+								{
+									"name": "copy",
+									"label": "Paragraph",
+									"widget": "text",
+									"required": false
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "carousel_tunnel",
+					"label": "Carousel",
+					"file": "src/lib/content/page_home/carousel-tunnel.json",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "string",
+							"required": false,
+							"hint": "Icon file name without .svg (e.g. bolt), or a path to an uploaded SVG."
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "slides",
+							"label": "Slides",
+							"widget": "list",
+							"min": 3,
+							"fields": [
+								{
+									"name": "img",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								},
+								{
+									"name": "eyebrow",
+									"label": "Eyebrow",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "video",
+									"label": "Video",
+									"widget": "object",
+									"required": false,
+									"hint": "Optional. With a video, clicking the slide opens it in an overlay.",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Video file URL",
+											"widget": "string",
+											"required": false,
+											"hint": "A self-hosted or CDN video file."
+										},
+										{
+											"name": "poster",
+											"label": "Poster image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "title",
+											"label": "Accessible name",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "oss",
+					"label": "OSS",
+					"file": "src/lib/content/page_home/oss.json",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "string",
+							"required": false,
+							"hint": "Icon file name without .svg (e.g. bolt), or a path to an uploaded SVG."
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accent",
+							"label": "Handwritten text",
+							"widget": "string",
+							"required": false,
+							"hint": "Shown in the top right corner of the fan, in the accent font. Use {.br} for a line break, like Level{.br}up."
+						},
+						{
+							"name": "images",
+							"label": "Fan images",
+							"widget": "list",
+							"min": 3,
+							"hint": "Tall pictures work best.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right)."
+										}
+									]
+								}
+							]
 						}
 					]
 				}
@@ -910,6 +1226,14 @@
 									"required": false
 								},
 								{
+									"name": "special",
+									"label": "Brand yellow",
+									"widget": "boolean",
+									"default": false,
+									"required": false,
+									"hint": "For the Solid style: the yellow button used by the header and footer, not the royal blue one."
+								},
+								{
 									"name": "iconStart",
 									"label": "Icon before text",
 									"widget": "string",
@@ -1150,6 +1474,14 @@
 									"options": ["solid", "outline", "underline", "text"],
 									"default": "outline",
 									"required": false
+								},
+								{
+									"name": "special",
+									"label": "Brand yellow",
+									"widget": "boolean",
+									"default": false,
+									"required": false,
+									"hint": "For the Solid style: the yellow button used by the header and footer, not the royal blue one."
 								}
 							]
 						},
@@ -1311,7 +1643,7 @@
 									"name": "icon",
 									"label": "Icon",
 									"widget": "image",
-									"hint": "Pick one of the provided icons or upload your own. Use a single-color SVG: it is drawn in the site's link color, so any other colors are lost. Square versions are named square-social-*.",
+									"hint": "Pick one of the provided icons or upload your own. Use a single-color SVG: it is drawn in the site's link color, so any other colors are lost. Square versions are named social-square-*.",
 									"media_library": {
 										"config": {
 											"max_file_size": 500000

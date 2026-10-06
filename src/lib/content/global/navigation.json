@@ -6,19 +6,19 @@
 			"newTab": false,
 			"images": [
 				{
-					"src": "/images/img-sample-1.jpg",
+					"src": "/uploads/spwr-img-portrait-15.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-2.jpg",
+					"src": "/uploads/spwr-img-portrait-3.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-3.jpg",
+					"src": "/uploads/spwr-img-portrait-10.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-4.jpg",
+					"src": "/uploads/spwr-img-portrait-17.webp",
 					"alt": ""
 				}
 			]
@@ -29,19 +29,19 @@
 			"newTab": false,
 			"images": [
 				{
-					"src": "/images/img-sample-5.jpg",
+					"src": "/uploads/spwr-img-portrait-8.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-6.jpg",
+					"src": "/uploads/spwr-img-portrait-7.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-7.jpg",
+					"src": "/uploads/spwr-img-portrait-12.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-1.jpg",
+					"src": "/uploads/spwr-img-portrait-4.webp",
 					"alt": ""
 				}
 			]
@@ -52,19 +52,19 @@
 			"newTab": false,
 			"images": [
 				{
-					"src": "/images/img-sample-3.jpg",
+					"src": "/uploads/spwr-img-portrait-14.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-6.jpg",
+					"src": "/uploads/spwr-img-portrait-6.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-2.jpg",
+					"src": "/uploads/spwr-img-portrait-16.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-7.jpg",
+					"src": "/uploads/spwr-img-portrait-9.webp",
 					"alt": ""
 				}
 			]
@@ -75,19 +75,19 @@
 			"newTab": false,
 			"images": [
 				{
-					"src": "/images/img-sample-4.jpg",
+					"src": "/uploads/spwr-img-portrait-2.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-1.jpg",
+					"src": "/uploads/spwr-img-portrait-1.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-5.jpg",
+					"src": "/uploads/spwr-img-portrait-18.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-2.jpg",
+					"src": "/uploads/spwr-img-portrait-13.webp",
 					"alt": ""
 				}
 			]
@@ -98,19 +98,19 @@
 			"newTab": false,
 			"images": [
 				{
-					"src": "/images/img-sample-7.jpg",
+					"src": "/uploads/oss-costarica-8photo.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-3.jpg",
+					"src": "/uploads/oss-costarica-9photo.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-6.jpg",
+					"src": "/uploads/oss-costarica-10photo.webp",
 					"alt": ""
 				},
 				{
-					"src": "/images/img-sample-5.jpg",
+					"src": "/uploads/oss-costarica-1photo.webp",
 					"alt": ""
 				}
 			]
@@ -118,11 +118,12 @@
 	],
 	"ctas": [
 		{
-			"text": "Join",
-			"textDescription": "Join joinspwr",
+			"text": "Join the squad",
+			"textDescription": "Join the squad",
 			"url": "/join",
 			"newTab": false,
-			"type": "outline"
+			"type": "solid",
+			"special": true
 		}
 	],
 	"navFooterLinks": [

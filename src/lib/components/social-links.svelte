@@ -62,19 +62,19 @@
 		}
 	}
 
-	// Each icon in a box, in the solid Button style: the accent color with the on-accent icon, which empties to an
-	// outline on hover.
+	// Each icon in a box, in the solid Button style, which empties to an outline on hover.
 	.solid a {
 		width: 40px;
 		height: 40px;
-		border: 1px solid var(--color-accent);
+		border: 1px solid var(--btn-primary-border);
 		border-radius: var(--radius-btn);
-		background: var(--color-accent);
-		color: var(--color-on-accent);
+		background: var(--btn-primary-background);
+		color: var(--btn-primary-on-background);
 
 		@include mixins.desktop-hover {
-			background: transparent;
-			color: var(--color-accent-text);
+			border-color: var(--btn-primary-hover-border);
+			background: var(--btn-primary-hover-background);
+			color: var(--btn-primary-hover-on-background);
 			scale: 1;
 		}
 	}

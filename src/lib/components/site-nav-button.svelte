@@ -371,14 +371,38 @@
 		width: 40px;
 		height: 40px;
 		padding: var(--symbol-gap);
-		border: 1px solid var(--color-border);
+		border: 1px solid var(--btn-nav-border);
 		border-radius: var(--radius-btn);
-		background: var(--color-accent);
+		background: var(--btn-nav-background);
 	}
 
-	// The box has the accent color in both themes, so its lines are a fixed dark color too.
 	.type-button .stroke {
-		background: var(--color-on-accent);
+		background: var(--btn-nav-on-background);
+	}
+
+	.type-button {
+		&:focus-visible {
+			.icon {
+				border-color: var(--btn-nav-hover-border);
+				background: var(--btn-nav-hover-background);
+			}
+
+			.stroke {
+				background: var(--btn-nav-hover-on-background);
+			}
+		}
+
+		@include mixins.desktop-hover {
+			.icon {
+				opacity: 1;
+				border-color: var(--btn-nav-hover-border);
+				background: var(--btn-nav-hover-background);
+			}
+
+			.stroke {
+				background: var(--btn-nav-hover-on-background);
+			}
+		}
 	}
 
 	// The lines are as wide as the space inside that padding, whatever the padding is set to.

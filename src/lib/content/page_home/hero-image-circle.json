@@ -1,6 +1,6 @@
 {
-	"eyebrowText": "joinspwr",
-	"title": "JOIN AMERICA’S *LEADING* SOLAR SALES COMPANY",
+	"eyebrowText": "",
+	"title": "JOIN AMERICA’S [LEADING]{.scribble} SOLAR SALES COMPANY",
 	"description": "",
 	"cta": {
 		"primary": {
@@ -20,52 +20,57 @@
 	},
 	"images": [
 		{
-			"src": "/images/img-sample-1.jpg",
+			"src": "/uploads/spwr-img-landscape-1.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-2.jpg",
+			"src": "/uploads/spwr-img-landscape-2.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-3.jpg",
+			"src": "/uploads/spwr-img-landscape-3.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-4.jpg",
+			"src": "/uploads/spwr-img-landscape-4.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-5.jpg",
+			"src": "/uploads/spwr-img-landscape-5.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-6.jpg",
+			"src": "/uploads/spwr-img-landscape-6.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-1.jpg",
+			"src": "/uploads/spwr-img-landscape-7.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-2.jpg",
+			"src": "/uploads/spwr-img-landscape-8.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-3.jpg",
+			"src": "/uploads/spwr-img-landscape-9.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-4.jpg",
+			"src": "/uploads/spwr-img-landscape-10.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-5.jpg",
+			"src": "/uploads/spwr-img-landscape-11.webp",
 			"alt": ""
 		},
 		{
-			"src": "/images/img-sample-6.jpg",
+			"src": "/uploads/spwr-img-landscape-12.webp",
 			"alt": ""
 		}
-	]
+	],
+	"eyebrowImage": {
+		"src": "/uploads/logo-sunpower.svg",
+		"alt": "SunPower"
+	},
+	"scrub": 1
 }

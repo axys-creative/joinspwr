@@ -79,7 +79,7 @@
 					onclick={() => disclosure.toggle(index)}
 				>
 					<span class="title">{item.title}</span>
-					{#if icon}<Icon name={icon} class="marker" />{/if}
+					{#if icon}<span class="box"><Icon name={icon} class="marker" /></span>{/if}
 					{#if plus}
 						<span class="plus" aria-hidden="true"><span></span><span></span></span>
 					{/if}
@@ -155,23 +155,39 @@
 		}
 	}
 
-	.trigger :global(.marker),
+	.box,
 	.plus {
-		--icon-size: 2.5ch;
+		--icon-size: 40px;
 
 		flex-shrink: 0;
+		border: 1px solid var(--btn-primary-border);
+		border-radius: var(--radius-btn);
+		background: var(--btn-primary-background);
+		color: var(--btn-primary-on-background);
 
 		@include mixins.mq-motion-allow {
 			transition: scale var(--duration) var(--ease);
 		}
 	}
 
-	.trigger :global(.marker) {
+	.box {
+		display: grid;
+		place-items: center;
 		width: var(--icon-size);
 		height: var(--icon-size);
+
+		:global(.marker) {
+			width: 24px;
+			height: 24px;
+			--icon-size: 24px;
+
+			@include mixins.mq-motion-allow {
+				transition: scale var(--duration) var(--ease);
+			}
+		}
 	}
 
-	.trigger[aria-expanded='true'] :global(.marker) {
+	.trigger[aria-expanded='true'] .box :global(.marker) {
 		scale: 1 -1;
 	}
 

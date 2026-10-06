@@ -1,6 +1,6 @@
 <script module lang="ts">
 	export type HeadlineProps = {
-		/** The statement, which flips in word by word. Trusted HTML, so `<em>` and `<strong>` accents work. */
+		/** The statement, which flips in word by word. Rich text: `[words]{.secondary-alt}` tokens add color, scribble and more. */
 		text: string;
 		eyebrowText?: string;
 		/** Icon name from `static/icons`. Works without `eyebrowText` too. */
@@ -17,6 +17,7 @@
 <script lang="ts">
 	import { imageProps } from '$lib/utils/image';
 	import Eyebrow from '$lib/components/eyebrow.svelte';
+	import RichText from '$lib/components/rich-text.svelte';
 	import { textFlip } from '$lib/attachments/text-flip';
 
 	let {
@@ -41,8 +42,7 @@
 {#snippet statement()}
 	<!-- A statement, not a section title, so it is a paragraph that looks like a heading. -->
 	<p class="h2 text" {@attach flip}>
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{#if quoted}“{/if}{@html text}{#if quoted}”{/if}
+		{#if quoted}“{/if}<RichText {text} />{#if quoted}”{/if}
 	</p>
 {/snippet}
 
@@ -100,11 +100,6 @@
 		max-width: 1000px;
 		opacity: 1;
 		text-wrap: balance;
-	}
-
-	.text :global(em) {
-		color: var(--color-accent-text);
-		font-style: normal;
 	}
 
 	.quote,

@@ -16,6 +16,10 @@ export const buttonProps = props(
 	],
 	['newTab', 'A boolean. Opens in a new tab and tells screen readers it does.'],
 	['type', '`solid | outline | underline | text`. Defaults to `solid`.'],
+	[
+		'special',
+		'A boolean. For `solid`: the brand-yellow style (`--btn-special-*`) used by the header and footer calls to action, instead of the royal blue default (`--btn-primary-*`). Defaults to `false`.'
+	],
 	['htmlType', '`button | submit | reset`. For the `<button>` version. Defaults to `button`.'],
 	['size', '`sm | md | lg`. Defaults to `md`.'],
 	['disabled', 'A boolean.'],
@@ -46,6 +50,10 @@ export const ctaGroupProps = props(
 export const eyebrowProps = props(
 	['text', 'A string. The small label above a title.'],
 	['icon', 'An icon name from `static/icons`, shown before the text.'],
+	[
+		'image',
+		'An object of `{ src, alt }`. A picture shown before the text at its own proportions, such as a wide logo. Its height is `--eyebrow-image-height`, `24px` by default.'
+	],
 	['direction', '`row | column`. How the icon and text sit together. Defaults to `row`.'],
 	[
 		'align',
@@ -125,11 +133,11 @@ export const mouseCursorProps = props(
 export const sectionCopyProps = props(
 	['eyebrowText', 'A string for the eyebrow.'],
 	['eyebrowIcon', 'An icon name for the eyebrow.'],
+	['eyebrowImage', 'An object of `{ src, alt }`. A picture in the eyebrow, such as a wide logo.'],
 	['eyebrowDirection', '`row | column`. Defaults to `row`.'],
-	['title', 'A string. Wrap a word in `*asterisks*` to scribble under it, with `titleScribble`.'],
 	[
-		'titleScribble',
-		"Scribble options (see Scribble under Attachments) for the `*marked*` words in the title, such as `{ curve: 'zigzag' }`. Without it the asterisks are only dropped."
+		'title',
+		'A string. Rich text (see Rich Text under Components): `[words]{.primary}` tokens add color, scribble and more.'
 	],
 	[
 		'level',
@@ -139,7 +147,7 @@ export const sectionCopyProps = props(
 		'titleStyle',
 		'`h1 | h2 | h3 | h4 | h5 | h6`. Looks like another heading size without changing the level.'
 	],
-	['description', 'A string, or a snippet for rich content such as links.'],
+	['description', 'A string (rich text, like `title`), or a snippet for content such as links.'],
 	['cta', 'An object with a `primary` and optional `secondary` Button (see CTA Group).'],
 	[
 		'layout',
@@ -1005,7 +1013,7 @@ export const carouselTunnelProps = props(
 	],
 	[
 		'slides',
-		'An array of `{ img, eyebrow, title }`, where `img` is `{ src, alt }`. The eyebrow and title sit in the bottom left corner of the slide. Required.'
+		'An array of `{ img, eyebrow, title, video }`, where `img` is `{ src, alt }`. The eyebrow and title sit in the bottom left corner of the slide. `video` is optional, `{ src, poster, title, captions }`: with it, the slide shows a small Watch button that opens that video in a Video Overlay: at the bottom right on hover from `md` up with a mouse, and at the top left, always showing, on smaller or touch screens. The image itself is not clickable, so dragging the carousel never conflicts. Required.'
 	],
 	[
 		'autoplay',
@@ -1101,10 +1109,17 @@ export const galleryHorizontalProps = props(
 		'groups',
 		'An array of `{ images, copy }`. `images` is up to four `{ src, alt, caption, gnomon }`, placed in a collage: a tall card top left, a wide one under it, then the same pair again after the copy. `caption` fills the notch on the card’s bottom left, and `gnomon` overrides the shared settings for that card. `copy` is a short paragraph between the two halves. Required.'
 	],
-	['accent', 'A string, handwritten text before the first group.'],
+	[
+		'accent',
+		'A string, handwritten text in the accent color, before the first group. Rich text, so `{.br}` breaks the line.'
+	],
 	[
 		'gnomon',
 		'`{ depth, length, radius, angle }`, the Card Gnomon settings every card shares (see Card Gnomon in Components). Defaults to `{ depth: 18, length: 48, radius: 4, angle: 85 }`.'
+	],
+	[
+		'gnomonPortrait',
+		'`{ depth, length, radius, angle }`, the same settings as `gnomon` but only the ones to change for the tall cards (the first and third in each group). Defaults to `{ depth: 12 }`, because the same depth looks deeper on a tall card.'
 	],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
@@ -1120,7 +1135,7 @@ export const scrollHorizontalProps = props(
 	],
 	[
 		'message',
-		'A string, one long line of large text that slides instead of images. Trusted HTML, so `<span class="stroke">word</span>` outlines a word.'
+		'A string, one long line of large text that slides instead of images. Rich text, so `[word]{.stroke}` outlines a word.'
 	],
 	[
 		'parallax',
@@ -1155,7 +1170,7 @@ export const tunnelProps = props(
 export const headlineProps = props(
 	[
 		'text',
-		'A string, the statement. It flips in word by word as it scrolls into view. Trusted HTML, so `<em>` and `<strong>` accents work. Required.'
+		'A string, the statement. It flips in word by word as it scrolls into view. Rich text (see Rich Text under Components): `[words]{.secondary-alt}` tokens add color, scribble and more. Required.'
 	],
 	['eyebrowText', 'A string shown above the statement.'],
 	['eyebrowIcon', 'An icon name from `static/icons`. Works without `eyebrowText` too.'],
@@ -1376,4 +1391,38 @@ export const videoSectionProps = props(
 		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
 	],
 	['class', 'A string of extra classes.']
+);
+
+export const richTextProps = props(
+	[
+		'text',
+		'A string. Plain text with tokens: `[words]{.class}` wraps those words in a span with that class, and `{.br}` is a line break. Anything else is escaped, so a stray `<` cannot break the page. Unknown class names are dropped and the words stay. Stack classes as `{.primary.italic}`.'
+	],
+	['.italic', 'Italic.'],
+	['.primary', 'The accent color, for text.'],
+	['.scribble', 'A thin hand-drawn zigzag underline (see Scribble under Attachments).'],
+	['.secondary', 'The secondary brand color, `--color-secondary`.'],
+	['.secondary-alt', 'The light secondary color, `--on-background-alt`.'],
+	['.stroke', 'Outlined text with no fill.'],
+	['.strong', 'Bold.']
+);
+
+export const ossProps = props(
+	[
+		'title, description, eyebrowText, eyebrowIcon, cta',
+		'Copy from Section Copy (see the Style Guide), split around the fan: the eyebrow and title sit above it, and the description and call to action sit below it.'
+	],
+	['images', 'An array of `{ src, alt }`, the fan’s cards, which are tall. Required.'],
+	[
+		'fan',
+		"Image Fan settings (see Image Fan in Components), such as `arc`, `gap`, `itemWidth`, `stack`, `chop` and `animateIn`. Defaults to `{ arc: 40, gap: 0.75, itemWidth: 19, stack: 'pyramid', chop: 12, animateIn: true }`."
+	],
+	[
+		'accent',
+		'A string, handwritten text in the accent color, tilted 12°, in the top right corner of the fan, and centered under the fan above the description below `md`. Rich text, so `{.br}` breaks the line.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	]
 );

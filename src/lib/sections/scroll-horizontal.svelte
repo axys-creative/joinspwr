@@ -11,7 +11,7 @@
 	export type ScrollHorizontalProps = Omit<SectionCopyProps, 'level' | 'layout'> & {
 		/** Images with a caption, sliding sideways. Use this or `message`. */
 		items?: ScrollHorizontalItem[];
-		/** One long line of large text instead of images. Trusted HTML, so a `<span class="stroke">` outlines a word. */
+		/** One long line of large text instead of images. Rich text, so `[word]{.stroke}` outlines a word. */
 		message?: string;
 		/** The images drift a little within their frames as the row slides. Defaults to `true`. */
 		parallax?: boolean;
@@ -21,6 +21,7 @@
 
 <script lang="ts">
 	import { imageProps } from '$lib/utils/image';
+	import RichText from '$lib/components/rich-text.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
 	import { animate } from '$lib/attachments/animate';
 	import { scrollSlide } from '$lib/attachments/scroll-slide';
@@ -55,8 +56,7 @@
 		<div class="container" data-slide-viewport>
 			<div class="slider" data-slide-track {@attach animate({ variant: 'scale', stagger: 0.1 })}>
 				{#if message}
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					<p class="h2 text">{@html message}</p>
+					<p class="h2 text"><RichText text={message} /></p>
 				{:else}
 					{#each items as item, index (index)}
 						<figure class="figure">
@@ -202,9 +202,7 @@
 			opacity: 1;
 			white-space: nowrap;
 
-			:global(.stroke) {
-				-webkit-text-stroke: 1px var(--color-text);
-				color: transparent;
+			:global(.rich-text--stroke) {
 				font-weight: 500;
 			}
 		}

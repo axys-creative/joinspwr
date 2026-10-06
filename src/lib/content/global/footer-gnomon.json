@@ -5,7 +5,8 @@
 		"textDescription": "Join the squad",
 		"url": "/join",
 		"newTab": false,
-		"type": "solid"
+		"type": "solid",
+		"special": true
 	},
 	"linksets": [
 		{

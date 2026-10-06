@@ -11,6 +11,7 @@
 		heroCarouselProps,
 		heroImageWaveProps,
 		heroSimpleProps,
+		ossProps,
 		planSelectionProps,
 		scrollHorizontalProps,
 		scrollStackProps,
@@ -28,6 +29,7 @@
 	import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 	import HeroImageWave from '$lib/sections/hero-image-wave.svelte';
 	import HeroSimple from '$lib/sections/hero-simple.svelte';
+	import Oss from '$lib/sections/oss.svelte';
 	import PlanSelection from '$lib/sections/plan-selection.svelte';
 	import ScrollHorizontal from '$lib/sections/scroll-horizontal.svelte';
 	import ScrollStack from '$lib/sections/scroll-stack.svelte';
@@ -497,6 +499,25 @@
 		props={heroSimpleProps}
 	/>
 	<LibrarySection
+		title="OSS"
+		type="Section"
+		description="A title above an Image Fan, with the description and call to action below it and a handwritten accent in the top right corner of the fan."
+		props={ossProps}
+	>
+		<Oss
+			class="full"
+			title="OSS"
+			description="A short paragraph under the fan, with the call to action below it."
+			accent={'Handwritten{.br}accent'}
+			images={Array.from({ length: 7 }, (_, index) => ({
+				src: `/uploads/spwr-img-portrait-${index + 1}.webp`,
+				alt: ''
+			}))}
+			{cta}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
 		title="Plan Selection"
 		type="Section"
 		description="Pricing cards with an optional Monthly / Quarterly switch. The switch is a radio group with the Toggle Slider attachment, the same way as the Theme Toggle, so it works with the keyboard and screen readers. The featured card stands out with an accent background."
@@ -525,7 +546,7 @@
 		/>
 		<ScrollHorizontal
 			class="full"
-			message="This is the scroll horizontal section using a <span class='stroke'>message</span> instead of a set of images."
+			message={'This is the scroll horizontal section using a [message]{.stroke} instead of a set of images.'}
 		/>
 	</LibrarySection>
 	<LibrarySection

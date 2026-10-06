@@ -1,22 +1,21 @@
 <script module lang="ts">
 	import type { ComponentProps, Snippet } from 'svelte';
-	import type { ScribbleOptions } from '$lib/attachments/scribble';
 	import type CtaGroup from './cta-group.svelte';
 
 	export type SectionCopyProps = {
 		eyebrowText?: string;
 		/** Icon name from `static/icons`. */
 		eyebrowIcon?: string;
+		/** A picture in the eyebrow, at its own proportions, such as a wide logo. */
+		eyebrowImage?: { src: string; alt?: string };
 		eyebrowDirection?: 'row' | 'column';
-		/** Wrap a word in `*asterisks*` to draw a scribble under it (see `titleScribble`). */
+		/** Rich text: `[words]{.primary}` tokens add color, scribble and more, and `{.br}` breaks the line. */
 		title?: string;
-		/** Scribble options for the `*marked*` words in the title. Without it the asterisks are only dropped. */
-		titleScribble?: ScribbleOptions;
 		/** Heading level of the title. A page's hero is 1, other sections are 2. */
 		level?: 1 | 2 | 3 | 4 | 5 | 6;
 		/** Looks like another heading size without changing the level. */
 		titleStyle?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-		/** Plain text, or a snippet for rich content such as links. */
+		/** Rich text (the same tokens as `title`), or a snippet for content such as links. */
 		description?: string | Snippet;
 		cta?: ComponentProps<typeof CtaGroup>;
 		/** `column` stacks everything; `row` puts the description beside the eyebrow and title. */
@@ -32,16 +31,16 @@
 </script>
 
 <script lang="ts">
-	import { scribble } from '$lib/attachments/scribble';
 	import Eyebrow from './eyebrow.svelte';
+	import RichText from './rich-text.svelte';
 	import CtaGroupComponent from './cta-group.svelte';
 
 	let {
 		eyebrowText,
 		eyebrowIcon,
+		eyebrowImage,
 		eyebrowDirection = 'row',
 		title,
-		titleScribble,
 		level = 2,
 		titleStyle,
 		description,
@@ -55,12 +54,9 @@
 		showCta = true
 	}: SectionCopyProps = $props();
 
-	const hasEyebrow = $derived(showEyebrow && !!(eyebrowText || eyebrowIcon));
+	const hasEyebrow = $derived(showEyebrow && !!(eyebrowText || eyebrowIcon || eyebrowImage?.src));
 	const hasTitle = $derived(showTitle && !!title);
 	const hasDescription = $derived(showDescription && !!description);
-	const titleParts = $derived(
-		(title ?? '').split(/\*([^*]+)\*/).map((text, index) => ({ text, marked: index % 2 === 1 }))
-	);
 	const hasCta = $derived(showCta && !!cta);
 </script>
 
@@ -69,13 +65,16 @@
 		{#if hasEyebrow || hasTitle}
 			<div class="heading">
 				{#if hasEyebrow}
-					<Eyebrow text={eyebrowText} icon={eyebrowIcon} direction={eyebrowDirection} />
+					<Eyebrow
+						text={eyebrowText}
+						icon={eyebrowIcon}
+						image={eyebrowImage}
+						direction={eyebrowDirection}
+					/>
 				{/if}
 				{#if hasTitle}
 					<svelte:element this={`h${level}`} class={titleStyle}
-						>{#each titleParts as { text, marked }, index (index)}{#if marked && titleScribble}<span
-									{@attach scribble(titleScribble)}>{text}</span
-								>{:else}{text}{/if}{/each}</svelte:element
+						><RichText text={title} /></svelte:element
 					>
 				{/if}
 			</div>
@@ -85,7 +84,7 @@
 			<div class="body">
 				{#if hasDescription}
 					{#if typeof description === 'string'}
-						<p class="description">{description}</p>
+						<p class="description"><RichText text={description} /></p>
 					{:else if description}
 						<div class="description">{@render description()}</div>
 					{/if}

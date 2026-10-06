@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from './button.svelte';
+	import VideoPlayer from './video-player.svelte';
 
 	type Props = {
 		open?: boolean;
@@ -22,7 +23,6 @@
 	}: Props = $props();
 
 	let dialog = $state<HTMLDialogElement>();
-	let video = $state<HTMLVideoElement>();
 	let loaded = $state(false);
 	let teardown: ReturnType<typeof setTimeout>;
 
@@ -33,7 +33,6 @@
 			loaded = true;
 			dialog.showModal();
 			document.dispatchEvent(new CustomEvent('top-layer-open'));
-			video?.play().catch(() => {});
 		} else if (!open && dialog.open) {
 			dialog.close();
 		}
@@ -41,7 +40,7 @@
 
 	const onclose = () => {
 		open = false;
-		video?.pause();
+		dialog?.querySelector('video')?.pause();
 		teardown = setTimeout(() => (loaded = false), TEARDOWN_MS);
 	};
 
@@ -60,21 +59,19 @@
 	{onclick}
 >
 	{#if loaded}
-		<!-- svelte-ignore a11y_media_has_caption -->
-		<video
-			bind:this={video}
-			class="video"
-			{src}
-			{poster}
-			controls
-			playsinline
-			preload="metadata"
-			autoplay
-		>
-			{#if captions}
-				<track kind="captions" src={captions} srclang={captionsLang} label="Captions" default />
-			{/if}
-		</video>
+		<div class="player">
+			<VideoPlayer
+				{src}
+				{poster}
+				{captions}
+				{captionsLang}
+				{title}
+				track="ticks"
+				playButton={false}
+				sideControls={{ side: 'left', volume: true, fullscreen: true }}
+				autoplay
+			/>
+		</div>
 	{/if}
 	<Button
 		iconStart="x-lg"
@@ -112,14 +109,14 @@
 		}
 
 		&::backdrop {
-			background-color: color-mix(in srgb, var(--color-border) 0%, transparent);
+			background-color: color-mix(in srgb, var(--spwr-black) 0%, transparent);
 		}
 
 		&[open]::backdrop {
-			background-color: color-mix(in srgb, var(--color-border) 90%, transparent);
+			background-color: color-mix(in srgb, var(--spwr-black) 92%, transparent);
 
 			@starting-style {
-				background-color: color-mix(in srgb, var(--color-border) 0%, transparent);
+				background-color: color-mix(in srgb, var(--spwr-black) 0%, transparent);
 			}
 		}
 
@@ -135,11 +132,7 @@
 		}
 	}
 
-	.video {
-		width: min(90vw, var(--content-width));
-		max-height: 80dvh;
-		aspect-ratio: 16 / 9;
-		background: black;
-		object-fit: contain;
+	.player {
+		width: min(90vw, calc(80dvh * 16 / 9), var(--content-width));
 	}
 </style>

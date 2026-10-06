@@ -81,6 +81,7 @@
 		translate: -100% 100%;
 		rotate: -8deg;
 		font-family: var(--font-accent);
+		line-height: 1;
 		pointer-events: none;
 
 		@include mixins.max-lg {

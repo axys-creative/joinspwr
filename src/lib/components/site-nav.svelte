@@ -420,6 +420,10 @@
 		pointer-events: auto;
 	}
 
+	.connect :global(.eyebrow-text) {
+		font-family: 'Antonio', var(--font-heading);
+	}
+
 	.connect {
 		display: flex;
 		flex: none;

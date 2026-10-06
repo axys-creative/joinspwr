@@ -22,16 +22,19 @@
 
 	export type GalleryHorizontalProps = Omit<SectionCopyProps, 'level'> & {
 		groups: GalleryGroup[];
-		/** Handwritten text before the first group. */
+		/** Handwritten text before the first group. Rich text, so `{.br}` breaks the line. */
 		accent?: string;
 		/** Card Gnomon settings shared by every card. */
 		gnomon?: GalleryGnomon;
+		/** Overrides `gnomon` for the tall cards (the first and third in each group), whose notch needs less depth. */
+		gnomonPortrait?: Partial<GalleryGnomon>;
 		class?: string;
 	};
 </script>
 
 <script lang="ts">
 	import CardGnomon from '$lib/components/card-gnomon.svelte';
+	import RichText from '$lib/components/rich-text.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
 	import { animate } from '$lib/attachments/animate';
 	import { scrollSlide } from '$lib/attachments/scroll-slide';
@@ -40,6 +43,7 @@
 		groups,
 		accent,
 		gnomon = { depth: 18, length: 48, radius: 4, angle: 85 },
+		gnomonPortrait = { depth: 12 },
 		class: className,
 		...copy
 	}: GalleryHorizontalProps = $props();
@@ -52,7 +56,7 @@
 		<CardGnomon
 			class="slot slot-{slot}"
 			img={{ src: image.src, alt: image.alt }}
-			{...{ ...gnomon, ...image.gnomon }}
+			{...{ ...gnomon, ...(slot % 2 === 1 ? gnomonPortrait : {}), ...image.gnomon }}
 			cutouts={[{ from: 'bottom-left', text: image.caption ?? '' }]}
 		/>
 	{/if}
@@ -70,7 +74,7 @@
 			<div class="slider" data-slide-track>
 				{#if accent}
 					<span class="accent" aria-hidden="true" {@attach animate({ variant: 'fade' })}
-						>{accent}</span
+						><RichText text={accent} /></span
 					>
 				{/if}
 
@@ -161,9 +165,11 @@
 	.accent {
 		flex-shrink: 0;
 		align-self: center;
+		color: var(--color-accent);
 		font-family: var(--font-accent);
 		font-size: clamp(32px, 4vw, 56px);
-		rotate: -6deg;
+		line-height: 1;
+		rotate: -16deg;
 		white-space: nowrap;
 		pointer-events: none;
 

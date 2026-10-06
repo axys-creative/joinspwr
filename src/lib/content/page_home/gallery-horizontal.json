@@ -1,0 +1,56 @@
+{
+	"title": "",
+	"accent": "Experience{.br}SunPower",
+	"groups": [
+		{
+			"images": [
+				{
+					"src": "/uploads/spwr-img-portrait-1.webp",
+					"alt": "",
+					"caption": "Sample 01"
+				},
+				{
+					"src": "/uploads/spwr-img-landscape-5.webp",
+					"alt": "",
+					"caption": "Sample 02"
+				},
+				{
+					"src": "/uploads/spwr-img-portrait-2.webp",
+					"alt": "",
+					"caption": "Sample 03"
+				},
+				{
+					"src": "/uploads/spwr-img-landscape-6.webp",
+					"alt": "",
+					"caption": "Sample 04"
+				}
+			],
+			"copy": "A short paragraph describing this moment, kept brief so it doesn’t run into the image below it."
+		},
+		{
+			"images": [
+				{
+					"src": "/uploads/spwr-img-portrait-3.webp",
+					"alt": "",
+					"caption": "Sample 05"
+				},
+				{
+					"src": "/uploads/spwr-img-landscape-7.webp",
+					"alt": "",
+					"caption": "Sample 06"
+				},
+				{
+					"src": "/uploads/spwr-img-portrait-4.webp",
+					"alt": "",
+					"caption": "Sample 07"
+				},
+				{
+					"src": "/uploads/spwr-img-landscape-8.webp",
+					"alt": "",
+					"caption": "Sample 08"
+				}
+			],
+			"copy": "Each group repeats the same four-image-and-copy structure. Only the content changes."
+		}
+	]
+}

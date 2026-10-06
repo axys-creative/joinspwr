@@ -4,6 +4,8 @@
 
 	export type CarouselTunnelSlide = {
 		img: { src: string; alt?: string };
+		/** Adds a Watch button to the slide that opens this video in a Video Overlay. */
+		video?: { src: string; poster?: string; title?: string; captions?: string };
 		eyebrow?: string;
 		title?: string;
 	};
@@ -54,6 +56,7 @@
 	import Button from '$lib/components/button.svelte';
 	import Eyebrow from '$lib/components/eyebrow.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
+	import VideoOverlay from '$lib/components/video-overlay.svelte';
 	import { loadGsap, refreshScrollTriggers } from '$lib/utils/gsap';
 	import { prepareTextEffect } from '$lib/utils/text-effect';
 
@@ -107,6 +110,14 @@
 	let revealed = $state(false);
 	let dragging = $state(false);
 	let paused = $state(false);
+	let videoOpen = $state(false);
+	let video = $state<NonNullable<CarouselTunnelSlide['video']>>();
+
+	const openVideo = (slide: CarouselTunnelSlide) => {
+		if (!slide.video) return;
+		video = slide.video;
+		videoOpen = true;
+	};
 	// With reduced motion nothing advances on its own.
 	let calm = $state(false);
 	let cloneCount = $state(0);
@@ -170,14 +181,14 @@
 	function restart() {
 		clearInterval(timer);
 		timer = undefined;
-		if (revealed && !paused && !calm && canLoop && interval > 0 && !document.hidden) {
+		if (revealed && !paused && !videoOpen && !calm && canLoop && interval > 0 && !document.hidden) {
 			timer = setInterval(next, interval);
 		}
 	}
 
 	$effect(() => {
 		// Rerun whenever any of these change.
-		void [revealed, paused, calm, interval, canLoop];
+		void [revealed, paused, videoOpen, calm, interval, canLoop];
 		restart();
 		return () => clearInterval(timer);
 	});
@@ -369,6 +380,19 @@
 								alt={slide.img.alt ?? ''}
 								draggable="false"
 							/>
+							{#if slide.video}
+								<Button
+									class="watch"
+									type="solid"
+									size="sm"
+									iconStart="play"
+									text="Watch"
+									textDescription="Play video{slide.title ? `: ${slide.title}` : ''}"
+									tabindex={clone || !revealed ? -1 : undefined}
+									onpointerdown={(event) => event.stopPropagation()}
+									onclick={() => openVideo(slide)}
+								/>
+							{/if}
 							{#if slide.eyebrow || slide.title}
 								<div class="caption">
 									{#if slide.eyebrow}<Eyebrow text={slide.eyebrow} />{/if}
@@ -386,7 +410,7 @@
 				{#if pagination !== 'dots'}
 					<Button
 						type="solid"
-						iconStart="chevron-right"
+						iconStart="/uploads/icon-arrow-left.svg"
 						textDescription="Previous slide"
 						class="arrow previous"
 						onclick={() => {
@@ -415,7 +439,7 @@
 				{#if pagination !== 'dots'}
 					<Button
 						type="solid"
-						iconStart="chevron-right"
+						iconStart="/uploads/icon-arrow-right.svg"
 						textDescription="Next slide"
 						class="arrow"
 						onclick={() => {
@@ -427,6 +451,9 @@
 			</div>
 		{/if}
 	</div>
+	{#if video}
+		<VideoOverlay bind:open={videoOpen} {...video} />
+	{/if}
 </section>
 
 <style lang="scss">
@@ -480,7 +507,6 @@
 		align-items: center;
 		width: 100%;
 		transform-origin: center;
-		will-change: transform;
 	}
 
 	.track {
@@ -489,7 +515,6 @@
 		gap: var(--slide-gap);
 		user-select: none;
 		touch-action: pan-y;
-		will-change: transform;
 	}
 
 	.revealed .track {
@@ -515,6 +540,50 @@
 		object-fit: cover;
 		pointer-events: none;
 		user-select: none;
+	}
+
+	.slide :global(.watch) {
+		position: absolute;
+		top: var(--caption-offset);
+		left: var(--caption-offset);
+		z-index: 1;
+
+		@include mixins.min-md {
+			@media (hover: hover) {
+				top: auto;
+				right: var(--caption-offset);
+				bottom: var(--caption-offset);
+				left: auto;
+				opacity: 0;
+				translate: 0 12px;
+
+				@include mixins.mq-motion-allow {
+					transition:
+						opacity var(--duration) var(--ease),
+						translate var(--duration) var(--ease),
+						background var(--duration) var(--ease),
+						color var(--duration) var(--ease),
+						border-color var(--duration) var(--ease),
+						scale var(--duration) var(--ease);
+				}
+			}
+		}
+	}
+
+	.slide:hover :global(.watch),
+	.slide:focus-within :global(.watch) {
+		opacity: 1;
+		translate: 0;
+	}
+
+	.armed .slide :global(.watch) {
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	.armed.revealed .slide :global(.watch) {
+		visibility: visible;
+		pointer-events: auto;
 	}
 
 	.caption {
@@ -576,8 +645,12 @@
 		padding-inline: var(--body-padding);
 	}
 
-	.pagination :global(.previous .icon) {
-		rotate: 180deg;
+	.pagination :global(.arrow) {
+		--btn-font-size: 24px;
+
+		width: 40px;
+		height: 40px;
+		padding: 0;
 	}
 
 	.dots {
