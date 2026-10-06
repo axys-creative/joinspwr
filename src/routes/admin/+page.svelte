@@ -5,7 +5,10 @@
 	import site from '$lib/content/meta/site.json';
 	import { loadIdentity } from '$lib/utils/identity';
 
-	type Cms = { init: (options: { config: unknown }) => void };
+	type Cms = {
+		init: (options: { config: unknown }) => void;
+		registerPreviewTemplate: (name: string, template: unknown) => void;
+	};
 	type Node = { widget?: string; media_library?: { config?: { max_file_size?: number } } };
 
 	const maxFileSize = 8_000_000;
@@ -36,7 +39,13 @@
 
 			script = document.createElement('script');
 			script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
-			script.onload = () => (window as { CMS?: Cms }).CMS?.init({ config: capUploads(config) });
+			script.onload = async () => {
+				const cms = (window as { CMS?: Cms }).CMS;
+				if (!cms) return;
+				const { registerPreviews } = await import('./previews');
+				registerPreviews(cms);
+				cms.init({ config: capUploads(config) });
+			};
 			(window as { CMS_MANUAL_INIT?: boolean }).CMS_MANUAL_INIT = true;
 			document.head.append(script);
 		});

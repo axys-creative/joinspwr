@@ -1,0 +1,106 @@
+import type { Component } from 'svelte';
+import globalCss from '../../styles/styles.scss?inline';
+import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
+import { mountPreview, type PreviewHost } from './preview-host.svelte';
+
+type Data = Record<string, unknown>;
+type Cta = { primary?: unknown; secondary?: { text?: string } };
+type Section = Component<Record<string, unknown>>;
+type Instance = {
+	el: HTMLElement | null;
+	host: PreviewHost | null;
+	observer: MutationObserver | null;
+	props: { entry: Entry };
+};
+type Preview = { component: Section; props?: (data: Data) => Data };
+type Cms = {
+	registerPreviewTemplate: (name: string, template: unknown) => void;
+};
+type Entry = { getIn: (path: string[]) => { toJS: () => Data } | undefined };
+
+// Keyed by the Decap file (or collection) name in config.json.
+const previews: Record<string, Preview> = {
+	hero_image_circle: {
+		component: HeroImageCircle as unknown as Section,
+		props: (data) => {
+			const cta = (data.cta ?? {}) as Cta;
+			return {
+				...data,
+				cta: { primary: cta.primary, secondary: cta.secondary?.text ? cta.secondary : undefined },
+				direction: 'center'
+			};
+		}
+	}
+};
+
+// Component styles are injected into the admin's head; the preview iframe has to carry its own copies.
+const componentStyles =
+	'style[data-vite-dev-id]:not([data-vite-dev-id*="/admin/"]), link[href*="/_app/"][rel="stylesheet"]';
+
+function syncStyles(doc: Document) {
+	const own =
+		doc.head.querySelector('style[data-preview-global]') ??
+		doc.head.appendChild(doc.createElement('style'));
+	own.setAttribute('data-preview-global', '');
+	own.textContent = globalCss;
+
+	for (const node of document.head.querySelectorAll(componentStyles)) {
+		const key = node.getAttribute('data-vite-dev-id') ?? node.getAttribute('href');
+		const existing = [...doc.head.children].find(
+			(el) => el.getAttribute('data-preview-key') === key
+		);
+		if (existing) {
+			if (node.tagName === 'STYLE') existing.textContent = node.textContent;
+			continue;
+		}
+		const copy = node.cloneNode(true) as Element;
+		copy.setAttribute('data-preview-key', key ?? '');
+		doc.head.append(copy);
+	}
+}
+
+function dataOf(entry: Entry, preview: Preview): Data {
+	const data = entry.getIn(['data'])?.toJS() ?? {};
+	return preview.props ? preview.props(data) : data;
+}
+
+function template(preview: Preview) {
+	const { createClass, h } = window as unknown as {
+		createClass: (spec: object) => unknown;
+		h: (tag: string, props: object) => unknown;
+	};
+
+	return createClass({
+		el: null,
+		host: null,
+		observer: null,
+
+		componentDidMount(this: Instance) {
+			const doc = this.el!.ownerDocument;
+			doc.documentElement.dataset.theme = document.documentElement.dataset.theme ?? 'dark';
+			syncStyles(doc);
+			this.observer = new MutationObserver(() => syncStyles(doc));
+			this.observer.observe(document.head, { childList: true, subtree: true, characterData: true });
+			this.host = mountPreview(this.el!, preview.component, dataOf(this.props.entry, preview));
+		},
+
+		componentDidUpdate(this: Instance) {
+			this.host?.update(dataOf(this.props.entry, preview));
+		},
+
+		componentWillUnmount(this: Instance) {
+			this.observer?.disconnect();
+			this.host?.destroy();
+		},
+
+		render(this: Instance) {
+			return h('div', { ref: (el: HTMLElement | null) => (this.el = el) });
+		}
+	});
+}
+
+export function registerPreviews(cms: Cms) {
+	for (const [name, preview] of Object.entries(previews)) {
+		cms.registerPreviewTemplate(name, template(preview));
+	}
+}
