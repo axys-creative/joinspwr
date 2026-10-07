@@ -1,9 +1,9 @@
 {
-	"title": "",
-	"description": "",
-	"video": {
-		"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
-		"poster": "/images/img-sample-1.jpg",
-		"title": "joinspwr video"
-	}
+  "title": "",
+  "description": "",
+  "video": {
+    "src": "https://www.dropbox.com/scl/fi/tygq3lpwc4iwezuuo3dz5/Summit-Recap.mp4?rlkey=1hm59ooh62x1hgto7kauh6w5a&st=p1c7uqhk&dl=0",
+    "poster": "/images/img-sample-1.jpg",
+    "title": "joinspwr video"
+  }
 }
