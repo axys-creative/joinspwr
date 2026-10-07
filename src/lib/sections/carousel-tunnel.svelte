@@ -313,6 +313,12 @@
 			);
 			core.set(scaler, { scale: start });
 
+			// Loaded or refreshed below the section, the scrub has to be finished already, not caught up with.
+			let settle: (() => void) | undefined;
+			// A refresh puts the slides' own scales back to where they began and drops the tweens that were catching them up,
+			// which leaves them stuck at the zoomed-in size. With no tween running they should match the zoom.
+			let sync: (() => void) | undefined;
+
 			const context = core.context(() => {
 				const timeline = core.timeline({
 					scrollTrigger: {
@@ -322,8 +328,17 @@
 						pin: true,
 						scrub: 1,
 						invalidateOnRefresh: true,
+						onRefresh: (self) => {
+							if (self.progress >= 1) {
+								self.animation?.progress(1);
+								self.getTween()?.progress(1);
+								settle?.();
+							}
+							sync?.();
+						},
 						// The copy, captions and arrows reveal, and autoplay starts, once the zoom has finished.
 						onUpdate: (self) => {
+							sync?.();
 							const done = self.progress >= scaleDuration;
 							if (done === revealed) return;
 							revealed = done;
@@ -369,6 +384,18 @@
 								onUpdate: place
 							});
 						});
+						place();
+					};
+					settle = () => {
+						core.killTweensOf(own);
+						own.fill(1);
+						core.set(slideEls, { clearProps: 'transform' });
+					};
+					sync = () => {
+						if (core.getTweensOf(own).length) return;
+						const zoom = Number(core.getProperty(scaler!, 'scale'));
+						if (own.every((value) => Math.abs(value - zoom) < 0.0005)) return;
+						own.fill(zoom);
 						place();
 					};
 					timeline.to(

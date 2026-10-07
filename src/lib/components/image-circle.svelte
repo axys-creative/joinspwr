@@ -113,7 +113,8 @@
 
 		--w: calc(var(--item-width) * 1cqw);
 		--chord: calc(var(--w) * var(--gap));
-		--radius: calc(var(--chord) / (2 * sin(calc(var(--step) / 2 * 1deg))));
+		// `--ring-scale` from an ancestor widens the ring without growing the pictures.
+		--radius: calc(var(--chord) / (2 * sin(calc(var(--step) / 2 * 1deg))) * var(--ring-scale, 1));
 	}
 
 	.clip {
@@ -164,7 +165,8 @@
 	// Each card turns against the ring so it stays upright as it orbits.
 	.card {
 		position: relative;
-		width: 100%;
+		// Grows the pictures without moving the ring, from an ancestor's `--card-scale`.
+		width: calc(100% * var(--card-scale, 1));
 		aspect-ratio: 2 / 1.5;
 		margin: 0;
 		overflow: hidden;

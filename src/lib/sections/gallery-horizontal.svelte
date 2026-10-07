@@ -251,11 +251,13 @@
 
 		.group :global(.slot-1),
 		.group :global(.slot-3) {
+			width: 40%;
 			aspect-ratio: 3 / 4;
 		}
 
 		.group :global(.slot-2),
 		.group :global(.slot-4) {
+			width: 50%;
 			aspect-ratio: 4 / 3;
 		}
 

@@ -54,6 +54,17 @@
 </section>
 
 <style lang="scss">
+	@use 'base/mixins';
+
+	// On a phone or tablet the section is three quarters of the screen, so the edges of the sections around it show.
+	.video-section {
+		@include mixins.max-lg {
+			display: grid;
+			align-items: center;
+			min-height: 75lvh;
+		}
+	}
+
 	.full-screen {
 		display: grid;
 		align-items: center;
@@ -67,5 +78,10 @@
 		max-width: var(--content-width);
 		margin-inline: auto;
 		padding: var(--body-padding-double) var(--body-padding);
+
+		// The video shrinks with the screen's width, so the room around it does too, and they keep their proportion.
+		@include mixins.max-lg {
+			padding-block: 25vw;
+		}
 	}
 </style>

@@ -67,6 +67,10 @@
 <style lang="scss">
 	@use 'base/mixins';
 
+	.oss {
+		overflow: hidden;
+	}
+
 	.full-screen {
 		display: grid;
 		align-items: center;

@@ -43,13 +43,13 @@
 
 	const left = $derived(direction === 'left');
 
-	// Cards swing past the edge of the circle's square, so the stacked mobile box needs room above the ring. This is
-	// how far the ring's top edge sits above the box, as a percent of its width.
-	const lift = $derived.by(() => {
+	// The ring's radius and a card's width, as percents of the circle's width. The stacked mobile box works out from them
+	// how far the ring's top edge sits above it.
+	const ring = $derived.by(() => {
 		const total = Math.max(images.length, 2);
 		const width = circle?.itemWidth ?? 24;
 		const radius = ((circle?.gap ?? 1.15) * width) / (2 * Math.sin(Math.PI / total));
-		return Math.max(0, radius + width * 0.5 - 50 + 2);
+		return { radius, width };
 	});
 
 	// Spins a circle from one side of upright to the other as the section crosses the screen.
@@ -92,7 +92,7 @@
 	class="hero-image-circle {className ?? ''}"
 	class:left
 	class:full-screen={fullScreen}
-	style="--offset: {offset}%; --lift: {lift.toFixed(2)}"
+	style="--offset: {offset}%; --ring-radius: {ring.radius.toFixed(2)}; --ring-item: {ring.width}"
 >
 	<div class="inner">
 		<div class="circle first">
@@ -152,7 +152,6 @@
 
 		@include mixins.max-lg {
 			justify-content: flex-start;
-			min-height: 80lvh;
 
 			.inner {
 				flex: 1;
@@ -189,12 +188,29 @@
 			// Runs edge to edge, past the section's side padding.
 			width: calc(100% + var(--body-padding) * 2);
 			margin-inline: calc(var(--body-padding) * -1);
+			// Larger pictures on a wider ring, so the cards keep a healthy gap between them.
+			--card-scale: 1.27;
+			--ring-scale: 1.4;
+			// Cards swing past the edge of the circle's square, so the box needs room above the ring: how far the ring's top
+			// edge sits above it, as a percent of its width.
+			--lift: max(
+				0,
+				calc(
+					var(--ring-radius) * var(--ring-scale) + var(--ring-item) * var(--card-scale) * 0.5 - 48
+				)
+			);
 			// The circle stays round and the box shows only the top of it, plus the room the cards need above it.
 			aspect-ratio: 100 / calc(30 + var(--lift, 0));
 			// Never more than about half a screen, so a wide phone does not show a huge circle.
-			max-height: 40lvh;
-			margin-block-start: auto;
+			max-height: 45lvh;
 			overflow: hidden;
+		}
+	}
+
+	// Stacked, the copy sits halfway between the header and the circle.
+	.inner > :global(.section-copy) {
+		@include mixins.max-lg {
+			margin-block: auto;
 		}
 	}
 

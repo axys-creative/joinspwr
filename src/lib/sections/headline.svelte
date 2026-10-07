@@ -77,6 +77,20 @@
 </section>
 
 <style lang="scss">
+	@use 'base/mixins';
+
+	// On a phone or tablet the section is half the screen, with the statement near the top: close to the video above, with the
+	// room below it.
+	.headline {
+		@include mixins.max-lg {
+			min-height: 50lvh;
+
+			.inner {
+				padding-block: 24px 96px;
+			}
+		}
+	}
+
 	.full-screen {
 		display: grid;
 		align-items: center;
