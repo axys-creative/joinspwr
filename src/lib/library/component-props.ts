@@ -29,7 +29,7 @@ export const buttonProps = props(
 		'A boolean, for buttons that open something (`aria-expanded`). The end icon flips when true.'
 	],
 	['controls', 'A string, the id of what the button opens (`aria-controls`).'],
-	['iconStart', 'An icon name from `static/icons`, shown before the text.'],
+	['iconStart', 'An icon name from `static/icons`, or an uploaded SVG path, shown above the text.'],
 	['iconEnd', 'An icon name from `static/icons`, shown after the text.'],
 	['iconCircle', 'A boolean. Draws a ring around the end icon on hover. Defaults to `false`.'],
 	[
@@ -49,15 +49,14 @@ export const ctaGroupProps = props(
 
 export const eyebrowProps = props(
 	['text', 'A string. The small label above a title.'],
-	['icon', 'An icon name from `static/icons`, shown before the text.'],
+	['icon', 'An icon name from `static/icons`, or an uploaded SVG path, shown above the text.'],
 	[
 		'image',
 		'An object of `{ src, alt }`. A picture shown before the text at its own proportions, such as a wide logo. Its height is `--eyebrow-image-height`, `24px` by default.'
 	],
-	['direction', '`row | column`. How the icon and text sit together. Defaults to `row`.'],
 	[
 		'align',
-		'`start | center`. In a `column`, whether the icon and text line up at the start or the center. Defaults to `start`.'
+		'`start | center`. Whether the image, icon and text line up at the start or the center. Defaults to `start`.'
 	]
 );
 
@@ -134,7 +133,6 @@ export const sectionCopyProps = props(
 	['eyebrowText', 'A string for the eyebrow.'],
 	['eyebrowIcon', 'An icon name for the eyebrow.'],
 	['eyebrowImage', 'An object of `{ src, alt }`. A picture in the eyebrow, such as a wide logo.'],
-	['eyebrowDirection', '`row | column`. Defaults to `row`.'],
 	[
 		'title',
 		'A string. Rich text (see Rich Text under Components): `[words]{.primary}` tokens add color, scribble and more.'
@@ -191,7 +189,7 @@ export const socialLinksProps = props(
 
 export const tagProps = props(
 	['text', 'A string. Required.'],
-	['icon', 'An icon name from `static/icons`, shown before the text.'],
+	['icon', 'An icon name from `static/icons`, or an uploaded SVG path, shown above the text.'],
 	['type', '`solid | outline | glass`. Defaults to `solid`.'],
 	['class', 'A string of extra classes.']
 );
@@ -718,6 +716,17 @@ export const solarSystemProps = props(
 	]
 );
 
+export const sideShadowsProps = props(
+	[
+		'width',
+		'A CSS length, how far each shadow reaches in from the screen edge. Defaults to `clamp(24px, 6vw, 120px)`.'
+	],
+	[
+		'opacity',
+		'A number from `0` to `1`, how dark the shadows are at the edge. Halved in the light theme. Defaults to `0.3`.'
+	]
+);
+
 export const scrollProgressProps = props(
 	[
 		'placement',
@@ -1041,6 +1050,10 @@ export const carouselTunnelProps = props(
 		'Optional tuning: `sectionHeight` (the total scroll distance, `220svh`), `slideWidth` (the resting slide width, which sets how much of the next ones peek in, `min(25vw, 720px)`), `slideGap` (`24px`), `slideAspect` (`2 / 1.25`), `scaleDuration` (the share of the scroll spent zooming, `0.6`), `trail` (seconds the slides beside the active one take to catch up with the zoom, as if pulled behind it; two away take twice as long; `0` zooms them together, `0.35`), `revealDuration` (seconds, `0.6`) and `captionOffset` (`12px`). Anything left out keeps its default, including the smaller slide width on mobile.'
 	],
 	['label', 'A string, the carousel’s accessible name. Defaults to `Featured work`.'],
+	[
+		'static',
+		'A boolean. A plain carousel with no scroll zoom or autoplay and everything showing, as with reduced motion. The CMS preview uses it. Defaults to `false`.'
+	],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
@@ -1125,6 +1138,10 @@ export const galleryHorizontalProps = props(
 		'gnomonPortrait',
 		'`{ depth, length, radius, angle }`, the same settings as `gnomon` but only the ones to change for the tall cards (the first and third in each group). Defaults to `{ depth: 12 }`, because the same depth looks deeper on a tall card.'
 	],
+	[
+		'static',
+		'A boolean. No pinned sideways slide and no entrance animation, so the row scrolls on its own. The CMS preview uses it. Defaults to `false`.'
+	],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
@@ -1178,10 +1195,6 @@ export const headlineProps = props(
 	],
 	['eyebrowText', 'A string shown above the statement.'],
 	['eyebrowIcon', 'An icon name from `static/icons`. Works without `eyebrowText` too.'],
-	[
-		'eyebrowDirection',
-		"`row | column`. How the eyebrow's icon and text sit together, centered either way. Defaults to `row`."
-	],
 	[
 		'quote',
 		'An object of `{ name, role, image }`, where `image` is `{ src, alt }`. With a `name` the statement is wrapped in quotes and credited beneath, with the image, name and role. Leave it out for a plain headline.'
@@ -1428,6 +1441,10 @@ export const ossProps = props(
 	[
 		'fullScreen',
 		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	[
+		'static',
+		'A boolean. The fan shows at once instead of animating in as it scrolls into view. The CMS preview uses it. Defaults to `false`.'
 	]
 );
 

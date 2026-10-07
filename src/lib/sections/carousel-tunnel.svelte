@@ -50,6 +50,10 @@
 		config?: CarouselTunnelConfig;
 		/** The carousel's accessible name. */
 		label?: string;
+		/** A plain carousel with no scroll zoom or autoplay, everything showing, as with reduced motion. For the CMS preview. */
+		static?: boolean;
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
 		class?: string;
 	};
 </script>
@@ -78,6 +82,8 @@
 		ticks = true,
 		config,
 		label = 'Featured work',
+		static: still = false,
+		id,
 		class: className
 	}: CarouselTunnelProps = $props();
 
@@ -154,7 +160,7 @@
 
 	// Slides are placed in the track's own pixels, so the zoom (on the scaler around it) never moves the active one.
 	function goTo(to: number, animate = true) {
-		if (!gsap || !track || !viewport) return;
+		if (!gsap || !track?.children[0] || !viewport) return;
 		if (animate && animating) return;
 
 		const slideWidth = (track.children[0] as HTMLElement).offsetWidth;
@@ -261,7 +267,7 @@
 		let cancelled = false;
 		let cleanups: (() => void)[] = [];
 
-		const motion = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const motion = !still && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 		calm = !motion;
 
 		(async () => {
@@ -395,6 +401,7 @@
 </script>
 
 <section
+	{id}
 	class="carousel-tunnel {className ?? ''}"
 	class:armed
 	class:revealed

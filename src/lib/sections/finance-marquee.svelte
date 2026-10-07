@@ -11,6 +11,8 @@
 		accent?: string;
 		/** At least the height of the screen, with the content centered. Taller content still grows past it. */
 		fullScreen?: boolean;
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
 		class?: string;
 	};
 </script>
@@ -25,6 +27,7 @@
 		marquee = { speed: 40, scrub: 0.5 },
 		accent,
 		fullScreen = false,
+		id,
 		class: className,
 		title,
 		eyebrowText,
@@ -35,7 +38,7 @@
 	}: FinanceMarqueeProps = $props();
 </script>
 
-<section class="finance-marquee {className ?? ''}" class:full-screen={fullScreen}>
+<section {id} class="finance-marquee {className ?? ''}" class:full-screen={fullScreen}>
 	<div class="inner">
 		<div class="copy">
 			<SectionCopy
@@ -124,10 +127,6 @@
 		}
 	}
 
-	.logos {
-		mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-	}
-
 	.logos :global(.marquee.logos-marquee) {
 		--gap: 24px;
 		--image-height: 180px;
@@ -143,7 +142,7 @@
 	.logos :global(.marquee.logos-marquee img) {
 		box-sizing: border-box;
 		width: var(--logo-width);
-		padding: 56px;
+		padding: 24px;
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius);
 		background: var(--spwr-royal-light);

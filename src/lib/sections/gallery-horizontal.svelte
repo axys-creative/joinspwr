@@ -28,6 +28,10 @@
 		gnomon?: GalleryGnomon;
 		/** Overrides `gnomon` for the tall cards (the first and third in each group), whose notch needs less depth. */
 		gnomonPortrait?: Partial<GalleryGnomon>;
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
+		/** No pinned sideways slide and no entrance animation: the row scrolls on its own. For the CMS preview. */
+		static?: boolean;
 		class?: string;
 	};
 </script>
@@ -44,6 +48,8 @@
 		accent,
 		gnomon = { depth: 18, length: 48, radius: 4, angle: 85 },
 		gnomonPortrait = { depth: 12 },
+		id,
+		static: still = false,
 		class: className,
 		...copy
 	}: GalleryHorizontalProps = $props();
@@ -62,24 +68,27 @@
 	{/if}
 {/snippet}
 
-<section class="gallery-horizontal {className ?? ''}">
+<section {id} class="gallery-horizontal {className ?? ''}">
 	{#if hasCopy}
 		<header class="header">
 			<SectionCopy level={2} {...copy} />
 		</header>
 	{/if}
 
-	<div class="pin" {@attach scrollSlide()}>
+	<div class="pin" {@attach still ? undefined : scrollSlide()}>
 		<div class="container" data-slide-viewport>
 			<div class="slider" data-slide-track>
 				{#if accent}
-					<span class="accent" aria-hidden="true" {@attach animate({ variant: 'fade' })}
+					<span
+						class="accent"
+						aria-hidden="true"
+						{@attach still ? undefined : animate({ variant: 'fade' })}
 						><RichText text={accent} /></span
 					>
 				{/if}
 
 				{#each groups as group, index (index)}
-					<div class="group" {@attach animate({ variant: 'up', stagger: 0.1 })}>
+					<div class="group" {@attach still ? undefined : animate({ variant: 'up', stagger: 0.1 })}>
 						{@render card(group.images[0], 1)}
 						{@render card(group.images[1], 2)}
 						{#if group.copy}<p class="copy">{group.copy}</p>{/if}
@@ -201,12 +210,6 @@
 	// The cards are placed here, but drawn by Card Gnomon.
 	.group :global(.slot) {
 		position: absolute;
-
-		@include mixins.max-lg {
-			position: static;
-			width: 40%;
-			height: auto;
-		}
 	}
 
 	.group :global(.slot-1) {
@@ -238,7 +241,10 @@
 	}
 
 	@include mixins.max-lg {
+		// Relative, not static: the card draws its picture with an absolutely placed layer that needs the card as its box.
 		.group :global(.slot) {
+			position: relative;
+			inset: auto;
 			width: 40%;
 			height: auto;
 		}

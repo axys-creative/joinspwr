@@ -5,32 +5,32 @@
 	"accent": "Affordable Energy",
 	"logos": [
 		{
-			"src": "/images/logo-sample-1.svg",
-			"alt": "Sample logo 1"
+			"src": "/uploads/logo-finance-1.svg",
+			"alt": "Finance partner 1"
 		},
 		{
-			"src": "/images/logo-sample-2.svg",
-			"alt": "Sample logo 2"
+			"src": "/uploads/logo-finance-2.svg",
+			"alt": "Finance partner 2"
 		},
 		{
-			"src": "/images/logo-sample-3.svg",
-			"alt": "Sample logo 3"
+			"src": "/uploads/logo-finance-3.svg",
+			"alt": "Finance partner 3"
 		},
 		{
-			"src": "/images/logo-sample-4.svg",
-			"alt": "Sample logo 4"
+			"src": "/uploads/logo-finance-4.svg",
+			"alt": "Finance partner 4"
 		},
 		{
-			"src": "/images/logo-sample-5.svg",
-			"alt": "Sample logo 5"
+			"src": "/uploads/logo-finance-5.svg",
+			"alt": "Finance partner 5"
 		},
 		{
-			"src": "/images/logo-sample-6.svg",
-			"alt": "Sample logo 6"
+			"src": "/uploads/logo-finance-6.svg",
+			"alt": "Finance partner 6"
 		},
 		{
-			"src": "/images/logo-sample-7.svg",
-			"alt": "Sample logo 7"
+			"src": "/uploads/logo-finance-7.svg",
+			"alt": "Finance partner 7"
 		}
 	],
 	"cta": {

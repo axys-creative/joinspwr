@@ -13,106 +13,15 @@
 	"logo_url": "/images/admin/admin-logo.svg",
 	"collections": [
 		{
-			"name": "blog",
-			"label": "Blog",
-			"label_singular": "Post",
-			"description": "Each post is one file in src/lib/content/blog. The file name becomes the address: /blog/the-file-name.",
-			"folder": "src/lib/content/blog",
-			"extension": "json",
-			"format": "json",
-			"create": true,
-			"slug": "{{slug}}",
-			"identifier_field": "title",
-			"summary": "{{title}} · {{date}}",
-			"preview_path": "blog/{{slug}}",
-			"sortable_fields": ["date", "title"],
-			"editor": {
-				"preview": false
-			},
-			"fields": [
-				{
-					"name": "title",
-					"label": "Title",
-					"widget": "string",
-					"hint": "The address of the post comes from the title the first time it is saved. Changing the title later does not change the address."
-				},
-				{
-					"name": "description",
-					"label": "Description",
-					"widget": "text",
-					"hint": "Shown on the blog page and in search results. Keep it under about 155 characters."
-				},
-				{
-					"name": "author",
-					"label": "Author",
-					"widget": "string",
-					"required": false
-				},
-				{
-					"name": "date",
-					"label": "Publish date",
-					"widget": "datetime",
-					"date_format": "YYYY-MM-DD",
-					"time_format": false,
-					"format": "YYYY-MM-DD"
-				},
-				{
-					"name": "tag",
-					"label": "Tag",
-					"widget": "select",
-					"options": ["Announcement", "Best Practices", "Event", "Press Release", "Update"],
-					"required": false
-				},
-				{
-					"name": "coverImage",
-					"label": "Cover image",
-					"widget": "image",
-					"required": false
-				},
-				{
-					"name": "coverAlt",
-					"label": "Cover image description",
-					"widget": "string",
-					"required": false,
-					"hint": "Describe the image for screen readers. Leave empty if it is decorative."
-				},
-				{
-					"name": "draft",
-					"label": "Draft",
-					"widget": "boolean",
-					"default": false,
-					"required": false,
-					"hint": "Drafts are hidden from the site."
-				},
-				{
-					"name": "body",
-					"label": "Body",
-					"widget": "markdown"
-				}
-			]
-		},
-		{
 			"name": "page_home",
-			"label": "Home Page",
+			"label": "Page - Home",
 			"files": [
 				{
 					"name": "hero_image_circle",
 					"label": "Hero",
 					"file": "src/lib/content/page_home/hero-image-circle.json",
+					"preview_path": "#hero",
 					"fields": [
-						{
-							"name": "eyebrowText",
-							"label": "Eyebrow text",
-							"widget": "string",
-							"required": false
-						},
-						{
-							"name": "eyebrowIcon",
-							"label": "Eyebrow icon",
-							"widget": "string",
-							"required": false,
-							"hint": "Icon file name without .svg (e.g. bolt). See /style-guide for examples."
-						},
 						{
 							"name": "eyebrowImage",
 							"label": "Eyebrow image",
@@ -133,6 +42,19 @@
 									"required": false
 								}
 							]
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
 						},
 						{
 							"name": "title",
@@ -264,34 +186,6 @@
 									]
 								}
 							]
-						},
-						{
-							"name": "showEyebrow",
-							"label": "Show eyebrow",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showTitle",
-							"label": "Show title",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showDescription",
-							"label": "Show description",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showCta",
-							"label": "Show buttons",
-							"widget": "boolean",
-							"default": true,
-							"required": false
 						}
 					]
 				},
@@ -299,6 +193,7 @@
 					"name": "video_section",
 					"label": "Video",
 					"file": "src/lib/content/page_home/video-section.json",
+					"preview_path": "#video",
 					"fields": [
 						{
 							"name": "title",
@@ -343,19 +238,20 @@
 					"name": "headline",
 					"label": "Headline",
 					"file": "src/lib/content/page_home/headline.json",
+					"preview_path": "#headline",
 					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
 							"widget": "string",
 							"required": false
-						},
-						{
-							"name": "eyebrowIcon",
-							"label": "Eyebrow icon",
-							"widget": "string",
-							"required": false,
-							"hint": "Icon file name without .svg (e.g. bolt). See /style-guide for examples."
 						},
 						{
 							"name": "text",
@@ -369,19 +265,20 @@
 					"name": "gallery_horizontal",
 					"label": "Gallery",
 					"file": "src/lib/content/page_home/gallery-horizontal.json",
+					"preview_path": "#gallery",
 					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
 							"widget": "string",
 							"required": false
-						},
-						{
-							"name": "eyebrowIcon",
-							"label": "Eyebrow icon",
-							"widget": "string",
-							"required": false,
-							"hint": "Icon file name without .svg (e.g. bolt). See /style-guide for examples."
 						},
 						{
 							"name": "title",
@@ -449,19 +346,20 @@
 					"name": "carousel_tunnel",
 					"label": "Carousel",
 					"file": "src/lib/content/page_home/carousel-tunnel.json",
+					"preview_path": "#carousel",
 					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
 							"widget": "string",
 							"required": false
-						},
-						{
-							"name": "eyebrowIcon",
-							"label": "Eyebrow icon",
-							"widget": "string",
-							"required": false,
-							"hint": "Icon file name without .svg (e.g. bolt), or a path to an uploaded SVG."
 						},
 						{
 							"name": "title",
@@ -548,19 +446,20 @@
 					"name": "finance_marquee",
 					"label": "Finance Marquee",
 					"file": "src/lib/content/page_home/finance-marquee.json",
+					"preview_path": "#finance",
 					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
 							"widget": "string",
 							"required": false
-						},
-						{
-							"name": "eyebrowIcon",
-							"label": "Eyebrow icon",
-							"widget": "string",
-							"required": false,
-							"hint": "Icon file name without .svg (e.g. bolt), or a path to an uploaded SVG."
 						},
 						{
 							"name": "title",
@@ -654,19 +553,20 @@
 					"name": "oss",
 					"label": "OSS",
 					"file": "src/lib/content/page_home/oss.json",
+					"preview_path": "#oss",
 					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
 							"widget": "string",
 							"required": false
-						},
-						{
-							"name": "eyebrowIcon",
-							"label": "Eyebrow icon",
-							"widget": "string",
-							"required": false,
-							"hint": "Icon file name without .svg (e.g. bolt), or a path to an uploaded SVG."
 						},
 						{
 							"name": "title",
@@ -760,7 +660,7 @@
 		},
 		{
 			"name": "page_culture",
-			"label": "Culture Page",
+			"label": "Page - Culture",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -791,7 +691,7 @@
 		},
 		{
 			"name": "page_platform",
-			"label": "Platform Page",
+			"label": "Page - Platform",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -822,7 +722,7 @@
 		},
 		{
 			"name": "page_about",
-			"label": "About Page",
+			"label": "Page - About",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -853,7 +753,7 @@
 		},
 		{
 			"name": "page_oss",
-			"label": "OSS Page",
+			"label": "Page - OSS",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -884,7 +784,7 @@
 		},
 		{
 			"name": "page_join",
-			"label": "Join Page",
+			"label": "Page - Join",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -914,8 +814,88 @@
 			]
 		},
 		{
+			"name": "blog",
+			"label": "Blog",
+			"label_singular": "Post",
+			"description": "Each post is one file in src/lib/content/blog. The file name becomes the address: /blog/the-file-name.",
+			"folder": "src/lib/content/blog",
+			"extension": "json",
+			"format": "json",
+			"create": true,
+			"slug": "{{slug}}",
+			"identifier_field": "title",
+			"summary": "{{title}} · {{date}}",
+			"preview_path": "blog/{{slug}}",
+			"sortable_fields": ["date", "title"],
+			"editor": {
+				"preview": false
+			},
+			"fields": [
+				{
+					"name": "title",
+					"label": "Title",
+					"widget": "string",
+					"hint": "The address of the post comes from the title the first time it is saved. Changing the title later does not change the address."
+				},
+				{
+					"name": "description",
+					"label": "Description",
+					"widget": "text",
+					"hint": "Shown on the blog page and in search results. Keep it under about 155 characters."
+				},
+				{
+					"name": "author",
+					"label": "Author",
+					"widget": "string",
+					"required": false
+				},
+				{
+					"name": "date",
+					"label": "Publish date",
+					"widget": "datetime",
+					"date_format": "YYYY-MM-DD",
+					"time_format": false,
+					"format": "YYYY-MM-DD"
+				},
+				{
+					"name": "tag",
+					"label": "Tag",
+					"widget": "select",
+					"options": ["Announcement", "Best Practices", "Event", "Press Release", "Update"],
+					"required": false
+				},
+				{
+					"name": "coverImage",
+					"label": "Cover image",
+					"widget": "image",
+					"required": false
+				},
+				{
+					"name": "coverAlt",
+					"label": "Cover image description",
+					"widget": "string",
+					"required": false,
+					"hint": "Describe the image for screen readers. Leave empty if it is decorative."
+				},
+				{
+					"name": "draft",
+					"label": "Draft",
+					"widget": "boolean",
+					"default": false,
+					"required": false,
+					"hint": "Drafts are hidden from the site."
+				},
+				{
+					"name": "body",
+					"label": "Body",
+					"widget": "markdown"
+				}
+			],
+			"hide": true
+		},
+		{
 			"name": "page_blog",
-			"label": "Blog Page",
+			"label": "Page - Blog",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -942,11 +922,12 @@
 						}
 					]
 				}
-			]
+			],
+			"hide": true
 		},
 		{
 			"name": "page_form_submit",
-			"label": "Form Submitted Page",
+			"label": "Page - Form Submitted",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -1028,34 +1009,6 @@
 							"options": ["start", "center"],
 							"default": "center",
 							"required": false
-						},
-						{
-							"name": "showEyebrow",
-							"label": "Show eyebrow",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showTitle",
-							"label": "Show title",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showDescription",
-							"label": "Show description",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showCta",
-							"label": "Show buttons",
-							"widget": "boolean",
-							"default": true,
-							"required": false
 						}
 					]
 				}
@@ -1063,7 +1016,7 @@
 		},
 		{
 			"name": "page_404",
-			"label": "404 Page",
+			"label": "Page - 404",
 			"files": [
 				{
 					"name": "hero_simple",
@@ -1144,34 +1097,6 @@
 							"widget": "select",
 							"options": ["start", "center"],
 							"default": "center",
-							"required": false
-						},
-						{
-							"name": "showEyebrow",
-							"label": "Show eyebrow",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showTitle",
-							"label": "Show title",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showDescription",
-							"label": "Show description",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "showCta",
-							"label": "Show buttons",
-							"widget": "boolean",
-							"default": true,
 							"required": false
 						}
 					]

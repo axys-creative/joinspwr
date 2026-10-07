@@ -49,6 +49,7 @@
 		postCardProps,
 		richTextProps,
 		scrollProgressProps,
+		sideShadowsProps,
 		solarSystemProps,
 		strapProps,
 		videoOverlayProps,
@@ -625,6 +626,15 @@
 			/>
 		</div>
 		{#if progress}<ScrollProgress placement={progress} hideScrollbar={false} />{/if}
+	</LibrarySection>
+
+	<LibrarySection
+		title="Side Shadows"
+		type="Component"
+		description="Two very subtle shadows down the left and right edges of the screen, fixed over the page and under the header and navigation. They ignore the pointer and are hidden from screen readers. Mount it once in a layout to have it on every page, or inside a single page to have it there only. It is mounted in the site layout, so this page already has it."
+		props={sideShadowsProps}
+	>
+		<p>Look at the left and right edges of the screen.</p>
 	</LibrarySection>
 
 	<LibrarySection

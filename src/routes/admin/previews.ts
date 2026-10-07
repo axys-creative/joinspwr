@@ -1,6 +1,12 @@
 import type { Component } from 'svelte';
 import globalCss from '../../styles/styles.scss?inline';
+import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
+import Headline from '$lib/sections/headline.svelte';
+import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
+import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
+import Oss from '$lib/sections/oss.svelte';
+import VideoSection from '$lib/sections/video-section.svelte';
 import { mountPreview, type PreviewHost } from './preview-host.svelte';
 
 type Data = Record<string, unknown>;
@@ -20,16 +26,49 @@ type Entry = { getIn: (path: string[]) => { toJS: () => Data } | undefined };
 
 // Keyed by the Decap file (or collection) name in config.json.
 const previews: Record<string, Preview> = {
+	carousel_tunnel: {
+		component: CarouselTunnel as unknown as Section,
+		props: (data) => ({ ...data, slides: data.slides ?? [], static: true })
+	},
+	finance_marquee: {
+		component: FinanceMarquee as unknown as Section,
+		props: (data) => ({ ...data, logos: data.logos ?? [] })
+	},
+	gallery_horizontal: {
+		component: GalleryHorizontal as unknown as Section,
+		props: (data) => ({ ...data, groups: data.groups ?? [], static: true })
+	},
+	headline: {
+		component: Headline as unknown as Section,
+		props: (data) => ({ ...data, text: data.text ?? '' })
+	},
 	hero_image_circle: {
 		component: HeroImageCircle as unknown as Section,
 		props: (data) => {
 			const cta = (data.cta ?? {}) as Cta;
 			return {
 				...data,
+				images: data.images ?? [],
 				cta: { primary: cta.primary, secondary: cta.secondary?.text ? cta.secondary : undefined },
 				direction: 'center'
 			};
 		}
+	},
+	oss: {
+		component: Oss as unknown as Section,
+		props: (data) => ({ ...data, images: data.images ?? [], static: true })
+	},
+	video_section: {
+		component: VideoSection as unknown as Section,
+		props: (data) => ({
+			...data,
+			video: {
+				...(data.video as object),
+				track: 'ticks',
+				playButton: false,
+				sideControls: { side: 'left', volume: true, fullscreen: true }
+			}
+		})
 	}
 };
 
@@ -94,7 +133,15 @@ function template(preview: Preview) {
 		},
 
 		render(this: Instance) {
-			return h('div', { ref: (el: HTMLElement | null) => (this.el = el) });
+			return h('div', {
+				ref: (el: HTMLElement | null) => (this.el = el),
+				style: {
+					minHeight: '100vh',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center'
+				}
+			});
 		}
 	});
 }

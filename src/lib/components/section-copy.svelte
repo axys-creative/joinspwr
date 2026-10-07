@@ -8,7 +8,6 @@
 		eyebrowIcon?: string;
 		/** A picture in the eyebrow, at its own proportions, such as a wide logo. */
 		eyebrowImage?: { src: string; alt?: string };
-		eyebrowDirection?: 'row' | 'column';
 		/** Rich text: `[words]{.primary}` tokens add color, scribble and more, and `{.br}` breaks the line. */
 		title?: string;
 		/** Heading level of the title. A page's hero is 1, other sections are 2. */
@@ -39,7 +38,6 @@
 		eyebrowText,
 		eyebrowIcon,
 		eyebrowImage,
-		eyebrowDirection = 'row',
 		title,
 		level = 2,
 		titleStyle,
@@ -57,7 +55,7 @@
 	const hasEyebrow = $derived(showEyebrow && !!(eyebrowText || eyebrowIcon || eyebrowImage?.src));
 	const hasTitle = $derived(showTitle && !!title);
 	const hasDescription = $derived(showDescription && !!description);
-	const hasCta = $derived(showCta && !!cta);
+	const hasCta = $derived(showCta && !!cta?.primary?.text);
 </script>
 
 {#if hasEyebrow || hasTitle || hasDescription || hasCta}
@@ -65,12 +63,7 @@
 		{#if hasEyebrow || hasTitle}
 			<div class="heading">
 				{#if hasEyebrow}
-					<Eyebrow
-						text={eyebrowText}
-						icon={eyebrowIcon}
-						image={eyebrowImage}
-						direction={eyebrowDirection}
-					/>
+					<Eyebrow text={eyebrowText} icon={eyebrowIcon} image={eyebrowImage} {align} />
 				{/if}
 				{#if hasTitle}
 					<svelte:element this={`h${level}`} class={titleStyle}
@@ -90,7 +83,11 @@
 					{/if}
 				{/if}
 				{#if hasCta && cta}
-					<CtaGroupComponent {...cta} justify={align} />
+					<CtaGroupComponent
+						{...cta}
+						secondary={cta.secondary?.text ? cta.secondary : undefined}
+						justify={align}
+					/>
 				{/if}
 			</div>
 		{/if}

@@ -5,11 +5,12 @@
 		eyebrowText?: string;
 		/** Icon name from `static/icons`. Works without `eyebrowText` too. */
 		eyebrowIcon?: string;
-		eyebrowDirection?: 'row' | 'column';
 		/** With a `name` the headline is wrapped in quotes and credited beneath. */
 		quote?: { name: string; role?: string; image?: { src: string; alt?: string } };
 		/** At least the height of the screen, with the statement centered. Taller content still grows past it. */
 		fullScreen?: boolean;
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
 		class?: string;
 	};
 </script>
@@ -24,9 +25,9 @@
 		text,
 		eyebrowText,
 		eyebrowIcon,
-		eyebrowDirection = 'row',
 		quote,
 		fullScreen = false,
+		id,
 		class: className
 	}: HeadlineProps = $props();
 
@@ -46,9 +47,9 @@
 	</p>
 {/snippet}
 
-<section class="headline {className ?? ''}" class:full-screen={fullScreen}>
+<section {id} class="headline {className ?? ''}" class:full-screen={fullScreen}>
 	<div class="inner">
-		<Eyebrow text={eyebrowText} icon={eyebrowIcon} direction={eyebrowDirection} align="center" />
+		<Eyebrow text={eyebrowText} icon={eyebrowIcon} align="center" />
 
 		{#if quoted && quote}
 			<figure class="quote">

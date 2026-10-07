@@ -13,7 +13,6 @@
 <script lang="ts">
 	import type { Attachment } from 'svelte/attachments';
 	import { textRoll } from '$lib/attachments/text-roll';
-	import { page } from '$app/state';
 	import Button from './button.svelte';
 	import DropdownLink from './dropdown-link.svelte';
 
@@ -70,13 +69,7 @@
 							triggerAttach={linkAttach}
 						/>
 					{:else}
-						<Button
-							{...link}
-							type={link.type ?? type}
-							current={link.url === page.url.pathname}
-							{@attach textRoll()}
-							{@attach linkAttach}
-						/>
+						<Button {...link} type={link.type ?? type} {@attach textRoll()} {@attach linkAttach} />
 					{/if}
 				</li>
 			{/each}

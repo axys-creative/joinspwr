@@ -28,6 +28,7 @@
 </script>
 
 <script lang="ts">
+	import { isCurrentPage, onCurrentPageClick } from '$lib/utils/current-page';
 	import Icon from './icon.svelte';
 
 	let {
@@ -51,6 +52,8 @@
 		onclick,
 		...rest
 	}: ButtonProps = $props();
+
+	const onCurrentPage = $derived(!newTab && isCurrentPage(url));
 
 	const label = $derived(
 		textDescription && newTab ? `${textDescription} (opens in a new tab)` : textDescription
@@ -87,9 +90,10 @@
 		class={classes}
 		href={url}
 		aria-label={label}
-		aria-current={current ? 'page' : undefined}
+		aria-current={current || onCurrentPage ? 'page' : undefined}
 		aria-expanded={expanded}
 		aria-controls={controls}
+		onclick={onCurrentPage ? onCurrentPageClick : undefined}
 		target={newTab ? '_blank' : undefined}
 		rel={newTab ? 'noopener noreferrer' : undefined}
 	>

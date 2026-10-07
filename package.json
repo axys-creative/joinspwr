@@ -7,6 +7,7 @@
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@types/node": "^24",
+		"decap-server": "^3.11.3",
 		"eslint": "^10.4.1",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.19.0",
@@ -23,6 +24,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "BROWSER='Google Chrome' vite dev --host --open",
+		"cms": "decap-server",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",

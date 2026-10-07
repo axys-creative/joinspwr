@@ -11,6 +11,10 @@
 		accent?: string;
 		/** At least the height of the screen, with the content centered. Taller content still grows past it. */
 		fullScreen?: boolean;
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
+		/** The fan shows at once instead of animating in as it scrolls into view. For the CMS preview. */
+		static?: boolean;
 		class?: string;
 	};
 </script>
@@ -25,6 +29,8 @@
 		fan = { arc: 40, gap: 0.75, itemWidth: 19, stack: 'pyramid', chop: 12, animateIn: true },
 		accent,
 		fullScreen = false,
+		id,
+		static: still = false,
 		class: className,
 		title,
 		eyebrowText,
@@ -34,7 +40,7 @@
 	}: OssProps = $props();
 </script>
 
-<section class="oss {className ?? ''}" class:full-screen={fullScreen}>
+<section {id} class="oss {className ?? ''}" class:full-screen={fullScreen}>
 	<div class="inner">
 		<SectionCopy
 			level={2}
@@ -48,7 +54,7 @@
 		/>
 
 		<div class="fan">
-			<ImageFan {...fan} {images} />
+			<ImageFan {...fan} animateIn={fan.animateIn && !still} {images} />
 			{#if accent}
 				<span class="accent" aria-hidden="true"><RichText text={accent} /></span>
 			{/if}

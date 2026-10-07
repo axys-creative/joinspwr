@@ -16,6 +16,8 @@
 		circle?: Omit<ImageCircleProps, 'images' | 'direction' | 'bloom' | 'clip' | 'class'>;
 		/** At least the height of the screen, with the copy centered. Taller content still grows past it. */
 		fullScreen?: boolean;
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
 		class?: string;
 	};
 </script>
@@ -34,6 +36,7 @@
 		offset = 30,
 		circle,
 		fullScreen = true,
+		id,
 		class: className,
 		...copy
 	}: HeroImageCircleProps = $props();
@@ -85,6 +88,7 @@
 </script>
 
 <section
+	{id}
 	class="hero-image-circle {className ?? ''}"
 	class:left
 	class:full-screen={fullScreen}

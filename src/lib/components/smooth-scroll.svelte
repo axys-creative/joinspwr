@@ -1,12 +1,20 @@
 <script lang="ts">
 	import 'lenis/dist/lenis.css';
 	import { onMount } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
 	import type Lenis from 'lenis';
+
+	let lenis: Lenis | undefined;
+
+	// Lenis keeps its own scroll target and would glide back to the old position after SvelteKit resets it.
+	afterNavigate(({ type, to }) => {
+		if (!lenis || to?.url.hash) return;
+		lenis.scrollTo(type === 'popstate' ? window.scrollY : 0, { immediate: true, force: true });
+	});
 
 	onMount(() => {
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-		let lenis: Lenis | undefined;
 		let destroyed = false;
 
 		import('lenis').then(({ default: LenisClass }) => {

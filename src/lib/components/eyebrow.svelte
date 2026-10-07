@@ -7,16 +7,15 @@
 		icon?: string;
 		/** A picture shown in place of the icon, at its own proportions, such as a wide logo. */
 		image?: { src: string; alt?: string };
-		direction?: 'row' | 'column';
-		/** In a `column`, whether the icon and text line up at the start or the center. */
+		/** Whether the image, icon and text line up at the start or the center. */
 		align?: 'start' | 'center';
 	};
 
-	let { text, icon, image, direction = 'row', align = 'start' }: Props = $props();
+	let { text, icon, image, align = 'start' }: Props = $props();
 </script>
 
 {#if icon || text || image?.src}
-	<div class="eyebrow" class:column={direction === 'column'} class:center={align === 'center'}>
+	<div class="eyebrow" class:center={align === 'center'}>
 		{#if image?.src}
 			<img class="eyebrow-image" src={image.src} alt={image.alt ?? ''} />
 		{/if}
@@ -32,18 +31,13 @@
 <style lang="scss">
 	.eyebrow {
 		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 8px;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 4px;
 		color: var(--color-accent-text);
 	}
 
-	.eyebrow.column {
-		flex-direction: column;
-		align-items: flex-start;
-	}
-
-	.eyebrow.column.center {
+	.eyebrow.center {
 		align-items: center;
 	}
 

@@ -28,7 +28,7 @@
 	});
 </script>
 
-<HeroImageCircle {...hero} {cta} direction="center" />
+<HeroImageCircle id="hero" {...hero} {cta} direction="center" />
 <VideoSection
 	id="video"
 	{...videoSection}
@@ -39,8 +39,13 @@
 		sideControls: { side: 'left', volume: true, fullscreen: true }
 	}}
 />
-<Headline {...headline} eyebrowDirection="column" />
-<GalleryHorizontal {...gallery} />
-<CarouselTunnel {...carousel} autoplay={{ interval: 2400, quickStart: true }} titleEffect="scale" />
-<FinanceMarquee {...financeMarquee} />
-<Oss {...oss} />
+<Headline id="headline" {...headline} />
+<GalleryHorizontal id="gallery" {...gallery} />
+<CarouselTunnel
+	id="carousel"
+	{...carousel}
+	autoplay={{ interval: 2400, quickStart: true }}
+	titleEffect="scale"
+/>
+<FinanceMarquee id="finance" {...financeMarquee} />
+<Oss id="oss" {...oss} />
