@@ -217,7 +217,10 @@ export const mouseTooltipProps = props(
 );
 
 export const videoPlayerProps = props(
-	['src', 'A string, the video file. Self-hosted or CDN files are best. Required.'],
+	[
+		'src',
+		'A string, the video file, a Mux playback ID, an HLS `.m3u8` stream or a Dropbox share link. Self-hosted or CDN files are best. Required.'
+	],
 	['poster', 'A string, an image shown before the video plays.'],
 	['captions', 'A string, the path to a `.vtt` captions file.'],
 	['captionsLang', 'A string, the captions language. Defaults to `en`.'],
@@ -1418,6 +1421,7 @@ export const richTextProps = props(
 	['.italic', 'Italic.'],
 	['.primary', 'The accent color, for text.'],
 	['.scribble', 'A thin hand-drawn zigzag underline (see Scribble under Attachments).'],
+	['.scribble-circle', 'A thin hand-drawn loop around the words (see Scribble under Attachments).'],
 	['.secondary', 'The secondary brand color, `--color-secondary`.'],
 	['.secondary-alt', 'The light secondary color, `--on-background-alt`.'],
 	['.stroke', 'Outlined text with no fill.'],

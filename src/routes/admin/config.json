@@ -60,7 +60,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -214,9 +214,9 @@
 							"fields": [
 								{
 									"name": "src",
-									"label": "Video file URL",
+									"label": "Video source",
 									"widget": "string",
-									"hint": "A self-hosted or CDN video file."
+									"hint": "A Mux playback ID, a Dropbox share link, or a video file URL."
 								},
 								{
 									"name": "poster",
@@ -257,7 +257,7 @@
 							"name": "text",
 							"label": "Statement",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						}
 					]
 				},
@@ -419,10 +419,10 @@
 									"fields": [
 										{
 											"name": "src",
-											"label": "Video file URL",
+											"label": "Video source",
 											"widget": "string",
 											"required": false,
-											"hint": "A self-hosted or CDN video file."
+											"hint": "A Mux playback ID, a Dropbox share link, or a video file URL."
 										},
 										{
 											"name": "poster",
@@ -1447,7 +1447,7 @@
 							"label": "Title",
 							"widget": "string",
 							"required": false,
-							"hint": "The heading at the top left."
+							"hint": "The heading at the top left. Style words with [words]{.scribble-circle}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong."
 						},
 						{
 							"name": "level",

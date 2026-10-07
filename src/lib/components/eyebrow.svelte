@@ -44,7 +44,7 @@
 	.eyebrow-image {
 		height: var(--eyebrow-image-height, 24px);
 		width: auto;
-		max-width: 100%;
+		max-width: 128px;
 	}
 
 	.eyebrow-icon {

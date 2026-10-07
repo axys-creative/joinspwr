@@ -36,6 +36,7 @@
 	import site from '$lib/content/meta/site.json';
 	import { notchedBoxPath, roundedBoxPath } from '$lib/utils/gnomon';
 	import Button from './button.svelte';
+	import RichText from './rich-text.svelte';
 	import MenuLinks from './menu-links.svelte';
 	import SocialLinks from './social-links.svelte';
 
@@ -127,7 +128,9 @@
 		<div class="content">
 			<div class="head">
 				{#if title}
-					<svelte:element this={`h${level}`} class="title h3">{title}</svelte:element>
+					<svelte:element this={`h${level}`} class="title h3"
+						><RichText text={title} /></svelte:element
+					>
 				{/if}
 				{#if cta}<Button {...cta} {@attach textRoll()} />{/if}
 			</div>

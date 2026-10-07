@@ -27,12 +27,15 @@ const numbersOf = (curve: ScribbleCurve) => {
 	return found.length === 4 && found.every(Number.isFinite) ? found : null;
 };
 
+// A dry-brush stroke: a blunt start that thickens quickly, then a long taper into a thin, broken tail.
+const profile = (t: number) => Math.min(1, t / 0.07) ** 0.5 * (1 - t ** 2.5);
+
 export type ScribbleShape = {
 	/** The widest point as a share of the box's height. */
 	thickness?: number;
 	/** How ragged the edges are, from 0 (smooth) to 1. */
 	rough?: number;
-	/** How many dry streaks are left bare inside the stroke. */
+	/** How many dry streaks are left bare inside the stroke. The body is solid unless this is set. */
 	streaks?: number;
 	/** Any number gives the same stroke every time. Without it each stroke is different. */
 	seed?: number;
@@ -138,8 +141,9 @@ function along(points: number[][], count: number) {
 type Sample = { x: number; y: number; nx: number; ny: number; half: number };
 
 /**
- * Turns a centerline into the outline of a stroke, as an SVG path to fill with the even-odd rule: the edges wobble and
- * are chipped in places, and thin streaks are cut out of the inside, like a dry brush.
+ * Turns a centerline into the outline of a stroke, as an SVG path to fill with the even-odd rule: a solid body whose edges
+ * wobble and are chipped in places, going ragged toward the tail, where flecks break away from it, like a dry brush.
+ * Thin streaks can also be cut out of the inside.
  */
 function outline(samples: Sample[], rand: () => number, rough: number, streaks: number) {
 	const steps = samples.length - 1;
@@ -164,12 +168,20 @@ function outline(samples: Sample[], rand: () => number, rough: number, streaks: 
 			return near > 0 ? Math.max(deepest, near * b.depth) : deepest;
 		}, 0);
 
+	// Past the middle the edges grow ragged: random bites that get bigger and more frequent toward the tail.
+	const tailAt = (step: number) => {
+		const k = Math.max(0, (step / steps - 0.45) / 0.55);
+		return k * k * (3 - 2 * k);
+	};
+	const jag = [1, -1].map(() => Array.from({ length: steps + 1 }, () => rand() ** 2));
+
 	const edge = (side: 1 | -1) =>
 		samples.map(({ x, y, nx, ny, half }, i) => {
 			const slow = side === 1 ? slowTop(i) : slowBottom(i);
 			const fast = side === 1 ? fastTop(i) : fastBottom(i);
 			const wobbly = rough * (0.28 * slow + 0.16 * fast);
-			const reach = half * Math.max(0.12, 1 + wobbly - bite(i, side === 1 ? 0 : 1));
+			const ragged = tailAt(i) * rough * 1.4 * jag[side === 1 ? 0 : 1][i];
+			const reach = half * Math.max(0.1, 1 + wobbly - bite(i, side === 1 ? 0 : 1) - ragged);
 			const offset = side * reach;
 			return `${(x + nx * offset).toFixed(2)} ${(y + ny * offset).toFixed(2)}`;
 		});
@@ -177,6 +189,23 @@ function outline(samples: Sample[], rand: () => number, rough: number, streaks: 
 	const lower = edge(-1).reverse();
 
 	let d = `M${upper.join(' L')} L${lower.join(' L')}Z`;
+
+	// Flecks: small specks that have come away from the body along its tail, on either side of the line.
+	const flecks = Math.round(rough * 24);
+	for (let n = 0; n < flecks; n++) {
+		const at = Math.round(steps * (0.55 + rand() * 0.45));
+		const { x, y, nx, ny, half } = samples[Math.min(at, steps)];
+		const side = rand() < 0.5 ? 1 : -1;
+		const distance = side * (half * 1.1 + peak * (0.04 + rand() * 0.3));
+		const radius = peak * (0.08 + rand() * 0.18);
+		const turn = rand() * Math.PI;
+		const points = Array.from({ length: 7 }, (_, k) => {
+			const angle = turn + (k / 7) * Math.PI * 2;
+			const r = radius * (0.65 + rand() * 0.6);
+			return `${(x + nx * distance + Math.cos(angle) * r).toFixed(2)} ${(y + ny * distance + Math.sin(angle) * r).toFixed(2)}`;
+		});
+		d += ` M${points.join(' L')}Z`;
+	}
 
 	// Dry streaks: thin slivers along the stroke, cut out with the even-odd rule.
 	for (let n = 0; n < streaks; n++) {
@@ -213,7 +242,7 @@ export function scribblePath(
 	{
 		thickness = 0.35,
 		rough = 0.5,
-		streaks = 3,
+		streaks = 0,
 		seed = Math.random() * 4294967296
 	}: ScribbleShape = {}
 ) {
@@ -234,7 +263,7 @@ export function scribblePath(
 		kind === 'zigzag' || kind === 'notch' ? along(soften(segments(kind, rand)), STEPS) : null;
 	for (let i = 0; i <= STEPS; i++) {
 		const t = i / STEPS;
-		const half = (thickness * HEIGHT * Math.sin(Math.PI * t) ** 0.5) / 2;
+		const half = (thickness * HEIGHT * profile(t)) / 2;
 		if (straight) {
 			const { x, y, dx, dy } = straight[i];
 			const length = Math.hypot(dx, dy) || 1;
@@ -268,7 +297,7 @@ export function scribblePath(
 export function scribbleLoop(
 	width: number,
 	height: number,
-	{ width: stroke = 6, rough = 0.5, streaks = 3, seed = Math.random() * 4294967296 } = {}
+	{ width: stroke = 6, rough = 0.5, streaks = 0, seed = Math.random() * 4294967296 } = {}
 ) {
 	const rand = random(seed);
 	const start = ((-70 + rand() * 40) * Math.PI) / 180;
@@ -298,7 +327,7 @@ export function scribbleLoop(
 		const a = points[Math.max(0, i - 1)];
 		const b = points[Math.min(STEPS, i + 1)];
 		const length = Math.hypot(b.x - a.x, b.y - a.y) || 1;
-		const half = (stroke * Math.sin(Math.PI * (i / STEPS)) ** 0.5) / 2;
+		const half = (stroke * profile(i / STEPS)) / 2;
 		return { x, y, nx: -(b.y - a.y) / length, ny: (b.x - a.x) / length, half };
 	});
 

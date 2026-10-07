@@ -43,6 +43,7 @@
 <script lang="ts">
 	import { cursorField, type CursorFieldOptions } from '$lib/attachments/cursor-field';
 	import { glass } from '$lib/attachments/glass';
+	import { isHls, videoPoster, videoUrl } from '$lib/utils/video-url';
 	import Icon from './icon.svelte';
 
 	const TICK_GAP = 8;
@@ -71,6 +72,9 @@
 	}: VideoPlayerProps = $props();
 
 	const frosted = $derived(glassProp ?? track === 'glass');
+	const url = $derived(videoUrl(src));
+	const hls = $derived(isHls(url));
+	const posterUrl = $derived(poster ?? videoPoster(src));
 
 	let video = $state<HTMLVideoElement>();
 	let paused = $state(true);
@@ -79,6 +83,44 @@
 	let muted = $state(false);
 	let player = $state<HTMLElement>();
 	let fullscreen = $state(false);
+
+	// Chrome reports native HLS support it does not have, so hls.js goes first and native playback is the fallback.
+	$effect(() => {
+		if (!video || !hls) return;
+		const element = video;
+
+		let cancelled = false;
+		let destroy: (() => void) | undefined;
+		import('hls.js').then(({ default: Hls }) => {
+			if (cancelled) return;
+			if (!Hls.isSupported()) {
+				element.src = url;
+				return;
+			}
+			const instance = new Hls();
+			instance.loadSource(url);
+			instance.attachMedia(element);
+			destroy = () => instance.destroy();
+		});
+		return () => {
+			cancelled = true;
+			destroy?.();
+		};
+	});
+
+	// Scrolling out of view pauses it, and it stays paused on return. Looping background videos and picture-in-picture
+	// keep going.
+	$effect(() => {
+		if (!player || !video || rest.autoplay) return;
+		const element = video;
+		const observer = new IntersectionObserver(([entry]) => {
+			if (entry.isIntersecting || element.paused) return;
+			if (document.fullscreenElement || document.pictureInPictureElement === element) return;
+			element.pause();
+		});
+		observer.observe(player);
+		return () => observer.disconnect();
+	});
 
 	const volumeIcon = $derived(
 		muted ? 'volume-off' : volume === 0 ? 'volume-mute' : volume < 0.5 ? 'volume-down' : 'volume-up'
@@ -194,8 +236,8 @@
 				bind:muted
 				bind:currentTime
 				bind:duration
-				{src}
-				{poster}
+				src={hls ? undefined : url}
+				poster={posterUrl}
 				{controls}
 				{preload}
 				{title}

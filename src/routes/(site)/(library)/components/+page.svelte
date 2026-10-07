@@ -722,7 +722,7 @@
 	<LibrarySection
 		title="Video Player"
 		type="Component"
-		description="A plain `<video>` with custom controls under it (a play/pause button, a seek track and the time) and a play button of your own resting on top while it is not playing. The track comes in three looks: `solid`, `ticks` and `glass`. Pass `controls` to use the browser's own controls instead. The button follows the video's own state, so it fades out however playback starts. It is a simple way to style the video tag: pass the icon, the frame shape and the button's colors and size, and any video attribute goes straight through. For a video in a popup, use the Video Overlay."
+		description="A plain `<video>` with custom controls under it (a play/pause button, a seek track and the time) and a play button of your own resting on top while it is not playing. The track comes in three looks: `solid`, `ticks` and `glass`. Pass `controls` to use the browser's own controls instead. The button follows the video's own state, so it fades out however playback starts. It is a simple way to style the video tag: pass the icon, the frame shape and the button's colors and size, and any video attribute goes straight through. A playing video pauses when it scrolls out of view and stays paused when it returns (not for `autoplay` videos, fullscreen or picture-in-picture). It plays Mux playback IDs and HLS streams through hls.js, and turns Dropbox share links into direct files. For a video in a popup, use the Video Overlay."
 		props={videoPlayerProps}
 	>
 		<div class="video-demo">

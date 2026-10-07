@@ -2,6 +2,7 @@ export const richTextClasses = [
 	'italic',
 	'primary',
 	'scribble',
+	'scribble-circle',
 	'secondary',
 	'secondary-alt',
 	'stroke',
@@ -29,7 +30,8 @@ export function richTextToken(words: string, classes: string) {
 	const text = escapeHtml(words);
 	if (!known.length) return text;
 
-	const behavior = known.includes('scribble') ? ' data-rich-text="scribble"' : '';
+	const drawn = known.find((name) => name.startsWith('scribble'));
+	const behavior = drawn ? ` data-rich-text="${drawn}"` : '';
 	return `<span class="${known.map((name) => `rich-text--${name}`).join(' ')}"${behavior}>${text}</span>`;
 }
 
