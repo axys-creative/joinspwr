@@ -1,5 +1,6 @@
 import type { Component } from 'svelte';
 import globalCss from '../../styles/styles.scss?inline';
+import CircleHighlight from '$lib/sections/circle-highlight.svelte';
 import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 import Headline from '$lib/sections/headline.svelte';
 import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
@@ -31,6 +32,10 @@ const previews: Record<string, Preview> = {
 		component: CarouselTunnel as unknown as Section,
 		props: (data) => ({ ...data, slides: data.slides ?? [], static: true })
 	},
+	circle_highlight: {
+		component: CircleHighlight as unknown as Section,
+		props: (data) => ({ ...data, slices: data.slices ?? [] })
+	},
 	finance_marquee: {
 		component: FinanceMarquee as unknown as Section,
 		props: (data) => ({ ...data, logos: data.logos ?? [] })
@@ -52,6 +57,18 @@ const previews: Record<string, Preview> = {
 				images: data.images ?? [],
 				cta: { primary: cta.primary, secondary: cta.secondary?.text ? cta.secondary : undefined },
 				direction: 'center'
+			};
+		}
+	},
+	hero_image_circle_left: {
+		component: HeroImageCircle as unknown as Section,
+		props: (data) => {
+			const cta = (data.cta ?? {}) as Cta;
+			return {
+				...data,
+				images: data.images ?? [],
+				cta: { primary: cta.primary, secondary: cta.secondary?.text ? cta.secondary : undefined },
+				direction: 'left'
 			};
 		}
 	},

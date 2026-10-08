@@ -1021,11 +1021,15 @@ export const circleHighlightProps = props(
 	],
 	[
 		'orientation',
-		'`default | tilted`. `default` centers the first slice at 12 o’clock. `tilted` puts a division there instead. Defaults to `default`.'
+		'`default | tilted | tilted-left`. `default` centers the first slice at 12 o’clock. `tilted` puts a division there instead, with the first slice on its right (top right of four). `tilted-left` puts the first slice on its left (top left of four). Defaults to `default`.'
 	],
 	[
 		'image',
 		'An image in the hole, shown until the section pins. It takes Logo props (`src`, `srcLight`, `srcDark`, `alt`), so it can change with the theme.'
+	],
+	[
+		'imageScale',
+		'A number that scales the image in the hole, with `1` its normal size. Defaults to `1`.'
 	],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );

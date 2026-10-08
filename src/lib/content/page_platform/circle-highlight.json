@@ -1,0 +1,32 @@
+{
+	"eyebrowText": "",
+	"eyebrowIcon": "",
+	"title": "",
+	"description": "",
+	"slices": [
+		{
+			"title": "In-house installations",
+			"description": ""
+		},
+		{
+			"title": "Premium equipment",
+			"description": ""
+		},
+		{
+			"title": "Industry-leading protection",
+			"description": ""
+		},
+		{
+			"title": "Superior technology",
+			"description": ""
+		}
+	],
+	"holeSize": 64,
+	"radius": 3,
+	"gap": 4,
+	"image": {
+		"src": "/uploads/logo-sunpower.svg",
+		"alt": "SunPower"
+	},
+	"imageScale": 1.35
+}

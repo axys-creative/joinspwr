@@ -18,10 +18,14 @@
 		gap?: number;
 		/** `outside` places each caption around the ring. `inside` shows only the active one, in the hole. */
 		captionPlacement?: 'outside' | 'inside';
-		/** `default` centers the first slice at 12 o'clock. `tilted` puts a division there. */
-		orientation?: 'default' | 'tilted';
+		/** `default` centers the first slice at 12 o'clock. `tilted` puts a division there with the first slice on its right, `tilted-left` on its left. */
+		orientation?: 'default' | 'tilted' | 'tilted-left';
 		/** Sits in the hole and shows until the section pins. A Logo's props, so it can change with the theme. */
 		image?: Pick<LogoProps, 'src' | 'srcLight' | 'srcDark' | 'alt'>;
+		/** Scales the image in the hole, with `1` its normal size. */
+		imageScale?: number;
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
 		class?: string;
 	};
 </script>
@@ -48,6 +52,8 @@
 		captionPlacement = 'outside',
 		orientation = 'default',
 		image,
+		imageScale = 1,
+		id,
 		class: className,
 		...copy
 	}: CircleHighlightProps = $props();
@@ -109,6 +115,7 @@
 </script>
 
 <section
+	{id}
 	class="circle-highlight {className ?? ''}"
 	class:armed
 	class:started
@@ -135,7 +142,7 @@
 				</svg>
 
 				{#if image}
-					<div class="hole-image" style="--hole-diameter: {hole}%">
+					<div class="hole-image" style="--hole-diameter: {hole}%; --image-scale: {imageScale}">
 						<Logo {...image} />
 					</div>
 				{/if}
@@ -222,6 +229,11 @@
 		}
 	}
 
+	// Without copy beside it the captions hang evenly around the ring, so it sits dead center.
+	.centered .ring-wrap {
+		margin-inline: auto;
+	}
+
 	.ring {
 		position: absolute;
 		// Leaves room outside the ring, inside the same box, for the captions.
@@ -248,7 +260,7 @@
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		width: min(30cqw, 200px);
+		width: min(34cqw, 240px);
 		translate: calc(-50% + var(--x)) calc(-50% + var(--y));
 		text-align: center;
 
@@ -282,6 +294,7 @@
 		width: var(--hole-diameter, 40%);
 		padding-inline: 12%;
 		translate: -50% -50%;
+		scale: var(--image-scale, 1);
 
 		@include mixins.mq-motion-allow {
 			transition: opacity 0.4s var(--ease);

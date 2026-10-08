@@ -1041,11 +1041,39 @@
 			"label": "Page - Platform",
 			"files": [
 				{
-					"name": "hero_simple",
+					"name": "hero_image_circle_left",
 					"label": "Hero",
-					"file": "src/lib/content/page_platform/hero-simple.json",
+					"file": "src/lib/content/page_platform/hero-image-circle.json",
 					"preview_path": "platform",
 					"fields": [
+						{
+							"name": "eyebrowImage",
+							"label": "Eyebrow image",
+							"widget": "object",
+							"required": false,
+							"hint": "A picture in the eyebrow, such as a wide logo.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": false
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -1055,13 +1083,316 @@
 						{
 							"name": "title",
 							"label": "Title",
-							"widget": "string"
+							"widget": "string",
+							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
 							"label": "Description",
 							"widget": "text",
 							"required": false
+						},
+						{
+							"name": "images",
+							"label": "Circle images",
+							"widget": "list",
+							"min": 4,
+							"hint": "The cards that spin around the circles.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "scrub",
+							"label": "Scroll spin",
+							"widget": "number",
+							"value_type": "float",
+							"min": 0,
+							"default": 0,
+							"required": false,
+							"hint": "Spins the circles as the page scrolls, about a quarter turn over the section's pass at 1. 0 is off."
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"required": true,
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false,
+											"hint": "Optional aria-label for screen readers"
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
+										}
+									]
+								},
+								{
+									"name": "secondary",
+									"label": "Secondary button",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false,
+											"hint": "Optional aria-label for screen readers"
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "headline",
+					"label": "Headline",
+					"file": "src/lib/content/page_platform/headline.json",
+					"preview_path": "platform#headline",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "text",
+							"label": "Quote",
+							"widget": "text",
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+						},
+						{
+							"name": "quote",
+							"label": "Credit",
+							"widget": "object",
+							"required": false,
+							"hint": "Who said it. Leave the name empty for a plain headline without quotes.",
+							"fields": [
+								{
+									"name": "name",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "role",
+									"label": "Role",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Photo",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "circle_highlight",
+					"label": "Circle highlight",
+					"file": "src/lib/content/page_platform/circle-highlight.json",
+					"preview_path": "platform#circle-highlight",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false,
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "slices",
+							"label": "Slices",
+							"widget": "list",
+							"min": 2,
+							"hint": "One slice of the ring each, highlighted in turn clockwise as the page scrolls.",
+							"fields": [
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string"
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "holeSize",
+							"label": "Hole size",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"max": 99,
+							"required": false,
+							"hint": "The hole as a percent of the ring's radius. Bigger is a thinner ring; 0 is solid pie slices."
+						},
+						{
+							"name": "radius",
+							"label": "Corner radius",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"max": 20,
+							"required": false,
+							"hint": "The curve on every slice corner."
+						},
+						{
+							"name": "gap",
+							"label": "Gap",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"max": 20,
+							"required": false,
+							"hint": "The space between slices."
+						},
+						{
+							"name": "imageScale",
+							"label": "Center image scale",
+							"widget": "number",
+							"value_type": "float",
+							"min": 0.1,
+							"default": 1,
+							"required": false,
+							"hint": "1 is the image's normal size in the hole."
+						},
+						{
+							"name": "image",
+							"label": "Center image",
+							"widget": "object",
+							"required": false,
+							"hint": "Sits in the hole and shows until the section pins.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": false
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
 						}
 					]
 				}

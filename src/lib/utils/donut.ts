@@ -8,8 +8,8 @@ export type DonutOptions = {
 	radius: number;
 	/** The space left between neighboring slices, in the same units. */
 	gap: number;
-	/** `default` centers slice 0 at 12 o'clock. `tilted` puts a division there. */
-	orientation: 'default' | 'tilted';
+	/** `default` centers slice 0 at 12 o'clock. `tilted` puts a division there with slice 0 to its right, `tilted-left` with slice 0 to its left. */
+	orientation: 'default' | 'tilted' | 'tilted-left';
 };
 
 const CENTER = 50;
@@ -26,7 +26,8 @@ export function donutSlice({ index, count, holeSize, radius, gap, orientation }:
 	const inner = (OUTER * Math.min(Math.max(holeSize || 0, 0), 99)) / 100;
 	const hasHole = inner > 1;
 	const step = 360 / slices;
-	const start = index * step + (orientation === 'tilted' ? 0 : -step / 2);
+	const offset = orientation === 'tilted' ? 0 : orientation === 'tilted-left' ? -step : -step / 2;
+	const start = index * step + offset;
 	const end = start + step;
 	// Unaffected by the gap, so a caption stays centered on the slice's original sweep.
 	const middle = start + step / 2;

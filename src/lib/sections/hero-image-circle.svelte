@@ -214,6 +214,21 @@
 		}
 	}
 
+	// Stacked, left-aligned copy centers like the default hero's.
+	.left .inner > :global(.section-copy) {
+		@include mixins.max-lg {
+			align-items: center;
+			margin-inline: auto;
+			text-align: center;
+			text-wrap: balance;
+
+			:global(.heading),
+			:global(.body) {
+				align-items: center;
+			}
+		}
+	}
+
 	.first {
 		left: 0;
 		translate: calc(-50% - var(--offset)) -50%;
@@ -239,8 +254,12 @@
 
 	.left {
 		@include mixins.min-lg {
+			// Flush with the header logo, which sits at the content edge with no inner padding.
 			.inner {
 				justify-content: flex-start;
+				width: min(var(--content-width), 100% - var(--body-padding) * 2);
+				max-width: none;
+				padding-inline: 0;
 			}
 
 			.first {
