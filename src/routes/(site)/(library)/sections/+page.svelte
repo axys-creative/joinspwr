@@ -13,6 +13,7 @@
 		heroImageWaveProps,
 		heroSimpleProps,
 		ossProps,
+		photoColumnsProps,
 		planSelectionProps,
 		scrollHorizontalProps,
 		scrollStackProps,
@@ -31,6 +32,7 @@
 	import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 	import HeroImageWave from '$lib/sections/hero-image-wave.svelte';
 	import HeroSimple from '$lib/sections/hero-simple.svelte';
+	import PhotoColumns from '$lib/sections/photo-columns.svelte';
 	import Oss from '$lib/sections/oss.svelte';
 	import PlanSelection from '$lib/sections/plan-selection.svelte';
 	import ScrollHorizontal from '$lib/sections/scroll-horizontal.svelte';
@@ -534,6 +536,23 @@
 				alt: ''
 			}))}
 			{cta}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Photo Columns"
+		type="Section"
+		description="Section Copy centered above four columns of Card Gnomon images, whose taller second and fourth columns start lower and move up into place as you scroll. It is Image Columns with a title, so the columns, start and images are all settable."
+		props={photoColumnsProps}
+	>
+		<PhotoColumns
+			class="full"
+			title="Photo Columns"
+			description="A short paragraph above the columns."
+			images={Array.from({ length: 10 }, (_, index) => ({
+				src: `/uploads/spwr-img-portrait-${index + 1}.webp`,
+				alt: ''
+			}))}
 		/>
 	</LibrarySection>
 

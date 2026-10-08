@@ -1,0 +1,36 @@
+{
+	"eyebrowText": "Life at SPWR",
+	"title": "Year of [Gear]{.secondary-alt}",
+	"description": "Work hard. Earn gear. Stand out. Unlock exclusive merch by achieving sales milestones throughout the year.",
+	"columns": [4, 5, 4, 5],
+	"images": [
+		{
+			"src": "/uploads/yog-gear-bag.webp",
+			"alt": "Bag"
+		},
+		{
+			"src": "/uploads/yog-gear-hat.webp",
+			"alt": "Hat"
+		},
+		{
+			"src": "/uploads/yog-gear-jacket.webp",
+			"alt": "Jacket"
+		},
+		{
+			"src": "/uploads/yog-gear-segway.webp",
+			"alt": "Segway"
+		},
+		{
+			"src": "/uploads/yog-gear-shirt-long-sleeve.webp",
+			"alt": "Long sleeve shirt"
+		},
+		{
+			"src": "/uploads/yog-gear-shirt-t.webp",
+			"alt": "T-shirt"
+		},
+		{
+			"src": "/uploads/yog-gear-skateboard.webp",
+			"alt": "Skateboard"
+		}
+	]
+}

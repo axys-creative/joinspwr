@@ -487,10 +487,14 @@ export const imageColumnsProps = props(
 		'startOffset',
 		"A number or string, px (`40` or `'40px'`) or a percent of the shortest column's height (`'-10%'`). Moving columns start this far from their resting place, so their tops are staggered; the end, bottoms aligned, is unchanged."
 	],
+	[
+		'cardAspect',
+		'A string, the shape of every card as a CSS `aspect-ratio`, such as `1 / 1`. Defaults to `3 / 4`.'
+	],
 	['markers', 'A boolean. Shows GSAP start and end markers for debugging. Defaults to `false`.'],
 	[
 		'gnomon',
-		'An object `{ depth, length, radius, angle, borderWidth, cutouts }`. When set, every image is drawn as a Card Gnomon with these settings, and a `caption` fills the first notch.'
+		"An object `{ depth, length, radius, angle, borderWidth, cutouts, imageSize }`. When set, every image is drawn as a Card Gnomon with these settings, and a `caption` fills the first notch. An image's own `background` is the card's fill."
 	],
 	['class', 'A string of extra classes.']
 );
@@ -948,6 +952,14 @@ export const cardGnomonProps = props(
 		'A number, 45-90 degrees. Tilts each notch from a square step (`90`) toward a single diagonal. Keep it around 75-85 for a crisp diagonal with rounded ends; much lower and a large `radius` rounds the notch into one blob. Defaults to `90`.'
 	],
 	['borderWidth', 'A number in px, the stroke width. Defaults to `2`.'],
+	[
+		'fill',
+		'A string, any CSS background for the card behind the image, such as a color or gradient. Defaults to the surface color.'
+	],
+	[
+		'imageSize',
+		"A number, 1 to 100. The image is this % of the card's width and height, centered and uncropped, instead of filling the card. Leave it out to fill."
+	],
 	[
 		'img',
 		'An object `{ src, alt, eager }` for the image that fills the card. `eager` loads it right away instead of lazily.'
@@ -1449,6 +1461,41 @@ export const ossProps = props(
 	[
 		'static',
 		'A boolean. The fan shows at once instead of animating in as it scrolls into view. The CMS preview uses it. Defaults to `false`.'
+	]
+);
+
+export const photoColumnsProps = props(
+	[
+		'title, description, eyebrowText, eyebrowIcon, cta',
+		'Copy from Section Copy (see the Style Guide), centered above the columns.'
+	],
+	[
+		'images',
+		'An array of `{ src, alt, caption, accent, background }`, drawn into the columns in order and looped if there are fewer than slots. Unless set, the caption is a season, the accent a year (2024 to 2026) and the background one of the two brand colors, varied by position. Required.'
+	],
+	[
+		'columns',
+		'An array, how many images each column holds (see Image Columns in Components). The slots are the total and always get filled: more images than slots are left out, and fewer repeat. Defaults to `[4, 5, 4, 5]`.'
+	],
+	[
+		'startOffset',
+		'A number or string, px or a percent (see Image Columns). The taller columns start this far lower and move up into place as the section scrolls. Defaults to `64`.'
+	],
+	[
+		'cardAspect',
+		'A string, the shape of every card as a CSS `aspect-ratio`. Defaults to `1 / 1.1`.'
+	],
+	[
+		'start',
+		'A string, when the columns begin moving, as a GSAP ScrollTrigger start (see Image Columns). Defaults to `top top`, when the top of the columns reaches the top of the screen.'
+	],
+	[
+		'gnomon',
+		'An object `{ depth, length, radius, angle, borderWidth, cutouts }`, the Card Gnomon settings every image is drawn with (see Image Columns). Defaults to `{ depth: 12, length: 44, radius: 4, angle: 80, imageSize: 75 }`.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
 	]
 );
 

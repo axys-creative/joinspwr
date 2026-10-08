@@ -1,0 +1,44 @@
+{
+	"title": "Operation{.br}SPWR [Serves]{.secondary-alt}",
+	"description": "We believe giving back should reach beyond borders. Every year, our team serves communities around the world, bringing relief, resources, and hope while learning from the people and cultures we encounter.",
+	"accent": "Costa Rica{.br}2026",
+	"images": [
+		{
+			"src": "/uploads/oss-costarica-1photo.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/oss-costarica-2photo.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/oss-costarica-3photo.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/oss-costarica-4photo.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/oss-costarica-5photo.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/oss-costarica-6photo.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/oss-costarica-7photo.webp",
+			"alt": ""
+		}
+	],
+	"cta": {
+		"primary": {
+			"text": "Explore OSS",
+			"textDescription": "Explore OSS",
+			"url": "/oss",
+			"newTab": false,
+			"iconEnd": ""
+		}
+	}
+}

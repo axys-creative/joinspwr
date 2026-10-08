@@ -4,7 +4,7 @@
 	/** Shared by every card when `gnomon` is set. The caption fills the first notch. */
 	export type ColumnsGnomon = Pick<
 		CardGnomonProps,
-		'depth' | 'length' | 'radius' | 'angle' | 'borderWidth' | 'cutouts'
+		'depth' | 'length' | 'radius' | 'angle' | 'borderWidth' | 'cutouts' | 'imageSize'
 	>;
 
 	export type ColumnImage = {
@@ -14,6 +14,8 @@
 		accent?: string;
 		/** Text along the bottom of a plain image, or inside the first notch of a gnomon card. */
 		caption?: string;
+		/** A CSS background behind the picture of a gnomon card, such as a color or gradient. */
+		background?: string;
 		/** Overrides for this card's `gnomon` settings. */
 		gnomon?: Partial<ColumnsGnomon>;
 	};
@@ -31,6 +33,8 @@
 		start?: string;
 		/** Where moving columns start, as px (`40` or `"40px"`) or a percent of the shortest column's height. */
 		startOffset?: number | string;
+		/** The shape of every card, as a CSS `aspect-ratio` (`"1 / 1"`). Defaults to `"3 / 4"`. */
+		cardAspect?: string;
 		/** Show GSAP's start and end markers for debugging. */
 		markers?: boolean;
 		/** Draw every image as a Card Gnomon with these settings. */
@@ -74,6 +78,7 @@
 		columnsSm,
 		start = 'top 95%',
 		startOffset,
+		cardAspect,
 		markers = false,
 		gnomon,
 		class: className
@@ -203,7 +208,9 @@
 	<div
 		bind:this={grid}
 		class="image-columns {className ?? ''}"
-		style="--count: {wide.length}; --count-md: {medium.length}; --count-sm: {narrow.length}"
+		style="--count: {wide.length}; --count-md: {medium.length}; --count-sm: {narrow.length}{cardAspect
+			? `; --card-aspect: ${cardAspect}`
+			: ''}"
 	>
 		{#each Array.from({ length: slots }, (_, slot) => slot) as slot (slot)}
 			{@const image = images[slot % total]}
@@ -217,6 +224,7 @@
 				{#if gnomon}
 					<CardGnomon
 						class="columns-gnomon"
+						fill={image.background}
 						img={{ src: image.src, alt: image.alt }}
 						{...{ ...gnomon, ...image.gnomon }}
 						cutouts={cutoutsFor(image)}
@@ -279,7 +287,7 @@
 	img {
 		display: block;
 		width: 100%;
-		aspect-ratio: 3 / 4;
+		aspect-ratio: var(--card-aspect, 3 / 4);
 		border-radius: var(--radius);
 		object-fit: cover;
 	}
@@ -288,20 +296,20 @@
 	.item :global(.columns-gnomon.columns-gnomon) {
 		--card-size: 100%;
 
-		aspect-ratio: 3 / 4;
+		aspect-ratio: var(--card-aspect, 3 / 4);
 	}
 
 	.accent {
 		position: absolute;
-		top: 0.5em;
-		left: 0.75em;
+		top: var(--accent-top, 0.5em);
+		left: var(--accent-left, 0.75em);
 		z-index: 2;
-		color: #fff;
+		color: var(--accent-color, #fff);
 		font-family: var(--font-accent);
-		font-size: clamp(20px, 2vw, 32px);
+		font-size: var(--accent-size, clamp(20px, 2vw, 32px));
 		line-height: 1;
 		text-shadow: 0 1px 4px rgb(0 0 0 / 0.6);
-		rotate: -6deg;
+		rotate: var(--accent-rotate, -6deg);
 		pointer-events: none;
 	}
 

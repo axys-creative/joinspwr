@@ -686,6 +686,353 @@
 							"required": false
 						}
 					]
+				},
+				{
+					"name": "headline",
+					"label": "Headline",
+					"file": "src/lib/content/page_culture/headline.json",
+					"preview_path": "culture#headline",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "text",
+							"label": "Quote",
+							"widget": "text",
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+						},
+						{
+							"name": "quote",
+							"label": "Credit",
+							"widget": "object",
+							"required": false,
+							"hint": "Who said it. Leave the name empty for a plain headline without quotes.",
+							"fields": [
+								{
+									"name": "name",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "role",
+									"label": "Role",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Photo",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "photo_columns",
+					"label": "Photo columns",
+					"file": "src/lib/content/page_culture/photo-columns.json",
+					"preview_path": "culture#photos",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "columns",
+							"label": "Images per column",
+							"widget": "list",
+							"min": 2,
+							"max": 6,
+							"default": [4, 5, 4, 5],
+							"hint": "One number per column, left to right. This sets how many pictures the section shows. Extra images below are left out, and fewer images repeat to fill it.",
+							"field": {
+								"name": "count",
+								"label": "Images",
+								"widget": "number",
+								"value_type": "int",
+								"min": 1,
+								"max": 8,
+								"default": 4
+							}
+						},
+						{
+							"name": "images",
+							"label": "Images",
+							"widget": "list",
+							"min": 1,
+							"hint": "They fill the columns top to bottom, left to right. Tall pictures work best.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "carousel_tunnel",
+					"label": "Carousel",
+					"file": "src/lib/content/page_culture/carousel-tunnel.json",
+					"preview_path": "culture#carousel",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "slides",
+							"label": "Slides",
+							"widget": "list",
+							"min": 3,
+							"fields": [
+								{
+									"name": "img",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								},
+								{
+									"name": "eyebrow",
+									"label": "Eyebrow",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "video",
+									"label": "Video",
+									"widget": "object",
+									"required": false,
+									"hint": "Optional. With a video, clicking the slide opens it in an overlay.",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Video source",
+											"widget": "string",
+											"required": false,
+											"hint": "A Mux playback ID, a Dropbox share link, or a video file URL."
+										},
+										{
+											"name": "poster",
+											"label": "Poster image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "title",
+											"label": "Accessible name",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "oss",
+					"label": "OSS",
+					"file": "src/lib/content/page_culture/oss.json",
+					"preview_path": "culture#oss",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accent",
+							"label": "Handwritten text",
+							"widget": "string",
+							"required": false,
+							"hint": "Shown in the top right corner of the fan, in the accent font. Use {.br} for a line break, like Level{.br}up."
+						},
+						{
+							"name": "images",
+							"label": "Fan images",
+							"widget": "list",
+							"min": 3,
+							"hint": "Tall pictures work best.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right)."
+										}
+									]
+								}
+							]
+						}
+					]
 				}
 			]
 		},

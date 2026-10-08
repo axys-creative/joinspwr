@@ -342,7 +342,7 @@
 	.picture-2 {
 		--tilt: 6deg;
 		--side: 20%;
-		--top: 56%;
+		--top: 44%;
 	}
 
 	.picture-3 {
@@ -353,7 +353,7 @@
 	.picture-4 {
 		--tilt: -6deg;
 		--side: 20%;
-		--top: 54%;
+		--top: 44%;
 	}
 
 	.shown .picture {

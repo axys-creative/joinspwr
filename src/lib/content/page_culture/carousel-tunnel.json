@@ -1,0 +1,86 @@
+{
+	"eyebrowText": "Culture",
+	"eyebrowIcon": "/uploads/icon-ticket.svg",
+	"title": "Experiences",
+	"description": "From exhilarating excursions to inspiring events, we go further together.",
+	"slides": [
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-7.webp",
+				"alt": ""
+			},
+			"eyebrow": "2025",
+			"title": "Northline",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-7.webp",
+				"title": "Northline"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-8.webp",
+				"alt": ""
+			},
+			"eyebrow": "2025",
+			"title": "Aperture",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-8.webp",
+				"title": "Aperture"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-9.webp",
+				"alt": ""
+			},
+			"eyebrow": "2024",
+			"title": "Glasswave",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-9.webp",
+				"title": "Glasswave"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-10.webp",
+				"alt": ""
+			},
+			"eyebrow": "2024",
+			"title": "Driftline",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-10.webp",
+				"title": "Driftline"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-11.webp",
+				"alt": ""
+			},
+			"eyebrow": "2023",
+			"title": "Meridian",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-11.webp",
+				"title": "Meridian"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-12.webp",
+				"alt": ""
+			},
+			"eyebrow": "2023",
+			"title": "Fernwood",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-12.webp",
+				"title": "Fernwood"
+			}
+		}
+	]
+}

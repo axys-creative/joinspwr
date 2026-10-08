@@ -65,8 +65,8 @@
 						/>
 					{/if}
 					<span class="info">
-						<strong>{quote.name}</strong>
-						{#if quote.role}<small>{quote.role}</small>{/if}
+						<span class="name">{quote.name}</span>
+						{#if quote.role}<span class="role">{quote.role}</span>{/if}
 					</span>
 				</figcaption>
 			</figure>
@@ -137,19 +137,27 @@
 	}
 
 	img {
+		--quote-img-size: 96px;
 		flex: none;
-		width: 48px;
-		height: 48px;
-		border-radius: 50%;
+		width: var(--quote-img-size);
+		height: var(--quote-img-size);
+		border-radius: var(--radius);
 		object-fit: cover;
 	}
 
 	.info {
 		display: flex;
 		flex-direction: column;
-	}
 
-	small {
-		color: var(--color-text-muted);
+		.name {
+			@include mixins.body-large;
+			text-transform: uppercase;
+			color: var(--on-background-accent);
+		}
+
+		.role {
+			@include mixins.body;
+			text-transform: uppercase;
+		}
 	}
 </style>

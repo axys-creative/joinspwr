@@ -6,6 +6,7 @@ import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 import Oss from '$lib/sections/oss.svelte';
+import PhotoColumns from '$lib/sections/photo-columns.svelte';
 import VideoSection from '$lib/sections/video-section.svelte';
 import { mountPreview, type PreviewHost } from './preview-host.svelte';
 
@@ -57,6 +58,14 @@ const previews: Record<string, Preview> = {
 	oss: {
 		component: Oss as unknown as Section,
 		props: (data) => ({ ...data, images: data.images ?? [], static: true })
+	},
+	photo_columns: {
+		component: PhotoColumns as unknown as Section,
+		props: (data) => ({
+			...data,
+			images: data.images ?? [],
+			columns: (data.columns as number[] | undefined)?.length ? data.columns : undefined
+		})
 	},
 	video_section: {
 		component: VideoSection as unknown as Section,

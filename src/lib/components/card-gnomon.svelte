@@ -15,6 +15,10 @@
 		angle?: number;
 		/** The stroke width in px. */
 		borderWidth?: number;
+		/** Any CSS background for the card behind the image, such as a color or gradient. Defaults to the surface color. */
+		fill?: string;
+		/** 1-100. When set, the image is this % of the card's width and height, centered and uncropped, instead of filling it. */
+		imageSize?: number;
 		img?: { src: string; alt?: string; eager?: boolean; sizes?: string };
 		/** Anything else the card holds, on top of the image. */
 		children?: Snippet;
@@ -33,6 +37,8 @@
 		radius = 8,
 		angle = 90,
 		borderWidth = 2,
+		fill,
+		imageSize,
 		img,
 		children,
 		class: className
@@ -50,7 +56,12 @@
 	);
 </script>
 
-<div class="card-gnomon {className ?? ''}" style="--border-width: {borderWidth}px">
+<div
+	class="card-gnomon {className ?? ''}"
+	style="--border-width: {borderWidth}px{fill ? `; --fill: ${fill}` : ''}{imageSize
+		? `; --image-size: ${imageSize}%`
+		: ''}"
+>
 	<svg class="stroke" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
 		<defs>
 			<clipPath {id} clipPathUnits="objectBoundingBox"><path d={shape.clip} /></clipPath>
@@ -58,7 +69,7 @@
 		<path d={shape.stroke} vector-effect="non-scaling-stroke" />
 	</svg>
 
-	<div class="inner" style="clip-path: url(#{id})">
+	<div class="inner" class:inset={!!imageSize} style="clip-path: url(#{id})">
 		{#if img?.src}
 			<img
 				{...imageProps(img.src, { sizes: img.sizes ?? '(min-width: 768px) 400px, 80vw' })}
@@ -128,6 +139,17 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	.inset {
+		display: grid;
+		place-items: center;
+
+		img {
+			width: var(--image-size);
+			height: var(--image-size);
+			object-fit: contain;
+		}
 	}
 
 	.body {

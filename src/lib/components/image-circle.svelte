@@ -171,7 +171,7 @@
 		margin: 0;
 		overflow: hidden;
 		border: 1px solid var(--color-border);
-		border-radius: var(--radius-card, 8px);
+		border-radius: var(--radius-card);
 		background: var(--color-surface);
 
 		@include mixins.mq-motion-allow {
