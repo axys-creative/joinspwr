@@ -13,6 +13,7 @@ $font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
 	--color-accent-text: #757500;
 	--color-error: #dc143c;
 	--color-glass: rgb(255 255 255 / 0.25);
+	--color-glass-hover: rgb(255 255 255 / 0.5);
 }
 
 :root {
@@ -83,6 +84,7 @@ $font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
 	--color-error: #dc143c;
 	--color-warning: #e8b84f;
 	--color-glass: rgb(0 0 0 / 0.25);
+	--color-glass-hover: rgb(255 255 255 / 0.1);
 
 	--content-width: 1200px;
 
@@ -114,6 +116,7 @@ $font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
 	--float-offset: 16px;
 	--z-nav: 3;
 	--z-header: 4;
+	--z-scroll-progress: 2;
 	--z-cursor-behind: 1;
 	--z-cursor: 10;
 	--z-alert: 20;

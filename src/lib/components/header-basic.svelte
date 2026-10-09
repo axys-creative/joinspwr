@@ -5,7 +5,7 @@
 	export type HeaderBasicProps = HeaderNavProps & {
 		/** `fixed` stays on screen while the page scrolls. `absolute` is part of the top of the page and scrolls away with it. */
 		position?: 'fixed' | 'absolute';
-		/** Slides out of view while scrolling down, and back as you scroll up. Only with `fixed`. */
+		/** Fades out once you scroll down past 120px, and back in as you scroll up. Keyboard focus anywhere in the header brings it back. Only with `fixed`. */
 		hideOnScroll?: boolean;
 		/** Draws over the page in inverted colors (`mix-blend-mode: difference`), so it stays readable over any picture or color. */
 		blend?: boolean;
@@ -72,10 +72,10 @@ link or button anywhere else on the page stays clickable, even right under it. -
 	class:blend
 	data-nav-open={open || undefined}
 	data-header-parts
-	{@attach position === 'fixed' ? watchScroll() : undefined}
+	{@attach position === 'fixed' ? watchScroll({ awayFromTop: 120 }) : undefined}
 >
 	{#if showSkipLink}
-		<a class="skip-link" href="#main">Skip to main content</a>
+		<Button class="skip-link" text="Skip to main content" url="#main" />
 	{/if}
 
 	{#if logo}
@@ -143,11 +143,13 @@ link or button anywhere else on the page stays clickable, even right under it. -
 		position: absolute;
 	}
 
-	// The header has no height of its own, so the logo and controls move by a distance that clears their tallest piece.
-	.hide:global([data-scroll-down]):not(:focus-within):not([data-nav-open]) {
+	// Keyboard focus inside the header (not a mouse click) keeps it visible, so tabbing to the logo, a button or the menu
+	// button never lands on something invisible.
+	.hide:global([data-scroll-down]):not(:has(:focus-visible)):not([data-nav-open]) {
 		.logo,
 		.controls {
-			translate: 0 calc(-1 * (var(--top) + 96px));
+			opacity: 0;
+			pointer-events: none;
 		}
 	}
 
@@ -166,7 +168,7 @@ link or button anywhere else on the page stays clickable, even right under it. -
 		pointer-events: auto;
 
 		@include mixins.mq-motion-allow {
-			transition: translate var(--duration) var(--ease);
+			transition: opacity var(--duration) var(--ease);
 		}
 	}
 
@@ -191,25 +193,29 @@ link or button anywhere else on the page stays clickable, even right under it. -
 		}
 	}
 
-	.skip-link {
+	// Invisible until it takes keyboard focus, then it scales and fades in just under the logo.
+	.header :global(.skip-link) {
 		position: absolute;
-		top: var(--top);
+		top: calc(var(--top) + var(--bar) + 12px);
 		@include mixins.left-spacing;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip-path: inset(50%);
-		white-space: nowrap;
-		pointer-events: auto;
+		opacity: 0;
+		scale: 0.9;
+		transform-origin: top left;
+		pointer-events: none;
+
+		@include mixins.mq-motion-allow {
+			transition:
+				opacity var(--duration) var(--ease),
+				background var(--duration) var(--ease),
+				color var(--duration) var(--ease),
+				border-color var(--duration) var(--ease),
+				scale var(--duration) var(--ease);
+		}
 
 		&:focus {
-			width: auto;
-			height: auto;
-			padding: 8px 16px;
-			clip-path: none;
-			border: 1px solid var(--color-border);
-			border-radius: var(--radius-btn);
-			background: var(--color-bg);
+			opacity: 1;
+			scale: 1;
+			pointer-events: auto;
 		}
 	}
 </style>

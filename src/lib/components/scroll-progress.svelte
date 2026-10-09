@@ -113,7 +113,7 @@
 
 	.scroll-progress {
 		position: fixed;
-		z-index: var(--z-scroll-progress, 5);
+		z-index: var(--z-scroll-progress, 2);
 		border-radius: 24px;
 		background: var(--color-surface);
 		pointer-events: none;

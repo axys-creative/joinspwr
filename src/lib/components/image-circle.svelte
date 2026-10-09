@@ -21,6 +21,10 @@
 		step?: number;
 		/** Holds the ring at this angle (degrees, clockwise) instead of spinning on its own, and eases between angles when it changes. */
 		rotation?: number;
+		/** Index of the card to keep at full size. Every other card shrinks to `recede`. Leave it out for no shrinking. */
+		focus?: number;
+		/** Scale of the cards that are not `focus`, 0-1. Defaults to `0.8`. */
+		recede?: number;
 		/** A faint ring of thin ticks behind the cards, tracing the path they travel. */
 		ticks?: boolean;
 		class?: string;
@@ -44,6 +48,8 @@
 		step: stepOverride,
 		rotation,
 		ticks = true,
+		focus,
+		recede = 0.8,
 		class: className
 	}: ImageCircleProps = $props();
 
@@ -63,7 +69,7 @@
 	undefined
 		? 'held'
 		: ''} {className ?? ''}"
-	style="--step: {step}; --gap: {gap}; --item-width: {itemWidth}; --duration: {duration}s{rotation !==
+	style="--step: {step}; --gap: {gap}; --item-width: {itemWidth}; --duration: {duration}s; --recede: {recede}{rotation !==
 	undefined
 		? `; --rotate: ${rotation}deg`
 		: ''}"
@@ -80,15 +86,17 @@
 	<div class="ring">
 		{#each images as image, index (index)}
 			<div class="item" style="--i: {index}">
-				<figure class="card">
-					<img
-						{...imageProps(image.src, { sizes })}
-						alt={image.alt ?? ''}
-						width={image.width ?? 400}
-						height={image.height ?? 400}
-						loading="lazy"
-					/>
-				</figure>
+				<div class="scale" class:receded={focus !== undefined && index !== focus}>
+					<figure class="card">
+						<img
+							{...imageProps(image.src, { sizes })}
+							alt={image.alt ?? ''}
+							width={image.width ?? 400}
+							height={image.height ?? 400}
+							loading="lazy"
+						/>
+					</figure>
+				</div>
 			</div>
 		{/each}
 	</div>
@@ -160,6 +168,22 @@
 		width: var(--w);
 		aspect-ratio: 1;
 		transform: translate(-50%, -50%) translate(var(--x), var(--y));
+	}
+
+	// Scaled apart from the item, so a smaller card stays where it is on the ring.
+	.scale {
+		display: grid;
+		place-items: center;
+		width: 100%;
+		height: 100%;
+
+		@include mixins.mq-motion-allow {
+			transition: scale 0.6s var(--ease);
+		}
+
+		&.receded {
+			scale: var(--recede);
+		}
 	}
 
 	// Each card turns against the ring so it stays upright as it orbits.

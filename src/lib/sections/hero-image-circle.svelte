@@ -267,6 +267,14 @@
 				left: auto;
 				translate: calc(50% + var(--offset)) -50%;
 			}
+
+			.inner > :global(.section-copy) {
+				max-width: min(820px, 62cqw);
+			}
+
+			:global(.description) {
+				max-width: 560px;
+			}
 		}
 	}
 

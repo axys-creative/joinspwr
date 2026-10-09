@@ -39,10 +39,24 @@
 <AlertStack />
 
 <style lang="scss">
+	@use 'base/mixins';
+
 	.site {
 		display: flex;
 		flex-direction: column;
 		min-height: 100lvh;
+	}
+
+	// NAV-DIM: page opacity while the menu is open (1 = no dimming), so the background shows through the glass.
+	.site:has(:global([data-nav-open])) :is(main, :global(footer)) {
+		opacity: 0.125;
+	}
+
+	main,
+	.site > :global(footer) {
+		@include mixins.mq-motion-allow {
+			transition: opacity 0.24s ease;
+		}
 	}
 
 	main {

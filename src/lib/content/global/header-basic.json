@@ -1,8 +1,8 @@
 {
 	"position": "fixed",
-	"hideOnScroll": false,
+	"hideOnScroll": true,
 	"blend": false,
-	"navSurface": "solid",
+	"navSurface": "blur",
 	"showSkipLink": true,
 	"navButton": {
 		"symbol": "stairs",

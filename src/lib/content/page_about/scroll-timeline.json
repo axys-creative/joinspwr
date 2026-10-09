@@ -1,0 +1,80 @@
+{
+	"title": "How we got here",
+	"description": "Scroll to move through the years that shaped who we are today.",
+	"events": [
+		{
+			"date": "1985",
+			"title": "Where it started",
+			"description": "A short description of this milestone, kept to a sentence or two.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-1.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "1995",
+			"title": "Growing the team",
+			"description": "A short description of this milestone, kept to a sentence or two.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-2.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "2005",
+			"title": "Coast to coast",
+			"description": "A short description of this milestone, kept to a sentence or two.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-3.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "2015",
+			"title": "A new standard",
+			"description": "A short description of this milestone, kept to a sentence or two.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-4.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "2020",
+			"title": "Building the platform",
+			"description": "A short description of this milestone, kept to a sentence or two.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-5.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "Today",
+			"title": "Powering brighter futures",
+			"description": "A short description of this milestone, kept to a sentence or two.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-6.webp",
+				"alt": ""
+			}
+		}
+	],
+	"imagesBefore": [
+		{
+			"src": "/uploads/spwr-img-landscape-7.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-8.webp",
+			"alt": ""
+		}
+	],
+	"imagesAfter": [
+		{
+			"src": "/uploads/spwr-img-landscape-9.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-10.webp",
+			"alt": ""
+		}
+	]
+}

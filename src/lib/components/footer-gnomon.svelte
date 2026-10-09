@@ -197,7 +197,8 @@
 	.surface {
 		position: absolute;
 		inset: 0;
-		background: var(--background);
+		background: var(--color-glass);
+		backdrop-filter: blur(12px);
 	}
 
 	// The notch is empty page, so the social links sit in it, not on the footer.

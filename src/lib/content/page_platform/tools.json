@@ -1,0 +1,41 @@
+{
+	"eyebrowText": "The toolkit",
+	"title": "Tools to [close]{.secondary-alt}",
+	"slides": [
+		{
+			"title": "Tool one",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-4.webp",
+				"alt": ""
+			}
+		},
+		{
+			"title": "Tool two",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-5.webp",
+				"alt": ""
+			}
+		},
+		{
+			"title": "Tool three",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-6.webp",
+				"alt": ""
+			}
+		},
+		{
+			"title": "Tool four",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-7.webp",
+				"alt": ""
+			}
+		},
+		{
+			"title": "Tool five",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-8.webp",
+				"alt": ""
+			}
+		}
+	]
+}

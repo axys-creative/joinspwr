@@ -3,6 +3,8 @@ export const richTextClasses = [
 	'primary',
 	'scribble',
 	'scribble-circle',
+	'scribble-circle-tight',
+	'scribble-circle-wide',
 	'secondary',
 	'secondary-alt',
 	'stroke',

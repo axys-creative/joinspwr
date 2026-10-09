@@ -3,11 +3,16 @@ import globalCss from '../../styles/styles.scss?inline';
 import CircleHighlight from '$lib/sections/circle-highlight.svelte';
 import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 import Headline from '$lib/sections/headline.svelte';
+import EarningsPotential from '$lib/sections/earnings-potential.svelte';
+import FinanceGrid from '$lib/sections/finance-grid.svelte';
 import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
+import HeroGnomon from '$lib/sections/hero-gnomon.svelte';
 import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 import Oss from '$lib/sections/oss.svelte';
 import PhotoColumns from '$lib/sections/photo-columns.svelte';
+import ScrollTimeline from '$lib/sections/scroll-timeline.svelte';
+import Tools from '$lib/sections/tools.svelte';
 import VideoSection from '$lib/sections/video-section.svelte';
 import { mountPreview, type PreviewHost } from './preview-host.svelte';
 
@@ -36,6 +41,14 @@ const previews: Record<string, Preview> = {
 		component: CircleHighlight as unknown as Section,
 		props: (data) => ({ ...data, slices: data.slices ?? [] })
 	},
+	earnings_potential: {
+		component: EarningsPotential as unknown as Section,
+		props: (data) => ({ ...data, tabs: data.tabs ?? [], static: true })
+	},
+	finance_grid: {
+		component: FinanceGrid as unknown as Section,
+		props: (data) => ({ ...data, logos: data.logos ?? [] })
+	},
 	finance_marquee: {
 		component: FinanceMarquee as unknown as Section,
 		props: (data) => ({ ...data, logos: data.logos ?? [] })
@@ -47,6 +60,10 @@ const previews: Record<string, Preview> = {
 	headline: {
 		component: Headline as unknown as Section,
 		props: (data) => ({ ...data, text: data.text ?? '' })
+	},
+	hero_gnomon: {
+		component: HeroGnomon as unknown as Section,
+		props: (data) => ({ ...data, slides: data.slides ?? [], autoplay: undefined })
 	},
 	hero_image_circle: {
 		component: HeroImageCircle as unknown as Section,
@@ -83,6 +100,18 @@ const previews: Record<string, Preview> = {
 			images: data.images ?? [],
 			columns: (data.columns as number[] | undefined)?.length ? data.columns : undefined
 		})
+	},
+	scroll_timeline: {
+		component: ScrollTimeline as unknown as Section,
+		props: (data) => ({
+			...data,
+			events: data.events ?? [],
+			variant: 'circle'
+		})
+	},
+	tools: {
+		component: Tools as unknown as Section,
+		props: (data) => ({ ...data, slides: data.slides ?? [] })
 	},
 	video_section: {
 		component: VideoSection as unknown as Section,

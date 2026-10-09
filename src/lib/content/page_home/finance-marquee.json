@@ -36,9 +36,9 @@
 	],
 	"cta": {
 		"primary": {
-			"text": "Learn more",
-			"textDescription": "Learn more",
-			"url": "/platform",
+			"text": "View all",
+			"textDescription": "View all finance options",
+			"url": "/platform#finance",
 			"newTab": false,
 			"iconEnd": ""
 		}

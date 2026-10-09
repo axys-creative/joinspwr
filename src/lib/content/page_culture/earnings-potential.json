@@ -1,0 +1,30 @@
+{
+	"title": "Your income grows [with you]{.secondary-alt}",
+	"chartLabel": "Average yearly earnings",
+	"tabs": [
+		{
+			"label": "Year 1",
+			"amount": 75000,
+			"title": "Hit the ground running",
+			"description": "Learn the product, build your pitch and start closing. Our training and coaching get you earning from your first month."
+		},
+		{
+			"label": "Year 2",
+			"amount": 120000,
+			"title": "Build momentum",
+			"description": "Referrals and repeat business start to stack up, and your close rate climbs with every conversation."
+		},
+		{
+			"label": "Year 3",
+			"amount": 180000,
+			"title": "Lead the pack",
+			"description": "Top reps mentor new teammates and move into leadership, earning override bonuses on top of their own sales."
+		},
+		{
+			"label": "Year 4",
+			"amount": 250000,
+			"title": "Own your career",
+			"description": "Veteran reps and managers earn well into six figures, with incentive trips, gear and recognition along the way."
+		}
+	]
+}

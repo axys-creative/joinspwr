@@ -6,19 +6,19 @@
 	"slices": [
 		{
 			"title": "In-house installations",
-			"description": ""
+			"description": "A fully unified solar experience from sale to install to service. Ensuring consistent quality and total accountability."
 		},
 		{
 			"title": "Premium equipment",
-			"description": ""
+			"description": "Black-on-black monopanels with interior conduit whenever possible for a clean, sleek look."
 		},
 		{
 			"title": "Industry-leading protection",
-			"description": ""
+			"description": "10-year workmanship plus roof penetration warranty, plus the only 2-year production guarantee in the industry."
 		},
 		{
 			"title": "Superior technology",
-			"description": ""
+			"description": "Safer, more reliable micro-inverters (not string inverters) paired with the Enphase and Enlighten app for real-time monitoring."
 		}
 	],
 	"holeSize": 64,

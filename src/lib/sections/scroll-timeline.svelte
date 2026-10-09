@@ -18,8 +18,14 @@
 		events: ScrollTimelineEvent[];
 		/** `details` shows the active event's title and text under the timeline. `circle` shows a ring of the events' images instead, and the event's details take the place of the section copy. */
 		variant?: 'details' | 'circle';
+		/** `circle` only: pictures on the ring before the first event, so the cards left of it are never empty. Two fill the visible arc. */
+		imagesBefore?: { src: string; alt?: string }[];
+		/** `circle` only: pictures on the ring after the last event. */
+		imagesAfter?: { src: string; alt?: string }[];
 		/** `center` stacks the copy in the middle. `split` puts the eyebrow and title on the left and the description on the right. */
 		copyLayout?: 'center' | 'split';
+		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
+		id?: string;
 		class?: string;
 	};
 </script>
@@ -32,8 +38,11 @@
 
 	let {
 		events,
+		imagesBefore = [],
+		imagesAfter = [],
 		variant = 'details',
 		copyLayout = 'center',
+		id,
 		class: className,
 		...copy
 	}: ScrollTimelineProps = $props();
@@ -62,8 +71,17 @@
 	let step = $state(0);
 	let trigger: ScrollTrigger | undefined;
 
+	const ringImages = $derived([
+		...imagesBefore,
+		...events.map((event) => event.image ?? { src: '' }),
+		...imagesAfter
+	]);
+
 	const active = $derived(circle ? Math.max(0, step - 1) : step);
 	const intro = $derived(circle && step === 0);
+	let past = $state(false);
+	// From the first event until the section scrolls away, the other cards on the ring shrink back.
+	const receded = $derived(circle && armed && step > 0 && !past);
 
 	// A pinned frame steps through the events as the page scrolls: the timeline slides to the active one, and the
 	// details (or the circle) follow. Without JavaScript or with reduced motion it is a plain list of events.
@@ -87,7 +105,10 @@
 					end: () => `+=${steps * innerHeight * DWELL}`,
 					pin: true,
 					invalidateOnRefresh: true,
-					onUpdate: (self) => (step = Math.min(steps - 1, Math.floor(self.progress * steps)))
+					onUpdate: (self) => {
+						step = Math.min(steps - 1, Math.floor(self.progress * steps));
+						past = self.progress >= 1;
+					}
 				});
 			}, pin);
 			revert = () => context.revert();
@@ -112,7 +133,7 @@
 	<SectionCopy {...props} {level} {layout} {align} />
 {/snippet}
 
-<section class="scroll-timeline variant-{variant} {className ?? ''}" class:armed>
+<section {id} class="scroll-timeline variant-{variant} {className ?? ''}" class:armed>
 	{#if !circle && hasCopy}
 		<header class="intro">{@render copyBlock(copy, 2)}</header>
 	{/if}
@@ -160,13 +181,14 @@
 			{#if circle}
 				<div class="circle-wrap">
 					<ImageCircle
-						images={events.map((event) => event.image ?? { src: '' })}
+						images={ringImages}
 						itemWidth={cardWidth}
 						bloom="top"
 						clip={false}
 						sizes="(min-width: 1024px) 300px, 150px"
 						step={ARC}
-						rotation={-active * ARC}
+						rotation={-(active + imagesBefore.length) * ARC}
+						focus={receded ? active + imagesBefore.length : undefined}
 					/>
 				</div>
 			{:else}
@@ -240,7 +262,7 @@
 	.variant-circle.armed .pin {
 		justify-content: flex-start;
 		gap: 24px;
-		padding-block: 96px 0;
+		padding-block: 144px 0;
 	}
 
 	.swap,
@@ -289,23 +311,51 @@
 		@include mixins.mq-motion-allow {
 			transition: translate 0.7s var(--ease);
 		}
-
-		// The line, from the middle of the first circle to the middle of the last, moving with them.
-		&::before {
-			content: '';
-			position: absolute;
-			inset: calc(var(--dot) / 2) calc(var(--timeline-step) / 2) auto;
-			border-block-start: 1px solid var(--color-border);
-		}
 	}
 
 	.stop {
+		--gap: 18px;
+		position: relative;
 		display: flex;
 		flex: none;
 		flex-direction: column;
 		align-items: center;
 		gap: 16px;
 		width: var(--timeline-step);
+
+		// The line is drawn in halves either side of the circle and stops short of it, so the page shows through.
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: calc(var(--dot) / 2);
+			border-block-start: 1px solid var(--color-border);
+
+			@include mixins.mq-motion-allow {
+				transition:
+					left 0.7s var(--ease),
+					right 0.7s var(--ease);
+			}
+		}
+
+		&::before {
+			left: 0;
+			right: calc(50% + var(--gap));
+		}
+
+		&::after {
+			left: calc(50% + var(--gap));
+			right: 0;
+		}
+
+		&:first-child::before,
+		&:last-child::after {
+			display: none;
+		}
+	}
+
+	.stop.current {
+		--gap: 26px;
 	}
 
 	.dot-button {
@@ -322,13 +372,11 @@
 		}
 	}
 
-	// The border is the line's color, and the fill is the page's, so the line seems to pass behind it.
 	.dot {
 		width: var(--dot);
 		height: var(--dot);
 		border: 1px solid var(--color-border);
 		border-radius: 50%;
-		background: var(--color-bg);
 
 		@include mixins.mq-motion-allow {
 			transition: scale 0.7s var(--ease);

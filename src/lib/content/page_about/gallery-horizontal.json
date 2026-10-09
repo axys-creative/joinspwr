@@ -1,0 +1,94 @@
+{
+	"title": "Leadership",
+	"accent": "Meet{.br}the Team",
+	"groups": [
+		{
+			"images": [
+				{
+					"src": "/uploads/about-leadership-1max.webp",
+					"alt": "Max Britton",
+					"caption": "Max Britton",
+					"role": "EVP Dealers"
+				},
+				{
+					"src": "/uploads/about-leadership-2eric.webp",
+					"alt": "Eric Nielsen",
+					"caption": "Eric Nielsen",
+					"role": "EVP Marketing"
+				},
+				{
+					"src": "/uploads/about-leadership-3devon.webp",
+					"alt": "Devon Glassman",
+					"caption": "Devon Glassman",
+					"role": "COO"
+				},
+				{
+					"src": "/uploads/about-leadership-4bryan.webp",
+					"alt": "Bryan Smith",
+					"caption": "Bryan Smith",
+					"role": "CMO"
+				}
+			],
+			"copy": "A short paragraph about the leadership team, kept brief so it doesn’t run into the image below it."
+		},
+		{
+			"images": [
+				{
+					"src": "/uploads/about-leadership-5cary.webp",
+					"alt": "Cary Jenkins",
+					"caption": "Cary Jenkins",
+					"role": "CTO"
+				},
+				{
+					"src": "/uploads/about-leadership-6brett.webp",
+					"alt": "Brett Janes",
+					"caption": "Brett Janes",
+					"role": "CFO"
+				},
+				{
+					"src": "/uploads/about-leadership-7yan.webp",
+					"alt": "Yan Perba",
+					"caption": "Yan Perba",
+					"role": "CXO"
+				},
+				{
+					"src": "/uploads/about-leadership-8kerstin.webp",
+					"alt": "Kerstin Larson",
+					"caption": "Kerstin Larson",
+					"role": "VP Sales Operations"
+				}
+			],
+			"copy": "Each group repeats the same four-image-and-copy structure. Only the content changes."
+		},
+		{
+			"images": [
+				{
+					"src": "/uploads/about-leadership-9michael.webp",
+					"alt": "Michael Gutschmidt",
+					"caption": "Michael Gutschmidt",
+					"role": "Director of Sales"
+				},
+				{
+					"src": "/uploads/about-leadership-10brady.webp",
+					"alt": "Brady Jones",
+					"caption": "Brady Jones",
+					"role": "VP Partners"
+				},
+				{
+					"src": "/uploads/about-leadership-11wyler.webp",
+					"alt": "Wyler Wittwer",
+					"caption": "Wyler Wittwer",
+					"role": "VP Sales"
+				},
+				{
+					"src": "/uploads/about-leadership-12daniel.webp",
+					"alt": "Daniel Garcia",
+					"caption": "Daniel Garcia",
+					"role": "Creative Director"
+				}
+			],
+			"copy": "Each group repeats the same four-image-and-copy structure. Only the content changes."
+		}
+	],
+	"portrait": true
+}

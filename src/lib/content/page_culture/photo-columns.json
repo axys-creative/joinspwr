@@ -3,6 +3,8 @@
 	"title": "Year of [Gear]{.secondary-alt}",
 	"description": "Work hard. Earn gear. Stand out. Unlock exclusive merch by achieving sales milestones throughout the year.",
 	"columns": [4, 5, 4, 5],
+	"columnsMd": [4, 5, 4],
+	"columnsSm": [4, 5],
 	"images": [
 		{
 			"src": "/uploads/yog-gear-bag.webp",

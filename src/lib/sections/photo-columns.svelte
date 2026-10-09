@@ -3,7 +3,10 @@
 	import type { SectionCopyProps } from '$lib/components/section-copy.svelte';
 
 	export type PhotoColumnsProps = Omit<SectionCopyProps, 'level' | 'layout' | 'align'> &
-		Pick<ImageColumnsProps, 'columns' | 'startOffset' | 'gnomon' | 'cardAspect' | 'start'> & {
+		Pick<
+			ImageColumnsProps,
+			'columns' | 'columnsMd' | 'columnsSm' | 'startOffset' | 'gnomon' | 'cardAspect' | 'start'
+		> & {
 			/** `{ src, alt }` pictures, with an optional `caption`, `accent` and `background` per card; the season, year and background otherwise vary by position. */
 			images: ColumnImage[];
 		} & {
@@ -30,6 +33,8 @@
 	let {
 		images,
 		columns = [4, 5, 4, 5],
+		columnsMd,
+		columnsSm,
 		startOffset = 64,
 		cardAspect = '1 / 1.1',
 		start = 'top top',
@@ -40,7 +45,9 @@
 		...copy
 	}: PhotoColumnsProps = $props();
 
-	const slots = $derived(columns.reduce((sum, count) => sum + count, 0));
+	const total = (counts?: number[]) => (counts ?? []).reduce((sum, count) => sum + count, 0);
+	// Enough cards for the widest layout; the smaller ones show only as many as their own counts.
+	const slots = $derived(Math.max(total(columns), total(columnsMd), total(columnsSm)));
 	const cards = $derived(
 		Array.from({ length: slots }, (_, slot) => {
 			const image = images[slot % images.length];
@@ -61,6 +68,8 @@
 			class="gear"
 			images={cards}
 			{columns}
+			{columnsMd}
+			{columnsSm}
 			{startOffset}
 			{gnomon}
 			{cardAspect}

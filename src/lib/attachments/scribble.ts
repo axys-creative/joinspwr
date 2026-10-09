@@ -18,6 +18,8 @@ export type ScribbleOptions = {
 	offset?: string;
 	/** For a circle: how far the loop sits out from the element, in em. */
 	padding?: number;
+	/** For a circle: multiplies `padding`, so `1.2` draws the loop farther out and `0.8` closer in. */
+	scale?: number;
 	/** How ragged the edges are, from 0 (smooth) to 1: they wobble and are chipped in places. */
 	rough?: number;
 	/** How many thin dry streaks are left bare inside the line, like a dry brush. */
@@ -55,6 +57,7 @@ export function scribble({
 	height,
 	offset,
 	padding = 0.4,
+	scale = 1,
 	hover = false,
 	scroll = false,
 	once = true,
@@ -95,9 +98,9 @@ export function scribble({
 			const draw = () => {
 				const size = parseFloat(getComputedStyle(el).fontSize) || 16;
 				// More room at the end than at the start: the loop's pass there runs closest to the last letters.
-				const padStart = padding * 1.3 * size;
-				const padEnd = padding * 1.6 * size;
-				const padY = padding * size;
+				const padStart = padding * scale * 1.3 * size;
+				const padEnd = padding * scale * 1.6 * size;
+				const padY = padding * scale * size;
 				const width = el.offsetWidth + padStart + padEnd;
 				const tall = el.offsetHeight + padY * 2;
 				const line = thickness * 0.8 * size;

@@ -973,6 +973,11 @@
 					'A number, how far the circle sits out from the element, in em. Defaults to `0.4`.'
 			},
 			{
+				name: 'scale',
+				description:
+					'A number that multiplies `padding` for a circle: `1.2` draws the loop farther out, `0.8` closer in. Defaults to `1`.'
+			},
+			{
 				name: 'curve',
 				description:
 					"For an underline: a preset, or a `cubic-bezier(x1, y1, x2, y2)`, or the four numbers. The smooth presets are `'swoosh'` (the default), `'wave'`, `'dip'` and `'flat'`. `'zigzag'` (straight, then one or two there-and-backs, then straight) and `'notch'` (a single V dip) are made of straight lines. `'random'` picks one of them for each element, so every one gets a different line. The line runs from the left edge to the right at mid-height; the two points pull it, and a `y` of 1 is the top and 0 the bottom."

@@ -153,9 +153,8 @@
 		box-sizing: border-box;
 		width: var(--logo-width);
 		padding: 24px;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		background: var(--spwr-royal-light);
+		@include mixins.glass-card($blur: 0);
+
 		object-fit: contain;
 
 		@include mixins.max-md {

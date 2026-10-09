@@ -5,11 +5,14 @@
 		blogArticleHeroProps,
 		carouselTunnelProps,
 		circleHighlightProps,
+		earningsPotentialProps,
+		financeGridProps,
 		financeMarqueeProps,
 		galleryHorizontalProps,
 		headlineProps,
 		heroImageCircleProps,
 		heroCarouselProps,
+		heroGnomonProps,
 		heroImageWaveProps,
 		heroSimpleProps,
 		ossProps,
@@ -18,6 +21,7 @@
 		scrollHorizontalProps,
 		scrollStackProps,
 		scrollTimelineProps,
+		toolsProps,
 		tunnelProps,
 		videoSectionProps,
 		workGalleryProps
@@ -25,10 +29,13 @@
 	import LibrarySection from '$lib/library/library-section.svelte';
 	import CircleHighlight from '$lib/sections/circle-highlight.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
+	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
+	import FinanceGrid from '$lib/sections/finance-grid.svelte';
 	import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 	import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 	import Headline from '$lib/sections/headline.svelte';
 	import HeroCarousel from '$lib/sections/hero-carousel.svelte';
+	import HeroGnomon from '$lib/sections/hero-gnomon.svelte';
 	import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 	import HeroImageWave from '$lib/sections/hero-image-wave.svelte';
 	import HeroSimple from '$lib/sections/hero-simple.svelte';
@@ -38,6 +45,7 @@
 	import ScrollHorizontal from '$lib/sections/scroll-horizontal.svelte';
 	import ScrollStack from '$lib/sections/scroll-stack.svelte';
 	import ScrollTimeline from '$lib/sections/scroll-timeline.svelte';
+	import Tools from '$lib/sections/tools.svelte';
 	import Tunnel from '$lib/sections/tunnel.svelte';
 	import VideoSection from '$lib/sections/video-section.svelte';
 	import WorkGallery from '$lib/sections/work-gallery.svelte';
@@ -367,7 +375,7 @@
 	<LibrarySection
 		title="Circle Highlight"
 		type="Section"
-		description="A pinned, scroll-driven donut chart. The ring lights one slice at a time, always clockwise, with that slice's caption beside it, and ends on a finish where every slice is lit. The captions can sit around the ring or in its hole, and a logo in the hole shows until the section pins. With reduced motion, or without JavaScript, every slice and caption just shows."
+		description="A pinned, scroll-driven donut chart. The ring lights one slice at a time, always clockwise, with that slice's caption beside it, and ends on a finish where every slice is lit. The captions can sit around the ring or in its hole, and a logo in the hole stays put. Once the section is pinned the slices are tab stops: focusing, clicking or tapping one scrolls to its step. With reduced motion, or without JavaScript, every slice and caption just shows."
 		props={circleHighlightProps}
 	>
 		<CircleHighlight
@@ -380,6 +388,41 @@
 			radius={3}
 			gap={4}
 			image={{ srcLight: '/images/logo-black.svg', srcDark: '/images/logo-white.svg', alt: 'axys' }}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Earnings Potential"
+		type="Section"
+		description="A chart card beside tabs and copy. Each tab is a year, and each year is a bar: picking a tab lights its bar and counts the big number to that year's earnings, so the chart shows income growing as the visitor moves through the tabs. Below `lg` the copy and tabs lead and the chart follows."
+		props={earningsPotentialProps}
+	>
+		<EarningsPotential
+			class="full"
+			title="Earnings Potential"
+			tabs={[
+				{ label: 'Year 1', amount: 50000, title: 'First year', description: 'Where it starts.' },
+				{ label: 'Year 2', amount: 90000, title: 'Second year', description: 'Momentum builds.' },
+				{ label: 'Year 3', amount: 140000, title: 'Third year', description: 'It keeps growing.' }
+			]}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Finance Grid"
+		type="Section"
+		description="Section Copy above every logo at once, in rows that alternate four and three across, so nobody waits for one to scroll past. The boxes match Finance Marquee's."
+		props={financeGridProps}
+	>
+		<FinanceGrid
+			class="full"
+			title="Finance Grid"
+			description="A short paragraph above the logos."
+			logos={Array.from({ length: 7 }, (_, index) => ({
+				src: `/images/logo-sample-${index + 1}.svg`,
+				alt: `Sample logo ${index + 1}`
+			}))}
+			{cta}
 		/>
 	</LibrarySection>
 
@@ -468,6 +511,28 @@
 			]}
 			float
 			autoplay={6000}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Hero Gnomon"
+		type="Section"
+		description="A hero built on the gnomon frame: a rounded picture with a notch cut from its bottom left corner that holds the title, and a second at the bottom right that holds the arrows to move through the slides and an info button, which opens the slide's description in an overlay inside the frame. Below `md` the title moves to a notch at the top left."
+		props={heroGnomonProps}
+	>
+		<HeroGnomon
+			class="full"
+			fullScreen={false}
+			slides={[
+				{
+					image: { src: '/uploads/spwr-img-landscape-1.webp', alt: '' },
+					title: 'Hero Gnomon'
+				},
+				{
+					image: { src: '/uploads/spwr-img-landscape-2.webp', alt: '' },
+					title: 'Second slide'
+				}
+			]}
 		/>
 	</LibrarySection>
 
@@ -637,6 +702,25 @@
 			title="A timeline on a circle"
 			description="Scroll to turn the circle to each year. The event takes the place of this copy."
 			events={history}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Tools"
+		type="Section"
+		description="A carousel with a large panel in the middle and the previous and next panels thin and short on either side. Click a side panel, use the arrows, or swipe, and the panels glide to their new places."
+		props={toolsProps}
+	>
+		<Tools
+			class="full"
+			eyebrowText="Tools"
+			title="Tools"
+			slides={[
+				{ title: 'First', image: { src: '/uploads/spwr-img-landscape-1.webp', alt: '' } },
+				{ title: 'Second', image: { src: '/uploads/spwr-img-landscape-2.webp', alt: '' } },
+				{ title: 'Third', image: { src: '/uploads/spwr-img-landscape-3.webp', alt: '' } },
+				{ title: 'Fourth', image: { src: '/uploads/spwr-img-landscape-4.webp', alt: '' } }
+			]}
 		/>
 	</LibrarySection>
 

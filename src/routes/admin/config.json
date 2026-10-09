@@ -60,7 +60,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -257,7 +257,7 @@
 							"name": "text",
 							"label": "Statement",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						}
 					]
 				},
@@ -663,27 +663,173 @@
 			"label": "Page - Culture",
 			"files": [
 				{
-					"name": "hero_simple",
+					"name": "hero_gnomon",
 					"label": "Hero",
-					"file": "src/lib/content/page_culture/hero-simple.json",
+					"file": "src/lib/content/page_culture/hero-gnomon.json",
 					"preview_path": "culture",
 					"fields": [
 						{
-							"name": "eyebrowText",
-							"label": "Eyebrow text",
-							"widget": "string",
-							"required": false
-						},
-						{
 							"name": "title",
 							"label": "Title",
-							"widget": "string"
+							"widget": "string",
+							"required": false,
+							"hint": "The page's heading above the frame. Style words with [words]{.secondary-alt}. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
 							"label": "Description",
 							"widget": "text",
-							"required": false
+							"required": false,
+							"hint": "Shown below the title."
+						},
+						{
+							"name": "figures",
+							"label": "Corner pictures",
+							"widget": "object",
+							"required": false,
+							"hint": "Transparent cutouts that stay in the bottom corners on every slide. A tall PNG works best.",
+							"fields": [
+								{
+									"name": "left",
+									"label": "Bottom left",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								},
+								{
+									"name": "right",
+									"label": "Bottom right",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "autoplay",
+							"label": "Autoplay",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "enabled",
+									"label": "Advance automatically",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								},
+								{
+									"name": "interval",
+									"label": "Time per slide (milliseconds)",
+									"widget": "number",
+									"value_type": "int",
+									"min": 2000,
+									"step": 500,
+									"default": 6000,
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "slides",
+							"label": "Slides",
+							"widget": "list",
+							"min": 1,
+							"fields": [
+								{
+									"name": "title",
+									"label": "Title",
+									"hint": "Two words at most; it sits in the notch at the bottom left.",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "date",
+									"label": "Date",
+									"widget": "string",
+									"required": false,
+									"hint": "Free text, such as a date or a range. Shown left of the info button."
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false,
+									"hint": "Shown over the picture when the visitor clicks the info button."
+								},
+								{
+									"name": "cta",
+									"label": "Button",
+									"widget": "object",
+									"required": false,
+									"hint": "Optional. A primary button at the bottom of the overlay.",
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										}
+									]
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
 						}
 					]
 				},
@@ -710,7 +856,7 @@
 							"name": "text",
 							"label": "Quote",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
 						},
 						{
 							"name": "quote",
@@ -794,6 +940,44 @@
 							"max": 6,
 							"default": [4, 5, 4, 5],
 							"hint": "One number per column, left to right. This sets how many pictures the section shows. Extra images below are left out, and fewer images repeat to fill it.",
+							"field": {
+								"name": "count",
+								"label": "Images",
+								"widget": "number",
+								"value_type": "int",
+								"min": 1,
+								"max": 8,
+								"default": 4
+							}
+						},
+						{
+							"name": "columnsMd",
+							"label": "Images per column (tablet)",
+							"widget": "list",
+							"required": false,
+							"min": 2,
+							"max": 6,
+							"default": [4, 5, 4],
+							"hint": "Screens under 1024px wide. Leave empty to split the same pictures evenly in one fewer column.",
+							"field": {
+								"name": "count",
+								"label": "Images",
+								"widget": "number",
+								"value_type": "int",
+								"min": 1,
+								"max": 8,
+								"default": 4
+							}
+						},
+						{
+							"name": "columnsSm",
+							"label": "Images per column (mobile)",
+							"widget": "list",
+							"required": false,
+							"min": 2,
+							"max": 6,
+							"default": [4, 5],
+							"hint": "Screens under 768px wide. Leave empty to split the same pictures evenly in two fewer columns.",
 							"field": {
 								"name": "count",
 								"label": "Images",
@@ -922,6 +1106,68 @@
 											"required": false
 										}
 									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "earnings_potential",
+					"label": "Earnings",
+					"file": "src/lib/content/page_culture/earnings-potential.json",
+					"preview_path": "culture#earnings",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "chartLabel",
+							"label": "Chart label",
+							"widget": "string",
+							"required": false,
+							"hint": "The line above the big number in the chart."
+						},
+						{
+							"name": "note",
+							"label": "Chart note",
+							"widget": "string",
+							"required": false,
+							"hint": "Small print under the chart, such as what the figures are based on."
+						},
+						{
+							"name": "tabs",
+							"label": "Years",
+							"widget": "list",
+							"min": 2,
+							"max": 6,
+							"hint": "One tab and one bar each, in order. The bars are drawn from the amounts, so list them from least to most.",
+							"fields": [
+								{
+									"name": "label",
+									"label": "Tab",
+									"widget": "string",
+									"hint": "Such as Year 1."
+								},
+								{
+									"name": "amount",
+									"label": "Earnings (dollars)",
+									"widget": "number",
+									"value_type": "int",
+									"min": 0,
+									"step": 1000
+								},
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string"
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text"
 								}
 							]
 						}
@@ -1084,7 +1330,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -1236,7 +1482,7 @@
 							"name": "text",
 							"label": "Quote",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
 						},
 						{
 							"name": "quote",
@@ -1305,7 +1551,7 @@
 							"label": "Title",
 							"widget": "string",
 							"required": false,
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -1395,19 +1641,20 @@
 							]
 						}
 					]
-				}
-			]
-		},
-		{
-			"name": "page_about",
-			"label": "Page - About",
-			"files": [
+				},
 				{
-					"name": "hero_simple",
-					"label": "Hero",
-					"file": "src/lib/content/page_about/hero-simple.json",
-					"preview_path": "about",
+					"name": "tools",
+					"label": "Tools",
+					"file": "src/lib/content/page_platform/tools.json",
+					"preview_path": "platform#tools",
 					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -1417,13 +1664,639 @@
 						{
 							"name": "title",
 							"label": "Title",
-							"widget": "string"
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "slides",
+							"label": "Tools",
+							"widget": "list",
+							"min": 3,
+							"hint": "The one in the middle is large, with its neighbours thin and short on either side. At least three.",
+							"fields": [
+								{
+									"name": "title",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "finance_grid",
+					"label": "Finance Grid",
+					"file": "src/lib/content/page_platform/finance-grid.json",
+					"preview_path": "platform#finance",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
 						},
 						{
 							"name": "description",
 							"label": "Description",
 							"widget": "text",
 							"required": false
+						},
+						{
+							"name": "logos",
+							"label": "Logos",
+							"widget": "list",
+							"min": 2,
+							"hint": "Shown in rows that alternate four and three across.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "url",
+									"label": "Link",
+									"widget": "string",
+									"required": false,
+									"hint": "The partner's website. With it, the card is a link."
+								},
+								{
+									"name": "newTab",
+									"label": "Open in new tab",
+									"widget": "boolean",
+									"default": false,
+									"required": false
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page_about",
+			"label": "Page - About",
+			"files": [
+				{
+					"name": "hero_image_circle_left",
+					"label": "Hero",
+					"file": "src/lib/content/page_about/hero-image-circle.json",
+					"preview_path": "about",
+					"fields": [
+						{
+							"name": "eyebrowImage",
+							"label": "Eyebrow image",
+							"widget": "object",
+							"required": false,
+							"hint": "A picture in the eyebrow, such as a wide logo.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": false
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "images",
+							"label": "Circle images",
+							"widget": "list",
+							"min": 4,
+							"hint": "The cards that spin around the circles.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "scrub",
+							"label": "Scroll spin",
+							"widget": "number",
+							"value_type": "float",
+							"min": 0,
+							"default": 0,
+							"required": false,
+							"hint": "Spins the circles as the page scrolls, about a quarter turn over the section's pass at 1. 0 is off."
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"required": true,
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false,
+											"hint": "Optional aria-label for screen readers"
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
+										}
+									]
+								},
+								{
+									"name": "secondary",
+									"label": "Secondary button",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false,
+											"hint": "Optional aria-label for screen readers"
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "headline",
+					"label": "Headline",
+					"file": "src/lib/content/page_about/headline.json",
+					"preview_path": "about#headline",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "text",
+							"label": "Statement",
+							"widget": "text",
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+						}
+					]
+				},
+				{
+					"name": "gallery_horizontal",
+					"label": "Gallery",
+					"file": "src/lib/content/page_about/gallery-horizontal.json",
+					"preview_path": "about#leadership",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accent",
+							"label": "Handwritten text",
+							"widget": "string",
+							"required": false,
+							"hint": "Shown before the first group, in the accent font. Use {.br} for a line break, like Selected{.br}Work."
+						},
+						{
+							"name": "portrait",
+							"label": "All portrait cards",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Every card is portrait, and the bottom ones shift right to make room."
+						},
+						{
+							"name": "groups",
+							"label": "Groups",
+							"widget": "list",
+							"hint": "Each group is up to four images in a collage with a short paragraph between the halves.",
+							"fields": [
+								{
+									"name": "images",
+									"label": "Images",
+									"widget": "list",
+									"max": 4,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "caption",
+											"label": "Caption",
+											"widget": "string",
+											"required": false,
+											"hint": "Shown in the notch at the bottom left of the card."
+										},
+										{
+											"name": "role",
+											"label": "Role",
+											"widget": "string",
+											"required": false,
+											"hint": "Shown under the card, such as a job title."
+										}
+									]
+								},
+								{
+									"name": "copy",
+									"label": "Paragraph",
+									"widget": "text",
+									"required": false
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "scroll_timeline",
+					"label": "Timeline",
+					"file": "src/lib/content/page_about/scroll-timeline.json",
+					"preview_path": "about#timeline",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "events",
+							"label": "Events",
+							"widget": "list",
+							"min": 2,
+							"hint": "In order. Each needs an image, which is its card on the circle.",
+							"fields": [
+								{
+									"name": "date",
+									"label": "Date",
+									"widget": "string",
+									"required": true,
+									"hint": "Shown under its circle on the timeline, e.g. 2019."
+								},
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string",
+									"required": true
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "imagesBefore",
+							"label": "Extra images before",
+							"widget": "list",
+							"required": false,
+							"hint": "Pictures on the circle before the first event. Two fill the visible arc.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "imagesAfter",
+							"label": "Extra images after",
+							"widget": "list",
+							"required": false,
+							"hint": "Pictures on the circle after the last event. Two fill the visible arc.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "oss",
+					"label": "OSS",
+					"file": "src/lib/content/page_about/oss.json",
+					"preview_path": "about#oss",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accent",
+							"label": "Handwritten text",
+							"widget": "string",
+							"required": false,
+							"hint": "Shown in the top right corner of the fan, in the accent font. Use {.br} for a line break, like Level{.br}up."
+						},
+						{
+							"name": "images",
+							"label": "Fan images",
+							"widget": "list",
+							"min": 3,
+							"hint": "Tall pictures work best.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right)."
+										}
+									]
+								}
+							]
 						}
 					]
 				}
@@ -2029,7 +2902,7 @@
 							"widget": "boolean",
 							"default": false,
 							"required": false,
-							"hint": "Only with Fixed."
+							"hint": "Fades out after scrolling down 120px and back in as you scroll up. Keyboard focus brings it back. Only with Fixed."
 						},
 						{
 							"name": "blend",
@@ -2125,7 +2998,7 @@
 							"label": "Title",
 							"widget": "string",
 							"required": false,
-							"hint": "The heading at the top left. Style words with [words]{.scribble-circle}. Classes: .italic .primary .scribble .scribble-circle .secondary .secondary-alt .stroke .strong."
+							"hint": "The heading at the top left. Style words with [words]{.scribble-circle}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong."
 						},
 						{
 							"name": "level",

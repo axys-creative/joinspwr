@@ -219,3 +219,98 @@ export function roundedBoxPath(width: number, height: number, radius: number) {
 		'Z'
 	].join(' ');
 }
+
+// Rounds each corner of a polygon with a quadratic curve whose control point is the corner itself, which stays smooth
+// at any angle (an arc of fixed radius bulges where a corner is not square).
+function roundedPolygonPath(points: Point[], radius: number) {
+	const round = (value: number) => +value.toFixed(2);
+	const length = ([ax, ay]: Point, [bx, by]: Point) => Math.hypot(ax - bx, ay - by);
+
+	return (
+		points
+			.map((point, i) => {
+				const prev = points[(i + points.length - 1) % points.length];
+				const next = points[(i + 1) % points.length];
+				const r = Math.min(radius, length(point, prev) / 2, length(point, next) / 2);
+				const toward = (to: Point): Point => {
+					const d = length(point, to);
+					return [point[0] + ((to[0] - point[0]) * r) / d, point[1] + ((to[1] - point[1]) * r) / d];
+				};
+				const [fx, fy] = toward(prev);
+				const [tx, ty] = toward(next);
+				return `${i === 0 ? 'M' : 'L'}${round(fx)} ${round(fy)} Q${round(point[0])} ${round(point[1])} ${round(tx)} ${round(ty)}`;
+			})
+			.join(' ') + ' Z'
+	);
+}
+
+export type EdgeNotch = {
+	align: 'left' | 'center' | 'right';
+	width: number;
+	height: number;
+	/** `top` is only supported at the left corner. Defaults to `bottom`. */
+	edge?: 'top' | 'bottom';
+};
+
+/**
+ * A rounded rectangle of the given size in px with rectangular notches cut from its edges: up to three along the
+ * bottom (left corner, center, right corner) and one at the top left corner, as an SVG path (also valid in CSS
+ * `path()`). `angle` (45-90) tilts every notch's walls from a square step toward a diagonal. Every corner is rounded,
+ * each notch's inner ones the other way, and the curve shrinks where an edge is too short for it.
+ */
+export function edgeNotchBoxPath(
+	width: number,
+	height: number,
+	notches: EdgeNotch[],
+	radius: number,
+	angle = 90
+) {
+	const room = width - radius * 2;
+	const run = Math.tan((Math.min(90, Math.max(45, angle)) * Math.PI) / 180);
+	const find = (align: EdgeNotch['align'], edge: 'top' | 'bottom' = 'bottom') => {
+		const notch = notches.find((n) => n.align === align && (n.edge ?? 'bottom') === edge);
+		const nw = notch ? Math.min(notch.width, room) : 0;
+		const nh = notch ? Math.min(notch.height, height - radius * 2) : 0;
+		if (nw <= 0 || nh <= 0) return null;
+		const start = align === 'left' ? 0 : align === 'right' ? width - nw : (width - nw) / 2;
+		return {
+			start,
+			end: start + nw,
+			top: height - nh,
+			depth: nh,
+			slant: Math.min(nh / run, nw / 2)
+		};
+	};
+	const topLeft = find('left', 'top');
+	const left = find('left');
+	const center = find('center');
+	const right = find('right');
+
+	const points: Point[] = topLeft
+		? [
+				[0, topLeft.depth],
+				[topLeft.end - topLeft.slant, topLeft.depth],
+				[topLeft.end, 0],
+				[width, 0]
+			]
+		: [
+				[0, 0],
+				[width, 0]
+			];
+	if (right) {
+		points.push([width, right.top], [right.start + right.slant, right.top], [right.start, height]);
+	} else points.push([width, height]);
+	if (center) {
+		points.push(
+			[center.end, height],
+			[center.end - center.slant, center.top],
+			[center.start + center.slant, center.top],
+			[center.start, height]
+		);
+	}
+	if (left) {
+		points.push([left.end, height], [left.end - left.slant, left.top], [0, left.top]);
+	} else points.push([0, height]);
+
+	return roundedPolygonPath(points, radius);
+}

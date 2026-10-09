@@ -9,6 +9,8 @@
 		alt?: string;
 		/** Text in the notch along the bottom left of the card. */
 		caption?: string;
+		/** Plain text under the card, such as a job title. */
+		role?: string;
 		/** Overrides the section's `gnomon` settings for this card. */
 		gnomon?: Partial<GalleryGnomon>;
 	};
@@ -30,6 +32,8 @@
 		gnomonPortrait?: Partial<GalleryGnomon>;
 		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
 		id?: string;
+		/** Every card is portrait: the second and fourth move right to make room for the taller shape. */
+		portrait?: boolean;
 		/** No pinned sideways slide and no entrance animation: the row scrolls on its own. For the CMS preview. */
 		static?: boolean;
 		class?: string;
@@ -48,6 +52,7 @@
 		accent,
 		gnomon = { depth: 18, length: 48, radius: 4, angle: 85 },
 		gnomonPortrait = { depth: 12 },
+		portrait = false,
 		id,
 		static: still = false,
 		class: className,
@@ -59,16 +64,24 @@
 
 {#snippet card(image: GalleryImage | undefined, slot: number)}
 	{#if image}
-		<CardGnomon
-			class="slot slot-{slot}"
-			img={{ src: image.src, alt: image.alt }}
-			{...{ ...gnomon, ...(slot % 2 === 1 ? gnomonPortrait : {}), ...image.gnomon }}
-			cutouts={[{ from: 'bottom-left', text: image.caption ?? '' }]}
-		/>
+		<div class="slot slot-{slot}">
+			<CardGnomon
+				class="card"
+				img={{ src: image.src, alt: image.alt }}
+				{...{
+					...gnomon,
+					...(portrait || slot % 2 === 1 ? gnomonPortrait : {}),
+					...(portrait ? { length: 'auto' as const } : {}),
+					...image.gnomon
+				}}
+				cutouts={[{ from: 'bottom-left', text: image.caption ?? '' }]}
+			/>
+			{#if image.role}<p class="role">{image.role}</p>{/if}
+		</div>
 	{/if}
 {/snippet}
 
-<section {id} class="gallery-horizontal {className ?? ''}">
+<section {id} class="gallery-horizontal {className ?? ''}" class:portrait>
 	{#if hasCopy}
 		<header class="header">
 			<SectionCopy level={2} {...copy} />
@@ -124,14 +137,60 @@
 		}
 	}
 
-	.header {
-		max-width: var(--content-width);
-		margin-inline: auto;
-		margin-block-end: var(--body-padding-double);
-		padding-inline: var(--body-padding);
+	// Every card is the portrait size, and the bottom cards shift right so they clear the ones above.
+	.portrait {
+		--portrait-w: 190px;
+		--portrait-h: clamp(240px, 26vh, 360px);
+		--landscape-w: var(--portrait-w);
+		--landscape-h: var(--portrait-h);
+		--role-space: 36px;
+
+		.group {
+			width: calc(var(--copy-left) + var(--portrait-w) * 1.25 + var(--landscape-w));
+			height: calc(var(--portrait-h) * 2.25 + var(--gap) + var(--role-space));
+
+			@include mixins.max-lg {
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		@include mixins.min-lg {
+			.slider {
+				gap: 56px;
+			}
+
+			.group :global(.slot-2) {
+				left: calc(var(--portrait-w) * 1.25);
+			}
+
+			.group :global(.slot-4) {
+				bottom: calc(var(--absolute-padding) + var(--role-space));
+				left: calc(var(--copy-left) + var(--portrait-w) * 1.25);
+			}
+		}
 
 		@include mixins.max-lg {
-			padding-inline: 0;
+			.group {
+				gap: 56px;
+			}
+
+			.group :global(.slot-2),
+			.group :global(.slot-4) {
+				width: 40%;
+				aspect-ratio: 3 / 4;
+			}
+		}
+	}
+
+	.header {
+		// The content column, so the title lines up with the header's logo and the page's other sections.
+		width: min(var(--content-width), 100% - var(--body-padding) * 2);
+		margin-inline: auto;
+		margin-block-end: var(--body-padding-double);
+
+		@include mixins.max-lg {
+			width: auto;
 		}
 	}
 
@@ -161,7 +220,8 @@
 		display: flex;
 		align-items: flex-start;
 		gap: 96px;
-		padding-inline: var(--body-padding);
+		// The first and last cards sit on the content column's edges, as wide as the screen allows.
+		padding-inline: calc((100% - min(var(--content-width), 100% - var(--body-padding) * 2)) / 2);
 
 		@include mixins.max-lg {
 			flex-direction: column;
@@ -210,6 +270,29 @@
 	// The cards are placed here, but drawn by Card Gnomon.
 	.group :global(.slot) {
 		position: absolute;
+	}
+
+	.slot > :global(.card) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.slot :global(.label) {
+		justify-content: flex-start;
+		padding-inline-start: 12px;
+		text-align: start;
+	}
+
+	.role {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		margin: 10px 0 0;
+		padding-inline-start: 12px;
+		color: var(--color-text-muted);
+		font-size: 14px;
+		line-height: 1.2;
 	}
 
 	.group :global(.slot-1) {

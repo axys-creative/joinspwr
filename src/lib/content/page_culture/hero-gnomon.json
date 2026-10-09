@@ -1,0 +1,76 @@
+{
+	"title": "COMPETE, CONQUER{.br}AND EARN",
+	"description": "Healthy competition turns goals into momentum. Leaderboards, live events and season-long prizes give every rep a reason to push a little harder, celebrate each other’s wins and see their effort rewarded.",
+	"figures": {
+		"left": {
+			"src": "/uploads/culture-hero-rep-left.png",
+			"alt": ""
+		},
+		"right": {
+			"src": "/uploads/culture-hero-rep-right.png",
+			"alt": ""
+		}
+	},
+	"autoplay": {
+		"enabled": true,
+		"interval": 6000
+	},
+	"slides": [
+		{
+			"title": "CHAMPIONS LEAGUE",
+			"image": {
+				"src": "/uploads/competition-champions-league.png",
+				"alt": ""
+			},
+			"description": "A season-long competition where every squad earns its place on the leaderboard.",
+			"date": "Jan 12 – Mar 30",
+			"cta": {
+				"text": "Learn more",
+				"url": "/join",
+				"newTab": false
+			}
+		},
+		{
+			"title": "SPWRDOME",
+			"image": {
+				"src": "/uploads/competition-spwrdome.png",
+				"alt": ""
+			},
+			"description": "Our flagship live event: head-to-head challenges, big crowds and bigger prizes.",
+			"date": "Apr 4",
+			"cta": {
+				"text": "Learn more",
+				"url": "/join",
+				"newTab": false
+			}
+		},
+		{
+			"title": "SQUAD GAME",
+			"image": {
+				"src": "/uploads/competition-squad-game.png",
+				"alt": ""
+			},
+			"description": "Teams take on a series of games that reward strategy as much as sales.",
+			"date": "May 2 – May 31",
+			"cta": {
+				"text": "Learn more",
+				"url": "/join",
+				"newTab": false
+			}
+		},
+		{
+			"title": "RAPID SPWR",
+			"image": {
+				"src": "/uploads/competition-rapid-spwr.png",
+				"alt": ""
+			},
+			"description": "Fast, high-energy sprints where one week of effort can change the standings.",
+			"date": "Jun 15 – Jun 21",
+			"cta": {
+				"text": "Learn more",
+				"url": "/join",
+				"newTab": false
+			}
+		}
+	]
+}

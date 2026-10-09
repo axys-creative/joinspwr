@@ -32,12 +32,14 @@
 	}: HeadlineProps = $props();
 
 	const quoted = $derived(!!quote?.name);
-	const flip = textFlip({
-		type: 'words',
-		duration: 2.5,
-		stagger: 0.1,
-		ease: 'elastic.out(1.5, 0.3)'
-	});
+	const flip = $derived(
+		textFlip({
+			type: 'words',
+			duration: 2.5,
+			stagger: quoted ? 0.04 : 0.1,
+			ease: 'elastic.out(1.5, 0.3)'
+		})
+	);
 </script>
 
 {#snippet statement()}

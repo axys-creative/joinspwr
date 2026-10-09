@@ -1,0 +1,50 @@
+{
+	"eyebrowIcon": "/uploads/icon-card-membership.svg",
+	"eyebrowText": "Platform",
+	"title": "Finance [Options]{.secondary-alt}",
+	"description": "With competitive financing options available, going solar has never been easier or more affordable.",
+	"logos": [
+		{
+			"src": "/uploads/logo-finance-1.svg",
+			"alt": "EnFin by Qcells",
+			"url": "https://enfin.com",
+			"newTab": true
+		},
+		{
+			"src": "/uploads/logo-finance-2.svg",
+			"alt": "Everbright",
+			"url": "https://www.everbrightsolar.com",
+			"newTab": true
+		},
+		{
+			"src": "/uploads/logo-finance-3.svg",
+			"alt": "GoodLeap",
+			"url": "https://www.goodleap.com",
+			"newTab": true
+		},
+		{
+			"src": "/uploads/logo-finance-4.svg",
+			"alt": "IGS Energy",
+			"url": "https://www.igs.com",
+			"newTab": true
+		},
+		{
+			"src": "/uploads/logo-finance-5.svg",
+			"alt": "LightReach",
+			"url": "https://www.lightreach.com",
+			"newTab": true
+		},
+		{
+			"src": "/uploads/logo-finance-6.svg",
+			"alt": "PosiGen Solar Energy and Energy Efficiency",
+			"url": "https://www.posigen.com",
+			"newTab": true
+		},
+		{
+			"src": "/uploads/logo-finance-7.svg",
+			"alt": "Sunrun",
+			"url": "https://www.sunrun.com",
+			"newTab": true
+		}
+	]
+}

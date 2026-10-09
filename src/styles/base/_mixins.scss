@@ -194,3 +194,16 @@ $breakpoints: (
 @mixin right-spacing {
 	right: calc(50% - min(var(--content-width), 100% - var(--body-padding) * 2) / 2);
 }
+
+// The translucent card surface of the circle highlight's captions: a hairline border, rounded corners, the glass tint
+// and a blur of what is behind. Pass `$blur: 0` where many cards move at once (a marquee), since the blur is costly.
+// For a hover state, set `background: var(--color-glass-hover)`, a slightly lighter tint.
+@mixin glass-card($radius: 16px, $blur: 12px) {
+	border: 1px solid var(--color-border);
+	border-radius: $radius;
+	background: var(--color-glass);
+
+	@if $blur > 0 {
+		backdrop-filter: blur($blur);
+	}
+}

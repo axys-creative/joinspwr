@@ -1,0 +1,72 @@
+{
+	"eyebrowText": "",
+	"title": "[POWERING]{.secondary-alt} BRIGHTER [FUTURES]{.secondary-alt} TOGETHER",
+	"description": "We’re proud to offer a platform that empowers sales reps with unparalleled options, ensures top-tier customer service, and delivers industry-leading pay—setting a new standard that no other platform can match.",
+	"cta": {
+		"primary": {
+			"text": "Join the squad",
+			"textDescription": "Join the squad",
+			"url": "/join",
+			"newTab": false,
+			"iconEnd": ""
+		},
+		"secondary": {
+			"text": "",
+			"textDescription": "",
+			"url": "",
+			"newTab": false,
+			"iconEnd": ""
+		}
+	},
+	"images": [
+		{
+			"src": "/uploads/spwr-img-landscape-1.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-2.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-3.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-4.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-5.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-6.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-7.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-8.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-9.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-10.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-11.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-12.webp",
+			"alt": ""
+		}
+	],
+	"scrub": 1
+}

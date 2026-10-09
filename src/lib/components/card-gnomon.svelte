@@ -7,8 +7,10 @@
 		cutouts?: GnomonCutout[];
 		/** 0-100. How far every cutout reaches into the card, as a % of its side. */
 		depth?: number;
-		/** 0-100. How far every cutout runs along its edge, as a % of the card's side. */
-		length?: number;
+		/** 0-100. How far every cutout runs along its edge, as a % of the card's side. `auto` fits the longest cutout text, plus `lengthPadding`. */
+		length?: number | 'auto';
+		/** With `length="auto"`, the px added to the text's width, for the room beside it and the slant of the notch's wall. */
+		lengthPadding?: number;
 		/** 0-50. The corner curve as a % of the card's side, for every corner. */
 		radius?: number;
 		/** 45-90 degrees. 90 is a square step; lower tilts it toward a diagonal. */
@@ -34,6 +36,7 @@
 		cutouts = [{ from: 'top-right' }],
 		depth = 12,
 		length = 32,
+		lengthPadding = 28,
 		radius = 8,
 		angle = 90,
 		borderWidth = 2,
@@ -45,11 +48,22 @@
 	}: CardGnomonProps = $props();
 
 	const id = $props.id();
+	const MAX_AUTO_LENGTH = 90;
+	let cardWidth = $state(0);
+	let textWidths = $state<number[]>([]);
+	const longest = $derived(Math.max(0, ...textWidths.filter(Boolean)));
+	const fitted = $derived(
+		length !== 'auto'
+			? length
+			: cardWidth && longest
+				? Math.min(MAX_AUTO_LENGTH, ((longest + lengthPadding) / cardWidth) * 100)
+				: 32
+	);
 	const shape = $derived(
 		gnomonShape({
 			cutouts: cutouts.length ? cutouts : [{ from: 'top-right' }],
 			depth,
-			length,
+			length: fitted,
 			radius,
 			angle
 		})
@@ -58,6 +72,7 @@
 
 <div
 	class="card-gnomon {className ?? ''}"
+	bind:clientWidth={cardWidth}
 	style="--border-width: {borderWidth}px{fill ? `; --fill: ${fill}` : ''}{imageSize
 		? `; --image-size: ${imageSize}%`
 		: ''}"
@@ -79,6 +94,16 @@
 		{/if}
 		{#if children}<div class="body">{@render children()}</div>{/if}
 	</div>
+
+	{#if length === 'auto'}
+		{#each cutouts as cutout, index (index)}
+			{#if cutout.text}
+				<span class="label measure" aria-hidden="true" bind:clientWidth={textWidths[index]}
+					>{cutout.text}</span
+				>
+			{/if}
+		{/each}
+	{/if}
 
 	{#each shape.labels as label (label.from)}
 		<span class="label" style={label.style}>{label.text}</span>
@@ -173,5 +198,12 @@
 		@include mixins.max-xxl {
 			font-size: 12px;
 		}
+	}
+
+	// A hidden copy of each label that is only as wide as its text, for `length="auto"`.
+	.label.measure {
+		padding: 0;
+		white-space: nowrap;
+		visibility: hidden;
 	}
 </style>

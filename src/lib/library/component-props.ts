@@ -422,6 +422,10 @@ export const imageCircleProps = props(
 		'`left | right | top`. Cards turn with the ring like petals instead of staying upright, with the left, right or top card upright. Off by default.'
 	],
 	[
+		'focus, recede',
+		'`focus` is the index of the card to keep at full size; every other card shrinks to `recede` (a scale, 0-1, defaults to `0.8`) and eases back when `focus` is left out. Optional.'
+	],
+	[
 		'ticks',
 		'A boolean. A faint ring of thin surface-colored ticks behind the cards, tracing the path they travel. Set the color with `--tick-color`. Defaults to `true`.'
 	],
@@ -941,7 +945,11 @@ export const cardGnomonProps = props(
 	],
 	[
 		'length',
-		'A number, 0-100. How far every cutout runs along its edge, as a % of the card side. Defaults to `32`.'
+		'A number, 0-100, or `auto`. How far every cutout runs along its edge, as a % of the card side. `auto` measures the longest cutout text and fits to it (plus `lengthPadding`), up to 90, and follows the card as it resizes. Defaults to `32`.'
+	],
+	[
+		'lengthPadding',
+		'A number in px, with `length="auto"`. Added to the text\'s width, for the room beside it and the slant of the notch\'s wall. Defaults to `28`.'
 	],
 	[
 		'radius',
@@ -1017,7 +1025,11 @@ export const circleHighlightProps = props(
 	['gap', 'A number, the space between slices, in the same units. Defaults to `0`.'],
 	[
 		'captionPlacement',
-		'`outside | inside`. `outside` places a caption around the ring for every slice. `inside` shows only the active one, in the hole. Defaults to `outside`.'
+		'`outside | inside | cards`. `outside` places a caption around the ring for every slice. `inside` shows only the active one, in the hole. `cards` is for a ring with no copy beside it (with copy it falls back to `outside`): from `lg` up each caption is a glass card out to the side, the left or right of the ring by its slice, with a Royal Light line drawn from the card to the middle of its slice and a dot that scales in at the end; below `lg` the cards stack under the ring, the newest in front and up to four deep, and stay on screen after the last step. Defaults to `outside`.'
+	],
+	[
+		'nudge',
+		'A number, how far a slice moves straight out from the center of the ring while it is highlighted or hovered with a mouse, in the ring’s own 0–100 units (about 5px on a full-size ring at the default). `0` turns it off. Defaults to `1.6`.'
 	],
 	[
 		'orientation',
@@ -1025,12 +1037,13 @@ export const circleHighlightProps = props(
 	],
 	[
 		'image',
-		'An image in the hole, shown until the section pins. It takes Logo props (`src`, `srcLight`, `srcDark`, `alt`), so it can change with the theme.'
+		'An image in the hole. It takes Logo props (`src`, `srcLight`, `srcDark`, `alt`), so it can change with the theme.'
 	],
 	[
 		'imageScale',
 		'A number that scales the image in the hole, with `1` its normal size. Defaults to `1`.'
 	],
+	['id', 'The section’s anchor, so a link or the CMS preview can point to `#id`.'],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
@@ -1086,6 +1099,14 @@ export const scrollTimelineProps = props(
 		'An array of `{ date, title, description, image }`, two or more, in order. `date` is shown under its circle on the timeline. `image` is the event’s card on the circle, and every event needs one in the `circle` variant. Required.'
 	],
 	[
+		'(circle scaling)',
+		'In the `circle` variant, from the first event on, every card except the active one shrinks to 0.8 (Image Circle `focus`), including on the last event. The cards return to full size once the section scrolls away, and when you scroll back to the intro.'
+	],
+	[
+		'imagesBefore, imagesAfter',
+		'Arrays of `{ src, alt }`, for the `circle` variant. Extra pictures on the ring before the first event and after the last, so the ring always has cards on both sides. They are not events: they have no date and are never active. Two of each fill the visible arc. Optional.'
+	],
+	[
 		'variant',
 		'`details | circle`. `details` shows the active event’s title and text under the timeline. `circle` shows a ring of the events’ images, with the ring turned to the active card (as petals), and the active card and two on each side in view. It is an arc, not a full circle: the cards sit 40° apart, so a few events never wrap round, and the event’s details take the place of the section copy. Defaults to `details`.'
 	],
@@ -1093,6 +1114,7 @@ export const scrollTimelineProps = props(
 		'copyLayout',
 		'`center | split`. `center` stacks the copy in the middle. `split` puts the eyebrow and title on the left and the description on the right. Defaults to `center`.'
 	],
+	['id', "A string. The section's anchor, so a link or the CMS preview can point to `#id`."],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
@@ -1143,7 +1165,7 @@ export const galleryHorizontalProps = props(
 	],
 	[
 		'groups',
-		'An array of `{ images, copy }`. `images` is up to four `{ src, alt, caption, gnomon }`, placed in a collage: a tall card top left, a wide one under it, then the same pair again after the copy. `caption` fills the notch on the card’s bottom left, and `gnomon` overrides the shared settings for that card. `copy` is a short paragraph between the two halves. Required.'
+		'An array of `{ images, copy }`. `images` is up to four `{ src, alt, caption, role, gnomon }`, placed in a collage: a tall card top left, a wide one under it, then the same pair again after the copy. `caption` fills the notch on the card’s bottom left, `role` is plain text under the card, and `gnomon` overrides the shared settings for that card. `copy` is a short paragraph between the two halves. Required.'
 	],
 	[
 		'accent',
@@ -1156,6 +1178,10 @@ export const galleryHorizontalProps = props(
 	[
 		'gnomonPortrait',
 		'`{ depth, length, radius, angle }`, the same settings as `gnomon` but only the ones to change for the tall cards (the first and third in each group). Defaults to `{ depth: 12 }`, because the same depth looks deeper on a tall card.'
+	],
+	[
+		'portrait',
+		'A boolean. Makes every card portrait: the second and fourth cards in each group, which are landscape by default, take the portrait size and shift right to clear the cards above them. Defaults to `false`.'
 	],
 	[
 		'static',
@@ -1216,7 +1242,7 @@ export const headlineProps = props(
 	['eyebrowIcon', 'An icon name from `static/icons`. Works without `eyebrowText` too.'],
 	[
 		'quote',
-		'An object of `{ name, role, image }`, where `image` is `{ src, alt }`. With a `name` the statement is wrapped in quotes and credited beneath, with the image, name and role. Leave it out for a plain headline.'
+		'An object of `{ name, role, image }`, where `image` is `{ src, alt }`. With a `name` the statement is wrapped in quotes and credited beneath, with the image, name and role. The quoted statement flips in with a tighter stagger, since quotes run long. Leave it out for a plain headline.'
 	],
 	[
 		'fullScreen',
@@ -1266,6 +1292,38 @@ export const heroCarouselProps = props(
 	[
 		'fullScreen',
 		'A boolean. At least the height of the screen, with the copy at the bottom. Taller content still grows past it. Defaults to `true`; pass `fullScreen={false}` for a shorter hero.'
+	],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
+export const heroGnomonProps = props(
+	[
+		'slides',
+		'An array of `{ title, date, description, cta, image }`, where `image` is `{ src, alt }`. The picture fills the frame; the title sits in a notch cut from its bottom left corner, with the arrows in a second notch at the bottom right, and the picture and title change together. The title is rich text, a word or two on one line. The `date` is text, such as a date or a range, shown left of the info button. The `description` is plain text shown, under the `date`, in an overlay inside the frame when the visitor clicks the info button next to the arrows (the button is left out when no slide has one), followed by the optional `cta`, a primary button `{ text, url, newTab }`; the overlay follows the slide, closes with Escape or the button, and pauses autoplay while open. Below `md` the title moves to a notch at the top left, and the controls stay in the one at the bottom right. Required.'
+	],
+	[
+		'title, description',
+		"Optional rich text above the frame: the page's level 1 heading, centered, with the description below it. When `title` is set, the slide titles drop to level 2."
+	],
+	[
+		'figures',
+		'An object `{ left, right }`, each `{ src, alt }`. Transparent cutout pictures that stay in the bottom corners of the frame on every slide, standing on top of the notches (the left one at the very bottom below `md`, where its notch moves to the top). Optional.'
+	],
+	[
+		'autoplay',
+		'An object `{ enabled, interval }`, with `interval` in milliseconds. Pauses while the hero is hovered or focused, and stays off when motion is reduced. Defaults to off, and to 6000 for `interval`.'
+	],
+	[
+		'fit',
+		'`cover` or `contain`. Whether a picture fills the frame and crops, or is shown whole. Defaults to `cover`.'
+	],
+	[
+		'radius, borderWidth',
+		'Numbers in px: the corner curve and the stroke width. Default to `28` and `2`.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the frame filling it. Otherwise the frame is half the screen tall and never under 650px. Taller content still grows past either. Defaults to `false`.'
 	],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
@@ -1438,6 +1496,8 @@ export const richTextProps = props(
 	['.primary', 'The accent color, for text.'],
 	['.scribble', 'A thin hand-drawn zigzag underline (see Scribble under Attachments).'],
 	['.scribble-circle', 'A thin hand-drawn loop around the words (see Scribble under Attachments).'],
+	['.scribble-circle-tight', 'The same loop drawn closer to the words (scale 0.8).'],
+	['.scribble-circle-wide', 'The same loop drawn farther from the words (scale 1.2).'],
 	['.secondary', 'The secondary brand color, `--color-secondary`.'],
 	['.secondary-alt', 'The light secondary color, `--on-background-alt`.'],
 	['.stroke', 'Outlined text with no fill.'],
@@ -1482,6 +1542,10 @@ export const photoColumnsProps = props(
 		'An array, how many images each column holds (see Image Columns in Components). The slots are the total and always get filled: more images than slots are left out, and fewer repeat. Defaults to `[4, 5, 4, 5]`.'
 	],
 	[
+		'columnsMd, columnsSm',
+		'Arrays like `columns`, for tablet and mobile widths (see Image Columns). Each size shows only as many pictures as its own counts add up to, so a smaller layout can show fewer. Left out, the same pictures are split evenly in fewer columns.'
+	],
+	[
 		'startOffset',
 		'A number or string, px or a percent (see Image Columns). The taller columns start this far lower and move up into place as the section scrolls. Defaults to `64`.'
 	],
@@ -1496,6 +1560,59 @@ export const photoColumnsProps = props(
 	[
 		'gnomon',
 		'An object `{ depth, length, radius, angle, borderWidth, cutouts }`, the Card Gnomon settings every image is drawn with (see Image Columns). Defaults to `{ depth: 12, length: 44, radius: 4, angle: 80, imageSize: 75 }`.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	]
+);
+
+export const earningsPotentialProps = props(
+	[
+		'title, cta',
+		"Copy from Section Copy (see the Style Guide). The right column runs tabs, then the title, then the selected year's text; the call to action, if any, sits at the bottom. There is no eyebrow or description."
+	],
+	[
+		'tabs',
+		'An array of `{ label, amount, title, description }`, in order. Each is a tab on the right and a bar in the chart on the left: the bars are drawn from `amount` (whole dollars) on one shared scale, and picking a tab lights its bar and counts the big number to its amount. Arrow keys, Home and End move between tabs, and a hidden table gives screen readers the figures. Required.'
+	],
+	['chartLabel', 'A string, the line above the big number. Defaults to `Average yearly earnings`.'],
+	['note', 'A string, small print under the chart, such as what the figures are based on.'],
+	['defaultTab', 'A number, the tab that starts selected, counting from 0. Defaults to `0`.'],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	[
+		'static',
+		'A boolean. The bars are already grown instead of rising as the section scrolls into view. For the CMS preview. Defaults to `false`.'
+	]
+);
+
+export const toolsProps = props(
+	[
+		'title, eyebrowText, eyebrowIcon',
+		'Copy from Section Copy (see the Style Guide), centered above the carousel. There is no description or call to action.'
+	],
+	[
+		'slides',
+		'An array of `{ image, title }`, at least three, where `image` is `{ src, alt }`. The active one fills a large panel in the middle (about 62% of the content width), with the previous and next as thin, shorter panels on either side (about 17% each, 78% as tall), dimmed. The arrows, a click on a side panel, or a swipe move through them and wrap around, and the panels glide to their new places. `title` captions the large panel. Required.'
+	],
+	['label', 'A string, the accessible name of the carousel. Defaults to `Tools`.'],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	]
+);
+
+export const financeGridProps = props(
+	[
+		'title, description, eyebrowText, eyebrowIcon, cta',
+		'Copy from Section Copy (see the Style Guide): the eyebrow, title and description sit above the logos, and the call to action below.'
+	],
+	[
+		'logos',
+		'An array of `{ src, alt, url, newTab }`, every logo at once in the same bordered, rounded boxes as Finance Marquee. From `md` up the rows alternate four and three across, repeating, across the content width, with the boxes shrinking with the screen; below `md` it is two across. With a `url` the box becomes a link (`newTab` opens it in a new tab); every box is pushed a little by the mouse (see the Push attachment). Required.'
 	],
 	[
 		'fullScreen',
