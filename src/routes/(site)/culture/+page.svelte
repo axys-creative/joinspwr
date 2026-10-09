@@ -34,6 +34,10 @@
 			margin-block-start: 48px;
 		}
 
+		:global(#earnings) {
+			margin-block-start: 96px;
+		}
+
 		:global(#oss) {
 			margin-block-start: 96px;
 		}

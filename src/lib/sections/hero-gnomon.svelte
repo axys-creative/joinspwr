@@ -81,7 +81,7 @@
 	let titleWidth = $state(0);
 	let slideWidths = $state<number[]>([]);
 	let arrowsWidth = $state(0);
-	// Below md the title moves to a notch at the top left, and the controls stay in the one at the bottom right.
+	// Below md the title moves out of the frame, above it, and the controls stay in the notch at the bottom right.
 	let compact = $state(false);
 
 	const interval = $derived(autoplay?.interval || DEFAULT_INTERVAL);
@@ -96,30 +96,24 @@
 	const controlsNotchWidth = $derived(arrowsWidth + NOTCH_PADDING);
 	// How far the notches reach in from the bottom and the top, for the overlay and the minimum height to clear.
 	const bottomReach = $derived(compact ? right.height : Math.max(left.height, right.height));
-	const topReach = $derived(compact ? left.height : 0);
+	const topReach = 0;
+	const notches = $derived([
+		...(!compact && left.height
+			? [{ align: 'left' as const, width: titleNotchWidth, height: left.height }]
+			: []),
+		...(right.height
+			? [{ align: 'right' as const, width: controlsNotchWidth, height: right.height }]
+			: [])
+	]);
 	const shape = $derived(
 		width && height
-			? left.height
-				? edgeNotchBoxPath(
-						width,
-						height,
-						[
-							{
-								align: 'left',
-								edge: compact ? 'top' : 'bottom',
-								width: titleNotchWidth,
-								height: left.height
-							},
-							...(right.height
-								? [{ align: 'right' as const, width: controlsNotchWidth, height: right.height }]
-								: [])
-						],
-						radius,
-						angle
-					)
+			? notches.length
+				? edgeNotchBoxPath(width, height, notches, radius, angle)
 				: roundedBoxPath(width, height, radius)
 			: ''
 	);
+
+	const live = $derived(playing && !paused ? 'off' : 'polite');
 
 	let shownIndex = -1;
 
@@ -155,7 +149,7 @@
 
 {#snippet arrows()}
 	<div class="controls" bind:clientWidth={arrowsWidth}>
-		{#if hasDate}
+		{#if hasDate && !compact}
 			<div class="dates">
 				{#each slides as slide, i (i)}
 					<span class="slide" class:active={i === index} inert={i !== index}>{slide.date}</span>
@@ -191,6 +185,31 @@
 	}}
 />
 
+{#snippet slideTitles(titleStyle: 'h4' | 'h5')}
+	{#each slides as slide, i (i)}
+		<div
+			class="slide"
+			class:active={i === index}
+			role="group"
+			aria-roledescription="slide"
+			bind:clientWidth={slideWidths[i]}
+			aria-label="{i + 1} of {slides.length}"
+			inert={i !== index}
+		>
+			<SectionCopy
+				level={title ? 2 : 1}
+				{titleStyle}
+				title={slide.title}
+				align="start"
+				showEyebrow={false}
+				showDescription={false}
+				showCta={false}
+			/>
+			{#if titleStyle === 'h5' && slide.date}<span class="title-date">{slide.date}</span>{/if}
+		</div>
+	{/each}
+{/snippet}
+
 <section
 	{id}
 	class="hero-gnomon page-grid {className ?? ''}"
@@ -212,6 +231,11 @@
 				showEyebrow={false}
 				showCta={false}
 			/>
+		</div>
+	{/if}
+	{#if compact}
+		<div class="copy mobile-title" aria-live={live}>
+			{@render slideTitles('h5')}
 		</div>
 	{/if}
 	<div
@@ -269,40 +293,13 @@
 			</svg>
 		{/if}
 
-		<div
-			class="notch left"
-			class:top={compact}
-			style="width: {titleNotchWidth}px"
-			bind:clientHeight={left.height}
-		>
-			<div
-				class="copy"
-				bind:clientWidth={titleWidth}
-				aria-live={playing && !paused ? 'off' : 'polite'}
-			>
-				{#each slides as slide, i (i)}
-					<div
-						class="slide"
-						class:active={i === index}
-						role="group"
-						aria-roledescription="slide"
-						bind:clientWidth={slideWidths[i]}
-						aria-label="{i + 1} of {slides.length}"
-						inert={i !== index}
-					>
-						<SectionCopy
-							level={title ? 2 : 1}
-							titleStyle="h3"
-							title={slide.title}
-							align="start"
-							showEyebrow={false}
-							showDescription={false}
-							showCta={false}
-						/>
-					</div>
-				{/each}
+		{#if !compact}
+			<div class="notch left" style="width: {titleNotchWidth}px" bind:clientHeight={left.height}>
+				<div class="copy" bind:clientWidth={titleWidth} aria-live={live}>
+					{@render slideTitles('h4')}
+				</div>
 			</div>
-		</div>
+		{/if}
 
 		<div class="notch right" style="width: {controlsNotchWidth}px" bind:clientHeight={right.height}>
 			{@render arrows()}
@@ -345,6 +342,10 @@
 	.shell {
 		position: relative;
 		min-height: max(650px, 50lvh, calc(var(--notch-bottom) + var(--notch-top) + 320px));
+
+		@include mixins.max-md {
+			min-height: max(325px, calc(var(--notch-bottom) + 240px));
+		}
 	}
 
 	.full-screen .shell {
@@ -413,17 +414,21 @@
 		padding: 16px 48px 0 0;
 	}
 
-	// Below md the title sits in the notch at the top left, with its room on the bottom edge.
-	.top {
-		top: 0;
-		bottom: auto;
-		padding: 0 48px 16px 0;
-	}
-
 	.right {
 		right: 0;
 		padding: 16px 0 0 48px;
 		align-items: flex-end;
+
+		@include mixins.max-md {
+			padding-block-start: 8px;
+		}
+	}
+
+	.title-date {
+		display: block;
+		margin-block-start: 8px;
+		color: var(--color-text-muted);
+		font-size: 14px;
 	}
 
 	// Every slide takes the same cell, so the notch is as wide as the longest title and never jumps between slides.
@@ -456,7 +461,12 @@
 		}
 	}
 
-	.copy :global(h1) {
+	.mobile-title {
+		margin-block-end: 16px;
+	}
+
+	.copy :global(h1),
+	.copy :global(h2) {
 		margin: 0;
 		line-height: 1;
 		white-space: nowrap;

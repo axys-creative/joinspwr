@@ -293,11 +293,16 @@
 		position: relative;
 		display: grid;
 		grid-auto-flow: column;
-		grid-auto-columns: 1fr;
+		grid-auto-columns: minmax(0, 1fr);
 		gap: 16px;
 		align-items: end;
 		height: 100%;
 		padding-inline: 8px;
+
+		@include mixins.max-md {
+			gap: 8px;
+			padding-inline: 0;
+		}
 	}
 
 	.column {
@@ -311,6 +316,7 @@
 
 	.bar {
 		width: min(100%, 56px);
+		max-width: 100%;
 		height: var(--h);
 		border-radius: 6px 6px 0 0;
 		background: color-mix(in srgb, var(--color-text) 22%, transparent);
@@ -349,7 +355,7 @@
 	.labels {
 		display: grid;
 		grid-auto-flow: column;
-		grid-auto-columns: 1fr;
+		grid-auto-columns: minmax(0, 1fr);
 		gap: 16px;
 		padding-left: 48px;
 		padding-inline-end: 0;
@@ -358,6 +364,7 @@
 		text-align: center;
 
 		@include mixins.max-md {
+			gap: 8px;
 			padding-left: 40px;
 		}
 
