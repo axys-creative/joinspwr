@@ -22,6 +22,8 @@
 		loop?: boolean;
 		/** Slides shown at once from the `md` breakpoint up. Always one below it. */
 		slidesPerView?: number;
+		/** Milliseconds a slide change takes. Defaults to `600`. */
+		duration?: number;
 		autoplay?: { enabled?: boolean; /** Milliseconds between slides. */ interval?: number };
 		class?: string;
 	};
@@ -34,7 +36,6 @@
 
 	const DRAG_THRESHOLD = 5;
 	const SWIPE_FRACTION = 0.1;
-	const RELEASE_FALLBACK_MS = 700;
 	const SETTLE_MS = 120;
 	const SNAP_TOLERANCE = 2;
 
@@ -46,6 +47,7 @@
 		cta,
 		loop = false,
 		slidesPerView = 1,
+		duration = 600,
 		autoplay,
 		class: className
 	}: CarouselProps = $props();
@@ -62,6 +64,7 @@
 	let canPrev = $state(false);
 	let canNext = $state(true);
 	let dragging = $state(false);
+	let animating = $state(false);
 
 	let timer: ReturnType<typeof setInterval> | undefined;
 	let settleTimer: ReturnType<typeof setTimeout> | undefined;
@@ -71,6 +74,7 @@
 	let pointerDown = false;
 	let startX = 0;
 	let startScroll = 0;
+	let frame = 0;
 
 	const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 	const step = () => {
@@ -99,12 +103,36 @@
 		else if (position >= setWidth * 2 - SNAP_TOLERANCE) track!.scrollLeft = position - setWidth;
 	};
 
+	const easeInOut = (progress: number) =>
+		progress < 0.5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2;
+
+	const stopAnimation = () => {
+		cancelAnimationFrame(frame);
+		animating = false;
+	};
+
+	// Native smooth scroll has a fixed duration, so the slide change is animated here with snap off.
+	const animateTo = (left: number) => {
+		stopAnimation();
+		const from = track!.scrollLeft;
+		if (reducedMotion() || duration <= 0 || Math.abs(left - from) < 1) {
+			track!.scrollLeft = left;
+			return;
+		}
+		animating = true;
+		const start = performance.now();
+		const tick = (now: number) => {
+			const progress = Math.min(1, (now - start) / duration);
+			track!.scrollLeft = from + (left - from) * easeInOut(progress);
+			if (progress < 1) frame = requestAnimationFrame(tick);
+			else animating = false;
+		};
+		frame = requestAnimationFrame(tick);
+	};
+
 	const goToRaw = (raw: number) => {
 		const max = Math.round(maxScroll() / step());
-		track!.scrollTo({
-			left: Math.min(max, Math.max(0, raw)) * step(),
-			behavior: reducedMotion() ? 'auto' : 'smooth'
-		});
+		animateTo(Math.min(max, Math.max(0, raw)) * step());
 	};
 	const goToPage = (target: number) => {
 		if (!looping) return goToRaw(target);
@@ -179,18 +207,8 @@
 		restartAutoplay();
 	};
 
-	// Snap stays off until the smooth scroll ends, or it would jump instantly.
-	const releaseSnap = () => {
-		const done = () => {
-			clearTimeout(fallback);
-			track!.removeEventListener('scrollend', done);
-			dragging = false;
-		};
-		const fallback = setTimeout(done, RELEASE_FALLBACK_MS);
-		track!.addEventListener('scrollend', done);
-	};
-
 	const onPointerdown = (event: PointerEvent) => {
+		stopAnimation();
 		if (event.pointerType !== 'mouse' || event.button !== 0) return;
 		pointerDown = true;
 		moved = false;
@@ -221,8 +239,8 @@
 			if (moved) {
 				const shift = (element.scrollLeft - startScroll) / step();
 				const from = Math.round(startScroll / step());
+				dragging = false;
 				goToRaw(from + (Math.abs(shift) >= SWIPE_FRACTION ? Math.sign(shift) : 0));
-				releaseSnap();
 			} else {
 				dragging = false;
 			}
@@ -257,6 +275,7 @@
 			document.removeEventListener('visibilitychange', onVisibility);
 			stopAutoplay();
 			clearTimeout(settleTimer);
+			cancelAnimationFrame(frame);
 		};
 	});
 </script>
@@ -278,6 +297,7 @@
 	<div
 		class="track"
 		class:dragging
+		class:animating
 		role="group"
 		aria-label="Slides"
 		tabindex="0"
@@ -285,6 +305,7 @@
 		onscroll={onScroll}
 		onkeydown={onKeydown}
 		onpointerdown={onPointerdown}
+		onwheel={stopAnimation}
 		onclickcapture={onClickCapture}
 	>
 		{#each sets as set (set)}
@@ -397,6 +418,10 @@
 
 		&.dragging {
 			cursor: grabbing;
+		}
+
+		&.dragging,
+		&.animating {
 			scroll-snap-type: none;
 		}
 	}

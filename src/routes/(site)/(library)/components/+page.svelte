@@ -375,27 +375,12 @@
 	<LibrarySection
 		title="Form"
 		type="Component"
-		description="A contact form with two behaviors. Forms need Netlify set up: a page with a form must be prerendered so Netlify can find it, and the form is only sent in production (locally the feedback form shows its alert and the redirect form goes to the next page, without sending). Fields are floating labels, a honeypot catches bots, and `showRecaptcha` adds Netlify's reCAPTCHA."
+		description="A contact form that shows an alert on submit: success, or a warning if the same email is used twice (remembered in this browser). Alerts stack in the bottom right. Forms need Netlify set up: a page with a form must be prerendered so Netlify can find it, and the form is only sent in production (locally it shows the alert without sending). Fields are floating labels, a honeypot catches bots, and `showRecaptcha` adds Netlify's reCAPTCHA. `showPhone`, `showAddress` and `showDiscovery` add more fields."
 		props={formProps}
 	>
-		<LibrarySection
-			level={3}
-			title="With feedback"
-			description="Shows an alert on submit: success, or a warning if the same email is used twice (remembered in this browser). Alerts stack in the bottom right."
-		>
-			<div class="form-demo">
-				<Form feedback showMessage />
-			</div>
-		</LibrarySection>
-		<LibrarySection
-			level={3}
-			title="With a redirect"
-			description="Sends the visitor to another page after submitting, here the Form Submitted page. `showPhone`, `showAddress` and `showDiscovery` add more fields."
-		>
-			<div class="form-demo">
-				<Form showPhone showAddress showDiscovery maxCountDiscovery={250} />
-			</div>
-		</LibrarySection>
+		<div class="form-demo">
+			<Form showMessage />
+		</div>
 	</LibrarySection>
 
 	<LibrarySection

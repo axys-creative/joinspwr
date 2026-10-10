@@ -25,6 +25,8 @@
 			| 'select';
 		/** `underline` is a line under the field; `outline` is a full border. */
 		variant?: 'underline' | 'outline';
+		/** A blurred glass background on the field itself. The label stays inside it. Use with `outline`. */
+		glass?: boolean;
 		required?: boolean;
 		disabled?: boolean;
 		/** Helper text under the field. */
@@ -53,6 +55,7 @@
 		label,
 		type = 'text',
 		variant = 'underline',
+		glass = false,
 		required = true,
 		disabled = false,
 		hint,
@@ -97,7 +100,12 @@
 	<option value={item.value} disabled={item.disabled}>{item.label ?? item.value}</option>
 {/snippet}
 
-<div class="field {variant} {className ?? ''}" class:floated class:textarea={type === 'textarea'}>
+<div
+	class="field {variant} {className ?? ''}"
+	class:floated
+	class:has-glass={glass}
+	class:textarea={type === 'textarea'}
+>
 	{#if type === 'textarea'}
 		<textarea
 			{id}
@@ -289,6 +297,38 @@
 			padding-inline: 0.35em;
 			translate: 0 -50%;
 			background: var(--color-bg);
+		}
+	}
+
+	// Glass: the label sits inside the field, so it needs no cut in the border.
+	.outline.has-glass {
+		input,
+		textarea,
+		select {
+			padding: 1.45em 1em 0.4em;
+			border-color: var(--color-border);
+			background: var(--color-glass);
+			backdrop-filter: blur(12px);
+
+			&:hover {
+				background: var(--color-glass-hover);
+			}
+
+			&:focus-visible {
+				border-color: var(--color-accent);
+			}
+		}
+
+		input:focus ~ label,
+		input:not(:placeholder-shown) ~ label,
+		textarea:focus ~ label,
+		textarea:not(:placeholder-shown) ~ label,
+		&.floated label {
+			top: calc(0.5em + 0.35em);
+			left: 1em;
+			padding-inline: 0;
+			translate: none;
+			background: none;
 		}
 	}
 

@@ -41,11 +41,6 @@
 />
 <Headline id="headline" {...headline} />
 <GalleryHorizontal id="gallery" {...gallery} />
-<CarouselTunnel
-	id="carousel"
-	{...carousel}
-	autoplay={{ interval: 2400, quickStart: true }}
-	titleEffect="scale"
-/>
+<CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
 <FinanceMarquee id="finance" {...financeMarquee} />
 <Oss id="oss" {...oss} />

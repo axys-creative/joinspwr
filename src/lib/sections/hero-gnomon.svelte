@@ -18,6 +18,8 @@
 		label?: string;
 		/** The page's heading, in rich text, above the frame, centered, with the description below it. The slide titles then drop to level 2. */
 		title?: string;
+		/** The small label above `title`. Only shown with a `title`. */
+		eyebrowText?: string;
 		/** Plain or rich text below `title`. */
 		description?: string;
 		/** Two cutout pictures that stay put on every slide, standing in the bottom corners of the frame above the notches. */
@@ -57,6 +59,7 @@
 		slides,
 		label = 'Highlights',
 		title,
+		eyebrowText,
 		description,
 		figures,
 		autoplay,
@@ -223,14 +226,7 @@
 >
 	{#if title}
 		<div class="intro">
-			<SectionCopy
-				level={1}
-				align="center"
-				{title}
-				{description}
-				showEyebrow={false}
-				showCta={false}
-			/>
+			<SectionCopy level={1} align="center" {eyebrowText} {title} {description} showCta={false} />
 		</div>
 	{/if}
 	{#if compact}
@@ -320,10 +316,10 @@
 	}
 
 	.hero-gnomon:has(.intro) {
-		margin-block-start: 184px;
+		margin-block-start: 248px;
 
 		@include mixins.max-md {
-			margin-block-start: 136px;
+			margin-block-start: 168px;
 		}
 	}
 

@@ -3,7 +3,7 @@
 
 	export type HeroImageWaveProps = SectionCopyProps & {
 		images: ImageWaveProps['images'];
-		/** Decorative handwritten text beside the copy. Hidden below the `lg` breakpoint. */
+		/** Decorative handwritten text beside the copy, with `{.br}` for a line break. Hidden below the `lg` breakpoint. */
 		accent?: string;
 		/** Image Wave props: `repeat`, `speed`, `duration`, `amplitude`, `waves`, `scrub` and `reverse`. */
 		wave?: Omit<ImageWaveProps, 'images' | 'class'>;
@@ -15,6 +15,7 @@
 
 <script lang="ts">
 	import ImageWave from '$lib/components/image-wave.svelte';
+	import RichText from '$lib/components/rich-text.svelte';
 	import SectionCopy, { type SectionCopyProps } from '$lib/components/section-copy.svelte';
 
 	let {
@@ -30,7 +31,7 @@
 <section class="hero-image-wave {className ?? ''}" class:full-screen={fullScreen}>
 	<div class="inner">
 		<div class="copy">
-			{#if accent}<span class="accent" aria-hidden="true">{accent}</span>{/if}
+			{#if accent}<span class="accent" aria-hidden="true"><RichText text={accent} /></span>{/if}
 			<SectionCopy level={1} align="center" {...copy} />
 		</div>
 	</div>
@@ -64,10 +65,16 @@
 		justify-content: center;
 		max-width: var(--content-width);
 		margin-inline: auto;
-		padding: var(--body-padding-double) var(--body-padding);
+		padding: calc(var(--body-padding-double) + 64px) var(--body-padding) var(--body-padding-double);
+
+		@include mixins.max-lg {
+			padding-block-start: calc(var(--body-padding-double) + 32px);
+		}
 	}
 
 	.copy {
+		--description-width: var(--max-width-text);
+
 		position: relative;
 		display: flex;
 		justify-content: center;
@@ -80,8 +87,11 @@
 		left: 0;
 		translate: -100% 100%;
 		rotate: -8deg;
+		color: var(--color-accent);
 		font-family: var(--font-accent);
-		line-height: 1;
+		font-size: clamp(32px, 4vw, 56px);
+		line-height: 0.75;
+		white-space: nowrap;
 		pointer-events: none;
 
 		@include mixins.max-lg {

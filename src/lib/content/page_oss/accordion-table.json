@@ -1,0 +1,215 @@
+{
+	"title": "History",
+	"description": "Every year, we commit to serving communities around the world because real impact happens when we step outside ourselves. By donating resources and volunteering, we help support long-term growth in the places we visit.",
+	"columns": [
+		{
+			"key": "emblem",
+			"label": "Emblem",
+			"type": "image",
+			"width": "96px",
+			"fit": "contain"
+		},
+		{
+			"key": "year",
+			"label": "Year",
+			"width": "112px",
+			"titleStyle": "h3",
+			"accent": true
+		},
+		{
+			"key": "location",
+			"label": "Location",
+			"width": "2fr",
+			"titleStyle": "h3"
+		}
+	],
+	"table": {
+		"slidesPerView": 3,
+		"singleOpen": true,
+		"striped": true
+	},
+	"items": [
+		{
+			"emblem": {
+				"src": "/uploads/oss-emblem-4peru.webp",
+				"alt": "Cusco, Peru emblem"
+			},
+			"year": "2025",
+			"location": "Cusco, Peru",
+			"content": "<p>SPWR is preparing to serve in Peru. Register to join us.</p>",
+			"images": [
+				{
+					"src": "/uploads/oss-peru-1photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-2photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-3photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-4photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-5photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-6photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-7photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-8photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-9photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-peru-10photo.webp",
+					"alt": ""
+				}
+			],
+			"cta": {
+				"text": "Register",
+				"url": "#"
+			}
+		},
+		{
+			"emblem": {
+				"src": "/uploads/oss-emblem-3costarica.webp",
+				"alt": "Orosi Valley, Costa Rica emblem"
+			},
+			"year": "2024",
+			"location": "Orosi Valley, Costa Rica",
+			"content": "<p>SPWR helped a local community build a community center and playground.</p>",
+			"images": [
+				{
+					"src": "/uploads/oss-costarica-1photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-2photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-3photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-4photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-5photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-6photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-7photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-8photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-9photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-costarica-10photo.webp",
+					"alt": ""
+				}
+			],
+			"cta": {
+				"text": "Play video",
+				"url": ""
+			},
+			"video": {
+				"src": "3Y01veH9LWeGPu02QXBsN948WOD4BSTI00vd7K2e9d01GSQ",
+				"title": "Orosi Valley, Costa Rica 2024"
+			}
+		},
+		{
+			"emblem": {
+				"src": "/uploads/oss-emblem-2mexico.webp",
+				"alt": "Merida, Mexico emblem"
+			},
+			"year": "2022",
+			"location": "Merida, Mexico",
+			"content": "<p>SPWR helped build and renovate a community elementary school and donated bikes to its students.</p>",
+			"cta": {
+				"text": "Play video",
+				"url": ""
+			},
+			"video": {
+				"src": "3Y01veH9LWeGPu02QXBsN948WOD4BSTI00vd7K2e9d01GSQ",
+				"title": "Merida, Mexico 2022"
+			},
+			"images": [
+				{
+					"src": "/uploads/oss-mexico-1photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-2photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-3photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-4photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-5photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-6photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-7photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-8photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-9photo.webp",
+					"alt": ""
+				},
+				{
+					"src": "/uploads/oss-mexico-10photo.webp",
+					"alt": ""
+				}
+			]
+		},
+		{
+			"emblem": {
+				"src": "/uploads/oss-emblem-1afghanistan.webp",
+				"alt": "Afghanistan emblem"
+			},
+			"year": "2021",
+			"location": "Afghanistan",
+			"content": "<p>SPWR created its charity event, OSS (Operation SunPower Serves), and donated over $50,000 to help civilians evacuate Afghanistan from the Taliban.</p>"
+		}
+	]
+}

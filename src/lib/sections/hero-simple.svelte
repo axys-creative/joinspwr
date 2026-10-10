@@ -32,6 +32,8 @@
 	}
 
 	.inner {
+		--description-width: var(--max-width-text);
+
 		width: 100%;
 		max-width: var(--content-width);
 		display: flex;

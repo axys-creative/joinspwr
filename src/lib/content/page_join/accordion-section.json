@@ -1,0 +1,31 @@
+{
+	"eyebrowText": "Frequently asked questions",
+	"title": "Straight answers",
+	"description": "",
+	"items": [
+		{
+			"title": "Do I need experience?",
+			"content": "<p>No. Most of the team started with none. We train you on the product, the process and how to talk with homeowners, and you learn alongside people who have done it before.</p>"
+		},
+		{
+			"title": "When do I get paid?",
+			"content": "<p>You are paid on a regular schedule, and your earnings are tied to the results you deliver. Your recruiter will walk you through the pay calendar before you start.</p>"
+		},
+		{
+			"title": "Is it year-round or summer only?",
+			"content": "<p>Solar sells in every season. Many of our reps work year-round, and others join for a summer. Either way, you decide what fits your life.</p>"
+		},
+		{
+			"title": "What does a typical day look like?",
+			"content": "<p>You start with a team huddle, spend the day meeting homeowners and sharing how solar can lower their bills, and finish by checking in on progress and next steps.</p>"
+		},
+		{
+			"title": "How do I get started?",
+			"content": "<p>Fill out the form above and a recruiter will reach out to talk through the role and answer your questions.</p>"
+		}
+	],
+	"accordion": {
+		"striped": true,
+		"singleOpen": true
+	}
+}

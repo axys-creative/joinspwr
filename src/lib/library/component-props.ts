@@ -305,16 +305,21 @@ export const alertProps = props(
 export const formProps = props(
 	['variant', '`underline | outline`. The look of every field. Defaults to `underline`.'],
 	[
-		'feedback',
-		'A boolean. Shows alerts on submit instead of going to another page. Defaults to `false`.'
+		'glass',
+		'A boolean. Gives each field the blurred glass background, with the label resting inside it, so the form itself has none. Use with `outline`. Defaults to `false`.'
+	],
+	['name', 'A string, the Netlify form name. Defaults to `contact`.'],
+	[
+		'splitName',
+		'A boolean. First and last name fields (`first-name`, `last-name`) instead of one `name`. Defaults to `false`.'
 	],
 	[
-		'name',
-		'A string, the Netlify form name. Defaults to `form-feedback` with `feedback`, otherwise `form-redirect`.'
+		'consent',
+		'A string, the text message consent wording. Adds an optional checkbox (`sms-consent`) showing two lines of it, with an arrow that opens the rest.'
 	],
 	[
-		'action',
-		'A string, the page to go to after submitting. Not used with `feedback`. Defaults to `/form-submit`.'
+		'consentLinks',
+		'An array of `{ text, url }` shown under the consent wording as "View our" and the links. Not truncated.'
 	],
 	['showPhone', 'A boolean. Adds a phone field, digits only. Defaults to `false`.'],
 	['showAddress', 'A boolean. Adds city, state and zip fields. Defaults to `false`.'],
@@ -325,18 +330,15 @@ export const formProps = props(
 	['showDiscovery', 'A boolean. Adds a "how did you hear about us" textarea. Defaults to `false`.'],
 	['maxCountDiscovery', 'A number, the character limit of the discovery textarea.'],
 	['showRecaptcha', "A boolean. Adds Netlify's reCAPTCHA widget. Defaults to `false`."],
-	[
-		'submitText',
-		'A string, the button label. Defaults to `Send message` with `feedback`, otherwise `Submit`.'
-	],
+	['submitText', 'A string, the button label. Defaults to `Send message`.'],
 	['submitLabel', "A string, the button's accessible name."],
-	['successTitle', 'A string, the success alert title. Only used with `feedback`.'],
-	['successMessage', 'A string, the success alert message. Only used with `feedback`.'],
-	['errorTitle', 'A string, the error alert title. Only used with `feedback`.'],
-	['errorMessage', 'A string, the error alert message. Only used with `feedback`.'],
+	['successTitle', 'A string, the success alert title.'],
+	['successMessage', 'A string, the success alert message.'],
+	['errorTitle', 'A string, the error alert title.'],
+	['errorMessage', 'A string, the error alert message.'],
 	[
 		'duplicateMessage',
-		'A string, the warning shown when an email that was already used submits again. Only used with `feedback`.'
+		'A string, the warning shown when an email that was already used submits again.'
 	],
 	['class', 'A string of extra classes.']
 );
@@ -840,6 +842,10 @@ export const accordionProps = props(
 	],
 	['singleOpen', 'A boolean. Only one item open at a time. Defaults to `false`.'],
 	[
+		'striped',
+		'A boolean. Puts the glass background on every other item, starting with the first. Defaults to `false`.'
+	],
+	[
 		'defaultOpen',
 		"Which items start open: `true` for all, an item's number (from `0`), or a list such as `[0, 2]`. With `singleOpen` only the first opens. An item can also set `defaultOpen: true` itself. Defaults to none."
 	],
@@ -857,11 +863,11 @@ export const accordionProps = props(
 export const accordionTableProps = props(
 	[
 		'columns',
-		'An array of `{ key, label, type, width }`. `key` is the field read off each item, `label` the header text, `type` is `image` to show an `{ src, alt }` image (anything else is text), and `width` is any CSS grid track size (`1fr` by default). Required.'
+		'An array of `{ key, label, type, width, titleStyle, accent, fit }`. `key` is the field read off each item, `label` the header text, `type` is `image` to show an `{ src, alt }` image (anything else is text), and `width` is any CSS grid track size (`1fr` by default). `titleStyle` (`h1` to `h6`) sets the text of the cell in that heading size, `accent` sets it in the accent text color, and `fit` (`cover` or `contain`) is how an image column crops. Required.'
 	],
 	[
 		'items',
-		'An array of objects with a field per column `key`, plus `content`, trusted HTML shown when the row is open. A row can also have `images` (an array of `{ src, alt }` shown in a Carousel under the content), its own `slidesPerView`, and a `cta` (Button props) under the carousel. Required.'
+		'An array of objects with a field per column `key`, plus `content`, trusted HTML shown when the row is open. A row can also have `images` (an array of `{ src, alt }` shown in a Carousel under the content), its own `slidesPerView`, and a `cta` (Button props) under the carousel, or under the content when the row has no images. Required.'
 	],
 	[
 		'icon',
@@ -875,6 +881,10 @@ export const accordionTableProps = props(
 	[
 		'sticky',
 		'A boolean. Pins the header row while scrolling through the rows. Defaults to `false`.'
+	],
+	[
+		'striped',
+		'A boolean. Puts the glass background on every other row, starting with the first. Defaults to `false`.'
 	],
 	[
 		'contentColumn',
@@ -923,6 +933,10 @@ export const carouselProps = props(
 	[
 		'slidesPerView',
 		'A number, how many slides show at once from the `md` breakpoint up. It is always one below. Defaults to `1`.'
+	],
+	[
+		'duration',
+		'A number, the milliseconds a slide change takes, with an ease in and out. Defaults to `600`. The Accordion Table passes `800`.'
 	],
 	[
 		'autoplay',
@@ -1062,7 +1076,7 @@ export const carouselTunnelProps = props(
 	],
 	[
 		'titleEffect',
-		'`reveal | fade | scale | flip | none`. A word-by-word effect that plays once when the copy reveals. Defaults to `reveal`.'
+		'`reveal | fade | scale | flip | none`. A word-by-word effect that plays once when the copy reveals. With `none` the title simply fades in with the rest of the copy. Defaults to `none`.'
 	],
 	['descriptionEffect', 'Same options as `titleEffect`. Defaults to `none`.'],
 	[
@@ -1079,7 +1093,7 @@ export const carouselTunnelProps = props(
 	],
 	[
 		'config',
-		'Optional tuning: `sectionHeight` (the total scroll distance, `220svh`), `slideWidth` (the resting slide width, which sets how much of the next ones peek in, `min(25vw, 720px)`), `slideGap` (`24px`), `slideAspect` (`2 / 1.25`), `scaleDuration` (the share of the scroll spent zooming, `0.6`), `trail` (seconds the slides beside the active one take to catch up with the zoom, as if pulled behind it; two away take twice as long; `0` zooms them together, `0.35`), `revealDuration` (seconds, `0.6`) and `captionOffset` (`12px`). Anything left out keeps its default, including the smaller slide width on mobile.'
+		'Optional tuning: `sectionHeight` (the total scroll distance, `220svh`), `slideWidth` (the resting slide width, which sets how much of the next ones peek in, `min(25vw, 720px)`, and `min(30vw, 864px)` from `lg` up), `slideGap` (`24px`), `slideAspect` (`2 / 1.25`), `scaleDuration` (the share of the scroll spent zooming, `0.6`), `trail` (seconds the slides beside the active one take to catch up with the zoom, as if pulled behind it; two away take twice as long; `0` zooms them together, `0.35`), `revealDuration` (seconds, `0.6`) and `captionOffset` (`12px`). Anything left out keeps its default, including the smaller slide width on mobile.'
 	],
 	['label', 'A string, the carousel’s accessible name. Defaults to `Featured work`.'],
 	[
@@ -1139,6 +1153,77 @@ export const scrollStackProps = props(
 		'placement',
 		'`left | center | right`. Which side the panels sit on, with the copy pinned on the other side. `center` puts the copy above. Defaults to `center`.'
 	],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
+export const accordionSectionProps = props(
+	[
+		'eyebrowText, title, description',
+		'The opening copy, from Section Copy (see the Style Guide), centered above the accordion. Leave them out for no header.'
+	],
+	[
+		'items',
+		'An array of `{ title, content, defaultOpen }` for the Accordion (see Components). `content` is trusted HTML. Required.'
+	],
+	[
+		'accordion',
+		'An object of the other Accordion props: `icon`, `plus`, `singleOpen`, `striped`, `defaultOpen` and `toggleAll`. The icon defaults to `chevron-down` and `singleOpen` to `true`. The Join page turns `striped` on.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	['id', 'A string, the anchor a link or the CMS preview can point to.'],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
+export const accordionTableSectionProps = props(
+	[
+		'title, description',
+		'The opening copy, from Section Copy (see the Style Guide), with the title and description side by side. Leave them out for no header. The eyebrow and call to action are left out of the content on purpose but still work if passed.'
+	],
+	[
+		'columns, items',
+		'The Accordion Table props of the same names (see Components). A row with `video` (`{ src, title, poster }`) opens it in a Video Overlay from its button: set `cta.text` and leave the URL out. Required.'
+	],
+	[
+		'table',
+		'An object of the other Accordion Table props: `icon`, `singleOpen`, `defaultOpen`, `sticky`, `striped`, `contentColumn`, `slidesPerView` and `loopImages`. The icon defaults to `chevron-down` and the content column to `3`.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	['id', 'A string, the anchor a link or the CMS preview can point to.'],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
+export const contactFormProps = props(
+	[
+		'eyebrowText, title, description',
+		'Optional opening copy from Section Copy (see the Style Guide), centered above the form. Leave them out for no header.'
+	],
+	[
+		'consent',
+		'A string, the text message consent wording, passed to the Form. Leave it out for no checkbox.'
+	],
+	[
+		'consentLinks',
+		'An array of `{ text, url }` shown under the wording as "View our" and the links, such as the privacy policy and terms of use. They are not truncated.'
+	],
+	[
+		'form',
+		'An object of Form props (see Components) that overrides the defaults: `name` `join`, `variant` `outline`, `glass`, `splitName`, `showPhone`, `showAddress`, `showDiscovery` and `showRecaptcha`.'
+	],
+	[
+		'hero',
+		"A boolean. Makes the section the page's hero, as on the Join page: the title is the level 1 heading, the description uses the wider `--max-width-text`, and there is room under the header. Defaults to `false`."
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the form centered. Taller content still grows past it. Defaults to `true` with `hero`, otherwise `false`.'
+	],
+	['id', 'A string, the anchor a link or the CMS preview can point to.'],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
@@ -1302,8 +1387,8 @@ export const heroGnomonProps = props(
 		'An array of `{ title, date, description, cta, image }`, where `image` is `{ src, alt }`. The picture fills the frame; the title sits in a notch cut from its bottom left corner, with the arrows in a second notch at the bottom right, and the picture and title change together. The title is rich text, a word or two on one line. The `date` is text, such as a date or a range, shown left of the info button. The `description` is plain text shown, under the `date`, in an overlay inside the frame when the visitor clicks the info button next to the arrows (the button is left out when no slide has one), followed by the optional `cta`, a primary button `{ text, url, newTab }`; the overlay follows the slide, closes with Escape or the button, and pauses autoplay while open. Below `md` the title moves to a notch at the top left, and the controls stay in the one at the bottom right. Required.'
 	],
 	[
-		'title, description',
-		"Optional rich text above the frame: the page's level 1 heading, centered, with the description below it. When `title` is set, the slide titles drop to level 2."
+		'eyebrowText, title, description',
+		"Optional text above the frame: a small eyebrow, then the page's level 1 heading (rich text), centered, with the description below it. When `title` is set, the slide titles drop to level 2. The eyebrow needs a `title`."
 	],
 	[
 		'figures',
@@ -1333,7 +1418,10 @@ export const heroImageWaveProps = props(
 		'...SectionCopy props',
 		'Takes every prop of Section Copy (see the Style Guide): `eyebrowText`, `eyebrowIcon`, `title`, `description`, `cta` and the rest. `level` defaults to `1`.'
 	],
-	['images', 'An array of `{ src, alt }` for the wave. Required.'],
+	[
+		'images',
+		'An array of `{ src, alt }` for the wave. Required. The OSS page leaves it empty in its content and passes the photos of the most recent History row, and builds `accent` the same way ("Highlights from" plus the location and year of that row).'
+	],
 	[
 		'fullScreen',
 		'A boolean. At least the height of the screen, with the copy centered above the wave. Taller content still grows past it. Defaults to `true`; pass `fullScreen={false}` for the natural height.'
@@ -1341,7 +1429,7 @@ export const heroImageWaveProps = props(
 
 	[
 		'accent',
-		'A string, decorative handwritten text pinned beside the copy. Hidden below the `lg` breakpoint. Leave it out for none.'
+		'A string, decorative handwritten text pinned beside the copy in the accent color. `{.br}` breaks the line. Hidden below the `lg` breakpoint. Leave it out for none.'
 	],
 	[
 		'wave',

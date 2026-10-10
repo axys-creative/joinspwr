@@ -1,5 +1,8 @@
 import type { Component } from 'svelte';
 import globalCss from '../../styles/styles.scss?inline';
+import AccordionSection from '$lib/sections/accordion-section.svelte';
+import AccordionTableSection from '$lib/sections/accordion-table-section.svelte';
+import ContactForm from '$lib/sections/contact-form.svelte';
 import CircleHighlight from '$lib/sections/circle-highlight.svelte';
 import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 import Headline from '$lib/sections/headline.svelte';
@@ -9,11 +12,13 @@ import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 import HeroGnomon from '$lib/sections/hero-gnomon.svelte';
 import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
+import HeroImageWave from '$lib/sections/hero-image-wave.svelte';
 import Oss from '$lib/sections/oss.svelte';
 import PhotoColumns from '$lib/sections/photo-columns.svelte';
 import ScrollTimeline from '$lib/sections/scroll-timeline.svelte';
 import Tools from '$lib/sections/tools.svelte';
 import VideoSection from '$lib/sections/video-section.svelte';
+import history from '$lib/content/page_oss/accordion-table.json';
 import { mountPreview, type PreviewHost } from './preview-host.svelte';
 
 type Data = Record<string, unknown>;
@@ -33,6 +38,18 @@ type Entry = { getIn: (path: string[]) => { toJS: () => Data } | undefined };
 
 // Keyed by the Decap file (or collection) name in config.json.
 const previews: Record<string, Preview> = {
+	accordion_section: {
+		component: AccordionSection as unknown as Section,
+		props: (data) => ({ ...data, items: data.items ?? [] })
+	},
+	accordion_table: {
+		component: AccordionTableSection as unknown as Section,
+		props: (data) => ({ ...data, columns: data.columns ?? [], items: data.items ?? [] })
+	},
+	contact_form: {
+		component: ContactForm as unknown as Section,
+		props: (data) => ({ ...data, form: data.form ?? {}, hero: true })
+	},
 	carousel_tunnel: {
 		component: CarouselTunnel as unknown as Section,
 		props: (data) => ({ ...data, slides: data.slides ?? [], static: true })
@@ -86,6 +103,22 @@ const previews: Record<string, Preview> = {
 				images: data.images ?? [],
 				cta: { primary: cta.primary, secondary: cta.secondary?.text ? cta.secondary : undefined },
 				direction: 'left'
+			};
+		}
+	},
+	hero_image_wave: {
+		component: HeroImageWave as unknown as Section,
+		props: (data) => {
+			const latest = history.items[0];
+			const derived = latest ? `Highlights from{.br}${latest.location} ${latest.year}` : undefined;
+			const custom = typeof data.accent === 'string' ? data.accent.trim() : '';
+			const { showAccent, ...rest } = data;
+			return {
+				...rest,
+				images: (data.images as unknown[] | undefined)?.length
+					? data.images
+					: (latest?.images ?? []),
+				accent: showAccent === false ? undefined : custom || derived
 			};
 		}
 	},

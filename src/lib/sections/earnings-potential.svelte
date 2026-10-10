@@ -153,6 +153,14 @@
 
 		<div class="content">
 			<div class="tabset" {@attach tabsAttachment({ defaultTab, onChange: (i) => (selected = i) })}>
+				<SectionCopy
+					level={2}
+					{title}
+					showEyebrow={false}
+					showDescription={false}
+					showCta={false}
+				/>
+
 				<div
 					class="list"
 					role="tablist"
@@ -163,14 +171,6 @@
 						<button type="button" class="tab" role="tab" aria-selected="false">{tab.label}</button>
 					{/each}
 				</div>
-
-				<SectionCopy
-					level={2}
-					{title}
-					showEyebrow={false}
-					showDescription={false}
-					showCta={false}
-				/>
 
 				{#each tabs as tab, index (index)}
 					<div class="panel" role="tabpanel" hidden={index !== defaultTab}>
@@ -200,9 +200,9 @@
 		display: grid;
 		gap: 48px;
 		align-items: start;
-		max-width: var(--content-width);
+		width: min(var(--content-width), 100% - var(--body-padding) * 2);
 		margin-inline: auto;
-		padding: var(--body-padding-double) var(--body-padding);
+		padding-block: var(--body-padding-double);
 
 		@include mixins.min-lg {
 			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -395,6 +395,7 @@
 		--slider-color: var(--color-accent);
 
 		align-self: flex-start;
+		margin-block-end: 20px;
 	}
 
 	// The small button size. The press scale from Toggle Slider is kept in the transition so it eases instead of snapping.

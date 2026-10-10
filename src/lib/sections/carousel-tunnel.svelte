@@ -75,7 +75,7 @@
 		title,
 		description,
 		autoplay,
-		titleEffect = 'reveal',
+		titleEffect = 'none',
 		descriptionEffect = 'none',
 		dragThreshold = 0.1,
 		pagination = 'arrows',
@@ -561,6 +561,10 @@
 		--caption-offset: 12px;
 
 		position: relative;
+
+		@include mixins.min-lg {
+			--slide-width: min(30vw, 864px);
+		}
 
 		@include mixins.max-md {
 			--slide-width: min(84vw, 480px);

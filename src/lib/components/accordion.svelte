@@ -14,6 +14,8 @@
 		/** A plus sign that turns into a minus, instead of an icon. */
 		plus?: boolean;
 		singleOpen?: boolean;
+		/** Puts the glass background on every other item, starting with the first. */
+		striped?: boolean;
 		/** Which items start open: `true` for all, an item's number (from 0), or a list of them. With `singleOpen` only the first opens. */
 		defaultOpen?: boolean | number | number[];
 		/** A button that opens or closes every item. Ignored with `singleOpen`. */
@@ -33,6 +35,7 @@
 		icon,
 		plus = false,
 		singleOpen = false,
+		striped = false,
 		defaultOpen = false,
 		toggleAll = false,
 		toggleAllTextOpen = 'Open All',
@@ -54,7 +57,7 @@
 	});
 </script>
 
-<div class="accordion" {id}>
+<div class="accordion" class:striped {id}>
 	{#if toggleAll && !singleOpen}
 		<Button
 			text={allExpanded ? toggleAllTextClose : toggleAllTextOpen}
@@ -79,7 +82,7 @@
 					onclick={() => disclosure.toggle(index)}
 				>
 					<span class="title">{item.title}</span>
-					{#if icon}<span class="box"><Icon name={icon} class="marker" /></span>{/if}
+					{#if icon}<Icon name={icon} class="marker" />{/if}
 					{#if plus}
 						<span class="plus" aria-hidden="true"><span></span><span></span></span>
 					{/if}
@@ -105,10 +108,17 @@
 	@use 'base/mixins';
 
 	.accordion {
+		--gap: 24px;
+		--icon-size: 2.5ch;
+
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		width: 100%;
+
+		@include mixins.max-sm {
+			--gap: 12px;
+		}
 	}
 
 	.accordion > :global(.button) {
@@ -131,6 +141,15 @@
 		}
 	}
 
+	// Inset padding keeps the text off the glass edge.
+	.striped .item {
+		padding-inline: var(--gap);
+
+		&:nth-of-type(odd) {
+			@include mixins.glass;
+		}
+	}
+
 	.heading {
 		font: inherit;
 		letter-spacing: normal;
@@ -143,7 +162,7 @@
 		justify-content: space-between;
 		gap: 24px;
 		width: 100%;
-		padding: 12px 0;
+		padding: 24px 0;
 		border: 0;
 		background: none;
 		color: inherit;
@@ -155,7 +174,19 @@
 		}
 	}
 
-	.box,
+	.trigger :global(.marker) {
+		width: var(--icon-size);
+		height: var(--icon-size);
+
+		@include mixins.mq-motion-allow {
+			transition: scale var(--duration) var(--ease);
+		}
+	}
+
+	.trigger[aria-expanded='true'] :global(.marker) {
+		scale: 1 -1;
+	}
+
 	.plus {
 		--icon-size: 40px;
 
@@ -168,27 +199,6 @@
 		@include mixins.mq-motion-allow {
 			transition: scale var(--duration) var(--ease);
 		}
-	}
-
-	.box {
-		display: grid;
-		place-items: center;
-		width: var(--icon-size);
-		height: var(--icon-size);
-
-		:global(.marker) {
-			width: 24px;
-			height: 24px;
-			--icon-size: 24px;
-
-			@include mixins.mq-motion-allow {
-				transition: scale var(--duration) var(--ease);
-			}
-		}
-	}
-
-	.trigger[aria-expanded='true'] .box :global(.marker) {
-		scale: 1 -1;
 	}
 
 	.plus {
@@ -233,7 +243,7 @@
 		&:not([inert]) {
 			grid-template-rows: 1fr;
 			visibility: visible;
-			padding-block-end: 12px;
+			padding-block-end: 32px;
 		}
 	}
 

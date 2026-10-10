@@ -91,6 +91,14 @@
 	.fan {
 		position: relative;
 		width: min(880px, 100%);
+
+		@include mixins.min-lg {
+			width: min(1056px, 100%);
+
+			:global(.image-fan) {
+				--gap: 0.72 !important;
+			}
+		}
 	}
 
 	.accent {

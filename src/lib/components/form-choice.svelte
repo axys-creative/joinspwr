@@ -81,7 +81,7 @@
 				border-color 0.2s ease;
 		}
 
-		&:hover:not(:disabled) {
+		&:hover:not(:disabled):not(:checked) {
 			border-color: var(--color-text);
 		}
 
@@ -114,8 +114,8 @@
 		&::before {
 			width: 0.9em;
 			height: 0.9em;
-			background: var(--color-text);
-			mask: url('/icons/check.svg') center / contain no-repeat;
+			background: var(--color-on-accent);
+			mask: url('/icons/check-lg.svg') center / contain no-repeat;
 		}
 
 		&:checked {
@@ -158,6 +158,7 @@
 			background: var(--color-accent);
 
 			&::before {
+				background: var(--color-on-accent);
 				translate: calc(var(--size) * 0.8) 0;
 			}
 		}

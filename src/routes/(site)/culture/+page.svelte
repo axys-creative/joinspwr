@@ -16,12 +16,7 @@
 <HeroGnomon {...hero} />
 <PhotoColumns id="photos" {...photoColumns} />
 <Headline id="headline" {...headline} />
-<CarouselTunnel
-	id="carousel"
-	{...carousel}
-	autoplay={{ interval: 2400, quickStart: true }}
-	titleEffect="scale"
-/>
+<CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
 <EarningsPotential id="earnings" {...earnings} />
 <Oss id="oss" {...oss} />
 

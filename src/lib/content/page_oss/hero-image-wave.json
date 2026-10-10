@@ -1,5 +1,13 @@
 {
-	"eyebrowText": "joinspwr",
-	"title": "OSS",
-	"description": ""
+	"eyebrowText": "OSS",
+	"title": "Operation{.br}SPWR [Serves]{.secondary-alt}",
+	"description": "Every year, we commit to serving communities around the world because real impact happens when we step outside ourselves. By donating resources and volunteering directly with those in need, we help support long-term growth in the places we visit.",
+	"showAccent": true,
+	"accent": "",
+	"wave": {
+		"speed": 40,
+		"duration": 10,
+		"amplitude": 48,
+		"scrub": 0.5
+	}
 }

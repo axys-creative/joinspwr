@@ -9,6 +9,12 @@
 		type?: 'text' | 'image';
 		/** Any CSS grid track size. Defaults to `1fr`. */
 		width?: string;
+		/** Sets the cell's text in this heading size, such as `h5`. */
+		titleStyle?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+		/** Sets the cell's text in the accent text color. */
+		accent?: boolean;
+		/** For an `image` column: `contain` shows the whole picture, such as a logo. Defaults to `cover`. */
+		fit?: 'cover' | 'contain';
 	};
 
 	export type AccordionTableCell = string | number | { src: string; alt?: string };
@@ -20,7 +26,7 @@
 		images?: { src: string; alt?: string }[];
 		/** Slides shown at once in this row's carousel. Overrides the table's. */
 		slidesPerView?: number;
-		/** A button under the carousel. */
+		/** A button under the carousel, or under the content when the row has no images. */
 		cta?: ButtonProps;
 		/** Starts this row open. */
 		defaultOpen?: boolean;
@@ -38,6 +44,8 @@
 		defaultOpen?: boolean | number | number[];
 		/** Pins the header row while scrolling through the rows. */
 		sticky?: boolean;
+		/** Puts the glass background on every other row, starting with the first. */
+		striped?: boolean;
 		/** The 1-indexed column the opened content lines up with. */
 		contentColumn?: number;
 		/** Slides shown at once in each row's image carousel. */
@@ -50,6 +58,7 @@
 <script lang="ts">
 	import { imageProps } from '$lib/utils/image';
 	import { createDisclosure, startingOpen } from '$lib/utils/disclosure.svelte';
+	import Button from './button.svelte';
 	import Carousel from './carousel.svelte';
 	import Icon from './icon.svelte';
 
@@ -60,6 +69,7 @@
 		singleOpen = false,
 		defaultOpen = false,
 		sticky = false,
+		striped = false,
 		contentColumn = 2,
 		slidesPerView = 1,
 		loopImages = true
@@ -80,6 +90,7 @@
 <div
 	class="accordion-table"
 	class:sticky
+	class:striped
 	class:has-icon={icon}
 	style="--cols: {tracks}; --content-col: {contentColumn}"
 >
@@ -103,9 +114,14 @@
 				>
 					{#each columns as column (column.key)}
 						{@const value = item[column.key]}
-						<span class="cell" class:image={column.type === 'image'}>
+						<span
+							class="cell {column.titleStyle ?? ''}"
+							class:image={column.type === 'image'}
+							class:accent={column.accent}
+						>
 							{#if column.type === 'image'}
 								{#if isImage(value)}<img
+										class:contain={column.fit === 'contain'}
 										{...imageProps(value.src, { sizes: '120px' })}
 										alt={value.alt ?? ''}
 									/>{/if}
@@ -130,6 +146,7 @@
 						{#if column.type === 'image' && isImage(value)}
 							<img
 								class="media"
+								class:contain={column.fit === 'contain'}
 								{...imageProps(value.src, { sizes: '(min-width: 1024px) 400px, 100vw' })}
 								alt={value.alt ?? ''}
 								loading="lazy"
@@ -145,8 +162,11 @@
 								slides={item.images.map(({ src, alt }) => ({ img: src, alt }))}
 								slidesPerView={item.slidesPerView ?? slidesPerView}
 								loop={loopImages}
+								duration={800}
 								cta={item.cta}
 							/>
+						{:else if item.cta?.text}
+							<div><Button {...item.cta} /></div>
 						{/if}
 					</div>
 				</div>
@@ -197,6 +217,18 @@
 		text-transform: uppercase;
 	}
 
+	// Inset padding keeps the text off the glass edge, and the header row gets it too so the columns still line up.
+	.striped {
+		.head,
+		.item {
+			padding-inline: var(--gap);
+		}
+
+		.item:nth-child(even) {
+			@include mixins.glass;
+		}
+	}
+
 	.sticky .head {
 		position: sticky;
 		top: var(--sticky-top);
@@ -227,7 +259,7 @@
 	.row {
 		@include mixins.body-large;
 		position: relative;
-		padding: 12px 0;
+		padding: 24px 0;
 		border: 0;
 		background: none;
 		color: inherit;
@@ -256,10 +288,19 @@
 		min-width: 0;
 	}
 
+	.cell.accent {
+		color: var(--color-accent-text);
+	}
+
 	.cell img {
 		width: 100%;
 		height: var(--img-size);
 		object-fit: cover;
+
+		&.contain {
+			object-fit: contain;
+			object-position: left center;
+		}
 	}
 
 	.panel {
@@ -276,7 +317,7 @@
 		&:not([inert]) {
 			grid-template-rows: 1fr;
 			visibility: visible;
-			padding-block-end: 12px;
+			padding-block-end: 32px;
 		}
 	}
 
@@ -293,6 +334,11 @@
 		min-width: 0;
 	}
 
+	.body :global(.carousel img) {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+
 	.media {
 		display: none;
 	}
@@ -305,11 +351,12 @@
 
 		.row {
 			display: flex;
-			justify-content: space-between;
-			gap: var(--gap);
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 4px;
 
 			.cell {
-				flex: 1 1 0;
+				flex: none;
 			}
 		}
 
@@ -322,11 +369,17 @@
 
 		.media {
 			display: block;
+			order: 1;
 			width: 100%;
-			max-width: 240px;
+			max-width: 192px;
 			height: auto;
 			aspect-ratio: 1;
 			object-fit: cover;
+
+			&.contain {
+				object-fit: contain;
+				object-position: left center;
+			}
 		}
 	}
 </style>

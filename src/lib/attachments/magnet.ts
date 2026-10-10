@@ -30,23 +30,37 @@ export function magnet({
 		if (!matchMedia(canHover).matches) return;
 
 		const ease = parseEase(returnEase);
-		const style = getComputedStyle(el);
+		const computed = getComputedStyle(el);
 		const originalDisplay = el.style.display;
-		if (style.display === 'inline') el.style.display = 'inline-block';
-		el.style.transition = `${style.transition}, translate ${followDuration}ms ${followEase}`;
+		if (computed.display === 'inline') el.style.display = 'inline-block';
+		el.style.transitionProperty = `${computed.transitionProperty}, transform`;
+		el.style.transitionDuration = `${computed.transitionDuration}, ${followDuration}ms`;
+		el.style.transitionTimingFunction = `${computed.transitionTimingFunction}, ${followEase}`;
+		el.style.transitionDelay = `${computed.transitionDelay}, 0s`;
 
 		let currentX = 0;
 		let currentY = 0;
+		let pointerX = 0;
+		let pointerY = 0;
 		let frame = 0;
+		let pending = 0;
 
-		const apply = () => (el.style.translate = `${currentX}px ${currentY}px`);
+		const apply = () => (el.style.transform = `translate(${currentX}px, ${currentY}px)`);
 
 		// Measured from the element's current position, so the pull tapers as it closes in.
-		const onMove = (event: PointerEvent) => {
+		const update = () => {
+			pending = 0;
 			const rect = el.getBoundingClientRect();
-			currentX = (event.clientX - (rect.left + rect.width / 2)) * x;
-			currentY = (event.clientY - (rect.top + rect.height / 2)) * y;
+			currentX = (pointerX - (rect.left + rect.width / 2)) * x;
+			currentY = (pointerY - (rect.top + rect.height / 2)) * y;
 			apply();
+		};
+
+		// One write per frame: Safari restarts the transition on every write.
+		const onMove = (event: PointerEvent) => {
+			pointerX = event.clientX;
+			pointerY = event.clientY;
+			if (!pending) pending = requestAnimationFrame(update);
 		};
 
 		const onEnter = (event: PointerEvent) => {
@@ -58,6 +72,8 @@ export function magnet({
 		const onLeave = () => {
 			el.removeEventListener('pointermove', onMove);
 			cancelAnimationFrame(frame);
+			cancelAnimationFrame(pending);
+			pending = 0;
 
 			const startX = currentX;
 			const startY = currentY;
@@ -82,8 +98,12 @@ export function magnet({
 			el.removeEventListener('pointerleave', onLeave);
 			el.removeEventListener('pointermove', onMove);
 			cancelAnimationFrame(frame);
-			el.style.transition = '';
-			el.style.translate = '';
+			cancelAnimationFrame(pending);
+			el.style.transitionProperty = '';
+			el.style.transitionDuration = '';
+			el.style.transitionTimingFunction = '';
+			el.style.transitionDelay = '';
+			el.style.transform = '';
 			el.style.display = originalDisplay;
 		};
 	};

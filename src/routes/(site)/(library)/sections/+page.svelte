@@ -1,10 +1,13 @@
 <!-- LIBRARY: DELETE ME. Documentation page; remove with the rest of the library (see CLAUDE.md). -->
 <script lang="ts">
 	import {
+		accordionSectionProps,
+		accordionTableSectionProps,
 		blogArticleBodyProps,
 		blogArticleHeroProps,
 		carouselTunnelProps,
 		circleHighlightProps,
+		contactFormProps,
 		earningsPotentialProps,
 		financeGridProps,
 		financeMarqueeProps,
@@ -27,7 +30,10 @@
 		workGalleryProps
 	} from '$lib/library/component-props';
 	import LibrarySection from '$lib/library/library-section.svelte';
+	import AccordionSection from '$lib/sections/accordion-section.svelte';
+	import AccordionTableSection from '$lib/sections/accordion-table-section.svelte';
 	import CircleHighlight from '$lib/sections/circle-highlight.svelte';
+	import ContactForm from '$lib/sections/contact-form.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 	import FinanceGrid from '$lib/sections/finance-grid.svelte';
@@ -69,6 +75,21 @@
 		eyebrow,
 		title,
 		img: { src: `/images/img-sample-${index + 1}.jpg`, alt: `Sample image ${index + 1}` }
+	}));
+	const historyColumns = [
+		{ key: 'photo', label: 'Photo', type: 'image' as const, width: '96px' },
+		{ key: 'year', label: 'Year', width: '112px' },
+		{ key: 'location', label: 'Location', width: '2fr' }
+	];
+	const historyRows = [
+		['2025', 'Lisbon'],
+		['2024', 'Oslo'],
+		['2023', 'Kyoto']
+	].map(([year, location], index) => ({
+		photo: { src: `/images/img-sample-${index + 1}.jpg`, alt: '' },
+		year,
+		location,
+		content: 'A short account of what happened, shown when the row is open.'
 	}));
 	const stages = [
 		{ title: 'Discover', description: 'Workshops and research to understand the real problem.' },
@@ -342,6 +363,40 @@
 
 <div class="sections page-grid">
 	<LibrarySection
+		title="Accordion"
+		type="Section"
+		description="A title above an Accordion, centered, with one answer open at a time. It is the FAQ on the Join page."
+		props={accordionSectionProps}
+	>
+		<AccordionSection
+			class="full"
+			eyebrowText="Frequently asked questions"
+			title="Straight answers"
+			accordion={{ striped: true }}
+			items={[
+				{ title: 'A first question', content: '<p>The answer, shown when the item is open.</p>' },
+				{ title: 'A second question', content: '<p>Another answer, which can hold links.</p>' }
+			]}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Accordion Table"
+		type="Section"
+		description="A title with its description beside it, above an Accordion Table: a header row and rows that open to show more. It is the History section on the OSS page. The eyebrow and call to action are left out."
+		props={accordionTableSectionProps}
+	>
+		<AccordionTableSection
+			class="full"
+			title="History"
+			description="Optional description here"
+			columns={historyColumns}
+			items={historyRows}
+			table={{ singleOpen: true, defaultOpen: 0 }}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
 		title="Blog Article Body"
 		type="Section"
 		description="The text of a post: Markdown rendered to HTML, in a readable column with styled headings, lists, quotes and code. See the Blog page for it in use."
@@ -368,7 +423,6 @@
 			description="Scroll to zoom out of the tunnel and reveal the full carousel."
 			slides={projects}
 			autoplay={{ interval: 4500, quickStart: true }}
-			titleEffect="scale"
 		/>
 	</LibrarySection>
 
@@ -388,6 +442,19 @@
 			radius={3}
 			gap={4}
 			image={{ srcLight: '/images/logo-black.svg', srcDark: '/images/logo-white.svg', alt: 'axys' }}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Contact Form"
+		type="Section"
+		description="The join page's form: first and last name, email, phone, city, state, zip and a how-did-you-hear-about-us textarea, then an optional text message consent checkbox whose wording shows in two lines until the arrow opens it. The fields are outlined with a blurred glass background, and the form itself has none. It posts to Netlify, so a page with it must be prerendered. Optional copy sits above."
+		props={contactFormProps}
+	>
+		<ContactForm
+			class="full"
+			consent="By checking this box, I agree to receive recurring text messages at the phone number provided. Consent is not a condition of joining. Message frequency varies. Message and data rates may apply. Reply STOP at any time to unsubscribe, or HELP for help."
+			form={{ name: 'contact', submitText: 'Submit' }}
 		/>
 	</LibrarySection>
 

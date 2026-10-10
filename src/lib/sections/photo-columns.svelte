@@ -104,8 +104,8 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 48px;
-		max-width: var(--content-width);
+		width: min(var(--content-width), 100% - var(--body-padding) * 2);
 		margin-inline: auto;
-		padding: var(--body-padding-double) var(--body-padding);
+		padding-block: var(--body-padding-double);
 	}
 </style>

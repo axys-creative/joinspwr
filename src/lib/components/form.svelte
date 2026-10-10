@@ -1,13 +1,17 @@
 <script module lang="ts">
 	export type FormProps = {
-		/** Shows success and warning alerts on submit instead of going to another page. */
-		feedback?: boolean;
 		/** The look of every field: a line under it, or a full border. */
 		variant?: 'underline' | 'outline';
+		/** Blurred glass behind each field, so the form itself has no background. Use with `outline`. */
+		glass?: boolean;
 		/** The Netlify form name. */
 		name?: string;
-		/** The page to go to after submitting. Not used with `feedback`. */
-		action?: string;
+		/** First and last name fields instead of one name field. */
+		splitName?: boolean;
+		/** Text message consent wording. Adds an optional checkbox with the wording truncated until opened. */
+		consent?: string;
+		/** Links under the consent wording, such as the privacy policy and terms. */
+		consentLinks?: { text: string; url: string }[];
 		showPhone?: boolean;
 		showAddress?: boolean;
 		showMessage?: boolean;
@@ -32,26 +36,28 @@
 
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import { goto } from '$app/navigation';
 	import { magnet } from '$lib/attachments/magnet';
 	import { alerts } from '$lib/utils/alerts.svelte';
 	import Button from './button.svelte';
+	import FormConsent from './form-consent.svelte';
 	import FormField from './form-field.svelte';
 
 	const STORAGE_KEY = 'submittedEmails';
 
 	let {
-		feedback = false,
 		variant = 'underline',
-		name = feedback ? 'form-feedback' : 'form-redirect',
-		action = '/form-submit',
+		glass = false,
+		name = 'contact',
+		splitName = false,
+		consent,
+		consentLinks,
 		showPhone = false,
 		showAddress = false,
 		showMessage = false,
 		showDiscovery = false,
 		maxCountDiscovery,
 		showRecaptcha = false,
-		submitText = feedback ? 'Send message' : 'Submit',
+		submitText = 'Send message',
 		submitLabel,
 		successTitle = 'Message received!',
 		successMessage = 'We’ll get back to you shortly.',
@@ -74,15 +80,6 @@
 	async function onsubmit(event: SubmitEvent) {
 		const form = event.currentTarget as HTMLFormElement;
 		const data = new FormData(form);
-
-		// A real redirect-form submit goes to Netlify and on to `action`. Locally nothing receives it.
-		if (!feedback) {
-			if (dev) {
-				event.preventDefault();
-				goto(action);
-			}
-			return;
-		}
 
 		event.preventDefault();
 
@@ -139,7 +136,6 @@
 	class="form {className ?? ''}"
 	{name}
 	method="POST"
-	action={feedback ? undefined : action}
 	data-netlify="true"
 	data-netlify-honeypot="bot-field"
 	{onsubmit}
@@ -149,13 +145,21 @@
 		<label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
 	</p>
 
-	<FormField {variant} name="name" label="Name" autocomplete="name" />
+	{#if splitName}
+		<div class="group">
+			<FormField {variant} {glass} name="first-name" label="First name" autocomplete="given-name" />
+			<FormField {variant} {glass} name="last-name" label="Last name" autocomplete="family-name" />
+		</div>
+	{:else}
+		<FormField {variant} {glass} name="name" label="Name" autocomplete="name" />
+	{/if}
 
 	<div class="group">
-		<FormField {variant} name="email" label="Email" type="email" autocomplete="email" />
+		<FormField {variant} {glass} name="email" label="Email" type="email" autocomplete="email" />
 		{#if showPhone}
 			<FormField
 				{variant}
+				{glass}
 				name="phone"
 				label="Phone"
 				type="tel"
@@ -166,10 +170,12 @@
 	</div>
 
 	{#if showAddress}
-		<FormField {variant} name="city" label="City" autocomplete="address-level2" />
+		<FormField {variant} {glass} name="city" label="City" autocomplete="address-level2" />
 		<div class="group">
-			<FormField {variant} name="state" label="State" autocomplete="address-level1" />
+			<FormField {variant} {glass} name="state" label="State" autocomplete="address-level1" />
 			<FormField
+				{variant}
+				{glass}
 				name="zip"
 				label="Zip"
 				type="number"
@@ -180,18 +186,21 @@
 	{/if}
 
 	{#if showMessage}
-		<FormField {variant} name="message" label="Message" type="textarea" maxLength={250} />
+		<FormField {variant} {glass} name="message" label="Message" type="textarea" maxLength={250} />
 	{/if}
 
 	{#if showDiscovery}
 		<FormField
 			{variant}
+			{glass}
 			name="discovery"
 			label="How did you hear about us?"
 			type="textarea"
 			maxLength={maxCountDiscovery}
 		/>
 	{/if}
+
+	{#if consent}<FormConsent text={consent} links={consentLinks} />{/if}
 
 	{#if showRecaptcha}<div data-netlify-recaptcha="true" class="recaptcha"></div>{/if}
 

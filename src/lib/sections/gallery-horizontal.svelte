@@ -132,8 +132,21 @@
 		overflow-x: clip;
 		padding-block: var(--body-padding-double);
 
+		--pin-height: 80vh;
+
 		@include mixins.max-lg {
 			padding-inline: var(--body-padding);
+		}
+	}
+
+	// Desktop cards, 10% larger; the pin grows with them so the taller collage still fits.
+	.gallery-horizontal:not(.portrait) {
+		@include mixins.min-lg {
+			--portrait-w: 238px;
+			--portrait-h: clamp(286px, 33vh, 440px);
+			--landscape-w: 308px;
+			--landscape-h: clamp(198px, 23.1vh, 308px);
+			--pin-height: 88vh;
 		}
 	}
 
@@ -198,7 +211,7 @@
 		position: relative;
 
 		@include mixins.min-lg {
-			height: 80vh;
+			height: var(--pin-height);
 			min-height: 620px;
 		}
 	}

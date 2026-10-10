@@ -16,7 +16,7 @@
 	};
 </script>
 
-<HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={2} />
+<HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={12} />
 <Headline id="headline" {...headline} />
 <CircleHighlight
 	id="circle-highlight"

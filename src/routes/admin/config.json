@@ -669,6 +669,13 @@
 					"preview_path": "culture",
 					"fields": [
 						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false,
+							"hint": "The small label above the title."
+						},
+						{
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
@@ -2307,9 +2314,9 @@
 			"label": "Page - OSS",
 			"files": [
 				{
-					"name": "hero_simple",
+					"name": "hero_image_wave",
 					"label": "Hero",
-					"file": "src/lib/content/page_oss/hero-simple.json",
+					"file": "src/lib/content/page_oss/hero-image-wave.json",
 					"preview_path": "oss",
 					"fields": [
 						{
@@ -2321,13 +2328,278 @@
 						{
 							"name": "title",
 							"label": "Title",
-							"widget": "string"
+							"widget": "string",
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
 							"label": "Description",
 							"widget": "text",
 							"required": false
+						},
+						{
+							"name": "images",
+							"label": "Wave images",
+							"widget": "list",
+							"required": false,
+							"hint": "Leave empty to use the photos of the most recent event, the top row of History. Add images here only to override them.",
+							"min": 4,
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "showAccent",
+							"label": "Show handwritten text",
+							"widget": "boolean",
+							"default": true,
+							"required": false,
+							"hint": "Turn off to hide the handwritten text beside the copy."
+						},
+						{
+							"name": "accent",
+							"label": "Handwritten text",
+							"widget": "string",
+							"required": false,
+							"hint": "Leave empty to use Highlights from plus the location and year of the most recent event, the top row of History. Type here to override. Use {.br} for a line break. Hidden below the lg breakpoint."
+						},
+						{
+							"name": "wave",
+							"label": "Wave",
+							"widget": "object",
+							"required": false,
+							"fields": [
+								{
+									"name": "speed",
+									"label": "Speed",
+									"widget": "number",
+									"value_type": "int",
+									"min": 1,
+									"default": 40,
+									"required": false,
+									"hint": "Seconds for the row to pan one full set. Higher is slower."
+								},
+								{
+									"name": "duration",
+									"label": "Bob duration",
+									"widget": "number",
+									"value_type": "int",
+									"min": 1,
+									"default": 10,
+									"required": false,
+									"hint": "Seconds for one full up-and-down bob."
+								},
+								{
+									"name": "amplitude",
+									"label": "Amplitude",
+									"widget": "number",
+									"value_type": "int",
+									"min": 0,
+									"default": 48,
+									"required": false,
+									"hint": "Pixels each card travels up and down. 0 is a flat row."
+								},
+								{
+									"name": "scrub",
+									"label": "Scroll push",
+									"widget": "number",
+									"value_type": "float",
+									"min": 0,
+									"default": 0.5,
+									"required": false,
+									"hint": "Ties the wave to scrolling. 0 is off."
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "accordion_table",
+					"label": "History",
+					"file": "src/lib/content/page_oss/accordion-table.json",
+					"preview_path": "oss#history",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "table",
+							"label": "Table options",
+							"widget": "object",
+							"required": false,
+							"fields": [
+								{
+									"name": "singleOpen",
+									"label": "One row open at a time",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								},
+								{
+									"name": "striped",
+									"label": "Glass background on every other row",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								},
+								{
+									"name": "slidesPerView",
+									"label": "Carousel images at once",
+									"widget": "number",
+									"value_type": "int",
+									"min": 1,
+									"default": 3,
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "columns",
+							"label": "Columns",
+							"widget": "list",
+							"min": 1,
+							"hint": "The key names the field each row reads. Keep emblem, year and location unless the rows change too.",
+							"fields": [
+								{ "name": "key", "label": "Key", "widget": "string" },
+								{ "name": "label", "label": "Header text", "widget": "string" },
+								{
+									"name": "type",
+									"label": "Type",
+									"widget": "select",
+									"options": ["text", "image"],
+									"default": "text",
+									"required": false
+								},
+								{
+									"name": "titleStyle",
+									"label": "Text style",
+									"widget": "select",
+									"options": ["h1", "h2", "h3", "h4", "h5", "h6"],
+									"required": false,
+									"hint": "Sets the cell in this heading size. Leave empty for body text."
+								},
+								{
+									"name": "accent",
+									"label": "Accent color",
+									"widget": "boolean",
+									"default": false,
+									"required": false
+								},
+								{
+									"name": "fit",
+									"label": "Image fit",
+									"widget": "select",
+									"options": ["cover", "contain"],
+									"default": "cover",
+									"required": false,
+									"hint": "For an image column. Contain shows the whole picture, such as an emblem."
+								},
+								{
+									"name": "width",
+									"label": "Width",
+									"widget": "string",
+									"required": false,
+									"hint": "Any CSS grid track size, such as 96px or 2fr. Defaults to 1fr."
+								}
+							]
+						},
+						{
+							"name": "items",
+							"label": "Rows",
+							"widget": "list",
+							"fields": [
+								{
+									"name": "emblem",
+									"label": "Emblem",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								},
+								{ "name": "year", "label": "Year", "widget": "string" },
+								{ "name": "location", "label": "Location", "widget": "string" },
+								{
+									"name": "content",
+									"label": "Content",
+									"widget": "text",
+									"required": false,
+									"hint": "Shown when the row is open. Basic HTML such as <p>...</p>."
+								},
+								{
+									"name": "cta",
+									"label": "Call to action",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{ "name": "text", "label": "Text", "widget": "string", "required": false },
+										{ "name": "url", "label": "URL", "widget": "string", "required": false }
+									]
+								},
+								{
+									"name": "video",
+									"label": "Video",
+									"widget": "object",
+									"required": false,
+									"hint": "The button above opens this video in an overlay. Give the button text and leave its URL empty.",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Video",
+											"widget": "string",
+											"required": false,
+											"hint": "A Mux playback ID, an HLS stream or a video file URL."
+										},
+										{ "name": "title", "label": "Title", "widget": "string", "required": false },
+										{
+											"name": "poster",
+											"label": "Poster image",
+											"widget": "image",
+											"required": false
+										}
+									]
+								},
+								{
+									"name": "images",
+									"label": "Carousel images",
+									"widget": "list",
+									"required": false,
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image" },
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
 						}
 					]
 				}
@@ -2338,9 +2610,9 @@
 			"label": "Page - Join",
 			"files": [
 				{
-					"name": "hero_simple",
-					"label": "Hero",
-					"file": "src/lib/content/page_join/hero-simple.json",
+					"name": "contact_form",
+					"label": "Hero and contact form",
+					"file": "src/lib/content/page_join/contact-form.json",
 					"preview_path": "join",
 					"fields": [
 						{
@@ -2352,13 +2624,120 @@
 						{
 							"name": "title",
 							"label": "Title",
-							"widget": "string"
+							"widget": "string",
+							"required": false
 						},
 						{
 							"name": "description",
 							"label": "Description",
 							"widget": "text",
 							"required": false
+						},
+						{
+							"name": "consent",
+							"label": "Text message consent wording",
+							"widget": "text",
+							"required": false,
+							"hint": "Shown in two lines beside an optional checkbox, with an arrow to read the rest. Leave empty for no checkbox."
+						},
+						{
+							"name": "consentLinks",
+							"label": "Links under the consent wording",
+							"widget": "list",
+							"required": false,
+							"summary": "{{fields.text}}",
+							"fields": [
+								{ "name": "text", "label": "Text", "widget": "string" },
+								{ "name": "url", "label": "URL", "widget": "string" }
+							]
+						},
+						{
+							"name": "form",
+							"label": "Form",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "submitText",
+									"label": "Button text",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "successTitle",
+									"label": "Success title",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "successMessage",
+									"label": "Success message",
+									"widget": "string",
+									"required": false
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "accordion_section",
+					"label": "FAQ",
+					"file": "src/lib/content/page_join/accordion-section.json",
+					"preview_path": "join#faq",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accordion",
+							"label": "Accordion options",
+							"widget": "object",
+							"required": false,
+							"fields": [
+								{
+									"name": "singleOpen",
+									"label": "One question open at a time",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								},
+								{
+									"name": "striped",
+									"label": "Glass background on every other question",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "items",
+							"label": "Questions",
+							"widget": "list",
+							"summary": "{{fields.title}}",
+							"fields": [
+								{ "name": "title", "label": "Question", "widget": "string" },
+								{
+									"name": "content",
+									"label": "Answer",
+									"widget": "text",
+									"hint": "HTML. Wrap paragraphs in <p></p>; links and bold are allowed."
+								}
+							]
 						}
 					]
 				}
@@ -2475,95 +2854,6 @@
 				}
 			],
 			"hide": true
-		},
-		{
-			"name": "page_form_submit",
-			"label": "Page - Form Submitted",
-			"files": [
-				{
-					"name": "hero_simple",
-					"label": "Hero",
-					"file": "src/lib/content/page_form_submit/hero-simple.json",
-					"fields": [
-						{
-							"name": "title",
-							"label": "Title",
-							"widget": "string"
-						},
-						{
-							"name": "description",
-							"label": "Description",
-							"widget": "text",
-							"required": false
-						},
-						{
-							"name": "cta",
-							"label": "Call to action",
-							"widget": "object",
-							"fields": [
-								{
-									"name": "primary",
-									"label": "Primary button",
-									"widget": "object",
-									"required": true,
-									"fields": [
-										{
-											"name": "text",
-											"label": "Text",
-											"widget": "string",
-											"required": true
-										},
-										{
-											"name": "textDescription",
-											"label": "Accessible description",
-											"widget": "string",
-											"required": false,
-											"hint": "Optional aria-label for screen readers"
-										},
-										{
-											"name": "url",
-											"label": "URL",
-											"widget": "string",
-											"required": true
-										},
-										{
-											"name": "newTab",
-											"label": "Open in new tab",
-											"widget": "boolean",
-											"default": false,
-											"required": false
-										},
-										{
-											"name": "iconEnd",
-											"label": "Icon after text",
-											"widget": "string",
-											"required": false,
-											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
-										}
-									]
-								}
-							]
-						},
-						{
-							"name": "layout",
-							"label": "Layout",
-							"widget": "select",
-							"options": ["column", "row"],
-							"default": "column",
-							"required": false,
-							"hint": "Row puts the description beside the title on wider screens."
-						},
-						{
-							"name": "align",
-							"label": "Alignment",
-							"widget": "select",
-							"options": ["start", "center"],
-							"default": "center",
-							"required": false
-						}
-					]
-				}
-			]
 		},
 		{
 			"name": "page_404",

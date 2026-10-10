@@ -180,7 +180,7 @@
 	.circle {
 		position: absolute;
 		top: 50%;
-		width: 40cqw;
+		width: 48cqw;
 
 		@include mixins.max-lg {
 			position: static;

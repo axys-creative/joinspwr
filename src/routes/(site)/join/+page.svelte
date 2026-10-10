@@ -1,6 +1,9 @@
 <script lang="ts">
-	import hero from '$lib/content/page_join/hero-simple.json';
-	import HeroSimple from '$lib/sections/hero-simple.svelte';
+	import faq from '$lib/content/page_join/accordion-section.json';
+	import contactForm from '$lib/content/page_join/contact-form.json';
+	import AccordionSection from '$lib/sections/accordion-section.svelte';
+	import ContactForm from '$lib/sections/contact-form.svelte';
 </script>
 
-<HeroSimple {...hero} />
+<ContactForm id="contact" hero {...contactForm} />
+<AccordionSection id="faq" {...faq} />
