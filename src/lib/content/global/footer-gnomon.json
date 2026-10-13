@@ -10,7 +10,7 @@
 	},
 	"linksets": [
 		{
-			"title": "Explore",
+			"title": "EXPLORE",
 			"links": [
 				{
 					"text": "Home",
@@ -40,7 +40,7 @@
 			]
 		},
 		{
-			"title": "Company",
+			"title": "COMPANY",
 			"links": [
 				{
 					"text": "Privacy Policy",

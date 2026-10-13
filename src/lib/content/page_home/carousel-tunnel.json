@@ -9,12 +9,12 @@
 				"src": "/uploads/spwr-img-landscape-7.webp",
 				"alt": ""
 			},
-			"eyebrow": "2025",
-			"title": "Northline",
+			"eyebrow": "2026 Top Performers",
+			"title": "Cabo",
 			"video": {
 				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
 				"poster": "/uploads/spwr-img-landscape-7.webp",
-				"title": "Northline"
+				"title": "Cabo"
 			}
 		},
 		{
@@ -23,11 +23,11 @@
 				"alt": ""
 			},
 			"eyebrow": "2025",
-			"title": "Aperture",
+			"title": "Summit",
 			"video": {
 				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
 				"poster": "/uploads/spwr-img-landscape-8.webp",
-				"title": "Aperture"
+				"title": "Summit"
 			}
 		},
 		{
@@ -35,12 +35,12 @@
 				"src": "/uploads/spwr-img-landscape-9.webp",
 				"alt": ""
 			},
-			"eyebrow": "2024",
-			"title": "Glasswave",
+			"eyebrow": "2025",
+			"title": "Awards",
 			"video": {
 				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
 				"poster": "/uploads/spwr-img-landscape-9.webp",
-				"title": "Glasswave"
+				"title": "Awards"
 			}
 		},
 		{
@@ -48,12 +48,12 @@
 				"src": "/uploads/spwr-img-landscape-10.webp",
 				"alt": ""
 			},
-			"eyebrow": "2024",
-			"title": "Driftline",
+			"eyebrow": "2025 Top Performers",
+			"title": "Xcaret",
 			"video": {
 				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
 				"poster": "/uploads/spwr-img-landscape-10.webp",
-				"title": "Driftline"
+				"title": "Xcaret"
 			}
 		},
 		{
@@ -61,12 +61,12 @@
 				"src": "/uploads/spwr-img-landscape-11.webp",
 				"alt": ""
 			},
-			"eyebrow": "2023",
-			"title": "Meridian",
+			"eyebrow": "2024",
+			"title": "Awards",
 			"video": {
 				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
 				"poster": "/uploads/spwr-img-landscape-11.webp",
-				"title": "Meridian"
+				"title": "Awards"
 			}
 		},
 		{
@@ -74,12 +74,77 @@
 				"src": "/uploads/spwr-img-landscape-12.webp",
 				"alt": ""
 			},
-			"eyebrow": "2023",
-			"title": "Fernwood",
+			"eyebrow": "2024",
+			"title": "Summit",
 			"video": {
 				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
 				"poster": "/uploads/spwr-img-landscape-12.webp",
-				"title": "Fernwood"
+				"title": "Summit"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-1.webp",
+				"alt": ""
+			},
+			"eyebrow": "Rapid SPWR Champions",
+			"title": "LVE",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-1.webp",
+				"title": "LVE"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-2.webp",
+				"alt": ""
+			},
+			"eyebrow": "OSS",
+			"title": "Costa Rica",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-2.webp",
+				"title": "Costa Rica"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-3.webp",
+				"alt": ""
+			},
+			"eyebrow": "Rain Champions",
+			"title": "Alaska",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-3.webp",
+				"title": "Alaska"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-4.webp",
+				"alt": ""
+			},
+			"eyebrow": "SPWR Dome Champions",
+			"title": "Pirates Cove",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-4.webp",
+				"title": "Pirates Cove"
+			}
+		},
+		{
+			"img": {
+				"src": "/uploads/spwr-img-landscape-5.webp",
+				"alt": ""
+			},
+			"eyebrow": "2024",
+			"title": "Elite",
+			"video": {
+				"src": "https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&raw=1",
+				"poster": "/uploads/spwr-img-landscape-5.webp",
+				"title": "Elite"
 			}
 		}
 	]

@@ -156,7 +156,7 @@
 	}
 
 	.trigger {
-		@include mixins.body-large;
+		@include mixins.h5;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

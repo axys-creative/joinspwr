@@ -7,7 +7,7 @@
 		cutouts?: GnomonCutout[];
 		/** 0-100. How far every cutout reaches into the card, as a % of its side. */
 		depth?: number;
-		/** 0-100. How far every cutout runs along its edge, as a % of the card's side. `auto` fits the longest cutout text, plus `lengthPadding`. */
+		/** 0-100. How far every cutout runs along its edge, as a % of the card's side. `auto` (the default) fits the longest cutout text, plus `lengthPadding`; a cutout with no text falls back to 32. */
 		length?: number | 'auto';
 		/** With `length="auto"`, the px added to the text's width, for the room beside it and the slant of the notch's wall. */
 		lengthPadding?: number;
@@ -35,7 +35,7 @@
 	let {
 		cutouts = [{ from: 'top-right' }],
 		depth = 12,
-		length = 32,
+		length = 'auto',
 		lengthPadding = 28,
 		radius = 8,
 		angle = 90,
@@ -190,6 +190,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: 4px;
+		font-family: 'Antonio', var(--font-heading);
 		font-size: 14px;
 		line-height: 1.2;
 		text-align: center;

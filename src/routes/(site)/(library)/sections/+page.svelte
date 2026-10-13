@@ -24,6 +24,7 @@
 		scrollHorizontalProps,
 		scrollStackProps,
 		scrollTimelineProps,
+		statsProps,
 		toolsProps,
 		tunnelProps,
 		videoSectionProps,
@@ -51,6 +52,7 @@
 	import ScrollHorizontal from '$lib/sections/scroll-horizontal.svelte';
 	import ScrollStack from '$lib/sections/scroll-stack.svelte';
 	import ScrollTimeline from '$lib/sections/scroll-timeline.svelte';
+	import Stats from '$lib/sections/stats.svelte';
 	import Tools from '$lib/sections/tools.svelte';
 	import Tunnel from '$lib/sections/tunnel.svelte';
 	import VideoSection from '$lib/sections/video-section.svelte';
@@ -773,20 +775,50 @@
 	</LibrarySection>
 
 	<LibrarySection
+		title="Stats"
+		type="Section"
+		description="A title at the left and four big numbers at the right in a two by two grid, their top level with the title's. Each number is the Counter component in its digital style, counting up as it scrolls into view, drawn in the H1 look without being a heading."
+		props={statsProps}
+	>
+		<Stats
+			class="full"
+			title="By the numbers"
+			image={{ src: '/uploads/spwr-img-portrait-5.webp', alt: '' }}
+			stats={[
+				{ digit: 1200, comma: true, suffix: '+', label: 'Placeholder stat one' },
+				{ digit: 48, label: 'Placeholder stat two' },
+				{ digit: 15, suffix: 'M', prefix: '$', label: 'Placeholder stat three' },
+				{ digit: 9, suffix: 'x', label: 'Placeholder stat four' }
+			]}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
 		title="Tools"
 		type="Section"
-		description="A carousel with a large panel in the middle and the previous and next panels thin and short on either side. Click a side panel, use the arrows, or swipe, and the panels glide to their new places."
+		description="Section Copy centered above a Carousel Accordion: a list of tools, one open at a time, with its picture beside it. The open item moves on by itself, and clicking one opens it straight away."
 		props={toolsProps}
 	>
 		<Tools
 			class="full"
 			eyebrowText="Tools"
 			title="Tools"
-			slides={[
-				{ title: 'First', image: { src: '/uploads/spwr-img-landscape-1.webp', alt: '' } },
-				{ title: 'Second', image: { src: '/uploads/spwr-img-landscape-2.webp', alt: '' } },
-				{ title: 'Third', image: { src: '/uploads/spwr-img-landscape-3.webp', alt: '' } },
-				{ title: 'Fourth', image: { src: '/uploads/spwr-img-landscape-4.webp', alt: '' } }
+			items={[
+				{
+					title: 'First',
+					description: 'A short description of the first tool.',
+					image: { src: '/uploads/spwr-img-landscape-1.webp', alt: '' }
+				},
+				{
+					title: 'Second',
+					description: 'A short description of the second tool.',
+					image: { src: '/uploads/spwr-img-landscape-2.webp', alt: '' }
+				},
+				{
+					title: 'Third',
+					description: 'A short description of the third tool.',
+					image: { src: '/uploads/spwr-img-landscape-3.webp', alt: '' }
+				}
 			]}
 		/>
 	</LibrarySection>

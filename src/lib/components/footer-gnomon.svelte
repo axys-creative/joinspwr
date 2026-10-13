@@ -303,5 +303,6 @@
 		display: block;
 		margin-block-end: 12px;
 		color: var(--color-text-muted);
+		font-family: 'Antonio', var(--font-heading);
 	}
 </style>

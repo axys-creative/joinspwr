@@ -328,6 +328,7 @@
 						pin: true,
 						scrub: 1,
 						invalidateOnRefresh: true,
+						onScrubComplete: () => sync?.(),
 						onRefresh: (self) => {
 							if (self.progress >= 1) {
 								self.animation?.progress(1);
@@ -381,7 +382,8 @@
 								[at]: zoom,
 								duration: trail * distance,
 								ease: 'power2.out',
-								onUpdate: place
+								onUpdate: place,
+								onComplete: () => sync?.()
 							});
 						});
 						place();
@@ -392,7 +394,7 @@
 						core.set(slideEls, { clearProps: 'transform' });
 					};
 					sync = () => {
-						if (core.getTweensOf(own).length) return;
+						if (core.getTweensOf(own).some((tween) => tween.progress() < 1)) return;
 						const zoom = Number(core.getProperty(scaler!, 'scale'));
 						if (own.every((value) => Math.abs(value - zoom) < 0.0005)) return;
 						own.fill(zoom);
@@ -411,6 +413,11 @@
 				context.revert();
 				core.set(track!.children, { clearProps: 'transform' });
 			});
+			// A refresh can end with the slides' own scales left at the zoomed-in size while the zoom itself is done.
+			const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+			const afterRefresh = () => requestAnimationFrame(() => sync?.());
+			ScrollTrigger.addEventListener('refresh', afterRefresh);
+			cleanups.push(() => ScrollTrigger.removeEventListener('refresh', afterRefresh));
 			refreshScrollTriggers();
 		})();
 
@@ -486,7 +493,7 @@
 							{#if slide.eyebrow || slide.title}
 								<div class="caption">
 									{#if slide.eyebrow}<Eyebrow text={slide.eyebrow} />{/if}
-									{#if slide.title}<h3 class="h6">{slide.title}</h3>{/if}
+									{#if slide.title}<h3 class="h3">{slide.title}</h3>{/if}
 								</div>
 							{/if}
 						</div>

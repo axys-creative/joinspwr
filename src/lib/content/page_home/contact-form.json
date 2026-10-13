@@ -1,0 +1,21 @@
+{
+	"eyebrowText": "",
+	"title": "[Join]{.scribble-circle-tight} [SPWR]{.secondary-alt}",
+	"description": "At SPWR, we believe in impact and building a career where you are challenged and valued in teams that are the best at what they do. Join us as we create and innovate a future of renewable energy.",
+	"consent": "By checking this box, I consent to receive automated SMS/text messages from Complete Solaria, Inc. (DBA SunPower) at the number provided. Messages may include interview scheduling, application status updates, and recruiting-related communications. Message frequency varies. Msg & data rates may apply. Consent is not required to apply. Reply STOP to opt out or HELP for assistance.",
+	"consentLinks": [
+		{
+			"text": "Privacy Policy",
+			"url": "/privacy-policy"
+		},
+		{
+			"text": "Terms of Use",
+			"url": "/terms-of-service"
+		}
+	],
+	"form": {
+		"submitText": "Submit",
+		"successTitle": "You're in!",
+		"successMessage": "We'll be in touch shortly."
+	}
+}

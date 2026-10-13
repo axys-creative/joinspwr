@@ -7,50 +7,50 @@
 				{
 					"src": "/uploads/spwr-img-portrait-1.webp",
 					"alt": "",
-					"caption": "Sample 01"
+					"caption": "Awards"
 				},
 				{
 					"src": "/uploads/spwr-img-landscape-5.webp",
 					"alt": "",
-					"caption": "Sample 02"
+					"caption": "SPWR Dome"
 				},
 				{
 					"src": "/uploads/spwr-img-portrait-2.webp",
 					"alt": "",
-					"caption": "Sample 03"
+					"caption": "Field Day 2024"
 				},
 				{
 					"src": "/uploads/spwr-img-landscape-6.webp",
 					"alt": "",
-					"caption": "Sample 04"
+					"caption": "Summit"
 				}
 			],
-			"copy": "A short paragraph describing this moment, kept brief so it doesn’t run into the image below it."
+			"copy": "Moments from the events, trips and celebrations that bring the squad together."
 		},
 		{
 			"images": [
 				{
 					"src": "/uploads/spwr-img-portrait-3.webp",
 					"alt": "",
-					"caption": "Sample 05"
+					"caption": "Cabo"
 				},
 				{
 					"src": "/uploads/spwr-img-landscape-7.webp",
 					"alt": "",
-					"caption": "Sample 06"
+					"caption": "Top Performers"
 				},
 				{
 					"src": "/uploads/spwr-img-portrait-4.webp",
 					"alt": "",
-					"caption": "Sample 07"
+					"caption": "Costa Rica"
 				},
 				{
 					"src": "/uploads/spwr-img-landscape-8.webp",
 					"alt": "",
-					"caption": "Sample 08"
+					"caption": "Alaska"
 				}
 			],
-			"copy": "Each group repeats the same four-image-and-copy structure. Only the content changes."
+			"copy": "From the field to the finish line, every milestone is better shared."
 		}
 	]
 }

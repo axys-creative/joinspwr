@@ -30,10 +30,12 @@
 </script>
 
 <script lang="ts">
+	import type { Attachment } from 'svelte/attachments';
 	import { glass } from '$lib/attachments/glass';
 	import { push } from '$lib/attachments/push';
 	import { scribble } from '$lib/attachments/scribble';
 	import { textRoll } from '$lib/attachments/text-roll';
+	import { isCurrentPage } from '$lib/utils/current-page';
 	import { imageProps } from '$lib/utils/image';
 	import Button from './button.svelte';
 	import Eyebrow from './eyebrow.svelte';
@@ -72,15 +74,39 @@
 		};
 	});
 
-	// The center variant shows the hovered link's pictures. They are put in the page, and so start loading, the first
-	// time the navigation opens, so each is already there to transition when its link is first pointed at.
+	// The center variant shows the hovered link's pictures, and the current page's link's until another is pointed at.
+	// They are put in the page, and so start loading, the first time the navigation opens, so each is already there to
+	// transition when its link is first pointed at.
 	let active = $state<number | null>(null);
 	let loaded = $state(false);
+	let settled = $state(false);
+
+	const current = $derived(links.findIndex((link) => isCurrentPage(link.url)));
+	const shown = $derived(active ?? (settled && current >= 0 ? current : null));
 
 	$effect(() => {
-		if (open) loaded = true;
-		else active = null;
+		if (!open) {
+			active = null;
+			settled = false;
+			return;
+		}
+		loaded = true;
+		// Two frames, so the pictures are in the page unshown first and fade in instead of appearing.
+		let frame = requestAnimationFrame(
+			() => (frame = requestAnimationFrame(() => (settled = true)))
+		);
+		return () => cancelAnimationFrame(frame);
 	});
+
+	// The scribble is drawn on hover, and under the current page's link until a link is pointed at or focused.
+	const linkScribble: Attachment<HTMLElement> = (el) => {
+		const stop = scribble({ curve: 'random', hover: true })(el);
+		const here = isCurrentPage(el.getAttribute('href') ?? undefined);
+		$effect(() => {
+			el.toggleAttribute('data-scribble-in', here && active === null);
+		});
+		return stop;
+	};
 
 	const onclick = (event: MouseEvent) => {
 		if ((event.target as Element).closest('a')) onlink?.();
@@ -138,7 +164,7 @@
 		<div class="previews" aria-hidden="true">
 			{#each links as link, index (`${link.url}|${link.text}`)}
 				{#if loaded && link.images?.length}
-					<div class="preview" class:shown={active === index}>
+					<div class="preview" class:shown={shown === index}>
 						{#each link.images.slice(0, 4) as image, picture (picture)}
 							<div
 								class="picture picture-{picture + 1}"
@@ -169,7 +195,7 @@
 					onactive={(index) => {
 						if (index !== null) active = index;
 					}}
-					linkAttach={scribble({ curve: 'random', hover: true })}
+					linkAttach={linkScribble}
 				/>
 				{@render buttons()}
 			</div>

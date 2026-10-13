@@ -1,40 +1,42 @@
 {
 	"eyebrowText": "The toolkit",
 	"title": "Tools to [close]{.secondary-alt}",
-	"slides": [
+	"description": "",
+	"items": [
 		{
-			"title": "Tool one",
+			"title": "Enzy",
+			"description": "Enzy is an innovative sales software that provides tools to recognize, reinforce, and reward your performance.",
 			"image": {
-				"src": "/uploads/spwr-img-landscape-4.webp",
-				"alt": ""
+				"src": "/uploads/platform-tools-1enzy.webp",
+				"alt": "Enzy"
+			},
+			"logo": {
+				"src": "/uploads/platform-tools-1logoenzy.svg",
+				"alt": "Enzy"
 			}
 		},
 		{
-			"title": "Tool two",
+			"title": "Captivate IQ",
+			"description": "CaptivateIQ is the solution for managing sales commissions. Customized to our needs and structure, CIQ simplifies our pay process so reps are paid more accurately, more quickly, and more transparently.",
 			"image": {
-				"src": "/uploads/spwr-img-landscape-5.webp",
-				"alt": ""
+				"src": "/uploads/platform-tools-3ciq.webp",
+				"alt": "Captivate IQ"
+			},
+			"logo": {
+				"src": "/uploads/platform-tools-3logociq.svg",
+				"alt": "Captivate IQ"
 			}
 		},
 		{
-			"title": "Tool three",
+			"title": "Merdeka",
+			"description": "SPWR’s proprietary platform that enables customer success, automated commissions, and data flows across 20+ install partners.",
 			"image": {
-				"src": "/uploads/spwr-img-landscape-6.webp",
-				"alt": ""
-			}
-		},
-		{
-			"title": "Tool four",
-			"image": {
-				"src": "/uploads/spwr-img-landscape-7.webp",
-				"alt": ""
-			}
-		},
-		{
-			"title": "Tool five",
-			"image": {
-				"src": "/uploads/spwr-img-landscape-8.webp",
-				"alt": ""
+				"src": "/uploads/platform-tools-2merdeka.webp",
+				"alt": "Merdeka"
+			},
+			"logo": {
+				"src": "/uploads/platform-tools-2logomerdeka.svg",
+				"alt": "Merdeka"
 			}
 		}
 	]

@@ -15,6 +15,7 @@
 	import ScrollProgress from '$lib/components/scroll-progress.svelte';
 	import Form from '$lib/components/form.svelte';
 	import Counter from '$lib/components/counter.svelte';
+	import CarouselAccordion from '$lib/components/carousel-accordion.svelte';
 	import Carousel from '$lib/components/carousel.svelte';
 	import CardGnomon from '$lib/components/card-gnomon.svelte';
 	import AvatarCycle from '$lib/components/avatar-cycle.svelte';
@@ -34,6 +35,7 @@
 		avatarCycleProps,
 		backToTopProps,
 		cardGnomonProps,
+		carouselAccordionProps,
 		carouselProps,
 		counterProps,
 		formProps,
@@ -273,7 +275,6 @@
 		<CardGnomon
 			cutouts={[{ from: 'bottom-right', text: 'Keep angle near 90' }]}
 			depth={12}
-			length={48}
 			angle={80}
 			radius={4}
 		>
@@ -283,7 +284,6 @@
 		<CardGnomon
 			cutouts={[{ from: 'bottom', text: 'View more' }]}
 			depth={10}
-			length={32}
 			angle={75}
 			radius={2}
 			img={{ src: '/images/img-sample-1.jpg', alt: 'Sample card image' }}
@@ -295,10 +295,38 @@
 				{ from: 'bottom-left', text: 'Sample 02' }
 			]}
 			depth={10}
-			length={32}
 			angle={80}
 			radius={2}
 			img={{ src: '/images/img-sample-1.jpg', alt: 'Sample card image' }}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Carousel Accordion"
+		type="Component"
+		description="A picture on one side and an accordion on the other, on a timer. One item is open at a time, showing its description and its picture. The border under the open item fills over the interval, and then the next item opens. The open title takes the accent color and the others are muted. From the `md` breakpoint up the list is exactly as tall as the picture, with the open item taking the space that is left. Hovering or focusing the list pauses the timer, and clicking an item opens it straight away. With reduced motion nothing moves on its own."
+		props={carouselAccordionProps}
+	>
+		<CarouselAccordion
+			items={[
+				{
+					title: 'Discover',
+					description:
+						'We start with workshops and interviews to understand the real problem, not just the one in the brief.',
+					image: { src: '/images/img-sample-1.jpg', alt: 'Sample image 1' }
+				},
+				{
+					title: 'Define',
+					description:
+						'Research only helps once it turns into decisions, so this step is about narrowing down to a single brief.',
+					image: { src: '/images/img-sample-2.jpg', alt: 'Sample image 2' }
+				},
+				{
+					title: 'Design',
+					description: 'Exploring directions and refining the chosen one.',
+					image: { src: '/images/img-sample-3.jpg', alt: 'Sample image 3' }
+				}
+			]}
 		/>
 	</LibrarySection>
 
@@ -428,7 +456,7 @@
 			columns={[2, 3, 2, 3]}
 			columnsMd={[4, 3, 4]}
 			columnsSm={[4, 5]}
-			gnomon={{ depth: 12, length: 36, radius: 4, angle: 80 }}
+			gnomon={{ depth: 12, radius: 4, angle: 80 }}
 		/>
 	</LibrarySection>
 

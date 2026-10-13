@@ -4,6 +4,7 @@
 	import config from './config.json';
 	import site from '$lib/content/meta/site.json';
 	import { loadIdentity } from '$lib/utils/identity';
+	import { sideToggleControls } from './view-controls';
 
 	type Cms = {
 		init: (options: { config: unknown }) => void;
@@ -31,6 +32,7 @@
 	}
 
 	onMount(() => {
+		const stopControls = sideToggleControls();
 		let script: HTMLScriptElement | undefined;
 
 		loadIdentity().then((identity) => {
@@ -50,7 +52,10 @@
 			document.head.append(script);
 		});
 
-		return () => script?.remove();
+		return () => {
+			stopControls();
+			script?.remove();
+		};
 	});
 </script>
 

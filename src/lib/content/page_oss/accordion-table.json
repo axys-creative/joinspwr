@@ -20,7 +20,8 @@
 			"key": "location",
 			"label": "Location",
 			"width": "2fr",
-			"titleStyle": "h3"
+			"titleStyle": "h3",
+			"titleStyleMobile": "h5"
 		}
 	],
 	"table": {

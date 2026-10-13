@@ -11,6 +11,8 @@
 		width?: string;
 		/** Sets the cell's text in this heading size, such as `h5`. */
 		titleStyle?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+		/** Replaces `titleStyle` below the `md` breakpoint. */
+		titleStyleMobile?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 		/** Sets the cell's text in the accent text color. */
 		accent?: boolean;
 		/** For an `image` column: `contain` shows the whole picture, such as a logo. Defaults to `cover`. */
@@ -116,6 +118,7 @@
 						{@const value = item[column.key]}
 						<span
 							class="cell {column.titleStyle ?? ''}"
+							data-mobile-style={column.titleStyleMobile}
 							class:image={column.type === 'image'}
 							class:accent={column.accent}
 						>
@@ -344,6 +347,30 @@
 	}
 
 	@include mixins.max-md {
+		.cell[data-mobile-style='h1'] {
+			@include mixins.h1;
+		}
+
+		.cell[data-mobile-style='h2'] {
+			@include mixins.h2;
+		}
+
+		.cell[data-mobile-style='h3'] {
+			@include mixins.h3;
+		}
+
+		.cell[data-mobile-style='h4'] {
+			@include mixins.h4;
+		}
+
+		.cell[data-mobile-style='h5'] {
+			@include mixins.h5;
+		}
+
+		.cell[data-mobile-style='h6'] {
+			@include mixins.h6;
+		}
+
 		.head,
 		.cell.image {
 			display: none;

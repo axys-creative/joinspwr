@@ -10,14 +10,22 @@ import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 import FinanceGrid from '$lib/sections/finance-grid.svelte';
 import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
+import HeaderBasic from '$lib/components/header-basic.svelte';
+import FooterGnomon from '$lib/components/footer-gnomon.svelte';
 import HeroGnomon from '$lib/sections/hero-gnomon.svelte';
 import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 import HeroImageWave from '$lib/sections/hero-image-wave.svelte';
 import Oss from '$lib/sections/oss.svelte';
 import PhotoColumns from '$lib/sections/photo-columns.svelte';
 import ScrollTimeline from '$lib/sections/scroll-timeline.svelte';
+import Stats from '$lib/sections/stats.svelte';
 import Tools from '$lib/sections/tools.svelte';
 import VideoSection from '$lib/sections/video-section.svelte';
+import footerGnomon from '$lib/content/global/footer-gnomon.json';
+import headerBasic from '$lib/content/global/header-basic.json';
+import logo from '$lib/content/global/logo.json';
+import navigation from '$lib/content/global/navigation.json';
+import social from '$lib/content/global/social-media.json';
 import history from '$lib/content/page_oss/accordion-table.json';
 import { mountPreview, type PreviewHost } from './preview-host.svelte';
 
@@ -37,6 +45,13 @@ type Cms = {
 type Entry = { getIn: (path: string[]) => { toJS: () => Data } | undefined };
 
 // Keyed by the Decap file (or collection) name in config.json.
+const headerProps = (data: Data): Data => ({
+	logo,
+	socialLinks: social.links,
+	...data,
+	hideOnScroll: false
+});
+
 const previews: Record<string, Preview> = {
 	accordion_section: {
 		component: AccordionSection as unknown as Section,
@@ -57,6 +72,10 @@ const previews: Record<string, Preview> = {
 	circle_highlight: {
 		component: CircleHighlight as unknown as Section,
 		props: (data) => ({ ...data, slices: data.slices ?? [] })
+	},
+	home_contact_form: {
+		component: ContactForm as unknown as Section,
+		props: (data) => ({ ...data, form: data.form ?? {} })
 	},
 	earnings_potential: {
 		component: EarningsPotential as unknown as Section,
@@ -122,6 +141,26 @@ const previews: Record<string, Preview> = {
 			};
 		}
 	},
+	footer_gnomon: {
+		component: FooterGnomon as unknown as Section,
+		props: (data) => ({ socialLinks: social.links, ...data, linksets: data.linksets ?? [] })
+	},
+	header_basic: {
+		component: HeaderBasic as unknown as Section,
+		props: (data) => headerProps({ ...navigation, ...data })
+	},
+	logo: {
+		component: HeaderBasic as unknown as Section,
+		props: (data) => headerProps({ ...navigation, ...headerBasic, logo: data })
+	},
+	navigation: {
+		component: HeaderBasic as unknown as Section,
+		props: (data) => headerProps({ ...headerBasic, ...data })
+	},
+	social_media: {
+		component: FooterGnomon as unknown as Section,
+		props: (data) => ({ ...footerGnomon, socialLinks: data.links ?? [] })
+	},
 	oss: {
 		component: Oss as unknown as Section,
 		props: (data) => ({ ...data, images: data.images ?? [], static: true })
@@ -142,9 +181,13 @@ const previews: Record<string, Preview> = {
 			variant: 'circle'
 		})
 	},
+	stats: {
+		component: Stats as unknown as Section,
+		props: (data) => ({ ...data, stats: data.stats ?? [] })
+	},
 	tools: {
 		component: Tools as unknown as Section,
-		props: (data) => ({ ...data, slides: data.slides ?? [] })
+		props: (data) => ({ ...data, items: data.items ?? [] })
 	},
 	video_section: {
 		component: VideoSection as unknown as Section,

@@ -1,0 +1,29 @@
+{
+	"title": "By the numbers",
+	"image": {
+		"src": "/uploads/spwr-img-portrait-5.webp",
+		"alt": ""
+	},
+	"stats": [
+		{
+			"digit": 1985,
+			"label": "Founded"
+		},
+		{
+			"digit": 2400,
+			"comma": true,
+			"suffix": "+",
+			"label": "Active reps"
+		},
+		{
+			"digit": 38,
+			"label": "States"
+		},
+		{
+			"digit": 48,
+			"prefix": "$",
+			"suffix": "M",
+			"label": "Paid to reps in 2025"
+		}
+	]
+}

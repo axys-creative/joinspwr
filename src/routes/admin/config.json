@@ -443,6 +443,87 @@
 					]
 				},
 				{
+					"name": "stats",
+					"label": "Stats",
+					"file": "src/lib/content/page_home/stats.json",
+					"preview_path": "#stats",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false,
+							"hint": "Use {.br} for a line break."
+						},
+						{
+							"name": "image",
+							"label": "Image",
+							"widget": "object",
+							"required": false,
+							"hint": "A picture under the title.",
+							"fields": [
+								{ "name": "src", "label": "Image", "widget": "image", "required": false },
+								{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+							]
+						},
+						{
+							"name": "stats",
+							"label": "Stats",
+							"widget": "list",
+							"label_singular": "Stat",
+							"summary": "{{fields.label}}",
+							"min": 1,
+							"fields": [
+								{
+									"name": "digit",
+									"label": "Number",
+									"widget": "number",
+									"value_type": "float",
+									"min": 0
+								},
+								{
+									"name": "prefix",
+									"label": "Before the number",
+									"widget": "string",
+									"required": false,
+									"hint": "For example $."
+								},
+								{
+									"name": "suffix",
+									"label": "After the number",
+									"widget": "string",
+									"required": false,
+									"hint": "For example +, M or x."
+								},
+								{
+									"name": "comma",
+									"label": "Thousands commas",
+									"widget": "boolean",
+									"default": false,
+									"required": false,
+									"hint": "Off for a year such as 1985."
+								},
+								{ "name": "label", "label": "Label", "widget": "string", "required": false }
+							]
+						},
+						{
+							"name": "repeat",
+							"label": "Count up every time",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Counts up again each time the grid scrolls into view, instead of only the first time."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
+						}
+					]
+				},
+				{
 					"name": "finance_marquee",
 					"label": "Finance Marquee",
 					"file": "src/lib/content/page_home/finance-marquee.json",
@@ -651,6 +732,75 @@
 											"hint": "Icon file name without .svg (e.g. chevron-right)."
 										}
 									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "home_contact_form",
+					"label": "Join form",
+					"file": "src/lib/content/page_home/contact-form.json",
+					"preview_path": "#join",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "consent",
+							"label": "Text message consent wording",
+							"widget": "text",
+							"required": false,
+							"hint": "Shown in two lines beside an optional checkbox, with an arrow to read the rest. Leave empty for no checkbox."
+						},
+						{
+							"name": "consentLinks",
+							"label": "Links under the consent wording",
+							"widget": "list",
+							"required": false,
+							"summary": "{{fields.text}}",
+							"fields": [
+								{ "name": "text", "label": "Text", "widget": "string" },
+								{ "name": "url", "label": "URL", "widget": "string" }
+							]
+						},
+						{
+							"name": "form",
+							"label": "Form",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "submitText",
+									"label": "Button text",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "successTitle",
+									"label": "Success title",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "successMessage",
+									"label": "Success message",
+									"widget": "string",
+									"required": false
 								}
 							]
 						}
@@ -1675,16 +1825,28 @@
 							"required": false
 						},
 						{
-							"name": "slides",
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "items",
 							"label": "Tools",
 							"widget": "list",
-							"min": 3,
-							"hint": "The one in the middle is large, with its neighbours thin and short on either side. At least three.",
+							"min": 2,
+							"hint": "One is open at a time, and each opens its own picture beside the list. At least two.",
 							"fields": [
 								{
 									"name": "title",
 									"label": "Name",
 									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
 									"required": false
 								},
 								{
@@ -1697,6 +1859,27 @@
 											"label": "Image",
 											"widget": "image",
 											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								},
+								{
+									"name": "logo",
+									"label": "Logo",
+									"widget": "object",
+									"required": false,
+									"hint": "Shown at the bottom left of the picture on a dark gradient. Use a light or white logo, SVG preferred.",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Logo image",
+											"widget": "image",
+											"required": false
 										},
 										{
 											"name": "alt",
@@ -1773,6 +1956,69 @@
 									"widget": "boolean",
 									"default": false,
 									"required": false
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "accordion_section",
+					"label": "FAQ",
+					"file": "src/lib/content/page_platform/accordion-section.json",
+					"preview_path": "platform#faq",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "accordion",
+							"label": "Accordion options",
+							"widget": "object",
+							"required": false,
+							"fields": [
+								{
+									"name": "singleOpen",
+									"label": "One question open at a time",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								},
+								{
+									"name": "striped",
+									"label": "Glass background on every other question",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "items",
+							"label": "Questions",
+							"widget": "list",
+							"summary": "{{fields.title}}",
+							"fields": [
+								{ "name": "title", "label": "Question", "widget": "string" },
+								{
+									"name": "content",
+									"label": "Answer",
+									"widget": "text",
+									"hint": "HTML. Wrap paragraphs in <p></p>; links and bold are allowed."
 								}
 							]
 						}
@@ -2201,6 +2447,87 @@
 					]
 				},
 				{
+					"name": "stats",
+					"label": "Stats",
+					"file": "src/lib/content/page_about/stats.json",
+					"preview_path": "about#stats",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false,
+							"hint": "Use {.br} for a line break."
+						},
+						{
+							"name": "image",
+							"label": "Image",
+							"widget": "object",
+							"required": false,
+							"hint": "A picture under the title.",
+							"fields": [
+								{ "name": "src", "label": "Image", "widget": "image", "required": false },
+								{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+							]
+						},
+						{
+							"name": "stats",
+							"label": "Stats",
+							"widget": "list",
+							"label_singular": "Stat",
+							"summary": "{{fields.label}}",
+							"min": 1,
+							"fields": [
+								{
+									"name": "digit",
+									"label": "Number",
+									"widget": "number",
+									"value_type": "float",
+									"min": 0
+								},
+								{
+									"name": "prefix",
+									"label": "Before the number",
+									"widget": "string",
+									"required": false,
+									"hint": "For example $."
+								},
+								{
+									"name": "suffix",
+									"label": "After the number",
+									"widget": "string",
+									"required": false,
+									"hint": "For example +, M or x."
+								},
+								{
+									"name": "comma",
+									"label": "Thousands commas",
+									"widget": "boolean",
+									"default": false,
+									"required": false,
+									"hint": "Off for a year such as 1985."
+								},
+								{ "name": "label", "label": "Label", "widget": "string", "required": false }
+							]
+						},
+						{
+							"name": "repeat",
+							"label": "Count up every time",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Counts up again each time the grid scrolls into view, instead of only the first time."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
+						}
+					]
+				},
+				{
 					"name": "oss",
 					"label": "OSS",
 					"file": "src/lib/content/page_about/oss.json",
@@ -2496,6 +2823,14 @@
 									"options": ["h1", "h2", "h3", "h4", "h5", "h6"],
 									"required": false,
 									"hint": "Sets the cell in this heading size. Leave empty for body text."
+								},
+								{
+									"name": "titleStyleMobile",
+									"label": "Text style on mobile",
+									"widget": "select",
+									"options": ["h1", "h2", "h3", "h4", "h5", "h6"],
+									"required": false,
+									"hint": "Replaces the text style below 768px. Leave empty to keep it."
 								},
 								{
 									"name": "accent",
@@ -2947,9 +3282,6 @@
 		{
 			"name": "global",
 			"label": "Global",
-			"editor": {
-				"preview": false
-			},
 			"files": [
 				{
 					"name": "navigation",

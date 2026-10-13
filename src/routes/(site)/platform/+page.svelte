@@ -1,9 +1,11 @@
 <script lang="ts">
+	import accordion from '$lib/content/page_platform/accordion-section.json';
 	import circleHighlight from '$lib/content/page_platform/circle-highlight.json';
 	import financeGrid from '$lib/content/page_platform/finance-grid.json';
 	import headline from '$lib/content/page_platform/headline.json';
 	import tools from '$lib/content/page_platform/tools.json';
 	import hero from '$lib/content/page_platform/hero-image-circle.json';
+	import AccordionSection from '$lib/sections/accordion-section.svelte';
 	import CircleHighlight from '$lib/sections/circle-highlight.svelte';
 	import FinanceGrid from '$lib/sections/finance-grid.svelte';
 	import Headline from '$lib/sections/headline.svelte';
@@ -26,3 +28,4 @@
 />
 <Tools id="tools" {...tools} />
 <FinanceGrid id="finance" {...financeGrid} />
+<AccordionSection id="faq" {...accordion} />

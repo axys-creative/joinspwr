@@ -26,7 +26,7 @@
 		groups: GalleryGroup[];
 		/** Handwritten text before the first group. Rich text, so `{.br}` breaks the line. */
 		accent?: string;
-		/** Card Gnomon settings shared by every card. */
+		/** Card Gnomon settings shared by every card. `length` defaults to `auto`, so each notch fits its caption. */
 		gnomon?: GalleryGnomon;
 		/** Overrides `gnomon` for the tall cards (the first and third in each group), whose notch needs less depth. */
 		gnomonPortrait?: Partial<GalleryGnomon>;
@@ -50,7 +50,7 @@
 	let {
 		groups,
 		accent,
-		gnomon = { depth: 18, length: 48, radius: 4, angle: 85 },
+		gnomon = { depth: 18, radius: 4, angle: 85 },
 		gnomonPortrait = { depth: 12 },
 		portrait = false,
 		id,
@@ -71,7 +71,6 @@
 				{...{
 					...gnomon,
 					...(portrait || slot % 2 === 1 ? gnomonPortrait : {}),
-					...(portrait ? { length: 'auto' as const } : {}),
 					...image.gnomon
 				}}
 				cutouts={[{ from: 'bottom-left', text: image.caption ?? '' }]}
@@ -192,6 +191,27 @@
 			.group :global(.slot-4) {
 				width: 40%;
 				aspect-ratio: 3 / 4;
+			}
+		}
+
+		@include mixins.max-md {
+			.group :global(.slot-2),
+			.group :global(.slot-4) {
+				width: 48%;
+			}
+		}
+
+		@include mixins.max-lg {
+			.header :global(.section-copy),
+			.header :global(.heading),
+			.header :global(.body) {
+				align-items: center;
+				text-align: center;
+			}
+
+			.header :global(.section-copy) {
+				margin-inline: auto;
+				text-wrap: balance;
 			}
 		}
 	}
@@ -363,6 +383,19 @@
 
 		.group :global(.slot-4) {
 			align-self: flex-end;
+		}
+	}
+
+	// On mobile the cards are 20% wider.
+	@include mixins.max-md {
+		.group :global(.slot-1),
+		.group :global(.slot-3) {
+			width: 48%;
+		}
+
+		.group :global(.slot-2),
+		.group :global(.slot-4) {
+			width: 60%;
 		}
 	}
 

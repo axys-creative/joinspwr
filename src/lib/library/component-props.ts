@@ -863,7 +863,7 @@ export const accordionProps = props(
 export const accordionTableProps = props(
 	[
 		'columns',
-		'An array of `{ key, label, type, width, titleStyle, accent, fit }`. `key` is the field read off each item, `label` the header text, `type` is `image` to show an `{ src, alt }` image (anything else is text), and `width` is any CSS grid track size (`1fr` by default). `titleStyle` (`h1` to `h6`) sets the text of the cell in that heading size, `accent` sets it in the accent text color, and `fit` (`cover` or `contain`) is how an image column crops. Required.'
+		'An array of `{ key, label, type, width, titleStyle, titleStyleMobile, accent, fit }`. `key` is the field read off each item, `label` the header text, `type` is `image` to show an `{ src, alt }` image (anything else is text), and `width` is any CSS grid track size (`1fr` by default). `titleStyle` (`h1` to `h6`) sets the text of the cell in that heading size, `titleStyleMobile` replaces it below `md`, `accent` sets it in the accent text color, and `fit` (`cover` or `contain`) is how an image column crops. Required.'
 	],
 	[
 		'items',
@@ -909,6 +909,22 @@ export const counterProps = props(
 	],
 	['ticker', 'A boolean. Rolls each digit up a column instead of counting. Defaults to `false`.'],
 	['class', 'A string of extra classes.']
+);
+
+export const carouselAccordionProps = props(
+	[
+		'items',
+		"An array of `{ title, description, image, logo }`, two or more. One is open at a time, and each opens its own picture beside the list (`image` is `{ src, alt }`). An optional `logo` (`{ src, alt }`) is drawn at the picture's bottom left on a dark gradient, so use a light one. Required."
+	],
+	[
+		'interval',
+		'A number, how long each item stays open in milliseconds. The border under the open item fills over that time, and then the next one opens. Defaults to `6000`.'
+	],
+	[
+		'autoplay',
+		'A boolean. Moves on by itself when the interval ends, looping back to the first. It stops while the pointer or keyboard focus is in the list, while the section is off screen, and with reduced motion. Defaults to `true`.'
+	],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
 export const carouselProps = props(
@@ -959,7 +975,7 @@ export const cardGnomonProps = props(
 	],
 	[
 		'length',
-		'A number, 0-100, or `auto`. How far every cutout runs along its edge, as a % of the card side. `auto` measures the longest cutout text and fits to it (plus `lengthPadding`), up to 90, and follows the card as it resizes. Defaults to `32`.'
+		'A number, 0-100, or `auto`. How far every cutout runs along its edge, as a % of the card side. `auto` measures the longest cutout text and fits to it (plus `lengthPadding`), up to 90, and follows the card as it resizes. A cutout with no text falls back to 32. Defaults to `auto`.'
 	],
 	[
 		'lengthPadding',
@@ -1258,7 +1274,7 @@ export const galleryHorizontalProps = props(
 	],
 	[
 		'gnomon',
-		'`{ depth, length, radius, angle }`, the Card Gnomon settings every card shares (see Card Gnomon in Components). Defaults to `{ depth: 18, length: 48, radius: 4, angle: 85 }`.'
+		'`{ depth, length, radius, angle }`, the Card Gnomon settings every card shares (see Card Gnomon in Components). Defaults to `{ depth: 18, radius: 4, angle: 85 }`, with `length` left to `auto` so each notch fits its caption.'
 	],
 	[
 		'gnomonPortrait',
@@ -1647,7 +1663,7 @@ export const photoColumnsProps = props(
 	],
 	[
 		'gnomon',
-		'An object `{ depth, length, radius, angle, borderWidth, cutouts }`, the Card Gnomon settings every image is drawn with (see Image Columns). Defaults to `{ depth: 12, length: 44, radius: 4, angle: 80, imageSize: 75 }`.'
+		'An object `{ depth, length, radius, angle, borderWidth, cutouts }`, the Card Gnomon settings every image is drawn with (see Image Columns). Defaults to `{ depth: 12, radius: 4, angle: 80, imageSize: 75 }`, with `length` left to `auto` so each notch fits its caption.'
 	],
 	[
 		'fullScreen',
@@ -1677,16 +1693,42 @@ export const earningsPotentialProps = props(
 	]
 );
 
+export const statsProps = props(
+	[
+		'title',
+		"Rich text, the section's only copy: it sits at the left, at most 320px wide, and there is no eyebrow, description or call to action."
+	],
+	[
+		'image',
+		"An object `{ src, alt }`: a picture under the title, as wide as the title's column (at most 320px), in a 3 by 4 frame, or 4 by 3 below `md`."
+	],
+	[
+		'stats',
+		"An array of `{ digit, prefix, suffix, label, comma }`, the Counter component's options (see the Components page), in its digital count-up style. They sit at the right in a two by two grid, their top level with the title, in the H1 look but not H1 markup. Below `md` the title stacks above them. Required."
+	],
+	[
+		'repeat',
+		'A boolean. Count up again each time the grid scrolls into view, instead of only the first time. Defaults to `false`.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	]
+);
+
 export const toolsProps = props(
 	[
-		'title, eyebrowText, eyebrowIcon',
-		'Copy from Section Copy (see the Style Guide), centered above the carousel. There is no description or call to action.'
+		'title, description, eyebrowText, eyebrowIcon',
+		'Copy from Section Copy (see the Style Guide), centered above the carousel accordion. There is no call to action.'
 	],
 	[
-		'slides',
-		'An array of `{ image, title }`, at least three, where `image` is `{ src, alt }`. The active one fills a large panel in the middle (about 62% of the content width), with the previous and next as thin, shorter panels on either side (about 17% each, 78% as tall), dimmed. The arrows, a click on a side panel, or a swipe move through them and wrap around, and the panels glide to their new places. `title` captions the large panel. Required.'
+		'items',
+		'An array of `{ title, description, image }`, two or more, passed to the Carousel Accordion component (see the Components page), where `image` is `{ src, alt }`. One is open at a time and each opens its own picture beside the list. Required.'
 	],
-	['label', 'A string, the accessible name of the carousel. Defaults to `Tools`.'],
+	[
+		'interval, autoplay',
+		'The Carousel Accordion options: how long each item stays open in milliseconds (default `6000`), and whether it moves on by itself (default `true`).'
+	],
 	[
 		'fullScreen',
 		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
