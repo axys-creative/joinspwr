@@ -3200,6 +3200,12 @@
 					"file": "src/lib/content/page_404/hero-simple.json",
 					"fields": [
 						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
 							"name": "title",
 							"label": "Title",
 							"widget": "string"
