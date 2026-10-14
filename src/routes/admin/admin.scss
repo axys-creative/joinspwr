@@ -1,6 +1,44 @@
 // The CMS dashboard is not part of the site: it gets none of the global styles in src/styles.
 // Add your own overrides here. Decap mounts everything inside #nc-root.
 #nc-root {
+	// Login page logo.
+	[class*='NetlifyCreditIcon'] {
+		display: none;
+	}
+
+	[class*='StyledAuthenticationPage'] {
+		display: grid;
+		grid-template-columns: auto;
+		justify-content: center;
+		justify-items: center;
+		align-content: center;
+		gap: 1.5rem;
+
+		[class*='LoginButton'],
+		[class*='GoBackButtonStyle'] {
+			margin: 0;
+			width: 100%;
+			max-width: 248px;
+			justify-content: center;
+			border-radius: 4px;
+			height: 36px;
+			padding: 0 12px;
+			line-height: 1;
+
+			p {
+				line-height: inherit;
+			}
+		}
+
+		[class*='GoBackButtonStyle'] {
+			border: 1px solid #313d3e;
+
+			span {
+				display: none;
+			}
+		}
+	}
+
 	h1,
 	h2,
 	h3,

@@ -9,6 +9,8 @@
 	type Cms = {
 		init: (options: { config: unknown }) => void;
 		registerPreviewTemplate: (name: string, template: unknown) => void;
+		getLocale: (locale: string) => { auth: Record<string, string> };
+		registerLocale: (locale: string, phrases: unknown) => void;
 	};
 	type Node = { widget?: string; media_library?: { config?: { max_file_size?: number } } };
 
@@ -35,6 +37,12 @@
 		const stopControls = sideToggleControls();
 		let script: HTMLScriptElement | undefined;
 
+		const preload = document.body.getAttribute('data-sveltekit-preload-data');
+		// Hovering Decap's "Go back to site" link would otherwise preload the site's CSS into the admin.
+		document.body.setAttribute('data-sveltekit-preload-data', 'off');
+		// A client-side navigation would leave Decap's #nc-root and the identity widget on the home page.
+		document.body.setAttribute('data-sveltekit-reload', '');
+
 		loadIdentity().then((identity) => {
 			// Decap's fallback re-init would create a second widget iframe.
 			identity.init = () => {};
@@ -46,6 +54,11 @@
 				if (!cms) return;
 				const { registerPreviews } = await import('./previews');
 				registerPreviews(cms);
+				const en = cms.getLocale('en');
+				cms.registerLocale('en', {
+					...en,
+					auth: { ...en.auth, loginWithNetlifyIdentity: 'Sign in' }
+				});
 				cms.init({ config: capUploads(config) });
 			};
 			(window as { CMS_MANUAL_INIT?: boolean }).CMS_MANUAL_INIT = true;
@@ -55,6 +68,8 @@
 		return () => {
 			stopControls();
 			script?.remove();
+			if (preload) document.body.setAttribute('data-sveltekit-preload-data', preload);
+			document.body.removeAttribute('data-sveltekit-reload');
 		};
 	});
 </script>
