@@ -81,10 +81,12 @@
 	let height = $state(0);
 	let left = $state({ height: 0 });
 	let right = $state({ height: 0 });
+	let center = $state({ height: 0 });
 	let titleWidth = $state(0);
 	let slideWidths = $state<number[]>([]);
 	let arrowsWidth = $state(0);
-	// Below md the title moves out of the frame, above it, and the controls stay in the notch at the bottom right.
+	// Below md the title moves out of the frame, above it, with the info button beside it; back and forward share
+	// one notch at the bottom center.
 	let compact = $state(false);
 
 	const interval = $derived(autoplay?.interval || DEFAULT_INTERVAL);
@@ -97,14 +99,21 @@
 	const titleNotch = new Tween(0, { duration: 450, easing: cubicOut });
 	const titleNotchWidth = $derived(titleNotch.current);
 	const controlsNotchWidth = $derived(arrowsWidth + NOTCH_PADDING);
+	const multiple = $derived(slides.length > 1);
+	const showCenter = $derived(compact && multiple);
 	// How far the notches reach in from the bottom and the top, for the overlay and the minimum height to clear.
-	const bottomReach = $derived(compact ? right.height : Math.max(left.height, right.height));
+	const bottomReach = $derived(
+		compact ? (showCenter ? center.height : 0) : Math.max(left.height, right.height)
+	);
 	const topReach = 0;
 	const notches = $derived([
 		...(!compact && left.height
 			? [{ align: 'left' as const, width: titleNotchWidth, height: left.height }]
 			: []),
-		...(right.height
+		...(showCenter && center.height
+			? [{ align: 'center' as const, width: controlsNotchWidth, height: center.height }]
+			: []),
+		...(!compact && right.height
 			? [{ align: 'right' as const, width: controlsNotchWidth, height: right.height }]
 			: [])
 	]);
@@ -150,9 +159,33 @@
 	});
 </script>
 
+{#snippet infoButton()}
+	<Button
+		iconStart={open ? 'x-lg' : 'info-circle'}
+		textDescription={open ? 'Hide details' : 'Show details'}
+		expanded={open}
+		controls={overlayId}
+		onclick={() => (open = !open)}
+	/>
+{/snippet}
+
+{#snippet arrowButtons()}
+	{#if multiple}
+		<div class="arrows">
+			<Button
+				class="prev"
+				iconStart="chevron-right"
+				textDescription="Previous slide"
+				onclick={() => move(-1)}
+			/>
+			<Button iconStart="chevron-right" textDescription="Next slide" onclick={() => move(1)} />
+		</div>
+	{/if}
+{/snippet}
+
 {#snippet arrows()}
 	<div class="controls" bind:clientWidth={arrowsWidth}>
-		{#if hasDate && !compact}
+		{#if hasDate}
 			<div class="dates">
 				{#each slides as slide, i (i)}
 					<span class="slide" class:active={i === index} inert={i !== index}>{slide.date}</span>
@@ -160,25 +193,9 @@
 			</div>
 		{/if}
 		{#if hasInfo}
-			<Button
-				iconStart={open ? 'x-lg' : 'info-circle'}
-				textDescription={open ? 'Hide details' : 'Show details'}
-				expanded={open}
-				controls={overlayId}
-				onclick={() => (open = !open)}
-			/>
+			{@render infoButton()}
 		{/if}
-		{#if slides.length > 1}
-			<div class="arrows">
-				<Button
-					class="prev"
-					iconStart="chevron-right"
-					textDescription="Previous slide"
-					onclick={() => move(-1)}
-				/>
-				<Button iconStart="chevron-right" textDescription="Next slide" onclick={() => move(1)} />
-			</div>
-		{/if}
+		{@render arrowButtons()}
 	</div>
 {/snippet}
 
@@ -230,8 +247,13 @@
 		</div>
 	{/if}
 	{#if compact}
-		<div class="copy mobile-title" aria-live={live}>
-			{@render slideTitles('h5')}
+		<div class="mobile-head">
+			<div class="copy" aria-live={live}>
+				{@render slideTitles('h5')}
+			</div>
+			{#if hasInfo}
+				{@render infoButton()}
+			{/if}
 		</div>
 	{/if}
 	<div
@@ -260,11 +282,7 @@
 						<img
 							{...imageProps(figure.src, { sizes: '(min-width: 768px) 320px, 200px' })}
 							class="figure {side}"
-							style="bottom: {side === 'left' && compact
-								? 0
-								: side === 'left'
-									? left.height
-									: right.height}px"
+							style="bottom: {compact ? 0 : side === 'left' ? left.height : right.height}px"
 							alt={figure.alt ?? ''}
 							loading="eager"
 						/>
@@ -295,11 +313,25 @@
 					{@render slideTitles('h4')}
 				</div>
 			</div>
-		{/if}
 
-		<div class="notch right" style="width: {controlsNotchWidth}px" bind:clientHeight={right.height}>
-			{@render arrows()}
-		</div>
+			<div
+				class="notch right"
+				style="width: {controlsNotchWidth}px"
+				bind:clientHeight={right.height}
+			>
+				{@render arrows()}
+			</div>
+		{:else if showCenter}
+			<div
+				class="notch center"
+				style="width: {controlsNotchWidth}px"
+				bind:clientHeight={center.height}
+			>
+				<div class="controls" bind:clientWidth={arrowsWidth}>
+					{@render arrowButtons()}
+				</div>
+			</div>
+		{/if}
 	</div>
 </section>
 
@@ -414,7 +446,18 @@
 		right: 0;
 		padding: 16px 0 0 48px;
 		align-items: flex-end;
+	}
 
+	.center {
+		left: 50%;
+		translate: -50% 0;
+		padding: 16px 24px 0;
+		align-items: center;
+	}
+
+	.left,
+	.right,
+	.center {
 		@include mixins.max-md {
 			padding-block-start: 8px;
 		}
@@ -457,7 +500,11 @@
 		}
 	}
 
-	.mobile-title {
+	.mobile-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
 		margin-block-end: 16px;
 	}
 

@@ -15,6 +15,8 @@
 		interval?: number;
 		/** Moves to the next item when the interval ends. Without it the list is a plain one-open accordion. */
 		autoplay?: boolean;
+		/** Puts the glass background on every other item, starting with the first. */
+		striped?: boolean;
 		class?: string;
 	};
 </script>
@@ -29,6 +31,7 @@
 		items,
 		interval = 6000,
 		autoplay = true,
+		striped = false,
 		class: className
 	}: CarouselAccordionProps = $props();
 
@@ -64,7 +67,12 @@
 	}
 </script>
 
-<div bind:this={root} class="carousel-accordion {className ?? ''}" style="--interval: {interval}ms">
+<div
+	bind:this={root}
+	class="carousel-accordion {className ?? ''}"
+	class:striped
+	style="--interval: {interval}ms"
+>
 	<div class="layout">
 		<div class="pictures">
 			{#each items as item, index (index)}
@@ -114,7 +122,7 @@
 							id="{uid}-trigger-{index}"
 							onclick={() => (active = index)}
 						>
-							<span class="title h3">{item.title}</span>
+							<span class="title h5">{item.title}</span>
 							<Icon name="chevron-down" class="marker" />
 						</button>
 					</h3>
@@ -234,6 +242,19 @@
 			&.open {
 				flex: 1;
 			}
+		}
+	}
+
+	// Inset padding keeps the text off the glass edge.
+	.striped .item {
+		padding-inline: var(--carousel-accordion-gap);
+
+		&:nth-of-type(odd) {
+			@include mixins.glass;
+		}
+
+		&:first-child .trigger {
+			padding-block-start: 16px;
 		}
 	}
 

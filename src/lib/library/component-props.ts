@@ -924,6 +924,10 @@ export const carouselAccordionProps = props(
 		'autoplay',
 		'A boolean. Moves on by itself when the interval ends, looping back to the first. It stops while the pointer or keyboard focus is in the list, while the section is off screen, and with reduced motion. Defaults to `true`.'
 	],
+	[
+		'striped',
+		'A boolean. Puts the glass background on every other item, starting with the first, the same as Accordion. The Tools section turns it on. Defaults to `false`.'
+	],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
@@ -1663,7 +1667,7 @@ export const photoColumnsProps = props(
 	],
 	[
 		'gnomon',
-		'An object `{ depth, length, radius, angle, borderWidth, cutouts }`, the Card Gnomon settings every image is drawn with (see Image Columns). Defaults to `{ depth: 12, radius: 4, angle: 80, imageSize: 75 }`, with `length` left to `auto` so each notch fits its caption.'
+		'An object `{ depth, length, radius, angle, borderWidth, cutouts }`, the Card Gnomon settings every image is drawn with (see Image Columns). Defaults to `{ depth: 12, lengthPadding: 44, radius: 4, angle: 80, imageSize: 75 }` (`depth` is 14 under 768px), with `length` left to `auto` so each notch fits its caption.'
 	],
 	[
 		'fullScreen',

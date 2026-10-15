@@ -197,7 +197,7 @@
 		@include mixins.max-md {
 			.group :global(.slot-2),
 			.group :global(.slot-4) {
-				width: 48%;
+				width: 57.6%;
 			}
 		}
 
@@ -279,6 +279,10 @@
 			rotate: 0;
 			text-align: center;
 			white-space: normal;
+		}
+
+		@include mixins.max-md {
+			font-size: 40px;
 		}
 	}
 
@@ -386,16 +390,16 @@
 		}
 	}
 
-	// On mobile the cards are 20% wider.
+	// On mobile the cards are 44% wider.
 	@include mixins.max-md {
 		.group :global(.slot-1),
 		.group :global(.slot-3) {
-			width: 48%;
+			width: 57.6%;
 		}
 
 		.group :global(.slot-2),
 		.group :global(.slot-4) {
-			width: 60%;
+			width: 72%;
 		}
 	}
 

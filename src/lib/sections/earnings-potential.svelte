@@ -57,6 +57,10 @@
 	let armed = $state(false);
 	let revealed = $state(false);
 	let section = $state<HTMLElement>();
+	let tabButtons = $state<HTMLButtonElement[]>([]);
+
+	// Pressing a bar or its label presses its tab, so the panel and the slider follow like any other tab press.
+	const pick = (index: number) => tabButtons[index]?.click();
 
 	// Three gridlines on a round number: 1, 2, 2.5 or 5 times a power of ten.
 	const step = $derived.by(() => {
@@ -125,16 +129,27 @@
 				{/each}
 				<div class="bars">
 					{#each tabs as tab, index (index)}
-						<div class="column" class:on={index === selected}>
+						<button
+							type="button"
+							class="column"
+							class:on={index === selected}
+							tabindex="-1"
+							onclick={() => pick(index)}
+						>
 							<span class="bar-value">{short(tab.amount)}</span>
 							<span class="bar" style="--h: {(tab.amount / ceiling) * 100}%; --i: {index}"></span>
-						</div>
+						</button>
 					{/each}
 				</div>
 			</div>
 			<div class="labels" aria-hidden="true">
 				{#each tabs as tab, index (index)}
-					<span class:on={index === selected}>{tab.label}</span>
+					<button
+						type="button"
+						class:on={index === selected}
+						tabindex="-1"
+						onclick={() => pick(index)}>{tab.label}</button
+					>
 				{/each}
 			</div>
 
@@ -153,13 +168,15 @@
 
 		<div class="content">
 			<div class="tabset" {@attach tabsAttachment({ defaultTab, onChange: (i) => (selected = i) })}>
-				<SectionCopy
-					level={2}
-					{title}
-					showEyebrow={false}
-					showDescription={false}
-					showCta={false}
-				/>
+				<div class="heading">
+					<SectionCopy
+						level={2}
+						{title}
+						showEyebrow={false}
+						showDescription={false}
+						showCta={false}
+					/>
+				</div>
 
 				<div
 					class="list"
@@ -168,7 +185,13 @@
 					{@attach toggleSlider({ variant: 'solid' })}
 				>
 					{#each tabs as tab, index (index)}
-						<button type="button" class="tab" role="tab" aria-selected="false">{tab.label}</button>
+						<button
+							type="button"
+							class="tab"
+							role="tab"
+							aria-selected="false"
+							bind:this={tabButtons[index]}>{tab.label}</button
+						>
 					{/each}
 				</div>
 
@@ -181,7 +204,9 @@
 			</div>
 
 			{#if cta}
-				<SectionCopy {cta} showEyebrow={false} showTitle={false} showDescription={false} />
+				<div class="cta">
+					<SectionCopy {cta} showEyebrow={false} showTitle={false} showDescription={false} />
+				</div>
 			{/if}
 		</div>
 	</div>
@@ -218,9 +243,7 @@
 		gap: 24px;
 		margin: 0;
 		padding: 32px;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-lg);
-		background: var(--color-surface);
+		@include mixins.glass-card($radius: var(--radius-lg));
 
 		@include mixins.min-lg {
 			order: 0;
@@ -305,6 +328,16 @@
 		}
 	}
 
+	.column,
+	.labels button {
+		padding: 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		cursor: pointer;
+	}
+
 	.column {
 		position: relative;
 		display: flex;
@@ -330,6 +363,10 @@
 
 	.on .bar {
 		background: var(--color-accent);
+	}
+
+	.column:not(.on):hover .bar {
+		background: color-mix(in srgb, var(--color-text) 36%, transparent);
 	}
 
 	.armed:not(.revealed) .bar {
@@ -366,6 +403,11 @@
 		@include mixins.max-md {
 			gap: 8px;
 			padding-left: 40px;
+		}
+
+		button {
+			color: var(--color-text-muted);
+			font-size: 14px;
 		}
 
 		.on {
@@ -450,6 +492,43 @@
 
 		p {
 			color: var(--color-text-muted);
+		}
+	}
+
+	// Below lg the pieces run in one column: title, the tabs, the chart, the selected tab's text, then the button.
+	@include mixins.max-lg {
+		.inner {
+			gap: 0;
+		}
+
+		.content,
+		.tabset {
+			display: contents;
+		}
+
+		.heading {
+			order: 1;
+			margin-block-end: 20px;
+		}
+
+		.list {
+			order: 2;
+			justify-self: start;
+			margin-block-end: 16px;
+		}
+
+		.card {
+			order: 3;
+		}
+
+		.panel {
+			order: 4;
+			margin-block-start: 24px;
+		}
+
+		.cta {
+			order: 5;
+			margin-block-start: 32px;
 		}
 	}
 

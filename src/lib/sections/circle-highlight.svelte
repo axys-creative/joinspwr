@@ -328,6 +328,32 @@
 		margin-inline: auto;
 	}
 
+	.callouts {
+		@include mixins.max-lg {
+			// The ring uses 68% of its box and the cards sit below it, so the box is larger than the ring it holds:
+			// about 64% of the width on a phone and 354px on a tablet.
+			overflow-x: clip;
+
+			.pin {
+				--ring-size: min(94vw, 520px);
+			}
+
+			// Auto side margins would pin a box wider than the column to its left edge, so the column centers it.
+			.ring-wrap {
+				margin-block-start: calc(var(--ring-size) * -0.1);
+				margin-inline: 0;
+
+				@include mixins.max-md {
+					margin-block-start: calc(var(--ring-size) * 0.075);
+				}
+			}
+
+			.cards {
+				top: calc(100% - var(--ring-size) * 0.16 + 72px);
+			}
+		}
+	}
+
 	.callouts .pin {
 		@include mixins.min-lg {
 			// Both cards and their gaps must fit across the screen: each card is up to 320px, 64% of the ring, and starts

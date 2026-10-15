@@ -23,6 +23,7 @@
 	import ImageFan from '$lib/components/image-fan.svelte';
 	import RichText from '$lib/components/rich-text.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
+	import { MediaQuery } from 'svelte/reactivity';
 
 	let {
 		images,
@@ -38,6 +39,12 @@
 		eyebrowImage,
 		...rest
 	}: OssProps = $props();
+
+	const phone = new MediaQuery('max-width: 479px');
+	const fanProps = $derived(
+		phone.current ? { ...fan, itemWidth: (fan.itemWidth ?? 19) * 1.5 } : fan
+	);
+	const fanImages = $derived(phone.current ? images.slice(0, 5) : images);
 </script>
 
 <section {id} class="oss {className ?? ''}" class:full-screen={fullScreen}>
@@ -54,7 +61,7 @@
 		/>
 
 		<div class="fan">
-			<ImageFan {...fan} animateIn={fan.animateIn && !still} {images} />
+			<ImageFan {...fanProps} animateIn={fan.animateIn && !still} images={fanImages} />
 			{#if accent}
 				<span class="accent" aria-hidden="true"><RichText text={accent} /></span>
 			{/if}
@@ -117,6 +124,7 @@
 		@include mixins.max-md {
 			position: static;
 			display: block;
+			font-size: 40px;
 			text-align: center;
 		}
 	}

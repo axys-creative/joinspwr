@@ -576,6 +576,14 @@
 		@include mixins.max-md {
 			--slide-width: min(84vw, 480px);
 		}
+
+		@include mixins.max-lg {
+			margin-block-end: var(--body-padding-double);
+		}
+
+		@include mixins.max-xs {
+			margin-block-end: calc(var(--body-padding-double) + 25vw);
+		}
 	}
 
 	.armed {

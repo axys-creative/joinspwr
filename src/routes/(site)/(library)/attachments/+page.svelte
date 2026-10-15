@@ -166,6 +166,11 @@
 				description: '`fade | up | down | left | right | scale`. Defaults to `up`.'
 			},
 			{
+				name: 'delay',
+				description:
+					'For `scroll`: seconds to wait before drawing in, so the stroke is seen being drawn. Defaults to `0.2` for a circle and `0` for an underline.'
+			},
+			{
 				name: 'once',
 				description:
 					'A boolean. Animate in only the first time (default), or replay each time it re-enters the viewport with `false`.'

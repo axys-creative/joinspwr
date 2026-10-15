@@ -36,6 +36,8 @@ export type ScribbleOptions = {
 	start?: string;
 	/** For `scroll`: a ScrollTrigger-style end, e.g. `bottom 2%`. With `once: false` the scribble resets past it. */
 	end?: string;
+	/** For `scroll`: seconds to wait before drawing in, so the stroke is seen being drawn. Defaults to `0.2` for a circle and `0` for an underline. */
+	delay?: number;
 	/** For `scroll`: show GSAP's start and end markers for debugging. */
 	markers?: boolean;
 	/** For `scroll`: a selector or element to watch instead of this element, e.g. a whole section. */
@@ -64,6 +66,7 @@ export function scribble({
 	start = 'top 85%',
 	end = 'bottom 2%',
 	markers = false,
+	delay = type === 'circle' ? 0.2 : 0,
 	trigger
 }: ScribbleOptions = {}): Attachment<HTMLElement> {
 	return (el) => {
@@ -133,6 +136,7 @@ export function scribble({
 		if (color) el.style.setProperty('--scribble-color', color);
 		if (height) el.style.setProperty('--scribble-height', height);
 		if (offset) el.style.setProperty('--scribble-offset', offset);
+		if (scroll && delay) el.style.setProperty('--scribble-delay', `${delay}s`);
 		el.append(svg);
 
 		// With `scroll` it stays undrawn until the element scrolls into view, which sets `data-scribble-in`.
@@ -181,7 +185,12 @@ export function scribble({
 			svg.remove();
 			el.classList.remove('scribble-host', 'scribble-inline');
 			el.removeAttribute('data-scribble-hover');
-			for (const name of ['--scribble-color', '--scribble-height', '--scribble-offset'])
+			for (const name of [
+				'--scribble-color',
+				'--scribble-height',
+				'--scribble-offset',
+				'--scribble-delay'
+			])
 				el.style.removeProperty(name);
 		};
 	};

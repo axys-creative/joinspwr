@@ -90,16 +90,6 @@
 		flex-direction: column;
 		gap: 48px;
 		padding-block: var(--body-padding-double);
-
-		// More room above and below, so the pinned carousel above is well clear before this section's first piece shows.
-		@include mixins.max-lg {
-			padding-block: calc(var(--body-padding-double) * 2);
-		}
-
-		// On the smallest screens the first piece gets a quarter of the screen's width more room above it.
-		@include mixins.max-xs {
-			padding-block-start: calc(var(--body-padding-double) * 2 + 25vw);
-		}
 	}
 
 	.copy {
@@ -131,7 +121,8 @@
 		@include mixins.max-md {
 			position: static;
 			display: block;
-			margin-top: 24px;
+			margin-top: 32px;
+			font-size: 40px;
 			text-align: center;
 			translate: none;
 		}

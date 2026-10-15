@@ -21,6 +21,7 @@
 <script lang="ts">
 	import ImageColumns from '$lib/components/image-columns.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
+	import { MediaQuery } from 'svelte/reactivity';
 
 	const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
 	const years = ['2024', '2025', '2026'];
@@ -38,12 +39,24 @@
 		startOffset = 64,
 		cardAspect = '1 / 1.1',
 		start = 'top top',
-		gnomon = { depth: 12, length: 44, radius: 4, angle: 80, imageSize: 75 },
+		gnomon,
 		fullScreen = false,
 		id,
 		class: className,
 		...copy
 	}: PhotoColumnsProps = $props();
+
+	const mobile = new MediaQuery('max-width: 767px');
+	const cardGnomon = $derived(
+		gnomon ?? {
+			depth: mobile.current ? 14 : 12,
+			length: 'auto' as const,
+			lengthPadding: 44,
+			radius: 4,
+			angle: 80,
+			imageSize: 75
+		}
+	);
 
 	const total = (counts?: number[]) => (counts ?? []).reduce((sum, count) => sum + count, 0);
 	// Enough cards for the widest layout; the smaller ones show only as many as their own counts.
@@ -71,7 +84,7 @@
 			{columnsMd}
 			{columnsSm}
 			{startOffset}
-			{gnomon}
+			gnomon={cardGnomon}
 			{cardAspect}
 			{start}
 		/>

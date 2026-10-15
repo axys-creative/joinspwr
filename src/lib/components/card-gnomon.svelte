@@ -191,13 +191,13 @@
 		justify-content: center;
 		padding: 4px;
 		font-family: 'Antonio', var(--font-heading);
-		font-size: 14px;
+		font-size: 18px;
 		line-height: 1.2;
 		text-align: center;
 		pointer-events: none;
 
 		@include mixins.max-xxl {
-			font-size: 12px;
+			font-size: 16px;
 		}
 	}
 

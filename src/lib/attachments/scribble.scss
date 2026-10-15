@@ -100,9 +100,11 @@
 .scribble-host[data-scribble-in] {
 	.scribble-underline {
 		clip-path: inset(-100% 0 -100% 0);
+		transition-delay: var(--scribble-delay, 0s);
 	}
 
 	.scribble-draw {
 		stroke-dashoffset: 0;
+		transition-delay: var(--scribble-delay, 0s);
 	}
 }

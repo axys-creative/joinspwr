@@ -6,7 +6,7 @@
 		SectionCopyProps,
 		'eyebrowText' | 'eyebrowIcon' | 'title' | 'description'
 	> &
-		Pick<CarouselAccordionProps, 'items' | 'interval' | 'autoplay'> & {
+		Pick<CarouselAccordionProps, 'items' | 'interval' | 'autoplay' | 'striped'> & {
 			/** At least the height of the screen, with the content centered. Taller content still grows past it. */
 			fullScreen?: boolean;
 			/** The section's anchor, so a link or the CMS preview can point to `#id`. */
@@ -23,6 +23,7 @@
 		items,
 		interval,
 		autoplay,
+		striped = true,
 		fullScreen = false,
 		id,
 		class: className,
@@ -44,7 +45,7 @@
 			{description}
 			showCta={false}
 		/>
-		<CarouselAccordion {items} {interval} {autoplay} />
+		<CarouselAccordion {items} {interval} {autoplay} {striped} />
 	</div>
 </section>
 

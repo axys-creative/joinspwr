@@ -4,7 +4,14 @@
 	/** Shared by every card when `gnomon` is set. The caption fills the first notch. */
 	export type ColumnsGnomon = Pick<
 		CardGnomonProps,
-		'depth' | 'length' | 'radius' | 'angle' | 'borderWidth' | 'cutouts' | 'imageSize'
+		| 'depth'
+		| 'length'
+		| 'lengthPadding'
+		| 'radius'
+		| 'angle'
+		| 'borderWidth'
+		| 'cutouts'
+		| 'imageSize'
 	>;
 
 	export type ColumnImage = {
