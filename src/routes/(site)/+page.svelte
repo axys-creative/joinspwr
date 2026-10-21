@@ -8,7 +8,11 @@
 	import Oss from '$lib/sections/oss.svelte';
 	import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 	import Stats from '$lib/sections/stats.svelte';
+	import ImageTabs from '$lib/sections/image-tabs.svelte';
+	import Tools from '$lib/sections/tools.svelte';
 	import VideoSection from '$lib/sections/video-section.svelte';
+	import imageTabs from '$lib/content/page_home/image-tabs.json';
+	import steps from '$lib/content/page_home/steps.json';
 	import hero from '$lib/content/page_home/hero-image-circle.json';
 	import carousel from '$lib/content/page_home/carousel-tunnel.json';
 	import gallery from '$lib/content/page_home/gallery-horizontal.json';
@@ -19,6 +23,7 @@
 	import headline from '$lib/content/page_home/headline.json';
 	import videoSection from '$lib/content/page_home/video-section.json';
 	import { hasIdentityToken, loadIdentity } from '$lib/utils/identity';
+	import { visitorPath } from '$lib/utils/visitor-path.svelte';
 
 	const cta = {
 		primary: hero.cta.primary,
@@ -27,12 +32,17 @@
 
 	// Netlify sends CMS invite and recovery links to the home page.
 	onMount(() => {
+		visitorPath.restore();
 		if (!hasIdentityToken()) return;
 		loadIdentity().then((identity) => identity.on('login', () => location.assign('/admin/')));
 	});
 </script>
 
 <HeroImageCircle id="hero" {...hero} {cta} direction="center" />
+{#if visitorPath.current === 'new'}
+	<Tools id="steps" {...steps} />
+	<ImageTabs id="support" {...imageTabs} />
+{/if}
 <VideoSection
 	id="video"
 	{...videoSection}

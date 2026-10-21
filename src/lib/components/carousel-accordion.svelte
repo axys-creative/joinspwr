@@ -122,7 +122,7 @@
 							id="{uid}-trigger-{index}"
 							onclick={() => (active = index)}
 						>
-							<span class="title h5">{item.title}</span>
+							<span class="title h4">{item.title}</span>
 							<Icon name="chevron-down" class="marker" />
 						</button>
 					</h3>

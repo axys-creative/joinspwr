@@ -18,6 +18,7 @@
 		heroGnomonProps,
 		heroImageWaveProps,
 		heroSimpleProps,
+		imageTabsProps,
 		ossProps,
 		photoColumnsProps,
 		planSelectionProps,
@@ -46,6 +47,7 @@
 	import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 	import HeroImageWave from '$lib/sections/hero-image-wave.svelte';
 	import HeroSimple from '$lib/sections/hero-simple.svelte';
+	import ImageTabs from '$lib/sections/image-tabs.svelte';
 	import PhotoColumns from '$lib/sections/photo-columns.svelte';
 	import Oss from '$lib/sections/oss.svelte';
 	import PlanSelection from '$lib/sections/plan-selection.svelte';
@@ -654,6 +656,23 @@
 		description="A page's opening section: Section Copy centered in a tall block. Every page in this library opens with one, and so does the home page. For a hero that is not a page title, pass a lower `level`."
 		props={heroSimpleProps}
 	/>
+	<LibrarySection
+		title="Image Tabs"
+		type="Section"
+		description="A picture beside a title and a toggle. Each toggle button is a tab with its own text, and the tabs advance on their own every 2.5 seconds while the section is on screen, pausing while the pointer or focus is inside it. Below `lg` the copy and toggle lead and the picture follows."
+		props={imageTabsProps}
+	>
+		<ImageTabs
+			class="full"
+			title="Image Tabs"
+			image={{ src: '/uploads/spwr-img-portrait-1.webp' }}
+			tabs={[
+				{ label: 'One', title: 'First', description: 'Where it starts.' },
+				{ label: 'Two', title: 'Second', description: 'Momentum builds.' },
+				{ label: 'Three', title: 'Third', description: 'It keeps going.' }
+			]}
+		/>
+	</LibrarySection>
 	<LibrarySection
 		title="OSS"
 		type="Section"

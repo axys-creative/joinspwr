@@ -40,6 +40,21 @@
 			]
 		},
 		{
+			"title": "YOUR PATH",
+			"links": [
+				{
+					"text": "New to Sales",
+					"path": "new",
+					"newTab": false
+				},
+				{
+					"text": "Already Selling",
+					"path": "experienced",
+					"newTab": false
+				}
+			]
+		},
+		{
 			"title": "COMPANY",
 			"links": [
 				{

@@ -247,6 +247,7 @@
 
 		@include mixins.min-lg {
 			order: 0;
+			aspect-ratio: 4 / 5;
 		}
 
 		@include mixins.max-md {
@@ -287,6 +288,12 @@
 		margin-top: 12px;
 		height: 280px;
 		padding-left: 48px;
+
+		@include mixins.min-lg {
+			flex: 1;
+			height: auto;
+			min-height: 280px;
+		}
 
 		@include mixins.max-md {
 			height: 220px;

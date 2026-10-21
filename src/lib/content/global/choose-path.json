@@ -1,0 +1,22 @@
+{
+	"enabled": true,
+	"title": "Choose your path",
+	"options": [
+		{
+			"text": "I'm new to sales",
+			"path": "new",
+			"image": { "src": "/uploads/spwr-img-landscape-1.webp", "alt": "" }
+		},
+		{
+			"text": "I have experience in sales",
+			"path": "experienced",
+			"image": { "src": "/uploads/spwr-img-landscape-4.webp", "alt": "" }
+		},
+		{
+			"text": "I want to buy solar",
+			"url": "https://sunpower.com",
+			"newTab": true,
+			"image": { "src": "/uploads/spwr-img-landscape-7.webp", "alt": "" }
+		}
+	]
+}

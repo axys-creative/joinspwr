@@ -1,0 +1,21 @@
+{
+	"title": "You won't figure it out [alone]{.secondary-alt}",
+	"image": { "src": "/uploads/spwr-img-portrait-1.webp", "alt": "" },
+	"autoplay": true,
+	"interval": 2500,
+	"tabs": [
+		{ "label": "Day 1", "title": "", "description": "Onboarding and certification" },
+		{
+			"label": "Day 30",
+			"title": "",
+			"description": "In the field with your manager",
+			"image": { "src": "/uploads/spwr-img-portrait-2.webp", "alt": "" }
+		},
+		{
+			"label": "Day 90",
+			"title": "",
+			"description": "Running your own appointments",
+			"image": { "src": "/uploads/spwr-img-portrait-3.webp", "alt": "" }
+		}
+	]
+}

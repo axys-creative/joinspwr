@@ -28,11 +28,18 @@
 			event.preventDefault();
 			lenis.scrollTo(0);
 		};
+		const onScrollTop = (event: Event) => {
+			if (!lenis) return;
+			event.preventDefault();
+			lenis.scrollTo(0, { duration: 0.8 });
+		};
 		document.addEventListener('click', onClick);
+		document.addEventListener('scroll-top', onScrollTop);
 
 		return () => {
 			destroyed = true;
 			document.removeEventListener('click', onClick);
+			document.removeEventListener('scroll-top', onScrollTop);
 			lenis?.destroy();
 		};
 	});

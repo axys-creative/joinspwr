@@ -1,0 +1,22 @@
+{
+	"eyebrowText": "",
+	"title": "What a [solar rep]{.secondary-alt} actually does",
+	"description": "",
+	"items": [
+		{
+			"title": "1. Meet homeowners",
+			"description": "Talk to people in your area about their power bill.",
+			"image": { "src": "/uploads/spwr-img-landscape-2.webp", "alt": "" }
+		},
+		{
+			"title": "2. Show the savings",
+			"description": "Walk them through what solar would save them.",
+			"image": { "src": "/uploads/spwr-img-landscape-3.webp", "alt": "" }
+		},
+		{
+			"title": "3. Close and get paid",
+			"description": "You earn on every deal you close.",
+			"image": { "src": "/uploads/spwr-img-landscape-5.webp", "alt": "" }
+		}
+	]
+}

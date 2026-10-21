@@ -1600,6 +1600,7 @@ export const richTextProps = props(
 		'text',
 		'A string. Plain text with tokens: `[words]{.class}` wraps those words in a span with that class, and `{.br}` is a line break. Anything else is escaped, so a stray `<` cannot break the page. Unknown class names are dropped and the words stay. Stack classes as `{.primary.italic}`.'
 	],
+	['.h1', 'The size and style of a Heading 1. `.h2` to `.h6` match their headings.'],
 	['.italic', 'Italic.'],
 	['.primary', 'The accent color, for text.'],
 	['.scribble', 'A thin hand-drawn zigzag underline (see Scribble under Attachments).'],
@@ -1694,6 +1695,31 @@ export const earningsPotentialProps = props(
 	[
 		'static',
 		'A boolean. The bars are already grown instead of rising as the section scrolls into view. For the CMS preview. Defaults to `false`.'
+	]
+);
+
+export const imageTabsProps = props(
+	[
+		'title, cta',
+		"Copy from Section Copy (see the Style Guide). The right column runs the title, the toggle, then the selected tab's text; the call to action, if any, sits at the bottom. There is no eyebrow or description."
+	],
+	[
+		'image',
+		'An object `{ src, alt }`, the picture beside the tabs. It shows for any tab without its own `image`. Required.'
+	],
+	[
+		'tabs',
+		'An array of `{ label, title, description, image }`, in order. `label` is the toggle button, `title` and `description` show under it while the tab is selected, and an optional `image` `{ src, alt }` replaces the picture with a fade. Arrow keys, Home and End move between tabs. Required.'
+	],
+	[
+		'autoplay',
+		'A boolean. Moves to the next tab on its own while the section is on screen, and waits while the pointer or focus is inside it. Never runs under reduced motion. Defaults to `true`.'
+	],
+	['interval', 'A number, how long each tab stays selected, in milliseconds. Defaults to `2500`.'],
+	['defaultTab', 'A number, the tab that starts selected, counting from 0. Defaults to `0`.'],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
 	]
 );
 

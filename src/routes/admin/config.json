@@ -60,7 +60,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -257,7 +257,7 @@
 							"name": "text",
 							"label": "Statement",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						}
 					]
 				},
@@ -805,6 +805,189 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "tools",
+					"label": "Steps (new to sales)",
+					"file": "src/lib/content/page_home/steps.json",
+					"preview_path": "#steps",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "items",
+							"label": "Steps (new to sales)",
+							"widget": "list",
+							"min": 2,
+							"hint": "One is open at a time, and each opens its own picture beside the list. At least two.",
+							"fields": [
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									],
+									"required": false
+								},
+								{
+									"name": "logo",
+									"label": "Logo",
+									"widget": "object",
+									"required": false,
+									"hint": "Shown at the bottom left of the picture on a dark gradient. Use a light or white logo, SVG preferred.",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Logo image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "image_tabs",
+					"label": "Image Tabs (new to sales)",
+					"file": "src/lib/content/page_home/image-tabs.json",
+					"preview_path": "#support",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "image",
+							"label": "Image",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "autoplay",
+							"label": "Switch tabs automatically",
+							"widget": "boolean",
+							"default": true,
+							"required": false
+						},
+						{
+							"name": "interval",
+							"label": "Time per tab",
+							"widget": "number",
+							"value_type": "int",
+							"min": 1000,
+							"default": 2500,
+							"required": false,
+							"hint": "In milliseconds. 2500 is two and a half seconds."
+						},
+						{
+							"name": "tabs",
+							"label": "Tabs",
+							"widget": "list",
+							"min": 2,
+							"label_singular": "Tab",
+							"summary": "{{fields.label}}",
+							"fields": [
+								{
+									"name": "label",
+									"label": "Toggle text",
+									"widget": "string"
+								},
+								{
+									"name": "title",
+									"label": "Subtitle",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "description",
+									"label": "Subdescription",
+									"widget": "text",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"required": false,
+									"hint": "Replaces the main image while this tab is selected.",
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+									]
+								}
+							]
+						}
+					]
 				}
 			]
 		},
@@ -1013,7 +1196,7 @@
 							"name": "text",
 							"label": "Quote",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
 						},
 						{
 							"name": "quote",
@@ -1487,7 +1670,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -1639,7 +1822,7 @@
 							"name": "text",
 							"label": "Quote",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
 						},
 						{
 							"name": "quote",
@@ -1708,7 +1891,7 @@
 							"label": "Title",
 							"widget": "string",
 							"required": false,
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -2074,7 +2257,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -2226,7 +2409,7 @@
 							"name": "text",
 							"label": "Statement",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						}
 					]
 				},
@@ -2656,7 +2839,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -3378,7 +3561,7 @@
 									"required": false,
 									"max": 4,
 									"summary": "{{fields.alt}}",
-									"hint": "Up to four. They fade in beside the links when the link is hovered in the Header Basic menu.",
+									"hint": "Up to four. They fade in beside the links when the link is hovered in the header menu.",
 									"fields": [
 										{
 											"name": "src",
@@ -3505,7 +3688,7 @@
 				},
 				{
 					"name": "header_basic",
-					"label": "Header (basic)",
+					"label": "Header",
 					"file": "src/lib/content/global/header-basic.json",
 					"fields": [
 						{
@@ -3617,8 +3800,86 @@
 					]
 				},
 				{
+					"name": "choose_path",
+					"label": "Choose your path (landing modal)",
+					"file": "src/lib/content/global/choose-path.json",
+					"fields": [
+						{
+							"name": "enabled",
+							"label": "Show on landing",
+							"widget": "boolean",
+							"default": true
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "options",
+							"label": "Options",
+							"widget": "list",
+							"label_singular": "Option",
+							"summary": "{{fields.text}}",
+							"fields": [
+								{
+									"name": "text",
+									"label": "Text",
+									"widget": "string"
+								},
+								{
+									"name": "path",
+									"label": "Visitor path",
+									"widget": "select",
+									"required": false,
+									"options": [
+										{ "label": "New to sales", "value": "new" },
+										{ "label": "Already selling", "value": "experienced" }
+									],
+									"hint": "Shows that path's sections on the home page and closes the modal. Leave empty to use the URL instead."
+								},
+								{
+									"name": "url",
+									"label": "URL",
+									"widget": "string",
+									"required": false,
+									"hint": "Leave empty to just close the modal."
+								},
+								{
+									"name": "newTab",
+									"label": "Open in new tab",
+									"widget": "boolean",
+									"default": false,
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false,
+											"hint": "Leave empty if the image is decorative."
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "footer_gnomon",
-					"label": "Footer (gnomon)",
+					"label": "Footer",
 					"file": "src/lib/content/global/footer-gnomon.json",
 					"fields": [
 						{
@@ -3626,7 +3887,7 @@
 							"label": "Title",
 							"widget": "string",
 							"required": false,
-							"hint": "The heading at the top left. Style words with [words]{.scribble-circle}. Classes: .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong."
+							"hint": "The heading at the top left. Style words with [words]{.scribble-circle}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong."
 						},
 						{
 							"name": "level",
@@ -3721,9 +3982,21 @@
 											"widget": "string"
 										},
 										{
+											"name": "path",
+											"label": "Visitor path",
+											"widget": "select",
+											"required": false,
+											"options": [
+												{ "label": "New to sales", "value": "new" },
+												{ "label": "Already selling", "value": "experienced" }
+											],
+											"hint": "Shows that path's sections on the home page Leave empty to use the URL instead."
+										},
+										{
 											"name": "url",
 											"label": "URL",
 											"widget": "string",
+											"required": false,
 											"hint": "Page path (/about), anchor (#contact), or full URL."
 										},
 										{

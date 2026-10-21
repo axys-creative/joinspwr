@@ -15,6 +15,7 @@ import FooterGnomon from '$lib/components/footer-gnomon.svelte';
 import HeroGnomon from '$lib/sections/hero-gnomon.svelte';
 import HeroImageCircle from '$lib/sections/hero-image-circle.svelte';
 import HeroImageWave from '$lib/sections/hero-image-wave.svelte';
+import ImageTabs from '$lib/sections/image-tabs.svelte';
 import Oss from '$lib/sections/oss.svelte';
 import PhotoColumns from '$lib/sections/photo-columns.svelte';
 import ScrollTimeline from '$lib/sections/scroll-timeline.svelte';
@@ -96,6 +97,15 @@ const previews: Record<string, Preview> = {
 	headline: {
 		component: Headline as unknown as Section,
 		props: (data) => ({ ...data, text: data.text ?? '' })
+	},
+	image_tabs: {
+		component: ImageTabs as unknown as Section,
+		props: (data) => ({
+			...data,
+			image: data.image ?? { src: '' },
+			tabs: data.tabs ?? [],
+			autoplay: false
+		})
 	},
 	hero_gnomon: {
 		component: HeroGnomon as unknown as Section,

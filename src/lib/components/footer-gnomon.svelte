@@ -1,6 +1,7 @@
 <script module lang="ts">
 	import type { ButtonProps } from './button.svelte';
 	import type { SocialLink } from './social-links.svelte';
+	import type { VisitorPath } from '$lib/utils/visitor-path.svelte';
 
 	export type FooterGnomonProps = {
 		/** The heading at the top left. */
@@ -14,7 +15,8 @@
 		/** The social links in the solid Button style, a box each. */
 		socialSolid?: boolean;
 		/** Up to three columns of links, at the bottom right. */
-		linksets?: { title?: string; links: ButtonProps[] }[];
+		/** A link with a `path` is a button that shows that path's sections on the home page, not a URL. */
+		linksets?: { title?: string; links: (ButtonProps & { path?: VisitorPath })[] }[];
 		/** The name in the default copyright line. Defaults to the site name. */
 		copyrightName?: string;
 		/** Replaces the whole copyright line. */
@@ -37,6 +39,7 @@
 	import { notchedBoxPath, roundedBoxPath } from '$lib/utils/gnomon';
 	import Button from './button.svelte';
 	import RichText from './rich-text.svelte';
+	import { visitorPath } from '$lib/utils/visitor-path.svelte';
 	import MenuLinks from './menu-links.svelte';
 	import SocialLinks from './social-links.svelte';
 
@@ -140,7 +143,19 @@
 					{#each linksets.slice(0, 3) as { title, links } (title ?? links[0]?.url)}
 						<div class="linkset">
 							{#if title}<strong>{title}</strong>{/if}
-							<MenuLinks {links} label={title ?? 'Footer'} direction="column" />
+							<MenuLinks
+								links={links.map(({ path, ...link }) =>
+									path
+										? {
+												...link,
+												url: undefined,
+												onclick: () => visitorPath.choose(path, { scrollTop: true })
+											}
+										: link
+								)}
+								label={title ?? 'Footer'}
+								direction="column"
+							/>
 						</div>
 					{/each}
 				</div>

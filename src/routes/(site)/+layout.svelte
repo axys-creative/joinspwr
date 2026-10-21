@@ -3,11 +3,13 @@
 	import { bgDust } from '$lib/attachments/bg-dust';
 	import AlertStack from '$lib/components/alert-stack.svelte';
 	import FooterGnomon, { type FooterGnomonProps } from '$lib/components/footer-gnomon.svelte';
+	import ChoosePath, { type ChoosePathProps } from '$lib/components/choose-path.svelte';
 	import PageTransition from '$lib/components/page-transition.svelte';
 	import ScrollProgress from '$lib/components/scroll-progress.svelte';
 	import SideShadows from '$lib/components/side-shadows.svelte';
 	import SmoothScroll from '$lib/components/smooth-scroll.svelte';
 	import HeaderBasic, { type HeaderBasicProps } from '$lib/components/header-basic.svelte';
+	import choosePath from '$lib/content/global/choose-path.json';
 	import logo from '$lib/content/global/logo.json';
 	import social from '$lib/content/global/social-media.json';
 	import footerGnomon from '$lib/content/global/footer-gnomon.json';
@@ -37,6 +39,7 @@
 <SideShadows />
 <ScrollProgress />
 <AlertStack />
+<ChoosePath {...choosePath as ChoosePathProps} />
 
 <style lang="scss">
 	@use 'base/mixins';
