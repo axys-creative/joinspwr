@@ -190,6 +190,189 @@
 					]
 				},
 				{
+					"name": "tools",
+					"label": "Steps (new to sales)",
+					"file": "src/lib/content/page_home/steps.json",
+					"preview_path": "#steps",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "items",
+							"label": "Steps (new to sales)",
+							"widget": "list",
+							"min": 2,
+							"hint": "One is open at a time, and each opens its own picture beside the list. At least two.",
+							"fields": [
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									],
+									"required": false
+								},
+								{
+									"name": "logo",
+									"label": "Logo",
+									"widget": "object",
+									"required": false,
+									"hint": "Shown at the bottom left of the picture on a dark gradient. Use a light or white logo, SVG preferred.",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Logo image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "image_tabs",
+					"label": "Image Tabs (new to sales)",
+					"file": "src/lib/content/page_home/image-tabs.json",
+					"preview_path": "#support",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "image",
+							"label": "Image",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "autoplay",
+							"label": "Switch tabs automatically",
+							"widget": "boolean",
+							"default": true,
+							"required": false
+						},
+						{
+							"name": "interval",
+							"label": "Time per tab",
+							"widget": "number",
+							"value_type": "int",
+							"min": 1000,
+							"default": 2500,
+							"required": false,
+							"hint": "In milliseconds. 2500 is two and a half seconds."
+						},
+						{
+							"name": "tabs",
+							"label": "Tabs",
+							"widget": "list",
+							"min": 2,
+							"label_singular": "Tab",
+							"summary": "{{fields.label}}",
+							"fields": [
+								{
+									"name": "label",
+									"label": "Toggle text",
+									"widget": "string"
+								},
+								{
+									"name": "title",
+									"label": "Subtitle",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "description",
+									"label": "Subdescription",
+									"widget": "text",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"required": false,
+									"hint": "Replaces the main image while this tab is selected.",
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+									]
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "video_section",
 					"label": "Video",
 					"file": "src/lib/content/page_home/video-section.json",
@@ -258,6 +441,118 @@
 							"label": "Statement",
 							"widget": "text",
 							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+						}
+					]
+				},
+				{
+					"name": "earnings_potential",
+					"label": "Earnings",
+					"file": "src/lib/content/page_home/earnings-potential.json",
+					"preview_path": "#earnings",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "chartLabel",
+							"label": "Chart label",
+							"widget": "string",
+							"required": false,
+							"hint": "The line above the big number in the chart."
+						},
+						{
+							"name": "note",
+							"label": "Chart note",
+							"widget": "string",
+							"required": false,
+							"hint": "Small print under the chart, such as what the figures are based on."
+						},
+						{
+							"name": "tabs",
+							"label": "Years",
+							"widget": "list",
+							"min": 2,
+							"max": 6,
+							"hint": "One tab and one bar each, in order. The bars are drawn from the amounts, so list them from least to most.",
+							"fields": [
+								{
+									"name": "label",
+									"label": "Tab",
+									"widget": "string",
+									"hint": "Such as Year 1."
+								},
+								{
+									"name": "amount",
+									"label": "Earnings (dollars)",
+									"widget": "number",
+									"value_type": "int",
+									"min": 0,
+									"step": 1000
+								},
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string"
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "career_tabs",
+					"label": "Career Tabs",
+					"file": "src/lib/content/page_home/career-tabs.json",
+					"preview_path": "#career",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false,
+							"hint": "Style words with [words]{.secondary-alt}. Use {.br} for a line break."
+						},
+						{
+							"name": "tabs",
+							"label": "Tabs",
+							"widget": "list",
+							"min": 2,
+							"label_singular": "Tab",
+							"summary": "{{fields.label}}",
+							"fields": [
+								{ "name": "label", "label": "Toggle text", "widget": "string" },
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"required": false,
+									"hint": "Shown wide under the toggle.",
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+									]
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
 						}
 					]
 				},
@@ -513,6 +808,142 @@
 							"default": false,
 							"required": false,
 							"hint": "Counts up again each time the grid scrolls into view, instead of only the first time."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "comparison_table",
+					"label": "Comparison Table",
+					"file": "src/lib/content/page_home/comparison-table.json",
+					"preview_path": "#comparison",
+					"fields": [
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false,
+							"hint": "Style words with [words]{.secondary-alt}. Use {.br} for a line break."
+						},
+						{ "name": "primaryLabel", "label": "First column heading", "widget": "string" },
+						{ "name": "secondaryLabel", "label": "Second column heading", "widget": "string" },
+						{
+							"name": "rows",
+							"label": "Rows",
+							"widget": "list",
+							"label_singular": "Row",
+							"summary": "{{fields.label}}",
+							"min": 1,
+							"fields": [
+								{ "name": "label", "label": "Row name", "widget": "string" },
+								{
+									"name": "primary",
+									"label": "First column",
+									"widget": "string",
+									"hint": "Text in (parentheses) shows smaller and muted under the rest."
+								},
+								{
+									"name": "secondary",
+									"label": "Second column",
+									"widget": "string",
+									"hint": "Text in (parentheses) shows smaller and muted under the rest."
+								}
+							]
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"required": true,
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false,
+											"hint": "Optional aria-label for screen readers"
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
+										}
+									]
+								},
+								{
+									"name": "secondary",
+									"label": "Secondary button",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false,
+											"hint": "Optional aria-label for screen readers"
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
+										}
+									]
+								}
+							]
 						},
 						{
 							"name": "fullScreen",
@@ -801,189 +1232,6 @@
 									"label": "Success message",
 									"widget": "string",
 									"required": false
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "tools",
-					"label": "Steps (new to sales)",
-					"file": "src/lib/content/page_home/steps.json",
-					"preview_path": "#steps",
-					"fields": [
-						{
-							"name": "eyebrowIcon",
-							"label": "Eyebrow icon",
-							"widget": "image",
-							"required": false,
-							"hint": "An SVG icon; it takes the eyebrow color."
-						},
-						{
-							"name": "eyebrowText",
-							"label": "Eyebrow text",
-							"widget": "string",
-							"required": false
-						},
-						{
-							"name": "title",
-							"label": "Title",
-							"widget": "string",
-							"required": false
-						},
-						{
-							"name": "description",
-							"label": "Description",
-							"widget": "text",
-							"required": false
-						},
-						{
-							"name": "items",
-							"label": "Steps (new to sales)",
-							"widget": "list",
-							"min": 2,
-							"hint": "One is open at a time, and each opens its own picture beside the list. At least two.",
-							"fields": [
-								{
-									"name": "title",
-									"label": "Title",
-									"widget": "string",
-									"required": false
-								},
-								{
-									"name": "description",
-									"label": "Description",
-									"widget": "text",
-									"required": false
-								},
-								{
-									"name": "image",
-									"label": "Image",
-									"widget": "object",
-									"fields": [
-										{
-											"name": "src",
-											"label": "Image",
-											"widget": "image",
-											"required": true
-										},
-										{
-											"name": "alt",
-											"label": "Description",
-											"widget": "string",
-											"required": false
-										}
-									],
-									"required": false
-								},
-								{
-									"name": "logo",
-									"label": "Logo",
-									"widget": "object",
-									"required": false,
-									"hint": "Shown at the bottom left of the picture on a dark gradient. Use a light or white logo, SVG preferred.",
-									"fields": [
-										{
-											"name": "src",
-											"label": "Logo image",
-											"widget": "image",
-											"required": false
-										},
-										{
-											"name": "alt",
-											"label": "Description",
-											"widget": "string",
-											"required": false
-										}
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "image_tabs",
-					"label": "Image Tabs (new to sales)",
-					"file": "src/lib/content/page_home/image-tabs.json",
-					"preview_path": "#support",
-					"fields": [
-						{
-							"name": "title",
-							"label": "Title",
-							"widget": "string",
-							"required": false
-						},
-						{
-							"name": "image",
-							"label": "Image",
-							"widget": "object",
-							"fields": [
-								{
-									"name": "src",
-									"label": "Image",
-									"widget": "image",
-									"required": true
-								},
-								{
-									"name": "alt",
-									"label": "Description",
-									"widget": "string",
-									"required": false
-								}
-							]
-						},
-						{
-							"name": "autoplay",
-							"label": "Switch tabs automatically",
-							"widget": "boolean",
-							"default": true,
-							"required": false
-						},
-						{
-							"name": "interval",
-							"label": "Time per tab",
-							"widget": "number",
-							"value_type": "int",
-							"min": 1000,
-							"default": 2500,
-							"required": false,
-							"hint": "In milliseconds. 2500 is two and a half seconds."
-						},
-						{
-							"name": "tabs",
-							"label": "Tabs",
-							"widget": "list",
-							"min": 2,
-							"label_singular": "Tab",
-							"summary": "{{fields.label}}",
-							"fields": [
-								{
-									"name": "label",
-									"label": "Toggle text",
-									"widget": "string"
-								},
-								{
-									"name": "title",
-									"label": "Subtitle",
-									"widget": "string",
-									"required": false
-								},
-								{
-									"name": "description",
-									"label": "Subdescription",
-									"widget": "text",
-									"required": false
-								},
-								{
-									"name": "image",
-									"label": "Image",
-									"widget": "object",
-									"required": false,
-									"hint": "Replaces the main image while this tab is selected.",
-									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image", "required": false },
-										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
-									]
 								}
 							]
 						}

@@ -1,0 +1,45 @@
+{
+	"title": "Start as a rep, [run a region]{.secondary-alt}",
+	"tabs": [
+		{
+			"label": "Rep",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-1.webp",
+				"alt": ""
+			},
+			"description": "Learn the product, meet homeowners and start closing deals."
+		},
+		{
+			"label": "Senior rep",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-2.webp",
+				"alt": ""
+			},
+			"description": "Close consistently, earn more per deal and start helping newer reps."
+		},
+		{
+			"label": "Team lead",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-3.webp",
+				"alt": ""
+			},
+			"description": "Lead a small team and earn on everything they close."
+		},
+		{
+			"label": "Manager",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-4.webp",
+				"alt": ""
+			},
+			"description": "Build and coach a full office of reps."
+		},
+		{
+			"label": "Regional",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-5.webp",
+				"alt": ""
+			},
+			"description": "Run a region, set the strategy and develop the next generation of leaders."
+		}
+	]
+}

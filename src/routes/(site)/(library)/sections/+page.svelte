@@ -6,7 +6,9 @@
 		blogArticleBodyProps,
 		blogArticleHeroProps,
 		carouselTunnelProps,
+		careerTabsProps,
 		circleHighlightProps,
+		comparisonTableProps,
 		contactFormProps,
 		earningsPotentialProps,
 		financeGridProps,
@@ -35,7 +37,9 @@
 	import AccordionSection from '$lib/sections/accordion-section.svelte';
 	import AccordionTableSection from '$lib/sections/accordion-table-section.svelte';
 	import CircleHighlight from '$lib/sections/circle-highlight.svelte';
+	import ComparisonTable from '$lib/sections/comparison-table.svelte';
 	import ContactForm from '$lib/sections/contact-form.svelte';
+	import CareerTabs from '$lib/sections/career-tabs.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 	import FinanceGrid from '$lib/sections/finance-grid.svelte';
@@ -415,6 +419,35 @@
 	/>
 
 	<LibrarySection
+		title="Career Tabs"
+		type="Section"
+		description="A title, a toggle across the top, then a wide picture and a short description for the selected tab. Built from the Tabs attachment, so arrow keys, Home and End move between tabs. The picture and text swap together."
+		props={careerTabsProps}
+	>
+		<CareerTabs
+			class="full"
+			title={'Start as a rep, [run a region]{.secondary-alt}'}
+			tabs={[
+				{
+					label: 'First',
+					image: { src: '/uploads/spwr-img-landscape-1.webp', alt: '' },
+					description: 'A short description of the first step.'
+				},
+				{
+					label: 'Second',
+					image: { src: '/uploads/spwr-img-landscape-2.webp', alt: '' },
+					description: 'A short description of the second step.'
+				},
+				{
+					label: 'Third',
+					image: { src: '/uploads/spwr-img-landscape-3.webp', alt: '' },
+					description: 'A short description of the third step.'
+				}
+			]}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
 		title="Carousel Tunnel"
 		type="Section"
 		description="Scroll to zoom out of a full-screen image into a carousel with the next slides peeking in. Nothing is cropped on the way down. Once the zoom ends the copy, captions and arrows fade in and the carousel starts to autoplay. It loops forever, can be dragged, and holds while hovered or focused. With reduced motion it is a plain carousel that does not move on its own."
@@ -446,6 +479,25 @@
 			radius={3}
 			gap={4}
 			image={{ srcLight: '/images/logo-black.svg', srcDark: '/images/logo-white.svg', alt: 'axys' }}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Comparison Table"
+		type="Section"
+		description="A title above a glass table that sets two columns side by side, the first drawn with the accent. Each row has a name and a value for each column; text in parentheses shows smaller and muted. Below md the rows stack."
+		props={comparisonTableProps}
+	>
+		<ComparisonTable
+			class="full"
+			title={'Built so you [close more]{.secondary-alt} and wait less'}
+			primaryLabel="Us"
+			secondaryLabel="Industry average"
+			rows={[
+				{ label: 'Partners', primary: '19+', secondary: '?' },
+				{ label: 'Options', primary: '7 (First, Second, Third)', secondary: '?' },
+				{ label: 'Guarantee', primary: '2 years', secondary: '?' }
+			]}
 		/>
 	</LibrarySection>
 

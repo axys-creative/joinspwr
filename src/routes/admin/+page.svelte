@@ -14,7 +14,7 @@
 	};
 	type Node = { widget?: string; media_library?: { config?: { max_file_size?: number } } };
 
-	const maxFileSize = 8_000_000;
+	const maxFileSize = 5_000_000;
 
 	// Decap's built-in library reads its size cap only from a field's own media_library.config.
 	function capUploads(node: unknown): unknown {

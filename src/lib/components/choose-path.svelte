@@ -11,6 +11,8 @@
 
 	export type ChoosePathProps = {
 		enabled?: boolean;
+		/** Shows the modal in place, not over the page, and its buttons do nothing. For the CMS preview. */
+		static?: boolean;
 		title: string;
 		options: ChoosePathOption[];
 	};
@@ -24,7 +26,7 @@
 	import Button from './button.svelte';
 	import Icon from './icon.svelte';
 
-	let { enabled = true, title, options }: ChoosePathProps = $props();
+	let { enabled = true, static: inline = false, title, options }: ChoosePathProps = $props();
 
 	const tiltOptions = { max: 8, scale: 1.02, glare: true, maxGlare: 0.25 };
 
@@ -32,18 +34,20 @@
 
 	onMount(() => {
 		if (!enabled || !dialog) return;
+		if (inline) return dialog.show();
 		dialog.showModal();
 		document.dispatchEvent(new CustomEvent('top-layer-open'));
 	});
 
 	const choose = (option: ChoosePathOption) => {
+		if (inline) return;
 		if (option.path) visitorPath.choose(option.path);
 		dialog?.close();
 	};
 
 	// The dialog fills the viewport, so a click on itself is a backdrop click.
 	const onclick = (event: MouseEvent) => {
-		if (event.target === dialog) dialog.close();
+		if (!inline && event.target === dialog) dialog.close();
 	};
 </script>
 
@@ -68,6 +72,7 @@
 	<dialog
 		bind:this={dialog}
 		class="choose-path"
+		class:inline
 		aria-labelledby="choose-path-title"
 		data-lenis-prevent
 		{onclick}
@@ -78,7 +83,7 @@
 				type="text"
 				iconStart="x-lg"
 				textDescription="Close"
-				onclick={() => dialog?.close()}
+				onclick={() => !inline && dialog?.close()}
 			/>
 			<h2 id="choose-path-title">{title}</h2>
 			<ul>
@@ -152,6 +157,17 @@
 		}
 	}
 
+	.inline {
+		position: relative;
+		inset: auto;
+		width: 100%;
+		max-width: 100%;
+		height: auto;
+		max-height: none;
+		margin: 0;
+		overflow: visible;
+	}
+
 	.panel {
 		@include mixins.glass-card(24px, 16px);
 		position: relative;
@@ -208,11 +224,6 @@
 			outline: 2px solid currentColor;
 			outline-offset: 2px;
 		}
-
-		@include mixins.max-md {
-			flex-direction: row;
-			align-items: stretch;
-		}
 	}
 
 	img {
@@ -221,8 +232,7 @@
 		object-fit: cover;
 
 		@include mixins.max-md {
-			width: 40%;
-			aspect-ratio: auto;
+			aspect-ratio: 16 / 9;
 		}
 	}
 

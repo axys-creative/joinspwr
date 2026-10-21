@@ -1218,6 +1218,45 @@ export const accordionTableSectionProps = props(
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
+export const comparisonTableProps = props(
+	[
+		'title',
+		"Rich text, centered above the table. It is the section's only copy: there is no eyebrow, description or call to action."
+	],
+	[
+		'primaryLabel, secondaryLabel',
+		'Strings, the two column headings. The first is drawn with the accent. Required.'
+	],
+	[
+		'rows',
+		'An array of `{ label, primary, secondary }`, one per row. Text in parentheses, such as `7 (A, B, C)`, shows smaller and muted under the rest. Below `md` each row stacks: the label, then the two values side by side under their column names. Required.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	['id', 'A string, the anchor a link or the CMS preview can point to.'],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
+export const careerTabsProps = props(
+	[
+		'title',
+		"Rich text, centered above the toggle. It is the section's only copy: there is no eyebrow, description or call to action."
+	],
+	[
+		'tabs',
+		'An array of `{ label, image, description }`, in order. `label` is the toggle button; `image` `{ src, alt }` is a wide picture under it, and `description` sits under the picture, while the tab is selected. Arrow keys, Home and End move between tabs. Required.'
+	],
+	['defaultTab', 'A number, the tab that starts selected, counting from 0. Defaults to `0`.'],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	['id', 'A string, the anchor a link or the CMS preview can point to.'],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
 export const contactFormProps = props(
 	[
 		'eyebrowText, title, description',

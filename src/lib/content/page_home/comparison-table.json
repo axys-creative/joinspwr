@@ -1,0 +1,43 @@
+{
+	"title": "Built so you [close more]{.secondary-alt} and wait less",
+	"primaryLabel": "SPWR",
+	"secondaryLabel": "Industry average",
+	"rows": [
+		{
+			"label": "Installer partners",
+			"primary": "19+",
+			"secondary": "?"
+		},
+		{
+			"label": "Finance partners",
+			"primary": "7 (EnFin, Everbright, GoodLeap, IGS Energy, LightReach, PosiGen, Sunrun)",
+			"secondary": "?"
+		},
+		{
+			"label": "Production guarantee",
+			"primary": "2 years",
+			"secondary": "?"
+		},
+		{
+			"label": "Commission tracking",
+			"primary": "CaptivateIQ + Merdeka",
+			"secondary": "?"
+		}
+	],
+	"cta": {
+		"primary": {
+			"text": "Make the switch",
+			"textDescription": "Make the switch to SPWR",
+			"url": "/join",
+			"newTab": false,
+			"iconEnd": ""
+		},
+		"secondary": {
+			"text": "Bringing a team? Talk to us",
+			"textDescription": "Bringing a team? Talk to us",
+			"url": "/join",
+			"newTab": false,
+			"iconEnd": ""
+		}
+	}
+}

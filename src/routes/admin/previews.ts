@@ -2,8 +2,11 @@ import type { Component } from 'svelte';
 import globalCss from '../../styles/styles.scss?inline';
 import AccordionSection from '$lib/sections/accordion-section.svelte';
 import AccordionTableSection from '$lib/sections/accordion-table-section.svelte';
+import ComparisonTable from '$lib/sections/comparison-table.svelte';
 import ContactForm from '$lib/sections/contact-form.svelte';
 import CircleHighlight from '$lib/sections/circle-highlight.svelte';
+import ChoosePath from '$lib/components/choose-path.svelte';
+import CareerTabs from '$lib/sections/career-tabs.svelte';
 import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 import Headline from '$lib/sections/headline.svelte';
 import EarningsPotential from '$lib/sections/earnings-potential.svelte';
@@ -61,6 +64,18 @@ const previews: Record<string, Preview> = {
 	accordion_table: {
 		component: AccordionTableSection as unknown as Section,
 		props: (data) => ({ ...data, columns: data.columns ?? [], items: data.items ?? [] })
+	},
+	choose_path: {
+		component: ChoosePath as unknown as Section,
+		props: (data) => ({ ...data, options: data.options ?? [], enabled: true, static: true })
+	},
+	career_tabs: {
+		component: CareerTabs as unknown as Section,
+		props: (data) => ({ ...data, tabs: data.tabs ?? [] })
+	},
+	comparison_table: {
+		component: ComparisonTable as unknown as Section,
+		props: (data) => ({ ...data, rows: data.rows ?? [] })
 	},
 	contact_form: {
 		component: ContactForm as unknown as Section,
