@@ -57,11 +57,15 @@
 	@use 'base/mixins';
 
 	// On a phone or tablet the section is three quarters of the screen, so the edges of the sections around it show.
-	.video-section {
+	.video-section:not(.full-screen) {
 		@include mixins.max-lg {
 			display: grid;
 			align-items: center;
 			min-height: 75lvh;
+
+			.inner {
+				padding-block: 25vw;
+			}
 		}
 	}
 
@@ -71,6 +75,13 @@
 		min-height: 100lvh;
 	}
 
+	// A little below center, which draws the video toward the headline after it.
+	.full-screen .inner {
+		@include mixins.max-lg {
+			padding-block: 96px 0;
+		}
+	}
+
 	.inner {
 		display: flex;
 		flex-direction: column;
@@ -78,10 +89,5 @@
 		max-width: var(--content-width);
 		margin-inline: auto;
 		padding: var(--body-padding-double) var(--body-padding);
-
-		// The video shrinks with the screen's width, so the room around it does too, and they keep their proportion.
-		@include mixins.max-lg {
-			padding-block: 25vw;
-		}
 	}
 </style>

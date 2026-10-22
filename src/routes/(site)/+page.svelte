@@ -3,7 +3,6 @@
 	import ComparisonTable from '$lib/sections/comparison-table.svelte';
 	import CareerTabs from '$lib/sections/career-tabs.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
-	import ContactForm from '$lib/sections/contact-form.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 	import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
 	import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
@@ -23,7 +22,6 @@
 	import earnings from '$lib/content/page_home/earnings-potential.json';
 	import gallery from '$lib/content/page_home/gallery-horizontal.json';
 	import financeMarquee from '$lib/content/page_home/finance-marquee.json';
-	import contactForm from '$lib/content/page_home/contact-form.json';
 	import oss from '$lib/content/page_home/oss.json';
 	import stats from '$lib/content/page_home/stats.json';
 	import headline from '$lib/content/page_home/headline.json';
@@ -51,6 +49,7 @@
 {/if}
 <VideoSection
 	id="video"
+	fullScreen
 	{...videoSection}
 	video={{
 		...videoSection.video,
@@ -59,9 +58,9 @@
 		sideControls: { side: 'left', volume: true, fullscreen: true }
 	}}
 />
-<Headline id="headline" {...headline} />
-<EarningsPotential id="earnings" {...earnings} />
-<CareerTabs id="career" {...careerTabs} />
+<Headline id="headline" fullScreen {...headline} />
+<EarningsPotential id="earnings" fullScreen {...earnings} />
+<CareerTabs id="career" fullScreen {...careerTabs} />
 <GalleryHorizontal id="gallery" {...gallery} />
 <CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
 <Stats id="stats" {...stats} />
@@ -70,4 +69,3 @@
 {/if}
 <FinanceMarquee id="finance" {...financeMarquee} />
 <Oss id="oss" {...oss} />
-<ContactForm id="join" {...contactForm} />

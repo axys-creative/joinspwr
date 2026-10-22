@@ -67,7 +67,7 @@ const previews: Record<string, Preview> = {
 	},
 	choose_path: {
 		component: ChoosePath as unknown as Section,
-		props: (data) => ({ ...data, options: data.options ?? [], enabled: true, static: true })
+		props: (data) => ({ ...data, options: data.options ?? [], static: true })
 	},
 	career_tabs: {
 		component: CareerTabs as unknown as Section,
@@ -88,10 +88,6 @@ const previews: Record<string, Preview> = {
 	circle_highlight: {
 		component: CircleHighlight as unknown as Section,
 		props: (data) => ({ ...data, slices: data.slices ?? [] })
-	},
-	home_contact_form: {
-		component: ContactForm as unknown as Section,
-		props: (data) => ({ ...data, form: data.form ?? {} })
 	},
 	earnings_potential: {
 		component: EarningsPotential as unknown as Section,
@@ -208,7 +204,7 @@ const previews: Record<string, Preview> = {
 	},
 	stats: {
 		component: Stats as unknown as Section,
-		props: (data) => ({ ...data, stats: data.stats ?? [] })
+		props: (data) => ({ ...data, stats: data.stats ?? [], pinned: false })
 	},
 	tools: {
 		component: Tools as unknown as Section,

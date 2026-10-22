@@ -1,31 +1,30 @@
 {
-  "enabled": true,
-  "title": "Choose your path",
-  "options": [
-    {
-      "text": "I'm new to sales",
-      "path": "new",
-      "image": {
-        "src": "/uploads/spwr-img-landscape-1.webp",
-        "alt": ""
-      }
-    },
-    {
-      "text": "I have experience in sales",
-      "path": "experienced",
-      "image": {
-        "src": "/uploads/global-alreadysell-junior2.png",
-        "alt": ""
-      }
-    },
-    {
-      "text": "I want to buy solar",
-      "url": "https://sunpower.com",
-      "newTab": true,
-      "image": {
-        "src": "/uploads/global-buysolar-3house.jpeg",
-        "alt": ""
-      }
-    }
-  ]
+	"title": "Choose your path",
+	"options": [
+		{
+			"text": "I'm new to sales",
+			"path": "new",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-1.webp",
+				"alt": ""
+			}
+		},
+		{
+			"text": "I have experience in sales",
+			"path": "experienced",
+			"image": {
+				"src": "/uploads/global-alreadysell-junior2.png",
+				"alt": ""
+			}
+		},
+		{
+			"text": "I want to buy solar",
+			"url": "https://sunpower.com",
+			"newTab": true,
+			"image": {
+				"src": "/uploads/global-buysolar-3house.jpeg",
+				"alt": ""
+			}
+		}
+	]
 }

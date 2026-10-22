@@ -798,8 +798,27 @@
 									"required": false,
 									"hint": "Off for a year such as 1985."
 								},
-								{ "name": "label", "label": "Label", "widget": "string", "required": false }
+								{ "name": "label", "label": "Label", "widget": "string", "required": false },
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"required": false,
+									"hint": "Lands on the stack with this stat when the section is pinned.",
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+									]
+								}
 							]
+						},
+						{
+							"name": "pinned",
+							"label": "Pin and reveal on scroll",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Pins the section on larger screens: each stat counts up in turn as its image drops onto the stack. Give every stat an image."
 						},
 						{
 							"name": "repeat",
@@ -1163,75 +1182,6 @@
 											"hint": "Icon file name without .svg (e.g. chevron-right)."
 										}
 									]
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "home_contact_form",
-					"label": "Join form",
-					"file": "src/lib/content/page_home/contact-form.json",
-					"preview_path": "#join",
-					"fields": [
-						{
-							"name": "eyebrowText",
-							"label": "Eyebrow text",
-							"widget": "string",
-							"required": false
-						},
-						{
-							"name": "title",
-							"label": "Title",
-							"widget": "string",
-							"required": false
-						},
-						{
-							"name": "description",
-							"label": "Description",
-							"widget": "text",
-							"required": false
-						},
-						{
-							"name": "consent",
-							"label": "Text message consent wording",
-							"widget": "text",
-							"required": false,
-							"hint": "Shown in two lines beside an optional checkbox, with an arrow to read the rest. Leave empty for no checkbox."
-						},
-						{
-							"name": "consentLinks",
-							"label": "Links under the consent wording",
-							"widget": "list",
-							"required": false,
-							"summary": "{{fields.text}}",
-							"fields": [
-								{ "name": "text", "label": "Text", "widget": "string" },
-								{ "name": "url", "label": "URL", "widget": "string" }
-							]
-						},
-						{
-							"name": "form",
-							"label": "Form",
-							"widget": "object",
-							"fields": [
-								{
-									"name": "submitText",
-									"label": "Button text",
-									"widget": "string",
-									"required": false
-								},
-								{
-									"name": "successTitle",
-									"label": "Success title",
-									"widget": "string",
-									"required": false
-								},
-								{
-									"name": "successMessage",
-									"label": "Success message",
-									"widget": "string",
-									"required": false
 								}
 							]
 						}
@@ -4052,12 +4002,6 @@
 					"label": "Choose your path (landing modal)",
 					"file": "src/lib/content/global/choose-path.json",
 					"fields": [
-						{
-							"name": "enabled",
-							"label": "Show on landing",
-							"widget": "boolean",
-							"default": true
-						},
 						{
 							"name": "title",
 							"label": "Title",

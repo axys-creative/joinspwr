@@ -227,9 +227,10 @@
 		align-items: start;
 		width: min(var(--content-width), 100% - var(--body-padding) * 2);
 		margin-inline: auto;
-		padding-block: var(--body-padding-double);
+		padding-block: 128px;
 
 		@include mixins.min-lg {
+			padding-block: var(--body-padding-double);
 			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 			gap: 80px;
 		}
@@ -247,7 +248,7 @@
 
 		@include mixins.min-lg {
 			order: 0;
-			aspect-ratio: 4 / 5;
+			aspect-ratio: 8 / 9;
 		}
 
 		@include mixins.max-md {

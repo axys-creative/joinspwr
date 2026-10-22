@@ -191,7 +191,7 @@
 
 		@include mixins.min-lg {
 			order: 0;
-			aspect-ratio: 4 / 5;
+			aspect-ratio: 8 / 9;
 		}
 
 		img {

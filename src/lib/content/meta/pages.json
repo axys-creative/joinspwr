@@ -85,6 +85,13 @@
 			"crawlPage": false
 		},
 		{
+			"path": "/intros",
+			"title": "Intros",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": false
+		},
+		{
 			"path": "/sections",
 			"title": "Sections",
 			"description": "",

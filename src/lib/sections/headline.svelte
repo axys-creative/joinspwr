@@ -83,7 +83,7 @@
 
 	// On a phone or tablet the section is half the screen, with the statement near the top: close to the video above, with the
 	// room below it.
-	.headline {
+	.headline:not(.full-screen) {
 		@include mixins.max-lg {
 			min-height: 50lvh;
 
@@ -97,6 +97,13 @@
 		display: grid;
 		align-items: center;
 		min-height: 100lvh;
+	}
+
+	// A little above center, which draws the statement toward the video before it.
+	.full-screen .inner {
+		@include mixins.max-lg {
+			padding-block: 0 96px;
+		}
 	}
 
 	.inner {

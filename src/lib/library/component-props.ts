@@ -1769,11 +1769,15 @@ export const statsProps = props(
 	],
 	[
 		'image',
-		"An object `{ src, alt }`: a picture under the title, as wide as the title's column (at most 320px), in a 3 by 4 frame, or 4 by 3 below `md`."
+		"An object `{ src, alt }`: a picture under the title, as wide as the title's column (at most 320px), in a 3 by 4 frame, or 4 by 3 below `md`. Ignored when the stats have their own `image`, which make a stack of tilted pictures in the same frame."
 	],
 	[
 		'stats',
 		"An array of `{ digit, prefix, suffix, label, comma }`, the Counter component's options (see the Components page), in its digital count-up style. They sit at the right in a two by two grid, their top level with the title, in the H1 look but not H1 markup. Below `md` the title stacks above them. Required."
+	],
+	[
+		'pinned',
+		"A boolean. From `md` up, pins the section while the page scrolls: the stats appear one at a time and count up, and each stat's own `image` drops onto the stack in the left column, larger and turned, then settles (the first upright, then tilted left, right, and so on). Needs an `image` on each stat. Below `md`, or with reduced motion, everything just shows, tilted in a pile. Defaults to `false`."
 	],
 	[
 		'repeat',
@@ -1841,3 +1845,36 @@ export const financeMarqueeProps = props(
 		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
 	]
 );
+
+export const loaderProps = props(
+	[
+		'minDuration',
+		'A number of milliseconds, the fastest the count can run, so a quick connection still plays the animation through. Defaults to `900`.'
+	],
+	[
+		'maxDuration',
+		'A number of milliseconds after which it finishes even if the page is still loading. Defaults to `8000`.'
+	],
+	[
+		'track',
+		"A function `(update) => stop` that calls `update(progress)` with a number from `0` to `1` and returns a function that stops it. Defaults to watching the page's fonts and the pictures at the top of it; pass your own to wait on something else, such as a video."
+	],
+	[
+		'contained',
+		'A boolean. Keeps the loader inside its parent and leaves the page alone (no scroll lock, and `loading.done` is untouched). For previews; leave it off on a site.'
+	],
+	['onfinish', 'A function that runs when the loader has gone.'],
+	['class', 'A string of extra classes, e.g. a `theme-*` surface.']
+);
+
+export const loaderGridProps = loaderProps;
+
+export const loaderLogoProps: LibraryProp[] = [
+	{ name: 'logo', description: 'An object of Logo props, the logo that fills in. Required.' },
+	{
+		name: 'morph',
+		description:
+			'A boolean. On leaving, the cover shrinks to the box that `components/choose-path.svelte` publishes (`--cp-top`, `--cp-right`, `--cp-bottom`, `--cp-left`) and the modal opens in its place; without that box it just scales up and fades. Defaults to `false`.'
+	},
+	...loaderProps
+];

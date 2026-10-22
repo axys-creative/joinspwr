@@ -1,7 +1,9 @@
 <script lang="ts">
 	import '../../styles/styles.scss';
+	import { page } from '$app/state';
 	import { bgDust } from '$lib/attachments/bg-dust';
 	import AlertStack from '$lib/components/alert-stack.svelte';
+	import LoaderLogo from '$lib/components/loader-logo.svelte';
 	import FooterGnomon, { type FooterGnomonProps } from '$lib/components/footer-gnomon.svelte';
 	import ChoosePath, { type ChoosePathProps } from '$lib/components/choose-path.svelte';
 	import PageTransition from '$lib/components/page-transition.svelte';
@@ -22,6 +24,7 @@
 <svelte:body {@attach bgDust({ fixed: true })} />
 <SmoothScroll />
 <PageTransition name="fade" preserveHeader />
+<LoaderLogo {logo} morph={page.url.pathname === '/'} />
 
 <div class="site">
 	<HeaderBasic

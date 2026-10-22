@@ -16,6 +16,8 @@
 		duration?: number;
 		/** Only count the first time it scrolls into view. */
 		once?: boolean;
+		/** While `false` the number waits at zero, even in view. Defaults to `true`. */
+		active?: boolean;
 		/** Roll each digit up a column instead of counting. */
 		ticker?: boolean;
 		class?: string;
@@ -34,6 +36,7 @@
 		spokenLabel,
 		duration = 2400,
 		once = false,
+		active = true,
 		ticker = false,
 		class: className
 	}: CounterProps = $props();
@@ -56,6 +59,12 @@
 	let shown = $state(0);
 	let ready = $state(false);
 	let played = $state(false);
+	let apply: (() => void) | undefined;
+
+	$effect(() => {
+		active;
+		apply?.();
+	});
 
 	// Without script the final number shows; with it, the count starts from zero once it scrolls into view.
 	const display = $derived(ready ? format(shown) : finalText);
@@ -65,6 +74,8 @@
 
 		let frame = 0;
 		let hasPlayed = false;
+		let inView = false;
+		let on = false;
 		ready = true;
 		shown = 0;
 
@@ -81,8 +92,11 @@
 			frame = requestAnimationFrame(tick);
 		};
 
-		const observer = new IntersectionObserver(([entry]) => {
-			if (entry.isIntersecting) {
+		apply = () => {
+			const should = inView && active;
+			if (should === on) return;
+			on = should;
+			if (should) {
 				if (once && hasPlayed) return;
 				hasPlayed = true;
 				if (ticker) played = true;
@@ -92,10 +106,16 @@
 				shown = 0;
 				played = false;
 			}
+		};
+
+		const observer = new IntersectionObserver(([entry]) => {
+			inView = entry.isIntersecting;
+			apply?.();
 		});
 		observer.observe(el!);
 
 		return () => {
+			apply = undefined;
 			observer.disconnect();
 			cancelAnimationFrame(frame);
 		};

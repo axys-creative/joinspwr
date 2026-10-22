@@ -426,7 +426,7 @@
 	>
 		<CareerTabs
 			class="full"
-			title={'Start as a rep, [run a region]{.secondary-alt}'}
+			title={'Start as a rep. [Run a region.]{.secondary-alt}'}
 			tabs={[
 				{
 					label: 'First',

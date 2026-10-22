@@ -124,7 +124,7 @@
 		--portrait-h: clamp(260px, 30vh, 400px);
 		--landscape-w: 280px;
 		--landscape-h: clamp(180px, 21vh, 280px);
-		--gap: 72px;
+		--gap: 56px;
 		--copy-w: 320px;
 
 		position: relative;
@@ -134,25 +134,33 @@
 		--pin-height: 80vh;
 
 		@include mixins.max-lg {
+			padding-block-start: 120px;
 			padding-inline: var(--body-padding);
 		}
 	}
 
-	// Desktop cards, 10% larger; the pin grows with them so the taller collage still fits.
+	// Desktop cards, larger than the base; the pin grows with them so the taller collage still fits.
 	.gallery-horizontal:not(.portrait) {
 		@include mixins.min-lg {
-			--portrait-w: 238px;
-			--portrait-h: clamp(286px, 33vh, 440px);
-			--landscape-w: 308px;
-			--landscape-h: clamp(198px, 23.1vh, 308px);
-			--pin-height: 88vh;
+			--portrait-w: 276px;
+			--portrait-h: clamp(330px, 37vh, 500px);
+			--landscape-w: 340px;
+			--landscape-h: clamp(220px, 25vh, 334px);
+			--pin-height: 94vh;
+		}
+
+		.pin {
+			@include mixins.min-lg {
+				min-height: calc(var(--portrait-h) * 1.5 + var(--gap) + var(--landscape-h) + 24px);
+			}
 		}
 	}
 
 	// Every card is the portrait size, and the bottom cards shift right so they clear the ones above.
 	.portrait {
-		--portrait-w: 190px;
-		--portrait-h: clamp(240px, 26vh, 360px);
+		--portrait-w: 240px;
+		--portrait-h: clamp(290px, 31vh, 440px);
+		--pin-height: 88vh;
 		--landscape-w: var(--portrait-w);
 		--landscape-h: var(--portrait-h);
 		--role-space: 36px;
@@ -167,9 +175,15 @@
 			}
 		}
 
+		.pin {
+			@include mixins.min-lg {
+				min-height: calc(var(--portrait-h) * 2.25 + var(--gap) + var(--role-space) + 24px);
+			}
+		}
+
 		@include mixins.min-lg {
 			.slider {
-				gap: 56px;
+				gap: 48px;
 			}
 
 			.group :global(.slot-2) {
