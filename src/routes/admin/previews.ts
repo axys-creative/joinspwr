@@ -7,6 +7,7 @@ import ContactForm from '$lib/sections/contact-form.svelte';
 import CircleHighlight from '$lib/sections/circle-highlight.svelte';
 import ChoosePath from '$lib/components/choose-path.svelte';
 import CareerTabs from '$lib/sections/career-tabs.svelte';
+import CarouselSpotlight from '$lib/sections/carousel-spotlight.svelte';
 import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 import Headline from '$lib/sections/headline.svelte';
 import EarningsPotential from '$lib/sections/earnings-potential.svelte';
@@ -68,6 +69,10 @@ const previews: Record<string, Preview> = {
 	choose_path: {
 		component: ChoosePath as unknown as Section,
 		props: (data) => ({ ...data, options: data.options ?? [], static: true })
+	},
+	carousel_spotlight: {
+		component: CarouselSpotlight as unknown as Section,
+		props: (data) => ({ ...data, slides: data.slides ?? [], autoplay: false })
 	},
 	career_tabs: {
 		component: CareerTabs as unknown as Section,

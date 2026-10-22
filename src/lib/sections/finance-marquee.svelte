@@ -90,6 +90,10 @@
 		flex-direction: column;
 		gap: 48px;
 		padding-block: var(--body-padding-double);
+
+		@include mixins.max-md {
+			padding-block: 96px;
+		}
 	}
 
 	.copy {

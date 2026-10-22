@@ -557,6 +557,93 @@
 					]
 				},
 				{
+					"name": "carousel_spotlight",
+					"label": "Competitions Carousel",
+					"file": "src/lib/content/page_home/carousel-spotlight.json",
+					"preview_path": "#competitions",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false,
+							"hint": "Style words with [words]{.secondary-alt}. Use {.br} for a line break."
+						},
+						{ "name": "description", "label": "Description", "widget": "text", "required": false },
+						{
+							"name": "slides",
+							"label": "Slides",
+							"widget": "list",
+							"min": 2,
+							"label_singular": "Slide",
+							"summary": "{{fields.title}}",
+							"fields": [
+								{ "name": "title", "label": "Title", "widget": "string" },
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+									]
+								}
+							]
+						},
+						{
+							"name": "loop",
+							"label": "Endless loop",
+							"widget": "boolean",
+							"default": true,
+							"required": false
+						},
+						{
+							"name": "autoplay",
+							"label": "Move on automatically",
+							"widget": "boolean",
+							"default": true,
+							"required": false
+						},
+						{
+							"name": "pauseOnHover",
+							"label": "Pause while the mouse is over it",
+							"widget": "boolean",
+							"default": false,
+							"required": false
+						},
+						{
+							"name": "interval",
+							"label": "Time per slide",
+							"widget": "number",
+							"value_type": "int",
+							"min": 1000,
+							"default": 2400,
+							"required": false,
+							"hint": "In milliseconds. 2400 is two and a half seconds."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
+						}
+					]
+				},
+				{
 					"name": "gallery_horizontal",
 					"label": "Gallery",
 					"file": "src/lib/content/page_home/gallery-horizontal.json",
@@ -4017,7 +4104,8 @@
 								{
 									"name": "text",
 									"label": "Text",
-									"widget": "string"
+									"widget": "string",
+									"hint": "Use {.br} for a line break."
 								},
 								{
 									"name": "path",

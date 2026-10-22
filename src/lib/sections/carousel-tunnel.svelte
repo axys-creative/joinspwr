@@ -569,6 +569,10 @@
 
 		position: relative;
 
+		@include mixins.max-md {
+			padding-block: 96px;
+		}
+
 		@include mixins.min-lg {
 			--slide-width: min(30vw, 864px);
 		}

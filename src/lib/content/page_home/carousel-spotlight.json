@@ -1,0 +1,41 @@
+{
+	"title": "Compete. Win. Get rewarded.",
+	"loop": true,
+	"autoplay": true,
+	"pauseOnHover": false,
+	"interval": 2400,
+	"slides": [
+		{
+			"title": "REIGN",
+			"description": "Region versus region.",
+			"image": {
+				"src": "/uploads/competition-spwrdome.png",
+				"alt": ""
+			}
+		},
+		{
+			"title": "Champions League",
+			"description": "Summer team league.",
+			"image": {
+				"src": "/uploads/competition-champions-league.png",
+				"alt": ""
+			}
+		},
+		{
+			"title": "Squad Game",
+			"description": "Best versus best.",
+			"image": {
+				"src": "/uploads/competition-squad-game.png",
+				"alt": ""
+			}
+		},
+		{
+			"title": "Helios",
+			"description": "The OG team bracket.",
+			"image": {
+				"src": "/uploads/competition-rapid-spwr.png",
+				"alt": ""
+			}
+		}
+	]
+}

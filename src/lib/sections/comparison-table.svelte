@@ -107,6 +107,10 @@
 		width: min(var(--content-width), 100% - var(--body-padding) * 2);
 		margin-inline: auto;
 		padding-block: var(--body-padding-double);
+
+		@include mixins.max-md {
+			padding-block: 96px;
+		}
 	}
 
 	table {

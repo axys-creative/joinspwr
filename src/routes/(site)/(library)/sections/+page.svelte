@@ -5,6 +5,7 @@
 		accordionTableSectionProps,
 		blogArticleBodyProps,
 		blogArticleHeroProps,
+		carouselSpotlightProps,
 		carouselTunnelProps,
 		careerTabsProps,
 		circleHighlightProps,
@@ -40,6 +41,7 @@
 	import ComparisonTable from '$lib/sections/comparison-table.svelte';
 	import ContactForm from '$lib/sections/contact-form.svelte';
 	import CareerTabs from '$lib/sections/career-tabs.svelte';
+	import CarouselSpotlight from '$lib/sections/carousel-spotlight.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 	import FinanceGrid from '$lib/sections/finance-grid.svelte';
@@ -442,6 +444,36 @@
 					label: 'Third',
 					image: { src: '/uploads/spwr-img-landscape-3.webp', alt: '' },
 					description: 'A short description of the third step.'
+				}
+			]}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Carousel Spotlight"
+		type="Section"
+		description="Section Copy centered above a row of slides. The middle slide is fully lit and the ones beside it are dimmed; each shows a picture with its title and description in a blurred glass panel. It moves on by itself, drags and swipes, and takes arrow keys, with dots under it. It loops endlessly unless told not to."
+		props={carouselSpotlightProps}
+	>
+		<CarouselSpotlight
+			class="full"
+			title="Compete. Win. Get rewarded."
+			autoplay={false}
+			slides={[
+				{
+					title: 'First',
+					description: 'A short description of the first slide.',
+					image: { src: '/uploads/spwr-img-landscape-1.webp', alt: '' }
+				},
+				{
+					title: 'Second',
+					description: 'A short description of the second slide.',
+					image: { src: '/uploads/spwr-img-landscape-2.webp', alt: '' }
+				},
+				{
+					title: 'Third',
+					description: 'A short description of the third slide.',
+					image: { src: '/uploads/spwr-img-landscape-3.webp', alt: '' }
 				}
 			]}
 		/>

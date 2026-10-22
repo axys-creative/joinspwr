@@ -2,7 +2,7 @@
 	"title": "Choose your path",
 	"options": [
 		{
-			"text": "I'm new to sales",
+			"text": "I'm new{.br}to sales",
 			"path": "new",
 			"image": {
 				"src": "/uploads/spwr-img-landscape-1.webp",
@@ -10,7 +10,7 @@
 			}
 		},
 		{
-			"text": "I have experience in sales",
+			"text": "I have experience{.br}in sales",
 			"path": "experienced",
 			"image": {
 				"src": "/uploads/global-alreadysell-junior2.png",
@@ -18,7 +18,7 @@
 			}
 		},
 		{
-			"text": "I want to buy solar",
+			"text": "I want to{.br}buy solar",
 			"url": "https://sunpower.com",
 			"newTab": true,
 			"image": {

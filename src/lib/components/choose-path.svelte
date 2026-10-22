@@ -25,6 +25,7 @@
 	import { visitorPath, type VisitorPath } from '$lib/utils/visitor-path.svelte';
 	import Button from './button.svelte';
 	import Icon from './icon.svelte';
+	import RichText from './rich-text.svelte';
 
 	let { static: inline = false, title, options }: ChoosePathProps = $props();
 
@@ -100,8 +101,8 @@
 			loading="lazy"
 		/>
 	{/if}
-	<span class="label h3">
-		{option.text}
+	<span class="label h5">
+		<RichText text={option.text} />
 		{#if option.url}
 			<Icon name="arrow-tr" />
 			{#if option.newTab}<span class="visually-hidden">(opens in a new tab)</span>{/if}
@@ -316,7 +317,6 @@
 		padding: 16px 20px;
 
 		@include mixins.max-md {
-			@include mixins.h5;
 			padding: 12px 16px;
 		}
 	}

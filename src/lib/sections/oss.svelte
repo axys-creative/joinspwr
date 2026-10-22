@@ -40,7 +40,7 @@
 		...rest
 	}: OssProps = $props();
 
-	const phone = new MediaQuery('max-width: 479px');
+	const phone = new MediaQuery('max-width: 767px');
 	const fanProps = $derived(
 		phone.current ? { ...fan, itemWidth: (fan.itemWidth ?? 19) * 1.5 } : fan
 	);
@@ -92,6 +92,10 @@
 		max-width: var(--content-width);
 		margin-inline: auto;
 		padding: var(--body-padding-double) var(--body-padding);
+
+		@include mixins.max-md {
+			padding-block: 96px;
+		}
 	}
 
 	// The accent sits in the empty corner above the fan's lower right end, so it never moves the fan.

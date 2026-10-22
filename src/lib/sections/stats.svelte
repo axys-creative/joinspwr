@@ -189,6 +189,10 @@
 		margin-inline: auto;
 		padding-block: var(--body-padding-double);
 
+		@include mixins.max-md {
+			padding-block: 96px;
+		}
+
 		@include mixins.min-md {
 			grid-template-columns: 1fr 1fr;
 			gap: 64px;

@@ -137,6 +137,10 @@
 			padding-block-start: 120px;
 			padding-inline: var(--body-padding);
 		}
+
+		@include mixins.max-md {
+			padding-block-end: 96px;
+		}
 	}
 
 	// Desktop cards, larger than the base; the pin grows with them so the taller collage still fits.

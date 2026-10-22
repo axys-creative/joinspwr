@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { afterNavigate } from '$app/navigation';
 	import type Lenis from 'lenis';
+	import { whenScrollTrigger } from '$lib/utils/gsap';
 
 	let lenis: Lenis | undefined;
 
@@ -16,10 +17,16 @@
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
 		let destroyed = false;
+		let stopSync: (() => void) | undefined;
 
 		import('lenis').then(({ default: LenisClass }) => {
 			if (destroyed) return;
 			lenis = new LenisClass({ autoRaf: true, lerp: 0.06, anchors: true });
+
+			// Pins would otherwise read the scroll a frame after Lenis moves it, and jump.
+			whenScrollTrigger().then((ScrollTrigger) => {
+				if (!destroyed) stopSync = lenis?.on('scroll', ScrollTrigger.update);
+			});
 		});
 
 		// Lenis ignores a bare "#" link, so route it to the top.
@@ -38,6 +45,7 @@
 
 		return () => {
 			destroyed = true;
+			stopSync?.();
 			document.removeEventListener('click', onClick);
 			document.removeEventListener('scroll-top', onScrollTop);
 			lenis?.destroy();

@@ -17,6 +17,7 @@
 	padding: 4px;
 	border: 1px solid var(--color-border);
 	border-radius: calc(var(--slider-radius) + 4px);
+	@include mixins.glass;
 }
 
 :where(.toggle-slider--underline) {

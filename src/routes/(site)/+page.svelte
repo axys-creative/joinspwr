@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import ComparisonTable from '$lib/sections/comparison-table.svelte';
+	import CarouselSpotlight from '$lib/sections/carousel-spotlight.svelte';
 	import CareerTabs from '$lib/sections/career-tabs.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
@@ -18,6 +19,7 @@
 	import hero from '$lib/content/page_home/hero-image-circle.json';
 	import careerTabs from '$lib/content/page_home/career-tabs.json';
 	import comparisonTable from '$lib/content/page_home/comparison-table.json';
+	import carouselSpotlight from '$lib/content/page_home/carousel-spotlight.json';
 	import carousel from '$lib/content/page_home/carousel-tunnel.json';
 	import earnings from '$lib/content/page_home/earnings-potential.json';
 	import gallery from '$lib/content/page_home/gallery-horizontal.json';
@@ -61,6 +63,7 @@
 <Headline id="headline" fullScreen {...headline} />
 <EarningsPotential id="earnings" fullScreen {...earnings} />
 <CareerTabs id="career" fullScreen {...careerTabs} />
+<CarouselSpotlight id="competitions" fullScreen {...carouselSpotlight} />
 <GalleryHorizontal id="gallery" {...gallery} />
 <CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
 <Stats id="stats" {...stats} />

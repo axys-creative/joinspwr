@@ -176,6 +176,10 @@
 	.footer-gnomon {
 		margin-block-start: var(--body-padding);
 		padding-block-end: var(--body-padding);
+
+		@include mixins.max-md {
+			margin-block-start: 96px;
+		}
 	}
 
 	.full-screen {

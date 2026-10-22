@@ -19,6 +19,18 @@ let core: Promise<typeof Gsap> | undefined;
 const registering = new Map<PluginName, Promise<void>>();
 
 let refreshTimer: ReturnType<typeof setTimeout> | undefined;
+let lastScroll = 0;
+let listening = false;
+const SCROLL_IDLE = 300;
+
+let resolveReady: () => void;
+const scrollTriggerReady = new Promise<void>((resolve) => (resolveReady = resolve));
+
+/** Resolves with ScrollTrigger once some section has loaded it; never loads it itself. */
+export const whenScrollTrigger = () =>
+	scrollTriggerReady.then(() =>
+		import('gsap/ScrollTrigger').then((module) => module.ScrollTrigger)
+	);
 
 /**
  * Measures every ScrollTrigger again, in page order, once things have gone quiet. Sections build their triggers
@@ -26,8 +38,17 @@ let refreshTimer: ReturnType<typeof setTimeout> | undefined;
  * `loadGsap('scrollTrigger')` asks for it already; call it again after anything slower than that.
  */
 export function refreshScrollTriggers() {
+	if (!listening) {
+		listening = true;
+		addEventListener('scroll', () => (lastScroll = performance.now()), { passive: true });
+	}
 	clearTimeout(refreshTimer);
-	refreshTimer = setTimeout(async () => {
+	refreshTimer = setTimeout(async function run() {
+		// A refresh in the middle of a scroll resets what the sections are chasing, such as the tunnel's trailing slides.
+		if (performance.now() - lastScroll < SCROLL_IDLE) {
+			refreshTimer = setTimeout(run, SCROLL_IDLE);
+			return;
+		}
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		ScrollTrigger.refresh();
 	}, 200);
@@ -52,5 +73,6 @@ export async function loadGsap(...plugins: PluginName[]) {
 			return pending;
 		})
 	);
+	if (plugins.includes('scrollTrigger')) resolveReady();
 	return gsap;
 }
