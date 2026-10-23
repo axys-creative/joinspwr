@@ -15,7 +15,7 @@
 
 <HeroGnomon {...hero} />
 <PhotoColumns id="photos" {...photoColumns} />
-<Headline id="headline" {...headline} />
+<Headline id="headline" fullScreen {...headline} />
 <CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
 <EarningsPotential id="earnings" {...earnings} />
 <Oss id="oss" {...oss} />
@@ -23,18 +23,27 @@
 <style lang="scss">
 	@use 'base/mixins';
 
+	:global(#photos) {
+		margin-block-start: 240px;
+	}
+
+	:global(#headline) {
+		padding-block: 96px 192px;
+	}
+
+	:global(#carousel),
+	:global(#earnings),
+	:global(#oss) {
+		margin-block: 128px;
+	}
+
 	@include mixins.max-md {
-		:global(#photos),
+		:global(#photos) {
+			margin-block-start: 192px;
+		}
+
 		:global(#headline) {
 			margin-block-start: 48px;
-		}
-
-		:global(#earnings) {
-			margin-block-start: 96px;
-		}
-
-		:global(#oss) {
-			margin-block-start: 96px;
 		}
 	}
 </style>

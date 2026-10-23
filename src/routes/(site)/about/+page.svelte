@@ -19,8 +19,17 @@
 </script>
 
 <HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={12} />
-<Headline id="headline" {...headline} />
+<Headline id="headline" fullScreen {...headline} />
 <GalleryHorizontal id="leadership" {...gallery} />
 <ScrollTimeline id="timeline" variant="circle" {...timeline} />
 <Stats id="stats" {...stats} />
 <Oss id="oss" {...oss} />
+
+<style lang="scss">
+	:global(#leadership),
+	:global(#timeline),
+	:global(#stats),
+	:global(#oss) {
+		margin-block: 128px;
+	}
+</style>

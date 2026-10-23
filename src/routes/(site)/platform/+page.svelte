@@ -19,7 +19,7 @@
 </script>
 
 <HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={12} />
-<Headline id="headline" {...headline} />
+<Headline id="headline" fullScreen {...headline} />
 <CircleHighlight
 	id="circle-highlight"
 	{...circleHighlight}
@@ -29,3 +29,12 @@
 <Tools id="tools" {...tools} />
 <FinanceGrid id="finance" {...financeGrid} />
 <AccordionSection id="faq" {...accordion} />
+
+<style lang="scss">
+	:global(#circle-highlight),
+	:global(#tools),
+	:global(#finance),
+	:global(#faq) {
+		margin-block: 128px;
+	}
+</style>

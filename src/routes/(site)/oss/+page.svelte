@@ -16,3 +16,9 @@
 
 <HeroImageWave {...heroProps} images={heroImages} {accent} />
 <AccordionTableSection id="history" {...history} {columns} />
+
+<style lang="scss">
+	:global(#history) {
+		margin-block: 128px;
+	}
+</style>

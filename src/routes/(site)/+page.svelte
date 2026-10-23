@@ -72,3 +72,15 @@
 {/if}
 <FinanceMarquee id="finance" {...financeMarquee} />
 <Oss id="oss" {...oss} />
+
+<style lang="scss">
+	:global(#steps),
+	:global(#support),
+	:global(#carousel),
+	:global(#stats),
+	:global(#comparison),
+	:global(#finance),
+	:global(#oss) {
+		margin-block: 128px;
+	}
+</style>

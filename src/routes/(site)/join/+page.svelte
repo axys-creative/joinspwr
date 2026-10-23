@@ -7,3 +7,9 @@
 
 <ContactForm id="contact" hero {...contactForm} />
 <AccordionSection id="faq" {...faq} />
+
+<style lang="scss">
+	:global(#faq) {
+		margin-block: 128px;
+	}
+</style>
