@@ -21,7 +21,7 @@ export const visitorPath = {
 			const saved = sessionStorage.getItem(KEY);
 			if (isPath(saved) && saved !== current) {
 				current = saved;
-				tick().then(refreshScrollTriggers);
+				tick().then(() => refreshScrollTriggers({ immediate: true }));
 			}
 		} catch {
 			// Storage can be blocked.
@@ -39,7 +39,7 @@ export const visitorPath = {
 		}
 		if (location.pathname !== '/') await goto('/');
 		await tick();
-		if (changed) refreshScrollTriggers();
+		if (changed) refreshScrollTriggers({ immediate: true });
 		if (!scrollTop) return;
 		// smooth-scroll.svelte answers this with Lenis; without it the browser scrolls itself.
 		const event = new CustomEvent('scroll-top', { cancelable: true });

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import accordion from '$lib/content/page_platform/accordion-section.json';
 	import circleHighlight from '$lib/content/page_platform/circle-highlight.json';
+	import dealerGrid from '$lib/content/page_platform/dealer-grid.json';
 	import financeGrid from '$lib/content/page_platform/finance-grid.json';
 	import headline from '$lib/content/page_platform/headline.json';
 	import tools from '$lib/content/page_platform/tools.json';
@@ -28,12 +29,14 @@
 />
 <Tools id="tools" {...tools} />
 <FinanceGrid id="finance" {...financeGrid} />
+<FinanceGrid id="dealers" {...dealerGrid} />
 <AccordionSection id="faq" {...accordion} />
 
 <style lang="scss">
 	:global(#circle-highlight),
 	:global(#tools),
 	:global(#finance),
+	:global(#dealers),
 	:global(#faq) {
 		margin-block: 128px;
 	}

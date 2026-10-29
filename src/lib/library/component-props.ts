@@ -1113,7 +1113,7 @@ export const carouselTunnelProps = props(
 	],
 	[
 		'config',
-		'Optional tuning: `sectionHeight` (the total scroll distance, `220svh`), `slideWidth` (the resting slide width, which sets how much of the next ones peek in, `min(25vw, 720px)`, and `min(30vw, 864px)` from `lg` up), `slideGap` (`24px`), `slideAspect` (`2 / 1.25`), `scaleDuration` (the share of the scroll spent zooming, `0.6`), `trail` (seconds the slides beside the active one take to catch up with the zoom, as if pulled behind it; two away take twice as long; `0` zooms them together, `0.35`), `revealDuration` (seconds, `0.6`) and `captionOffset` (`12px`). Anything left out keeps its default, including the smaller slide width on mobile.'
+		'Optional tuning: `sectionHeight` (the total scroll distance, `220svh`), `slideWidth` (the resting slide width, which sets how much of the next ones peek in, `min(25vw, 720px)`, and `min(30vw, 864px)` from `lg` up), `slideGap` (`24px`), `slideAspect` (`2 / 1.25`), `scaleDuration` (the share of the scroll spent zooming, `0.6`), `trail` (seconds the slides beside the active one take to catch up with the zoom, as if pulled behind it; two away take twice as long; `0` zooms them together, `1`), `revealDuration` (seconds, `0.6`) and `captionOffset` (`12px`). Anything left out keeps its default, including the smaller slide width on mobile.'
 	],
 	['label', 'A string, the carousel’s accessible name. Defaults to `Featured work`.'],
 	[
@@ -1642,6 +1642,10 @@ export const richTextProps = props(
 	['.h1', 'The size and style of a Heading 1. `.h2` to `.h6` match their headings.'],
 	['.italic', 'Italic.'],
 	['.primary', 'The accent color, for text.'],
+	[
+		'.roll',
+		'The letters roll up and out every 5 seconds, replaced from below. Each `.roll` is offset from the others (see Text Roll Loop under Attachments).'
+	],
 	['.scribble', 'A thin hand-drawn zigzag underline (see Scribble under Attachments).'],
 	['.scribble-circle', 'A thin hand-drawn loop around the words (see Scribble under Attachments).'],
 	['.scribble-circle-tight', 'The same loop drawn closer to the words (scale 0.8).'],
@@ -1811,6 +1815,31 @@ export const toolsProps = props(
 	]
 );
 
+export const faqTabsProps = props(
+	[
+		'eyebrowText, eyebrowIcon, title, description',
+		'The opening copy, from Section Copy (see the Style Guide), centered above the toggle. There is no call to action.'
+	],
+	[
+		'groups',
+		'An array of `{ label, path, items }`, one per toggle option. `label` is the button text, `path` is `new` or `experienced` (leave it out for the general group), and `items` are `{ title, content }` for the Accordion (see Components), where `content` is trusted HTML. Required.'
+	],
+	[
+		'path',
+		'`new | experienced`. The visitor’s path. The group with the same `path` is selected, and the toggle follows when it changes. With no match the first group is selected. The home page passes `visitorPath.current`.'
+	],
+	[
+		'accordion',
+		'An object of the other Accordion props: `icon`, `plus`, `singleOpen` and `striped`. The icon defaults to `chevron-down`, and `singleOpen` and `striped` to `true`.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	],
+	['id', 'A string, the anchor a link or the CMS preview can point to.'],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
 export const financeGridProps = props(
 	[
 		'title, description, eyebrowText, eyebrowIcon, cta',
@@ -1818,7 +1847,19 @@ export const financeGridProps = props(
 	],
 	[
 		'logos',
-		'An array of `{ src, alt, url, newTab }`, every logo at once in the same bordered, rounded boxes as Finance Marquee. From `md` up the rows alternate four and three across, repeating, across the content width, with the boxes shrinking with the screen; below `md` it is two across. With a `url` the box becomes a link (`newTab` opens it in a new tab); every box is pushed a little by the mouse (see the Push attachment). Required.'
+		'An array of `{ src, alt, url, newTab }`, every logo at once in the same bordered, rounded boxes as Finance Marquee. From `md` up the rows alternate four and three across, repeating (a final row of three after a row of four tapers to two, then one), across the content width, with the boxes shrinking with the screen; below `md` it is two across. With a `url` the box becomes a link (`newTab` opens it in a new tab); every box is pushed a little by the mouse (see the Push attachment). Required.'
+	],
+	[
+		'searchLabel',
+		'A string, the label of a search box that pops up at the bottom of the screen from when the top of the logo grid reaches 75% down the screen until the bottom of the grid reaches 66%. Typing highlights the logos whose name matches (every word found, or the letters in order) and dims the rest. When exactly one logo matches the page scrolls to it, unless it is already in clear view. Leave empty for no search.'
+	],
+	[
+		'searchMinimum',
+		'A number, how many logos it takes before the search box is shown, so a short list has none. Defaults to `12`.'
+	],
+	[
+		'searchTitle',
+		'A string, a short heading above the search box. When two sections with a search follow each other, the next one knocks the current box out of the way as it arrives.'
 	],
 	[
 		'fullScreen',
@@ -1842,6 +1883,34 @@ export const financeMarqueeProps = props(
 	[
 		'marquee',
 		'Marquee settings (see Marquee in Components), such as `speed`, `scrub`, `reverse` or `pauseOnHover`. The two rows always run opposite ways. Defaults to `{ speed: 40, scrub: 0.5 }`.'
+	],
+	[
+		'fullScreen',
+		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+	]
+);
+
+export const financeStickyProps = props(
+	[
+		'title, description, eyebrowText, eyebrowIcon, cta',
+		'Copy from Section Copy (see the Style Guide), pinned beside the logos from `lg` up and stacked above them below it.'
+	],
+	[
+		'logos',
+		'An array of `{ src, alt }`, shown two across in glass cards that fade in as they scroll into view. Required.'
+	],
+	['side', '`left` (default) or `right`, which side the pinned copy sits on from `lg` up.'],
+	[
+		'searchLabel',
+		'A string, the label of a search box that pops up at the bottom of the screen from when the top of the logo grid reaches 75% down the screen until the bottom of the grid reaches 66%. Typing highlights the logos whose name matches (every word found, or the letters in order) and dims the rest. When exactly one logo matches the page scrolls to it, unless it is already in clear view. Leave empty for no search.'
+	],
+	[
+		'searchMinimum',
+		'A number, how many logos it takes before the search box is shown, so a short list has none. Defaults to `12`.'
+	],
+	[
+		'searchTitle',
+		'A string, a short heading above the search box. When two sections with a search follow each other, the next one knocks the current box out of the way as it arrives.'
 	],
 	[
 		'fullScreen',
@@ -1873,7 +1942,16 @@ export const loaderProps = props(
 export const loaderGridProps = loaderProps;
 
 export const loaderLogoProps: LibraryProp[] = [
-	{ name: 'logo', description: 'An object of Logo props, the logo that fills in. Required.' },
+	{
+		name: 'text',
+		description:
+			'A string, the word whose letters roll to the right until the load finishes, under a ring that fills with the accent color. Defaults to `SPWR`.'
+	},
+	{
+		name: 'hold',
+		description:
+			'A number of milliseconds the loader stays at full before leaving, so the last roll finishes. Defaults to `900`.'
+	},
 	{
 		name: 'morph',
 		description:
@@ -1904,7 +1982,7 @@ export const carouselSpotlightProps = props(
 		'pauseOnHover',
 		'A boolean. Holds autoplay while the mouse is over the carousel. Focus inside it always holds it. Defaults to `false`.'
 	],
-	['interval', 'A number, the milliseconds between slides when it plays. Defaults to `2400`.'],
+	['interval', 'A number, the milliseconds between slides when it plays. Defaults to `4500`.'],
 	[
 		'fullScreen',
 		'A boolean. At least the height of the screen, with the content centered. Defaults to `false`.'

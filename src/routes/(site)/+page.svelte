@@ -5,7 +5,8 @@
 	import CareerTabs from '$lib/sections/career-tabs.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
-	import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
+	import FaqTabs, { type FaqGroup } from '$lib/sections/faq-tabs.svelte';
+	import FinanceSticky from '$lib/sections/finance-sticky.svelte';
 	import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 	import Headline from '$lib/sections/headline.svelte';
 	import Oss from '$lib/sections/oss.svelte';
@@ -23,7 +24,9 @@
 	import carousel from '$lib/content/page_home/carousel-tunnel.json';
 	import earnings from '$lib/content/page_home/earnings-potential.json';
 	import gallery from '$lib/content/page_home/gallery-horizontal.json';
+	import dealerMarquee from '$lib/content/page_home/dealer-marquee.json';
 	import financeMarquee from '$lib/content/page_home/finance-marquee.json';
+	import faqTabs from '$lib/content/page_home/faq-tabs.json';
 	import oss from '$lib/content/page_home/oss.json';
 	import stats from '$lib/content/page_home/stats.json';
 	import headline from '$lib/content/page_home/headline.json';
@@ -69,9 +72,17 @@
 <Stats id="stats" {...stats} />
 {#if visitorPath.current !== 'new'}
 	<ComparisonTable id="comparison" {...comparisonTable} />
+	<FinanceSticky id="dealers" {...dealerMarquee} side={dealerMarquee.side as 'left' | 'right'} />
+	<FinanceSticky id="finance" {...financeMarquee} side={financeMarquee.side as 'left' | 'right'} />
 {/if}
-<FinanceMarquee id="finance" {...financeMarquee} />
 <Oss id="oss" {...oss} />
+<FaqTabs
+	id="faq"
+	fullScreen
+	path={visitorPath.current}
+	{...faqTabs}
+	groups={faqTabs.groups as FaqGroup[]}
+/>
 
 <style lang="scss">
 	:global(#steps),
@@ -79,6 +90,7 @@
 	:global(#carousel),
 	:global(#stats),
 	:global(#comparison),
+	:global(#dealers),
 	:global(#finance),
 	:global(#oss) {
 		margin-block: 128px;

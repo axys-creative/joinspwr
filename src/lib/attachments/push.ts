@@ -60,7 +60,7 @@ function release() {
 
 /** Pushes an element the way the pointer was moving when it entered, spinning it a little, then eases it back. */
 export function push({
-	strength = 10,
+	strength = 5,
 	restore = 0.1,
 	maxRotate = 25
 }: PushOptions = {}): Attachment<HTMLElement> {

@@ -8,6 +8,8 @@
 		track?: (update: (progress: number) => void) => () => void;
 		/** Stays inside its parent and leaves the page alone: no scroll lock, and `loading.done` is untouched. */
 		contained?: boolean;
+		/** Milliseconds it stays at full progress before leaving. Defaults to 150. */
+		hold?: number;
 		/** Runs when the loader has left. */
 		onfinish?: () => void;
 		class?: string;
@@ -39,6 +41,7 @@
 		maxDuration = 8000,
 		track = trackLoad,
 		contained = false,
+		hold = HOLD,
 		onfinish,
 		class: className,
 		children
@@ -83,7 +86,7 @@
 							onfinish?.();
 						}, exitTime)
 					);
-				}, HOLD)
+				}, hold)
 			);
 		};
 

@@ -1,20 +1,24 @@
 {
-	"title": "You won't figure it out [alone]{.secondary-alt}",
+	"title": "You’ll have a [team]{.secondary-alt.roll} with you the whole time",
 	"image": { "src": "/uploads/spwr-img-portrait-1.webp", "alt": "" },
 	"autoplay": true,
 	"interval": 2500,
 	"tabs": [
-		{ "label": "Day 1", "title": "", "description": "Onboarding and certification" },
+		{
+			"label": "Day 1",
+			"title": "",
+			"description": "Onboarding and certification. We’re there every step of the way to help you grow, and you won’t figure it out alone."
+		},
 		{
 			"label": "Day 30",
 			"title": "",
-			"description": "In the field with your manager",
+			"description": "In the field with your manager, helping you learn the ropes and figure it out as you go, so you build the confidence and experience to take the lead.",
 			"image": { "src": "/uploads/spwr-img-portrait-2.webp", "alt": "" }
 		},
 		{
 			"label": "Day 90",
 			"title": "",
-			"description": "Running your own appointments",
+			"description": "You’re at your peak, running your own appointments with everything you need. You’re ready to go and unstoppable.",
 			"image": { "src": "/uploads/spwr-img-portrait-3.webp", "alt": "" }
 		}
 	]

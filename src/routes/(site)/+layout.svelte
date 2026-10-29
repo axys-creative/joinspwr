@@ -24,7 +24,7 @@
 <svelte:body {@attach bgDust({ fixed: true })} />
 <SmoothScroll />
 <PageTransition name="fade" preserveHeader />
-<LoaderLogo {logo} morph={page.url.pathname === '/'} />
+<LoaderLogo morph={page.url.pathname === '/'} />
 
 <div class="site">
 	<HeaderBasic

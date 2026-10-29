@@ -6,7 +6,7 @@
 		/** Without a path or a URL the option just closes the modal. */
 		url?: string;
 		newTab?: boolean;
-		image?: { src: string; alt?: string };
+		image?: { src: string; alt?: string; position?: string };
 	};
 
 	export type ChoosePathProps = {
@@ -98,6 +98,7 @@
 		<img
 			{...imageProps(option.image.src, { sizes: '(min-width: 768px) 300px, 80vw' })}
 			alt={option.image.alt ?? ''}
+			style:object-position={option.image.position}
 			loading="lazy"
 		/>
 	{/if}
@@ -134,8 +135,8 @@
 		/>
 		<h2 id="choose-path-title">{title}</h2>
 		<ul>
-			{#each options as option (option.text)}
-				<li>
+			{#each options as option, index (option.text)}
+				<li style:--i={index}>
 					{#if option.url}
 						<a
 							class="option"
@@ -200,12 +201,19 @@
 					display 0.3s allow-discrete,
 					overlay 0.3s allow-discrete;
 			}
+
+			// Appears whole just before the loader lands on it, so the page never shows through.
+			&[open] {
+				transition:
+					opacity 0s var(--arrive-delay, 0s),
+					display 0.3s allow-discrete,
+					overlay 0.3s allow-discrete;
+			}
 		}
 	}
 
 	// Sits behind the loader and the modal for the whole landing, so neither brings its own blur with it.
 	.veil {
-		@include mixins.glass;
 		position: fixed;
 		inset: 0;
 		z-index: calc(var(--z-loading) - 1);
@@ -235,7 +243,8 @@
 
 	// Auto margins center the panel when it fits and let it start at the top, scrollable, when it does not.
 	.panel {
-		@include mixins.glass-card(24px, 16px);
+		@include mixins.glass-card(24px, 0);
+		background: var(--color-bg);
 		position: relative;
 		margin: auto;
 		display: flex;
@@ -269,6 +278,22 @@
 
 		@include mixins.max-md {
 			grid-template-columns: 1fr;
+		}
+	}
+
+	li {
+		@include mixins.mq-motion-allow {
+			.choose-path[open] & {
+				transition:
+					opacity 0.6s ease,
+					translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+				transition-delay: calc(var(--arrive-delay, 0s) + 0.15s + var(--i, 0) * 0.12s);
+
+				@starting-style {
+					opacity: 0;
+					translate: 0 40px;
+				}
+			}
 		}
 	}
 

@@ -3,7 +3,6 @@
 	"eyebrowText": "Platform",
 	"title": "Finance [Options]{.secondary-alt}",
 	"description": "With competitive financing options available, going solar has never been easier or more affordable.",
-	"accent": "Affordable Energy",
 	"logos": [
 		{
 			"src": "/uploads/logo-finance-1.svg",
@@ -42,5 +41,9 @@
 			"newTab": false,
 			"iconEnd": ""
 		}
-	}
+	},
+	"searchTitle": "Find your financing",
+	"searchLabel": "Search finance options",
+	"searchMinimum": 12,
+	"side": "left"
 }

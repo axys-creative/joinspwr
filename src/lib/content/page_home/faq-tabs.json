@@ -1,0 +1,68 @@
+{
+	"eyebrowText": "Frequently asked questions",
+	"title": "Straight [answers]{.secondary-alt}",
+	"description": "",
+	"accordion": {
+		"striped": true,
+		"singleOpen": true
+	},
+	"groups": [
+		{
+			"label": "General",
+			"items": [
+				{
+					"title": "How do I get started?",
+					"content": "<p>Fill out the form on the Join page and a recruiter will reach out to talk through the role and answer your questions.</p>"
+				},
+				{
+					"title": "Is it year-round or summer only?",
+					"content": "<p>Solar sells in every season. Many of our reps work year-round, and others join for a summer. Either way, you decide what fits your life.</p>"
+				},
+				{
+					"title": "What does a typical day look like?",
+					"content": "<p>You start with a team huddle, spend the day meeting homeowners and sharing how solar can lower their bills, and finish by checking in on progress and next steps.</p>"
+				},
+				{
+					"title": "When do I get paid?",
+					"content": "<p>You are paid on a regular schedule, and your earnings are tied to the results you deliver. Your recruiter will walk you through the pay calendar before you start.</p>"
+				}
+			]
+		},
+		{
+			"label": "New to sales",
+			"path": "new",
+			"items": [
+				{
+					"title": "Do I need experience?",
+					"content": "<p>No. Most of the team started with none. We train you on the product, the process and how to talk with homeowners, and you learn alongside people who have done it before.</p>"
+				},
+				{
+					"title": "What will my first 90 days look like?",
+					"content": "<p>You begin with onboarding and certification, spend your first month in the field with your manager, and by day 90 you are running your own appointments.</p>"
+				},
+				{
+					"title": "Isn't sales mostly pushy talking?",
+					"content": "<p>No. The job is helping homeowners understand what solar could save them, and answering their questions honestly. Training covers exactly how to do that.</p>"
+				}
+			]
+		},
+		{
+			"label": "Experienced",
+			"path": "experienced",
+			"items": [
+				{
+					"title": "What changes if I switch to SPWR?",
+					"content": "<p>You keep the skills you have and gain direct and dealer platforms, financing options and commission tracking built for reps. The comparison above shows the details.</p>"
+				},
+				{
+					"title": "Can I bring my team?",
+					"content": "<p>Yes. If you lead a team, talk to us and we will walk through what joining together looks like.</p>"
+				},
+				{
+					"title": "How is commission tracked?",
+					"content": "<p>Your commission is tracked in one place so you can see what you have earned and when it pays out. Your recruiter will walk you through it.</p>"
+				}
+			]
+		}
+	]
+}

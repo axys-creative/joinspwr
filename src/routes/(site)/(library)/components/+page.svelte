@@ -607,7 +607,7 @@
 	>
 		<p class="h3">
 			<RichText
-				text={'Join [America’s]{.primary} [leading]{.scribble} solar [sales]{.secondary} company, in [outline]{.stroke} and [italic]{.italic}.'}
+				text={'Join [America’s]{.primary} [leading]{.scribble} solar [sales]{.secondary} company, in [outline]{.stroke} and [italic]{.italic}, with [rolling]{.roll} letters.'}
 			/>
 		</p>
 	</LibrarySection>

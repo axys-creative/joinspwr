@@ -12,7 +12,8 @@ import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 import Headline from '$lib/sections/headline.svelte';
 import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 import FinanceGrid from '$lib/sections/finance-grid.svelte';
-import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
+import FaqTabs from '$lib/sections/faq-tabs.svelte';
+import FinanceSticky from '$lib/sections/finance-sticky.svelte';
 import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 import HeaderBasic from '$lib/components/header-basic.svelte';
 import FooterGnomon from '$lib/components/footer-gnomon.svelte';
@@ -94,17 +95,29 @@ const previews: Record<string, Preview> = {
 		component: CircleHighlight as unknown as Section,
 		props: (data) => ({ ...data, slices: data.slices ?? [] })
 	},
+	dealer_grid: {
+		component: FinanceGrid as unknown as Section,
+		props: (data) => ({ ...data, searchLabel: '', logos: data.logos ?? [] })
+	},
+	dealer_marquee: {
+		component: FinanceSticky as unknown as Section,
+		props: (data) => ({ ...data, searchLabel: '', logos: data.logos ?? [] })
+	},
 	earnings_potential: {
 		component: EarningsPotential as unknown as Section,
 		props: (data) => ({ ...data, tabs: data.tabs ?? [], static: true })
 	},
+	faq_tabs: {
+		component: FaqTabs as unknown as Section,
+		props: (data) => ({ ...data, groups: data.groups ?? [{ label: '', items: [] }] })
+	},
 	finance_grid: {
 		component: FinanceGrid as unknown as Section,
-		props: (data) => ({ ...data, logos: data.logos ?? [] })
+		props: (data) => ({ ...data, searchLabel: '', logos: data.logos ?? [] })
 	},
 	finance_marquee: {
-		component: FinanceMarquee as unknown as Section,
-		props: (data) => ({ ...data, logos: data.logos ?? [] })
+		component: FinanceSticky as unknown as Section,
+		props: (data) => ({ ...data, searchLabel: '', logos: data.logos ?? [] })
 	},
 	gallery_horizontal: {
 		component: GalleryHorizontal as unknown as Section,

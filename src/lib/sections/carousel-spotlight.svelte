@@ -21,7 +21,7 @@
 		autoplay?: boolean;
 		/** Holds autoplay while the mouse is over the carousel. Focus inside it always holds it. Defaults to `false`. */
 		pauseOnHover?: boolean;
-		/** Milliseconds between slides when it plays. Defaults to `2400`. */
+		/** Milliseconds between slides when it plays. Defaults to `4500`. */
 		interval?: number;
 		/** At least the height of the screen, with the content centered. Taller content still grows past it. */
 		fullScreen?: boolean;
@@ -47,7 +47,7 @@
 		loop = true,
 		autoplay = true,
 		pauseOnHover = false,
-		interval = 2400,
+		interval = 4500,
 		fullScreen = false,
 		id,
 		class: className,
@@ -233,7 +233,7 @@
 	.carousel-spotlight {
 		--slide-width: clamp(280px, min(75vw, (100svh - 320px) * 1.6), 1100px);
 		--slide-gap: 24px;
-		--slide-radius: 32px;
+		--slide-radius: var(--radius-lg);
 		--slide-aspect: 16 / 10;
 		--inactive-opacity: 0.4;
 		--panel-offset: 24px;
@@ -242,6 +242,12 @@
 		--content: min(var(--content-width), 100% - var(--body-padding) * 2);
 
 		overflow-x: clip;
+
+		@include mixins.max-md {
+			--panel-offset: 12px;
+			--slide-aspect: 4 / 5;
+			--slide-width: clamp(240px, min(75vw, (100svh - 320px) * 0.8), 1100px);
+		}
 	}
 
 	.full-screen {
@@ -325,6 +331,20 @@
 		border-radius: var(--panel-radius);
 		background: var(--color-glass);
 		backdrop-filter: blur(20px) saturate(1.4);
+
+		translate: 0 var(--panel-offset);
+		opacity: 0;
+
+		@include mixins.mq-motion-allow {
+			transition:
+				translate 0.6s var(--ease),
+				opacity 0.6s var(--ease);
+		}
+
+		.active & {
+			translate: 0 0;
+			opacity: 1;
+		}
 
 		h3,
 		p {

@@ -12,8 +12,10 @@
 		comparisonTableProps,
 		contactFormProps,
 		earningsPotentialProps,
+		faqTabsProps,
 		financeGridProps,
 		financeMarqueeProps,
+		financeStickyProps,
 		galleryHorizontalProps,
 		headlineProps,
 		heroImageCircleProps,
@@ -44,8 +46,10 @@
 	import CarouselSpotlight from '$lib/sections/carousel-spotlight.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
+	import FaqTabs from '$lib/sections/faq-tabs.svelte';
 	import FinanceGrid from '$lib/sections/finance-grid.svelte';
 	import FinanceMarquee from '$lib/sections/finance-marquee.svelte';
+	import FinanceSticky from '$lib/sections/finance-sticky.svelte';
 	import GalleryHorizontal from '$lib/sections/gallery-horizontal.svelte';
 	import Headline from '$lib/sections/headline.svelte';
 	import HeroCarousel from '$lib/sections/hero-carousel.svelte';
@@ -564,6 +568,39 @@
 	</LibrarySection>
 
 	<LibrarySection
+		title="FAQ Tabs"
+		type="Section"
+		description="A title above a toggle slider with a group of questions for each option, such as General, New to sales and Experienced. The group matching `path` opens first. Choosing another slides the rows out to the left, one after another, and the new ones in from the right; the same entrance plays when the section scrolls into view. It is the FAQ on the home page."
+		props={faqTabsProps}
+	>
+		<FaqTabs
+			class="full"
+			eyebrowText="Frequently asked questions"
+			title="Straight answers"
+			path="new"
+			groups={[
+				{
+					label: 'General',
+					items: [{ title: 'A general question', content: '<p>Its answer.</p>' }]
+				},
+				{
+					label: 'New to sales',
+					path: 'new',
+					items: [
+						{ title: 'A first question', content: '<p>Its answer.</p>' },
+						{ title: 'A second question', content: '<p>Another answer.</p>' }
+					]
+				},
+				{
+					label: 'Experienced',
+					path: 'experienced',
+					items: [{ title: 'A switching question', content: '<p>Its answer.</p>' }]
+				}
+			]}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
 		title="Finance Grid"
 		type="Section"
 		description="Section Copy above every logo at once, in rows that alternate four and three across, so nobody waits for one to scroll past. The boxes match Finance Marquee's."
@@ -593,6 +630,24 @@
 			description="A short paragraph above the logos."
 			logos={Array.from({ length: 7 }, (_, index) => ({
 				src: `/images/logo-sample-${index + 1}.svg`,
+				alt: `Sample logo ${index + 1}`
+			}))}
+			{cta}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Finance Sticky"
+		type="Section"
+		description="Section Copy pinned to one side while a two-column grid of logo cards scrolls past on the other, each card fading in as it arrives. Below `lg` the copy stops sticking and sits above the grid. Used on the home page for finance options (copy left) and dealers (`side=&quot;right&quot;`)."
+		props={financeStickyProps}
+	>
+		<FinanceSticky
+			class="full"
+			title="Finance Sticky"
+			description="A short paragraph beside the logos."
+			logos={Array.from({ length: 8 }, (_, index) => ({
+				src: `/images/logo-sample-${(index % 7) + 1}.svg`,
 				alt: `Sample logo ${index + 1}`
 			}))}
 			{cta}

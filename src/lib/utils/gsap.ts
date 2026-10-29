@@ -21,6 +21,7 @@ const registering = new Map<PluginName, Promise<void>>();
 let refreshTimer: ReturnType<typeof setTimeout> | undefined;
 let lastScroll = 0;
 let listening = false;
+let urgent = false;
 const SCROLL_IDLE = 300;
 
 let resolveReady: () => void;
@@ -35,20 +36,23 @@ export const whenScrollTrigger = () =>
 /**
  * Measures every ScrollTrigger again, in page order, once things have gone quiet. Sections build their triggers
  * whenever their own imports finish, which is not page order, so this puts pins and the triggers below them right.
- * `loadGsap('scrollTrigger')` asks for it already; call it again after anything slower than that.
+ * `loadGsap('scrollTrigger')` asks for it already; call it again after anything slower than that. `immediate` skips
+ * the wait for scrolling to stop, for changes that move whole sections, since pins are wrong until the refresh.
  */
-export function refreshScrollTriggers() {
+export function refreshScrollTriggers({ immediate = false } = {}) {
 	if (!listening) {
 		listening = true;
 		addEventListener('scroll', () => (lastScroll = performance.now()), { passive: true });
 	}
+	urgent ||= immediate;
 	clearTimeout(refreshTimer);
 	refreshTimer = setTimeout(async function run() {
 		// A refresh in the middle of a scroll resets what the sections are chasing, such as the tunnel's trailing slides.
-		if (performance.now() - lastScroll < SCROLL_IDLE) {
+		if (!urgent && performance.now() - lastScroll < SCROLL_IDLE) {
 			refreshTimer = setTimeout(run, SCROLL_IDLE);
 			return;
 		}
+		urgent = false;
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		ScrollTrigger.refresh();
 	}, 200);

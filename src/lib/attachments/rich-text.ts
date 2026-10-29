@@ -1,6 +1,7 @@
 import type { Attachment } from 'svelte/attachments';
 import './rich-text.scss';
 import type { ScribbleOptions } from './scribble';
+import { textRollLoop } from './text-roll-loop';
 
 const circleScales: Record<string, number> = {
 	'scribble-circle': 1,
@@ -8,14 +9,22 @@ const circleScales: Record<string, number> = {
 	'scribble-circle-wide': 1.2
 };
 
-/** Starts the behavior of the rich-text spans that need one: the scribble under `.scribble` and around `.scribble-circle` (`-tight` and `-wide` sit closer and farther out), drawn in each time it scrolls into view. */
+/** Starts the behavior of the rich-text spans that need one: the scribble under `.scribble` and around `.scribble-circle` (`-tight` and `-wide` sit closer and farther out), drawn in each time it scrolls into view. `.roll` words roll their letters up every few seconds. */
 export function richTextBehaviors(text?: string): Attachment<HTMLElement> {
 	return (el) => {
+		if (!text) return;
+
+		const cleanups: (() => void)[] = [];
+		// Each `.roll` waits a little longer for its first roll, so they never move together.
+		el.querySelectorAll<HTMLElement>('[data-rich-text-roll]').forEach((span, index) => {
+			const cleanup = textRollLoop({ delay: 5 + index * 2.5 })(span);
+			if (typeof cleanup === 'function') cleanups.push(cleanup);
+		});
+
 		const spans = el.querySelectorAll<HTMLElement>('[data-rich-text^="scribble"]');
-		if (!text || !spans.length) return;
+		if (!spans.length) return () => cleanups.forEach((cleanup) => cleanup());
 
 		let cancelled = false;
-		const cleanups: (() => void)[] = [];
 
 		import('./scribble').then(({ scribble }) => {
 			if (cancelled) return;

@@ -1,31 +1,46 @@
 <script module lang="ts">
 	export type LoaderLogoProps = LoaderOptions & {
-		/** The logo that fills in as the page loads. */
-		logo: LogoProps;
+		/** The word that rolls to the right while the page loads. Defaults to `SPWR`. */
+		text?: string;
 		/** On leaving, shrinks to the box that `choose-path.svelte` publishes and fades into it. Without that box it scales up and fades. */
 		morph?: boolean;
 	};
 </script>
 
 <script lang="ts">
+	import { textRollLoop } from '$lib/attachments/text-roll-loop';
 	import Loader, { type LoaderOptions } from '$lib/components/loader.svelte';
-	import Logo, { type LogoProps } from '$lib/components/logo.svelte';
 
-	let { logo, morph = false, class: className, ...options }: LoaderLogoProps = $props();
+	let { text = 'SPWR', morph = false, class: className, ...options }: LoaderLogoProps = $props();
+
+	let progress = $state(0);
+	const roll = textRollLoop({
+		direction: 'right',
+		delay: 0,
+		interval: 1.8,
+		duration: 0.5,
+		stagger: 0.08,
+		until: () => progress >= 1
+	});
 </script>
 
 <Loader
+	hold={900}
 	{...options}
+	bind:progress
 	exit={morph ? 1000 : 700}
 	class="loader-logo {morph ? 'morph' : ''} {className ?? ''}"
 >
-	{#snippet children(progress)}
+	{#snippet children(value)}
 		<div class="content">
-			<div class="mark" aria-hidden="true">
-				<div class="layer ghost"><Logo {...logo} /></div>
-				<div class="layer filled"><Logo {...logo} /></div>
+			<p class="word" aria-hidden="true" {@attach roll}>{text}</p>
+			<div class="ring" aria-hidden="true">
+				<svg viewBox="0 0 100 100">
+					<circle class="track" cx="50" cy="50" r="46" />
+					<circle class="fill" cx="50" cy="50" r="46" pathLength="1" />
+				</svg>
+				<p class="percent">{Math.round(value * 100)}%</p>
 			</div>
-			<p class="percent" aria-hidden="true">{Math.round(progress * 100)}%</p>
 		</div>
 	{/snippet}
 </Loader>
@@ -41,29 +56,47 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 16px;
+		gap: 32px;
 	}
 
-	.mark {
+	.word {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: clamp(56px, 12vw, 112px);
+		font-weight: 700;
+		line-height: 1.1;
+	}
+
+	.ring {
+		position: relative;
 		display: grid;
+		place-items: center;
+		width: 96px;
+		aspect-ratio: 1;
+
+		svg {
+			grid-area: 1 / 1;
+			width: 100%;
+			height: 100%;
+			rotate: -90deg;
+			fill: none;
+			stroke-width: 3;
+			stroke-linecap: round;
+		}
 	}
 
-	.layer {
-		--logo-height: clamp(40px, 8vw, 72px);
-		--logo-size: var(--logo-height);
-
-		grid-area: 1 / 1;
+	.track {
+		stroke: var(--color-border);
 	}
 
-	.ghost {
-		opacity: 0.15;
-	}
-
-	.filled {
-		clip-path: inset(0 calc((1 - var(--progress)) * 100%) 0 0);
+	.fill {
+		stroke: var(--color-accent);
+		stroke-dasharray: 1;
+		stroke-dashoffset: calc(1 - var(--progress));
 	}
 
 	.percent {
+		position: absolute;
 		margin: 0;
 		color: var(--color-text-muted);
 		font-size: 14px;

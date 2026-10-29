@@ -40,14 +40,21 @@
 			event.preventDefault();
 			lenis.scrollTo(0, { duration: 0.8 });
 		};
+		const onScrollTo = (event: Event) => {
+			if (!lenis) return;
+			event.preventDefault();
+			lenis.scrollTo((event as CustomEvent<{ top: number }>).detail.top, { duration: 1 });
+		};
 		document.addEventListener('click', onClick);
 		document.addEventListener('scroll-top', onScrollTop);
+		document.addEventListener('scroll-to', onScrollTo);
 
 		return () => {
 			destroyed = true;
 			stopSync?.();
 			document.removeEventListener('click', onClick);
 			document.removeEventListener('scroll-top', onScrollTop);
+			document.removeEventListener('scroll-to', onScrollTo);
 			lenis?.destroy();
 		};
 	});

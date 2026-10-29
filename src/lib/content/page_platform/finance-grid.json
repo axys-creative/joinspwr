@@ -46,5 +46,8 @@
 			"url": "https://www.sunrun.com",
 			"newTab": true
 		}
-	]
+	],
+	"searchTitle": "Looking for a lender?",
+	"searchLabel": "Search finance options",
+	"searchMinimum": 12
 }

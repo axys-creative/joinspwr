@@ -60,7 +60,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -440,7 +440,7 @@
 							"name": "text",
 							"label": "Statement",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						}
 					]
 				},
@@ -630,9 +630,9 @@
 							"widget": "number",
 							"value_type": "int",
 							"min": 1000,
-							"default": 2400,
+							"default": 4500,
 							"required": false,
-							"hint": "In milliseconds. 2400 is two and a half seconds."
+							"hint": "In milliseconds. 4500 is four and a half seconds."
 						},
 						{
 							"name": "fullScreen",
@@ -1062,7 +1062,7 @@
 				},
 				{
 					"name": "finance_marquee",
-					"label": "Finance Marquee",
+					"label": "Finance List",
 					"file": "src/lib/content/page_home/finance-marquee.json",
 					"preview_path": "#finance",
 					"fields": [
@@ -1092,18 +1092,11 @@
 							"required": false
 						},
 						{
-							"name": "accent",
-							"label": "Handwritten text",
-							"widget": "string",
-							"required": false,
-							"hint": "Shown at the bottom left of the marquee, in the accent font. Use {.br} for a line break."
-						},
-						{
 							"name": "logos",
 							"label": "Logos",
 							"widget": "list",
 							"min": 2,
-							"hint": "Shown in two rows moving opposite ways.",
+							"hint": "Shown two across in a grid that fades in as it scrolls.",
 							"fields": [
 								{
 									"name": "src",
@@ -1164,6 +1157,204 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "searchLabel",
+							"label": "Search placeholder",
+							"widget": "string",
+							"required": false,
+							"hint": "The text in the search box, such as \"Search dealer network\". Leave empty for no search."
+						},
+						{
+							"name": "searchTitle",
+							"label": "Search title",
+							"widget": "string",
+							"required": false,
+							"hint": "A short heading above the search box, such as \"Find your dealer\"."
+						},
+						{
+							"name": "searchMinimum",
+							"label": "Show search from",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"default": 12,
+							"required": false,
+							"hint": "The search box shows only when there are at least this many logos. 0 always shows it."
+						},
+						{
+							"name": "side",
+							"label": "Text side",
+							"widget": "select",
+							"options": [
+								{
+									"label": "Left",
+									"value": "left"
+								},
+								{
+									"label": "Right",
+									"value": "right"
+								}
+							],
+							"default": "left",
+							"required": false,
+							"hint": "Which side the pinned text sits on from large screens up."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "dealer_marquee",
+					"label": "Dealer List",
+					"file": "src/lib/content/page_home/dealer-marquee.json",
+					"preview_path": "#dealers",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "logos",
+							"label": "Logos",
+							"widget": "list",
+							"min": 2,
+							"hint": "Shown two across in a grid that fades in as it scrolls.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "cta",
+							"label": "Call to action",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Primary button",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": true
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right)."
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "searchLabel",
+							"label": "Search placeholder",
+							"widget": "string",
+							"required": false,
+							"hint": "The text in the search box, such as \"Search dealer network\". Leave empty for no search."
+						},
+						{
+							"name": "searchTitle",
+							"label": "Search title",
+							"widget": "string",
+							"required": false,
+							"hint": "A short heading above the search box, such as \"Find your dealer\"."
+						},
+						{
+							"name": "searchMinimum",
+							"label": "Show search from",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"default": 12,
+							"required": false,
+							"hint": "The search box shows only when there are at least this many logos. 0 always shows it."
+						},
+						{
+							"name": "side",
+							"label": "Text side",
+							"widget": "select",
+							"options": [
+								{
+									"label": "Left",
+									"value": "left"
+								},
+								{
+									"label": "Right",
+									"value": "right"
+								}
+							],
+							"default": "left",
+							"required": false,
+							"hint": "Which side the pinned text sits on from large screens up."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
 						}
 					]
 				},
@@ -1267,6 +1458,79 @@
 											"widget": "string",
 											"required": false,
 											"hint": "Icon file name without .svg (e.g. chevron-right)."
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "faq_tabs",
+					"label": "FAQ",
+					"file": "src/lib/content/page_home/faq-tabs.json",
+					"preview_path": "#faq",
+					"fields": [
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{ "name": "title", "label": "Title", "widget": "string", "required": false },
+						{ "name": "description", "label": "Description", "widget": "text", "required": false },
+						{
+							"name": "accordion",
+							"label": "Accordion options",
+							"widget": "object",
+							"required": false,
+							"fields": [
+								{
+									"name": "singleOpen",
+									"label": "One question open at a time",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								},
+								{
+									"name": "striped",
+									"label": "Glass background on every other question",
+									"widget": "boolean",
+									"default": true,
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "groups",
+							"label": "Groups",
+							"widget": "list",
+							"summary": "{{fields.label}}",
+							"hint": "The toggle's options. The group whose path matches the visitor opens first; the group with no path is the general one.",
+							"fields": [
+								{ "name": "label", "label": "Toggle text", "widget": "string" },
+								{
+									"name": "path",
+									"label": "Visitor path",
+									"widget": "select",
+									"required": false,
+									"options": [
+										{ "label": "New to sales", "value": "new" },
+										{ "label": "Experienced", "value": "experienced" }
+									]
+								},
+								{
+									"name": "items",
+									"label": "Questions",
+									"widget": "list",
+									"summary": "{{fields.title}}",
+									"fields": [
+										{ "name": "title", "label": "Question", "widget": "string" },
+										{
+											"name": "content",
+											"label": "Answer",
+											"widget": "text",
+											"hint": "HTML. Wrap paragraphs in <p></p>; links and bold are allowed."
 										}
 									]
 								}
@@ -1481,7 +1745,7 @@
 							"name": "text",
 							"label": "Quote",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
 						},
 						{
 							"name": "quote",
@@ -1955,7 +2219,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -2107,7 +2371,7 @@
 							"name": "text",
 							"label": "Quote",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break. It is shown in quotes when a name is set below."
 						},
 						{
 							"name": "quote",
@@ -2176,7 +2440,7 @@
 							"label": "Title",
 							"widget": "string",
 							"required": false,
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -2426,6 +2690,136 @@
 									"required": false
 								}
 							]
+						},
+						{
+							"name": "searchLabel",
+							"label": "Search placeholder",
+							"widget": "string",
+							"required": false,
+							"hint": "The text in the search box, such as \"Search dealer network\". Leave empty for no search."
+						},
+						{
+							"name": "searchTitle",
+							"label": "Search title",
+							"widget": "string",
+							"required": false,
+							"hint": "A short heading above the search box, such as \"Find your dealer\"."
+						},
+						{
+							"name": "searchMinimum",
+							"label": "Show search from",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"default": 12,
+							"required": false,
+							"hint": "The search box shows only when there are at least this many logos. 0 always shows it."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "dealer_grid",
+					"label": "Dealer Grid",
+					"file": "src/lib/content/page_platform/dealer-grid.json",
+					"preview_path": "platform#dealers",
+					"fields": [
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "logos",
+							"label": "Logos",
+							"widget": "list",
+							"min": 2,
+							"hint": "Shown in rows that alternate four and three across.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": true
+								},
+								{
+									"name": "alt",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "url",
+									"label": "Link",
+									"widget": "string",
+									"required": false,
+									"hint": "The partner's website. With it, the card is a link."
+								},
+								{
+									"name": "newTab",
+									"label": "Open in new tab",
+									"widget": "boolean",
+									"default": false,
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "searchLabel",
+							"label": "Search placeholder",
+							"widget": "string",
+							"required": false,
+							"hint": "The text in the search box, such as \"Search dealer network\". Leave empty for no search."
+						},
+						{
+							"name": "searchTitle",
+							"label": "Search title",
+							"widget": "string",
+							"required": false,
+							"hint": "A short heading above the search box, such as \"Find your dealer\"."
+						},
+						{
+							"name": "searchMinimum",
+							"label": "Show search from",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"default": 12,
+							"required": false,
+							"hint": "The search box shows only when there are at least this many logos. 0 always shows it."
+						},
+						{
+							"name": "fullScreen",
+							"label": "Full screen height",
+							"widget": "boolean",
+							"default": false,
+							"required": false
 						}
 					]
 				},
@@ -2542,7 +2936,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.primary}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -2694,7 +3088,7 @@
 							"name": "text",
 							"label": "Statement",
 							"widget": "text",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						}
 					]
 				},
@@ -3124,7 +3518,7 @@
 							"name": "title",
 							"label": "Title",
 							"widget": "string",
-							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "description",
@@ -4150,6 +4544,26 @@
 											"widget": "string",
 											"required": false,
 											"hint": "Leave empty if the image is decorative."
+										},
+										{
+											"name": "position",
+											"label": "Focus",
+											"widget": "select",
+											"multiple": false,
+											"required": false,
+											"default": "center",
+											"options": [
+											{ "label": "Center", "value": "center" },
+											{ "label": "Top", "value": "center top" },
+											{ "label": "Bottom", "value": "center bottom" },
+											{ "label": "Left", "value": "left center" },
+											{ "label": "Right", "value": "right center" },
+											{ "label": "Top left", "value": "left top" },
+											{ "label": "Top right", "value": "right top" },
+											{ "label": "Bottom left", "value": "left bottom" },
+											{ "label": "Bottom right", "value": "right bottom" }
+											],
+											"hint": "Which part of the picture stays visible when it is cropped."
 										}
 									]
 								}
@@ -4167,7 +4581,7 @@
 							"label": "Title",
 							"widget": "string",
 							"required": false,
-							"hint": "The heading at the top left. Style words with [words]{.scribble-circle}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong."
+							"hint": "The heading at the top left. Style words with [words]{.scribble-circle}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong."
 						},
 						{
 							"name": "level",

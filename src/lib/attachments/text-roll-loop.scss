@@ -1,0 +1,51 @@
+.text-roll-loop__chars {
+	display: inline-flex;
+	overflow: hidden;
+	white-space: pre;
+}
+
+.text-roll-loop__char {
+	position: relative;
+	display: inline-block;
+
+	&::after {
+		content: attr(data-char);
+		position: absolute;
+		top: 100%;
+		left: 0;
+	}
+}
+
+.text-roll-loop--rolling:not(.text-roll-loop--right) .text-roll-loop__char {
+	translate: 0 -100%;
+	transition: translate var(--text-roll-duration, 0.6s) var(--ease)
+		calc(var(--text-roll-index) * var(--text-roll-stagger, 0.04s));
+}
+
+.text-roll-loop--right {
+	.text-roll-loop__chars {
+		overflow: visible;
+	}
+
+	.text-roll-loop__char {
+		overflow: hidden;
+	}
+
+	.text-roll-loop__inner {
+		position: relative;
+		display: inline-block;
+
+		&::after {
+			content: attr(data-char);
+			position: absolute;
+			top: 0;
+			right: 100%;
+		}
+	}
+
+	&.text-roll-loop--rolling .text-roll-loop__inner {
+		translate: 100% 0;
+		transition: translate var(--text-roll-duration, 0.6s) var(--ease)
+			calc(var(--text-roll-index) * var(--text-roll-stagger, 0.04s));
+	}
+}

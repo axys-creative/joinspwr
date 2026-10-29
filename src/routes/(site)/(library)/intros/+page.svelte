@@ -10,7 +10,6 @@
 	import LoaderCurtain from '$lib/components/loader-curtain.svelte';
 	import LoaderGrid from '$lib/components/loader-grid.svelte';
 	import LoaderLogo from '$lib/components/loader-logo.svelte';
-	import logo from '$lib/content/global/logo.json';
 	import { loaderGridProps, loaderLogoProps, loaderProps } from '$lib/library/component-props';
 	import { simulateLoad } from '$lib/library/simulate-load';
 	import IntroFrame from '$lib/library/intro-frame.svelte';
@@ -116,12 +115,12 @@
 		title="Loader Logo"
 		type="Intro"
 		tag="Loader"
-		description="The logo, faint at first, fills in from left to right as the page loads, then fades. Progress is real on a site (the fonts and the pictures at the top of the page); the frame fakes a load. Mount it once in a layout, ahead of the page, and heroes with a load animation wait for it."
+		description="The word rolls letter by letter to the right while a ring fills with the accent color and a percentage counts up; when the ring is full the roll finishes and it fades. Progress is real on a site (the fonts and the pictures at the top of the page); the frame fakes a load. Mount it once in a layout, ahead of the page, and heroes with a load animation wait for it."
 		props={loaderLogoProps}
 	>
 		<IntroFrame path="/loader-logo">
 			{#key track}
-				<LoaderLogo {logo} contained {track} />
+				<LoaderLogo contained {track} />
 			{/key}
 		</IntroFrame>
 	</LibrarySection>

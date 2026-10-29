@@ -1,0 +1,117 @@
+{
+	"eyebrowIcon": "/uploads/icon-card-membership.svg",
+	"eyebrowText": "Platform",
+	"title": "Dealer [Network]{.secondary-alt}",
+	"description": "Sell through the dealers and platforms you already know, backed by SPWR.",
+	"logos": [
+		{
+			"src": "/uploads/logo-dealer-1.svg",
+			"alt": "Action Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-2.svg",
+			"alt": "Bright Planet Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-3.svg",
+			"alt": "Brilliant Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-4.svg",
+			"alt": "Empower Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-5.svg",
+			"alt": "Fastrac Energy Services"
+		},
+		{
+			"src": "/uploads/logo-dealer-6.svg",
+			"alt": "Good Power"
+		},
+		{
+			"src": "/uploads/logo-dealer-7.svg",
+			"alt": "Icon Power"
+		},
+		{
+			"src": "/uploads/logo-dealer-8.svg",
+			"alt": "Ilum Energy Solutions"
+		},
+		{
+			"src": "/uploads/logo-dealer-9.svg",
+			"alt": "Malama Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-10.svg",
+			"alt": "Mayer"
+		},
+		{
+			"src": "/uploads/logo-dealer-11.svg",
+			"alt": "NLITN"
+		},
+		{
+			"src": "/uploads/logo-dealer-12.svg",
+			"alt": "OC Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-13.svg",
+			"alt": "Our World Energy"
+		},
+		{
+			"src": "/uploads/logo-dealer-14.svg",
+			"alt": "Plug PV"
+		},
+		{
+			"src": "/uploads/logo-dealer-15.svg",
+			"alt": "Skyline Smart Energy"
+		},
+		{
+			"src": "/uploads/logo-dealer-16.svg",
+			"alt": "SNSLR"
+		},
+		{
+			"src": "/uploads/logo-dealer-17.svg",
+			"alt": "Spring Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-18.svg",
+			"alt": "Standard Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-19.svg",
+			"alt": "Sun Vena Solar"
+		},
+		{
+			"src": "/uploads/logo-dealer-20.svg",
+			"alt": "Dealer partner 20"
+		},
+		{
+			"src": "/uploads/logo-dealer-21.svg",
+			"alt": "Dealer partner 21"
+		},
+		{
+			"src": "/uploads/logo-dealer-22.svg",
+			"alt": "Dealer partner 22"
+		},
+		{
+			"src": "/uploads/logo-dealer-23.svg",
+			"alt": "Dealer partner 23"
+		},
+		{
+			"src": "/uploads/logo-dealer-24.svg",
+			"alt": "Dealer partner 24"
+		}
+	],
+	"cta": {
+		"primary": {
+			"text": "View all",
+			"textDescription": "View all dealer partners",
+			"url": "/platform#dealers",
+			"newTab": false,
+			"iconEnd": ""
+		}
+	},
+	"searchTitle": "Find your dealer",
+	"searchLabel": "Search dealer network",
+	"searchMinimum": 12,
+	"side": "right"
+}

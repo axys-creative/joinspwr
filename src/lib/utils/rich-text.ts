@@ -7,6 +7,7 @@ export const richTextClasses = [
 	'h6',
 	'italic',
 	'primary',
+	'roll',
 	'scribble',
 	'scribble-circle',
 	'scribble-circle-tight',
@@ -39,7 +40,8 @@ export function richTextToken(words: string, classes: string) {
 	if (!known.length) return text;
 
 	const drawn = known.find((name) => name.startsWith('scribble'));
-	const behavior = drawn ? ` data-rich-text="${drawn}"` : '';
+	const roll = known.includes('roll') ? ' data-rich-text-roll' : '';
+	const behavior = (drawn ? ` data-rich-text="${drawn}"` : '') + roll;
 	return `<span class="${known.map((name) => `rich-text--${name}`).join(' ')}"${behavior}>${text}</span>`;
 }
 

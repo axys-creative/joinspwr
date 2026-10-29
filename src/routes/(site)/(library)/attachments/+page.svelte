@@ -34,6 +34,7 @@
 	import { textFill } from '$lib/attachments/text-fill';
 	import { textFlip } from '$lib/attachments/text-flip';
 	import { textRoll } from '$lib/attachments/text-roll';
+	import { textRollLoop } from '$lib/attachments/text-roll-loop';
 	import { textReveal } from '$lib/attachments/text-reveal';
 	import { textScale } from '$lib/attachments/text-scale';
 	import { tilt } from '$lib/attachments/tilt';
@@ -934,7 +935,7 @@
 			{
 				name: 'strength',
 				description:
-					'A number, the sensitivity of the push (how far the element moves). Defaults to `10`.'
+					'A number, the sensitivity of the push (how far the element moves). Defaults to `5`.'
 			},
 			{
 				name: 'restore',
@@ -1378,6 +1379,31 @@
 			<Button text="Underline roll" type="underline" {@attach textRoll({ stagger: 0.04 })} />
 			<Button text="Slow roll" {@attach textRoll({ duration: 1.2 })} />
 		</div>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Text Roll Loop"
+		type="Attachment"
+		description="Each letter rolls up and out on a timer, replaced by a copy rising from below, one after another, then it waits and rolls again. The same roll as Text Roll, without the hover. In rich text it is the `.roll` class, and each one starts later than the one before. Plain CSS and a little script, no GSAP. Screen readers get the original text. Off with reduced motion."
+		props={[
+			{ name: 'interval', description: 'A number, seconds between each roll. Defaults to `5`.' },
+			{
+				name: 'delay',
+				description:
+					'A number, seconds before the first roll, to keep several loops out of step. Defaults to `interval`.'
+			},
+			{
+				name: 'stagger',
+				description: 'A number, seconds between each letter starting. Defaults to `0.04`.'
+			},
+			{ name: 'duration', description: 'A number, seconds each letter takes. Defaults to `0.6`.' }
+		]}
+		propsLabel="options"
+	>
+		<p class="h2">
+			<span {@attach textRollLoop({ interval: 3, delay: 1 })}>Rolling</span>
+			<span {@attach textRollLoop({ interval: 3, delay: 2.5 })}>letters</span>
+		</p>
 	</LibrarySection>
 
 	<LibrarySection
