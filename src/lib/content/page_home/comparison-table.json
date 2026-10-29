@@ -1,5 +1,5 @@
 {
-	"title": "Built so you [close more]{.secondary-alt} and wait less",
+	"title": "Built so you [close more]{.secondary-alt} and [wait less]{.roll}",
 	"primaryLabel": "SPWR",
 	"secondaryLabel": "Industry average",
 	"rows": [
@@ -10,7 +10,7 @@
 		},
 		{
 			"label": "Finance partners",
-			"primary": "7 (EnFin, Everbright, GoodLeap, IGS Energy, LightReach, PosiGen, Sunrun)",
+			"primary": "7",
 			"secondary": "?"
 		},
 		{

@@ -650,6 +650,14 @@
 					"preview_path": "#gallery",
 					"fields": [
 						{
+							"name": "hidden",
+							"label": "Hide this section",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes the Gallery off the home page without deleting its content."
+						},
+						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
 							"widget": "image",
@@ -1506,9 +1514,9 @@
 							"label": "Groups",
 							"widget": "list",
 							"summary": "{{fields.label}}",
-							"hint": "The toggle's options. The group whose path matches the visitor opens first; the group with no path is the general one.",
+							"hint": "Each group is a set of questions. One group shows no toggle; add a second and a toggle appears. A group's visitor path, if set, opens it first for that visitor.",
 							"fields": [
-								{ "name": "label", "label": "Toggle text", "widget": "string" },
+								{ "name": "label", "label": "Group name (toggle text)", "widget": "string" },
 								{
 									"name": "path",
 									"label": "Visitor path",
@@ -2824,9 +2832,9 @@
 					]
 				},
 				{
-					"name": "accordion_section",
+					"name": "faq_tabs",
 					"label": "FAQ",
-					"file": "src/lib/content/page_platform/accordion-section.json",
+					"file": "src/lib/content/page_platform/faq-tabs.json",
 					"preview_path": "platform#faq",
 					"fields": [
 						{
@@ -2870,17 +2878,37 @@
 							]
 						},
 						{
-							"name": "items",
-							"label": "Questions",
+							"name": "groups",
+							"label": "Groups",
 							"widget": "list",
-							"summary": "{{fields.title}}",
+							"summary": "{{fields.label}}",
+							"hint": "Each group is a set of questions. One group shows no toggle; add a second and a toggle appears. A group's visitor path, if set, opens it first for that visitor.",
 							"fields": [
-								{ "name": "title", "label": "Question", "widget": "string" },
+								{ "name": "label", "label": "Group name (toggle text)", "widget": "string" },
 								{
-									"name": "content",
-									"label": "Answer",
-									"widget": "text",
-									"hint": "HTML. Wrap paragraphs in <p></p>; links and bold are allowed."
+									"name": "path",
+									"label": "Visitor path",
+									"widget": "select",
+									"required": false,
+									"options": [
+										{ "label": "New to sales", "value": "new" },
+										{ "label": "Experienced", "value": "experienced" }
+									]
+								},
+								{
+									"name": "items",
+									"label": "Questions",
+									"widget": "list",
+									"summary": "{{fields.title}}",
+									"fields": [
+										{ "name": "title", "label": "Question", "widget": "string" },
+										{
+											"name": "content",
+											"label": "Answer",
+											"widget": "text",
+											"hint": "HTML. Wrap paragraphs in <p></p>; links and bold are allowed."
+										}
+									]
 								}
 							]
 						}
@@ -3876,9 +3904,9 @@
 					]
 				},
 				{
-					"name": "accordion_section",
+					"name": "faq_tabs",
 					"label": "FAQ",
-					"file": "src/lib/content/page_join/accordion-section.json",
+					"file": "src/lib/content/page_join/faq-tabs.json",
 					"preview_path": "join#faq",
 					"fields": [
 						{
@@ -3922,17 +3950,37 @@
 							]
 						},
 						{
-							"name": "items",
-							"label": "Questions",
+							"name": "groups",
+							"label": "Groups",
 							"widget": "list",
-							"summary": "{{fields.title}}",
+							"summary": "{{fields.label}}",
+							"hint": "Each group is a set of questions. One group shows no toggle; add a second and a toggle appears. A group's visitor path, if set, opens it first for that visitor.",
 							"fields": [
-								{ "name": "title", "label": "Question", "widget": "string" },
+								{ "name": "label", "label": "Group name (toggle text)", "widget": "string" },
 								{
-									"name": "content",
-									"label": "Answer",
-									"widget": "text",
-									"hint": "HTML. Wrap paragraphs in <p></p>; links and bold are allowed."
+									"name": "path",
+									"label": "Visitor path",
+									"widget": "select",
+									"required": false,
+									"options": [
+										{ "label": "New to sales", "value": "new" },
+										{ "label": "Experienced", "value": "experienced" }
+									]
+								},
+								{
+									"name": "items",
+									"label": "Questions",
+									"widget": "list",
+									"summary": "{{fields.title}}",
+									"fields": [
+										{ "name": "title", "label": "Question", "widget": "string" },
+										{
+											"name": "content",
+											"label": "Answer",
+											"widget": "text",
+											"hint": "HTML. Wrap paragraphs in <p></p>; links and bold are allowed."
+										}
+									]
 								}
 							]
 						}
@@ -4553,15 +4601,15 @@
 											"required": false,
 											"default": "center",
 											"options": [
-											{ "label": "Center", "value": "center" },
-											{ "label": "Top", "value": "center top" },
-											{ "label": "Bottom", "value": "center bottom" },
-											{ "label": "Left", "value": "left center" },
-											{ "label": "Right", "value": "right center" },
-											{ "label": "Top left", "value": "left top" },
-											{ "label": "Top right", "value": "right top" },
-											{ "label": "Bottom left", "value": "left bottom" },
-											{ "label": "Bottom right", "value": "right bottom" }
+												{ "label": "Center", "value": "center" },
+												{ "label": "Top", "value": "center top" },
+												{ "label": "Bottom", "value": "center bottom" },
+												{ "label": "Left", "value": "left center" },
+												{ "label": "Right", "value": "right center" },
+												{ "label": "Top left", "value": "left top" },
+												{ "label": "Top right", "value": "right top" },
+												{ "label": "Bottom left", "value": "left bottom" },
+												{ "label": "Bottom right", "value": "right bottom" }
 											],
 											"hint": "Which part of the picture stays visible when it is cropped."
 										}

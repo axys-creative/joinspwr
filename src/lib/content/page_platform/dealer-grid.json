@@ -5,100 +5,92 @@
 	"description": "Sell through the dealers and platforms you already know, backed by SPWR.",
 	"logos": [
 		{
-			"src": "/uploads/logo-dealer-1.svg",
+			"src": "/uploads/dealers-logo-action-solar.svg",
 			"alt": "Action Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-2.svg",
+			"src": "/uploads/dealers-logo-bright-planet-solar.svg",
 			"alt": "Bright Planet Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-3.svg",
+			"src": "/uploads/dealers-logo-brilliant-solar.svg",
 			"alt": "Brilliant Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-4.svg",
+			"src": "/uploads/dealers-logo-empower-solar.svg",
 			"alt": "Empower Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-5.svg",
+			"src": "/uploads/dealers-logo-fastrac-energy-services.svg",
 			"alt": "Fastrac Energy Services"
 		},
 		{
-			"src": "/uploads/logo-dealer-6.svg",
+			"src": "/uploads/dealers-logo-good-power.svg",
 			"alt": "Good Power"
 		},
 		{
-			"src": "/uploads/logo-dealer-7.svg",
+			"src": "/uploads/dealers-logo-icon-power.svg",
 			"alt": "Icon Power"
 		},
 		{
-			"src": "/uploads/logo-dealer-8.svg",
+			"src": "/uploads/dealers-logo-ilum-energy-solutions.svg",
 			"alt": "Ilum Energy Solutions"
 		},
 		{
-			"src": "/uploads/logo-dealer-9.svg",
+			"src": "/uploads/dealers-logo-malama-solar.svg",
 			"alt": "Malama Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-10.svg",
+			"src": "/uploads/dealers-logo-mayer.svg",
 			"alt": "Mayer"
 		},
 		{
-			"src": "/uploads/logo-dealer-11.svg",
+			"src": "/uploads/dealers-logo-nlitn.svg",
 			"alt": "NLITN"
 		},
 		{
-			"src": "/uploads/logo-dealer-12.svg",
+			"src": "/uploads/dealers-logo-oc-solar.svg",
 			"alt": "OC Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-13.svg",
+			"src": "/uploads/dealers-logo-our-world-energy.svg",
 			"alt": "Our World Energy"
 		},
 		{
-			"src": "/uploads/logo-dealer-14.svg",
+			"src": "/uploads/dealers-logo-plug-pv.svg",
 			"alt": "Plug PV"
 		},
 		{
-			"src": "/uploads/logo-dealer-15.svg",
+			"src": "/uploads/dealers-logo-skyline-smart-energy.svg",
 			"alt": "Skyline Smart Energy"
 		},
 		{
-			"src": "/uploads/logo-dealer-16.svg",
+			"src": "/uploads/dealers-logo-snslr.svg",
 			"alt": "SNSLR"
 		},
 		{
-			"src": "/uploads/logo-dealer-17.svg",
+			"src": "/uploads/dealers-logo-spring-solar.svg",
 			"alt": "Spring Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-18.svg",
+			"src": "/uploads/dealers-logo-standard-solar.svg",
 			"alt": "Standard Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-19.svg",
+			"src": "/uploads/dealers-logo-sun-vena-solar.svg",
 			"alt": "Sun Vena Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-20.svg",
-			"alt": "Dealer partner 20"
+			"src": "/uploads/dealers-logo-sun-solar-solutions.svg",
+			"alt": "Sun Solar Solutions"
 		},
 		{
-			"src": "/uploads/logo-dealer-21.svg",
-			"alt": "Dealer partner 21"
+			"src": "/uploads/dealers-logo-trismart-solar.svg",
+			"alt": "TriSmart Solar"
 		},
 		{
-			"src": "/uploads/logo-dealer-22.svg",
-			"alt": "Dealer partner 22"
-		},
-		{
-			"src": "/uploads/logo-dealer-23.svg",
-			"alt": "Dealer partner 23"
-		},
-		{
-			"src": "/uploads/logo-dealer-24.svg",
-			"alt": "Dealer partner 24"
+			"src": "/uploads/dealers-logo-unicity-solar-energy.svg",
+			"alt": "Unicity Solar Energy"
 		}
 	],
 	"searchTitle": "Find a dealer partner",

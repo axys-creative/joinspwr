@@ -42,7 +42,8 @@
 	opacity: 1;
 }
 
-// Pressing any option shrinks it a little, as if it were pushed in.
+// Pressing any option shrinks it a little, as if it were pushed in. A component that sets its own option
+// `transition` must keep `scale 0.24s ease` in it, or the press snaps.
 :where(.toggle-slider > :not(.toggle-slider__slider, legend):active) {
 	scale: var(--toggle-scale-down);
 }

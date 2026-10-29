@@ -216,7 +216,9 @@
 		cursor: pointer;
 
 		@include mixins.mq-motion-allow {
-			transition: color var(--duration) var(--ease);
+			transition:
+				color var(--duration) var(--ease),
+				scale 0.24s ease;
 		}
 
 		&:has(input:checked) {

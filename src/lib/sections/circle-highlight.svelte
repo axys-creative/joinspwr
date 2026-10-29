@@ -16,7 +16,7 @@
 		radius?: number;
 		/** The space between slices, in the same units. */
 		gap?: number;
-		/** `outside` places each caption around the ring. `inside` shows only the active one, in the hole. `cards` (with no copy beside the ring) puts glass cards beside it with a line drawn to each slice, stacked under it below `lg`. */
+		/** `outside` places each caption around the ring. `inside` shows only the active one, in the hole. `cards` (with no copy beside the ring) puts glass cards beside it with a line drawn to each slice; from `lg` up each card appears as its slice is reached and keeps its title, the current one draws its line, then opens its text, and leaving the section hides them all. Below `lg` they stack under the ring. */
 		captionPlacement?: 'outside' | 'inside' | 'cards';
 		/** `default` centers the first slice at 12 o'clock. `tilted` puts a division there with the first slice on its right, `tilted-left` on its left. */
 		orientation?: 'default' | 'tilted' | 'tilted-left';
@@ -97,6 +97,7 @@
 	let armed = $state(false);
 	let started = $state(false);
 	let finale = $state(false);
+	let away = $state(false);
 	let active = $state(0);
 	let seek: ((index: number) => void) | undefined;
 
@@ -140,6 +141,8 @@
 						pin: true,
 						scrub: 1,
 						onEnter: () => (started = true),
+						onLeave: () => (away = true),
+						onEnterBack: () => (away = false),
 						onLeaveBack: () => (started = false),
 						onUpdate: (self) => {
 							const step = Math.min(steps - 1, Math.floor(self.progress * steps));
@@ -181,7 +184,7 @@
 			)}; --depth: {active - index}"
 		>
 			<h3 class="h6">{slice.title}</h3>
-			{#if slice.description}<p>{slice.description}</p>{/if}
+			{#if slice.description}<div class="more"><p>{slice.description}</p></div>{/if}
 		</div>
 	{/each}
 {/snippet}
@@ -192,6 +195,7 @@
 	class:armed
 	class:started
 	class:finale
+	class:away
 	class:centered={!hasCopy}
 	class:callouts
 	style="--count: {slices.length}"
@@ -408,7 +412,7 @@
 		}
 
 		p {
-			margin-block-start: 4px;
+			padding-block-start: 4px;
 			color: var(--color-text-muted);
 			font-size: 14px;
 		}
@@ -569,6 +573,37 @@
 			opacity: 0;
 		}
 
+		// From `lg` up a card appears when its slice is reached and keeps its title after; the current one's line draws,
+		// then its text opens. Leaving the pin hides them all.
+		&.started.callouts:not(.away) .caption.past {
+			@include mixins.min-lg {
+				opacity: 1;
+			}
+		}
+
+		&.callouts .more {
+			@include mixins.min-lg {
+				display: grid;
+				grid-template-rows: 0fr;
+
+				p {
+					min-height: 0;
+					overflow: hidden;
+					opacity: 0;
+				}
+			}
+		}
+
+		&.started.callouts .caption.current .more {
+			@include mixins.min-lg {
+				grid-template-rows: 1fr;
+
+				p {
+					opacity: 1;
+				}
+			}
+		}
+
 		// Up to `lg` the cards stack: the newest sits in front, and each earlier one rises 12px and shrinks a little behind it,
 		// four deep. A fifth back fades out. Only a sliver of each shows, so its text hides.
 		&.callouts .caption {
@@ -631,6 +666,22 @@
 			opacity: 0;
 		}
 
+		&.finale.callouts:not(.away) .caption.current {
+			@include mixins.min-lg {
+				opacity: 1;
+			}
+		}
+
+		&.finale.callouts .caption.current .more {
+			@include mixins.min-lg {
+				grid-template-rows: 0fr;
+
+				p {
+					opacity: 0;
+				}
+			}
+		}
+
 		// The stacked cards stay on screen after the last step, as the section scrolls away.
 		&.finale.callouts .caption.current {
 			@include mixins.max-lg {
@@ -673,15 +724,13 @@
 				transition-delay: 0s;
 			}
 
-			&.callouts:not(.started) .caption {
+			&.callouts .more {
 				@include mixins.min-lg {
-					transition-delay: 0.6s;
-				}
-			}
+					transition: grid-template-rows 0.5s var(--ease);
 
-			&.finale.callouts .caption.current {
-				@include mixins.min-lg {
-					transition-delay: 0.6s;
+					p {
+						transition: opacity 0.3s var(--ease);
+					}
 				}
 			}
 		}

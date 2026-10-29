@@ -1822,7 +1822,7 @@ export const faqTabsProps = props(
 	],
 	[
 		'groups',
-		'An array of `{ label, path, items }`, one per toggle option. `label` is the button text, `path` is `new` or `experienced` (leave it out for the general group), and `items` are `{ title, content }` for the Accordion (see Components), where `content` is trusted HTML. Required.'
+		'An array of `{ label, path, items }`, one per group. With one group there is no toggle; with two or more the toggle appears. `label` is the button text, `path` is `new` or `experienced` (leave it out for the general group), and `items` are `{ title, content }` for the Accordion (see Components), where `content` is trusted HTML. Required.'
 	],
 	[
 		'path',
@@ -1834,7 +1834,7 @@ export const faqTabsProps = props(
 	],
 	[
 		'fullScreen',
-		'A boolean. At least the height of the screen, with the content centered. Taller content still grows past it. Defaults to `false`.'
+		'A boolean. At least the height of the screen, with the content at the top so changing group never moves the title. Taller content still grows past it. Defaults to `false`.'
 	],
 	['id', 'A string, the anchor a link or the CMS preview can point to.'],
 	['class', 'A string of extra classes, such as `full` on a Library page.']

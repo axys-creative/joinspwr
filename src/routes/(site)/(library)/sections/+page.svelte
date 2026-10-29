@@ -570,7 +570,7 @@
 	<LibrarySection
 		title="FAQ Tabs"
 		type="Section"
-		description="A title above a toggle slider with a group of questions for each option, such as General, New to sales and Experienced. The group matching `path` opens first. Choosing another slides the rows out to the left, one after another, and the new ones in from the right; the same entrance plays when the section scrolls into view. It is the FAQ on the home page."
+		description="A title above a toggle slider with a group of questions for each option, such as General, New to sales and Experienced. The group matching `path` opens first. Choosing another slides the rows out to the left, one after another, and the new ones in from the right; the same entrance plays when the section scrolls into view. It is the FAQ on the home, Platform and Join pages; with a single group the toggle is left out."
 		props={faqTabsProps}
 	>
 		<FaqTabs

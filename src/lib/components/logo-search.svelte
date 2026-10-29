@@ -16,7 +16,7 @@
 </script>
 
 <script lang="ts">
-	import { backOut, cubicIn } from 'svelte/easing';
+	import { cubicInOut } from 'svelte/easing';
 	import type { TransitionConfig } from 'svelte/transition';
 	import { searchNames } from '$lib/utils/logo-search';
 	import { searchQueue } from '$lib/utils/logo-search-queue.svelte';
@@ -39,40 +39,34 @@
 
 	const visible = $derived(inView && !dismissed && searchQueue.active === id);
 
+	// backOut with a gentler overshoot (Svelte's is 1.70158).
+	const softBackOut = (t: number) => {
+		const x = t - 1;
+		return x * x * (2 * x + 1) + 1;
+	};
+
 	const duration = (ms: number) =>
 		matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : ms;
 
-	// A new search arrives from the scroll's direction; the one it replaces is knocked on the way out.
+	// Slides up from the bottom edge; a search that replaces another waits a beat.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	function arrive(_node?: Element): TransitionConfig {
-		const { direction, handoff } = searchQueue;
+		const { handoff } = searchQueue;
 		return {
 			delay: duration(handoff ? 120 : 0),
-			duration: duration(handoff ? 650 : 500),
-			easing: backOut,
-			css: (t, u) =>
-				`transform: translateY(${u * 72 * direction}px); opacity: ${Math.min(1, t * 3)}`
+			duration: duration(handoff ? 850 : 750),
+			easing: softBackOut,
+			css: (t, u) => `transform: translateY(${u * 72}px); opacity: ${Math.min(1, t)}`
 		};
 	}
 
-	// Knocked out by the next search, or on its own: the arrival played in reverse, dipping a little, then up and away.
+	// The arrival in reverse: back down the way it came.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	function bump(_node?: Element): TransitionConfig {
-		const { direction, handoff } = searchQueue;
-		if (handoff) {
-			return {
-				duration: duration(450),
-				easing: cubicIn,
-				css: (t, u) =>
-					`transform: translateY(${u * -160 * direction}px) rotate(${u * -6 * direction}deg) scale(${1 - u * 0.1}); opacity: ${t}`
-			};
-		}
-
+	function leave(_node?: Element): TransitionConfig {
 		return {
-			delay: duration(dismissed ? 0 : 250),
-			duration: duration(500),
-			css: (t) =>
-				`transform: translateY(${-(1 - backOut(t)) * 72}px); opacity: ${Math.min(1, t * 3)}`
+			duration: duration(600),
+			easing: cubicInOut,
+			css: (t, u) => `transform: translateY(${u * 72}px); opacity: ${t}`
 		};
 	}
 
@@ -178,7 +172,7 @@
 		style:width={column ? `min(640px, ${column.width}px)` : undefined}
 		aria-labelledby={title ? `${id}-title` : undefined}
 		in:arrive
-		out:bump
+		out:leave
 	>
 		{#if title}
 			<strong id="{id}-title" class="title">{title}</strong>

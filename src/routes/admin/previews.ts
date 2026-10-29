@@ -1,6 +1,5 @@
 import type { Component } from 'svelte';
 import globalCss from '../../styles/styles.scss?inline';
-import AccordionSection from '$lib/sections/accordion-section.svelte';
 import AccordionTableSection from '$lib/sections/accordion-table-section.svelte';
 import ComparisonTable from '$lib/sections/comparison-table.svelte';
 import ContactForm from '$lib/sections/contact-form.svelte';
@@ -59,10 +58,6 @@ const headerProps = (data: Data): Data => ({
 });
 
 const previews: Record<string, Preview> = {
-	accordion_section: {
-		component: AccordionSection as unknown as Section,
-		props: (data) => ({ ...data, items: data.items ?? [] })
-	},
 	accordion_table: {
 		component: AccordionTableSection as unknown as Section,
 		props: (data) => ({ ...data, columns: data.columns ?? [], items: data.items ?? [] })

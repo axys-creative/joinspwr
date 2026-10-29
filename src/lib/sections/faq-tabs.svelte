@@ -44,6 +44,7 @@
 	}: FaqTabsProps = $props();
 
 	const uid = $props.id();
+	const tabbed = $derived(groups.length > 1);
 	const pathIndex = (value: typeof path) =>
 		Math.max(
 			0,
@@ -59,7 +60,7 @@
 	let animated = false;
 	let busy = false;
 
-	const LEAVE = { duration: 480, stagger: 70 };
+	const LEAVE = { duration: 260, stagger: 30 };
 	const ENTER = { duration: 320, stagger: 40 };
 	const EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
@@ -83,12 +84,17 @@
 
 	const hide = () => rows().forEach((item) => (item.style.opacity = '0'));
 
-	const leave = () =>
-		play({ opacity: 1, translate: '0 0' }, { opacity: 0, translate: '-48px 0' }, LEAVE);
+	// `direction` is 1 when the toggle moves right (rows leave left, arrive from the right) and -1 when it moves left.
+	const leave = (direction: number) =>
+		play(
+			{ opacity: 1, translate: '0 0' },
+			{ opacity: 0, translate: `${-48 * direction}px 0` },
+			LEAVE
+		);
 
-	const enter = async () => {
+	const enter = async (direction = 1) => {
 		const { items, runs } = await play(
-			{ opacity: 0, translate: '48px 0' },
+			{ opacity: 0, translate: `${48 * direction}px 0` },
 			{ opacity: 1, translate: '0 0' },
 			ENTER
 		);
@@ -102,11 +108,12 @@
 		busy = true;
 		while (shown !== selected) {
 			const next = selected;
-			if (animated && revealed) await leave();
+			const direction = next > shown ? 1 : -1;
+			if (animated && revealed) await leave(direction);
 			shown = next;
 			await tick();
 			if (!animated) continue;
-			if (revealed) await enter();
+			if (revealed) await enter(direction);
 			else hide();
 		}
 		busy = false;
@@ -172,38 +179,40 @@
 	<div class="inner">
 		<SectionCopy level={2} align="center" {...copy} showCta={false} />
 
-		<div
-			class="list"
-			role="tablist"
-			aria-label={copy.title ?? 'Question groups'}
-			tabindex="-1"
-			onkeydown={onKeydown}
-			{@attach toggleSlider({ variant: 'solid' })}
-		>
-			{#each groups as group, index (index)}
-				<button
-					type="button"
-					class="tab"
-					role="tab"
-					id="{uid}-tab-{index}"
-					aria-selected={index === selected}
-					aria-controls="{uid}-panel"
-					tabindex={index === selected ? 0 : -1}
-					onclick={() => select(index)}>{group.label}</button
-				>
-			{/each}
-		</div>
+		{#if tabbed}
+			<div
+				class="list"
+				role="tablist"
+				aria-label={copy.title ?? 'Question groups'}
+				tabindex="-1"
+				onkeydown={onKeydown}
+				{@attach toggleSlider({ variant: 'solid' })}
+			>
+				{#each groups as group, index (index)}
+					<button
+						type="button"
+						class="tab"
+						role="tab"
+						id="{uid}-tab-{index}"
+						aria-selected={index === selected}
+						aria-controls="{uid}-panel"
+						tabindex={index === selected ? 0 : -1}
+						onclick={() => select(index)}>{group.label}</button
+					>
+				{/each}
+			</div>
+		{/if}
 
 		<div
 			class="panel"
-			role="tabpanel"
+			role={tabbed ? 'tabpanel' : undefined}
 			id="{uid}-panel"
-			aria-labelledby="{uid}-tab-{selected}"
+			aria-labelledby={tabbed ? `${uid}-tab-${selected}` : undefined}
 			bind:this={panel}
 		>
 			{#key shown}
 				<Accordion
-					items={groups[shown].items}
+					items={(groups[shown] ?? groups[0])?.items ?? []}
 					icon="chevron-down"
 					singleOpen
 					striped
@@ -217,14 +226,17 @@
 <style lang="scss">
 	@use 'base/mixins';
 
-	// Swapping groups resizes the centered content, and scroll anchoring would answer by scrolling the page.
+	// Swapping groups resizes the content, and scroll anchoring would answer by scrolling the page.
+	// The rows slide sideways, so the section clips at the screen edge rather than at the list.
 	.faq-tabs {
 		overflow-anchor: none;
+		overflow-x: clip;
 	}
 
+	// Top-aligned, not centered, so a taller or shorter group grows and shrinks below the title.
 	.full-screen {
 		display: grid;
-		align-items: center;
+		align-items: start;
 		min-height: 100lvh;
 	}
 
@@ -260,7 +272,8 @@
 		@include mixins.mq-motion-allow {
 			transition:
 				opacity var(--duration) var(--ease),
-				color var(--duration) var(--ease);
+				color var(--duration) var(--ease),
+				scale 0.24s ease;
 		}
 
 		@include mixins.desktop-hover {
@@ -275,10 +288,5 @@
 			outline: 2px solid var(--color-accent-text);
 			outline-offset: 2px;
 		}
-	}
-
-	// The rows slide sideways, so clip them rather than let the page scroll.
-	.panel {
-		overflow-x: clip;
 	}
 </style>

@@ -81,7 +81,8 @@
 			transition:
 				opacity var(--duration) var(--ease),
 				background var(--duration) var(--ease),
-				box-shadow var(--duration) var(--ease);
+				box-shadow var(--duration) var(--ease),
+				scale 0.24s ease;
 		}
 
 		@include mixins.desktop-hover {

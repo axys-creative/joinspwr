@@ -64,12 +64,14 @@
 	}}
 />
 <Headline id="headline" fullScreen {...headline} />
+<Stats id="stats" {...stats} />
 <EarningsPotential id="earnings" fullScreen {...earnings} />
 <CareerTabs id="career" fullScreen {...careerTabs} />
 <CarouselSpotlight id="competitions" fullScreen {...carouselSpotlight} />
-<GalleryHorizontal id="gallery" {...gallery} />
+{#if !gallery.hidden}
+	<GalleryHorizontal id="gallery" {...gallery} />
+{/if}
 <CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
-<Stats id="stats" {...stats} />
 {#if visitorPath.current !== 'new'}
 	<ComparisonTable id="comparison" {...comparisonTable} />
 	<FinanceSticky id="dealers" {...dealerMarquee} side={dealerMarquee.side as 'left' | 'right'} />
