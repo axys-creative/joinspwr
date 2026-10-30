@@ -1184,6 +1184,19 @@ export const scrollStackProps = props(
 	['class', 'A string of extra classes, such as `full` on a Library page.']
 );
 
+export const copyColumnsProps = props(
+	[
+		'items',
+		'An array of `{ title, content }`, one block each. `title` is the heading and `content` is the trusted HTML under it: paragraphs, lists, `<h3>` sub-headings and links. Required.'
+	],
+	[
+		'toc, tocTitle',
+		'`toc` is a boolean. A table of contents of links to each block: pinned on the left from `lg` up, stopping a quarter of the screen short of the bottom and scrolling inside, with the blocks taking the other 75%, and a collapsible list above them below `lg`. The link of the block on screen is marked. `tocTitle` is its heading and defaults to `On this page`. `toc` defaults to `false`.'
+	],
+	['id', 'A string, the anchor a link or the CMS preview can point to.'],
+	['class', 'A string of extra classes, such as `full` on a Library page.']
+);
+
 export const accordionSectionProps = props(
 	[
 		'eyebrowText, title, description',

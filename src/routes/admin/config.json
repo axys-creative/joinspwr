@@ -4560,6 +4560,186 @@
 			"hide": true
 		},
 		{
+			"name": "page_privacy",
+			"label": "Page - Privacy Policy",
+			"files": [
+				{
+					"name": "hero_simple",
+					"label": "Section - Hero",
+					"file": "src/lib/content/page_privacy/hero-simple.json",
+					"preview_path": "privacy-policy",
+					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "copy_columns",
+					"label": "Section - Policy",
+					"file": "src/lib/content/page_privacy/copy-columns.json",
+					"preview_path": "privacy-policy#policy",
+					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
+						{
+							"name": "toc",
+							"label": "Table of contents",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Pinned on the left with a link to each block."
+						},
+						{
+							"name": "tocTitle",
+							"label": "Table of contents heading",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "items",
+							"label": "Blocks",
+							"widget": "list",
+							"min": 1,
+							"summary": "{{fields.title}}",
+							"hint": "The title sits on the left and the copy on the right.",
+							"fields": [
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string"
+								},
+								{
+									"name": "content",
+									"label": "Copy",
+									"widget": "text",
+									"hint": "HTML. Wrap paragraphs in <p></p>; lists, <h3> sub-headings, links and bold are allowed."
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page_terms",
+			"label": "Page - Terms of Use",
+			"files": [
+				{
+					"name": "hero_simple",
+					"label": "Section - Hero",
+					"file": "src/lib/content/page_terms/hero-simple.json",
+					"preview_path": "terms-of-service",
+					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string"
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "copy_columns",
+					"label": "Section - Terms",
+					"file": "src/lib/content/page_terms/copy-columns.json",
+					"preview_path": "terms-of-service#terms",
+					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
+						{
+							"name": "toc",
+							"label": "Table of contents",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Pinned on the left with a link to each block."
+						},
+						{
+							"name": "tocTitle",
+							"label": "Table of contents heading",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "items",
+							"label": "Blocks",
+							"widget": "list",
+							"min": 1,
+							"summary": "{{fields.title}}",
+							"hint": "The title sits on the left and the copy on the right.",
+							"fields": [
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string"
+								},
+								{
+									"name": "content",
+									"label": "Copy",
+									"widget": "text",
+									"hint": "HTML. Wrap paragraphs in <p></p>; lists, <h3> sub-headings, links and bold are allowed."
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "page_404",
 			"label": "Page - 404",
 			"files": [
@@ -4990,6 +5170,97 @@
 									"hint": "Optional, e.g. menu."
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "announcement",
+					"label": "Announcement",
+					"file": "src/lib/content/global/announcement.json",
+					"fields": [
+						{
+							"name": "enabled",
+							"label": "Show the announcement",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Off hides it everywhere."
+						},
+						{
+							"name": "type",
+							"label": "Type",
+							"widget": "select",
+							"options": [
+								{ "label": "Banner (scrolling text across the top)", "value": "banner" },
+								{ "label": "Alert (a card in the bottom right)", "value": "alert" }
+							],
+							"default": "banner"
+						},
+						{
+							"name": "delay",
+							"label": "Delay (seconds)",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"default": 5,
+							"required": false,
+							"hint": "How long to wait after the visitor has chosen a path on the home page. On any other page it counts from the page loading. It stays until the visitor closes it, and returns for a new announcement."
+						},
+						{
+							"name": "text",
+							"label": "Text",
+							"widget": "string",
+							"required": false,
+							"hint": "The banner's scrolling text, or the alert's message."
+						},
+						{
+							"name": "title",
+							"label": "Alert title",
+							"widget": "string",
+							"required": false,
+							"hint": "Alert only."
+						},
+						{
+							"name": "alertType",
+							"label": "Alert look",
+							"widget": "select",
+							"options": [
+								{ "label": "Info", "value": "info" },
+								{ "label": "Success", "value": "success" },
+								{ "label": "Warning", "value": "warning" },
+								{ "label": "Error", "value": "error" }
+							],
+							"default": "info",
+							"required": false,
+							"hint": "Alert only."
+						},
+						{
+							"name": "link",
+							"label": "Link",
+							"widget": "object",
+							"required": false,
+							"hint": "Shown after the banner's text, or under the alert's message. Leave the text or the URL empty for no link.",
+							"fields": [
+								{ "name": "text", "label": "Text", "widget": "string", "required": false },
+								{ "name": "url", "label": "URL", "widget": "string", "required": false },
+								{
+									"name": "newTab",
+									"label": "Open in new tab",
+									"widget": "boolean",
+									"default": false,
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "speed",
+							"label": "Banner speed",
+							"widget": "number",
+							"value_type": "int",
+							"min": 0,
+							"default": 40,
+							"required": false,
+							"hint": "Pixels per second the text scrolls. Banner only."
 						}
 					]
 				},

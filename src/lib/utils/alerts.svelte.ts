@@ -14,6 +14,8 @@ export type AlertOptions = {
 	timer?: boolean;
 	/** A thick border in the alert's color down the left edge. */
 	leftBorder?: boolean;
+	/** Called when the visitor closes it with its button, or its timer runs out. */
+	onclose?: () => void;
 };
 
 export type StackedAlert = AlertOptions & { id: number };

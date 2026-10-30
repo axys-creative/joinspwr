@@ -50,6 +50,20 @@
 			"crawlPage": true
 		},
 		{
+			"path": "/privacy-policy",
+			"title": "Privacy Policy",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": true
+		},
+		{
+			"path": "/terms-of-service",
+			"title": "Terms of Use",
+			"description": "",
+			"ogImage": "",
+			"crawlPage": true
+		},
+		{
 			"path": "/style-guide",
 			"title": "Style Guide",
 			"description": "",

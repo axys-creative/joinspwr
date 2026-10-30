@@ -1,5 +1,6 @@
 import type { Component } from 'svelte';
 import globalCss from '../../styles/styles.scss?inline';
+import Announcement from '$lib/components/announcement.svelte';
 import AccordionTableSection from '$lib/sections/accordion-table-section.svelte';
 import ComparisonTable from '$lib/sections/comparison-table.svelte';
 import ContactForm from '$lib/sections/contact-form.svelte';
@@ -9,6 +10,7 @@ import CareerTabs from '$lib/sections/career-tabs.svelte';
 import CarouselSpotlight from '$lib/sections/carousel-spotlight.svelte';
 import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
 import Headline from '$lib/sections/headline.svelte';
+import CopyColumns from '$lib/sections/copy-columns.svelte';
 import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 import FinanceGrid from '$lib/sections/finance-grid.svelte';
 import FaqTabs from '$lib/sections/faq-tabs.svelte';
@@ -62,6 +64,10 @@ const previews: Record<string, Preview> = {
 		component: AccordionTableSection as unknown as Section,
 		props: (data) => ({ ...data, columns: data.columns ?? [], items: data.items ?? [] })
 	},
+	announcement: {
+		component: Announcement as unknown as Section,
+		props: (data) => ({ ...data, preview: true })
+	},
 	choose_path: {
 		component: ChoosePath as unknown as Section,
 		props: (data) => ({ ...data, options: data.options ?? [], static: true })
@@ -97,6 +103,10 @@ const previews: Record<string, Preview> = {
 	dealer_marquee: {
 		component: FinanceSticky as unknown as Section,
 		props: (data) => ({ ...data, searchLabel: '', logos: data.logos ?? [] })
+	},
+	copy_columns: {
+		component: CopyColumns as unknown as Section,
+		props: (data) => ({ ...data, items: data.items ?? [] })
 	},
 	earnings_potential: {
 		component: EarningsPotential as unknown as Section,

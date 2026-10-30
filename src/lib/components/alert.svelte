@@ -10,6 +10,7 @@
 <script lang="ts">
 	import Button from './button.svelte';
 	import Icon from './icon.svelte';
+	import MenuLinks from './menu-links.svelte';
 
 	const icons = {
 		success: 'check-circle',
@@ -59,13 +60,15 @@
 
 	<div class="content">
 		<strong>{title}</strong>
-		{#if message}<p>{message}</p>{/if}
+		{#if message}<p class:with-links={links.length}>{message}</p>{/if}
 		{#if links.length}
-			<div class="links">
-				{#each links.slice(0, 2) as link (`${link.url}|${link.text}`)}
-					<Button {...link} type="underline" size="sm" />
-				{/each}
-			</div>
+			<MenuLinks
+				class="links"
+				links={links.slice(0, 2)}
+				label="Alert links"
+				direction="column"
+				landmark={false}
+			/>
 		{/if}
 	</div>
 
@@ -148,11 +151,15 @@
 		p {
 			opacity: 0.85;
 		}
+
+		.with-links {
+			padding-block-end: 32px;
+		}
 	}
 
-	.links {
-		display: flex;
-		gap: 12px;
+	// The same plain, text-roll links as the footer's columns, without the underline.
+	.content :global(.links .label::before) {
+		content: none !important;
 	}
 
 	.alert :global(.close) {

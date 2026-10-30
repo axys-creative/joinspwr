@@ -115,7 +115,7 @@ link or button anywhere else on the page stays clickable, even right under it. -
 		--top: 20px;
 		--bar: 56px;
 
-		top: 0;
+		top: var(--announcement-height, 0px);
 		left: 0;
 		z-index: var(--z-header);
 		width: 100%;
@@ -131,7 +131,9 @@ link or button anywhere else on the page stays clickable, even right under it. -
 		}
 
 		@include mixins.mq-motion-allow {
-			transition: translate var(--duration) var(--ease);
+			transition:
+				translate var(--duration) var(--ease),
+				top var(--duration) var(--ease);
 		}
 	}
 

@@ -8,6 +8,9 @@ const KEY = 'visitor-path';
 
 let current = $state<VisitorPath>('experienced');
 
+/** True from when the landing modal decides to open until it closes. Anything that should wait for the visitor's choice (the announcement) waits on it. */
+export const pathGate = $state({ waiting: false });
+
 const isPath = (value: unknown): value is VisitorPath => value === 'new' || value === 'experienced';
 
 export const visitorPath = {

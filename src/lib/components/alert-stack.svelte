@@ -19,7 +19,13 @@
 			in:fly={{ y: 48, duration: duration(500), easing: backOut }}
 			out:fade={{ duration: duration(200) }}
 		>
-			<Alert {...alert} onclose={() => alerts.dismiss(alert.id)} />
+			<Alert
+				{...alert}
+				onclose={() => {
+					alert.onclose?.();
+					alerts.dismiss(alert.id);
+				}}
+			/>
 		</div>
 	{/each}
 </div>

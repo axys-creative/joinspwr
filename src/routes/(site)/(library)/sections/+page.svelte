@@ -11,6 +11,7 @@
 		circleHighlightProps,
 		comparisonTableProps,
 		contactFormProps,
+		copyColumnsProps,
 		earningsPotentialProps,
 		faqTabsProps,
 		financeGridProps,
@@ -45,6 +46,7 @@
 	import CareerTabs from '$lib/sections/career-tabs.svelte';
 	import CarouselSpotlight from '$lib/sections/carousel-spotlight.svelte';
 	import CarouselTunnel from '$lib/sections/carousel-tunnel.svelte';
+	import CopyColumns from '$lib/sections/copy-columns.svelte';
 	import EarningsPotential from '$lib/sections/earnings-potential.svelte';
 	import FaqTabs from '$lib/sections/faq-tabs.svelte';
 	import FinanceGrid from '$lib/sections/finance-grid.svelte';
@@ -547,6 +549,28 @@
 			class="full"
 			consent="By checking this box, I agree to receive recurring text messages at the phone number provided. Consent is not a condition of joining. Message frequency varies. Message and data rates may apply. Reply STOP at any time to unsubscribe, or HELP for help."
 			form={{ name: 'contact', submitText: 'Submit' }}
+		/>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Copy Columns"
+		type="Section"
+		description="Text-first blocks, divided by a line, each with its title above its copy. It is the Privacy Policy page, and suits any page that needs words more than pictures."
+		props={copyColumnsProps}
+	>
+		<CopyColumns
+			class="full"
+			toc
+			items={[
+				{
+					title: 'A first block',
+					content: '<p>Copy for the first block, which can hold <a href="/">links</a>.</p>'
+				},
+				{
+					title: 'A second block',
+					content: '<p>Copy with a list:</p><ul><li>One</li><li>Two</li></ul>'
+				}
+			]}
 		/>
 	</LibrarySection>
 

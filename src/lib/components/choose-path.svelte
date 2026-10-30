@@ -23,7 +23,7 @@
 	import { imageProps } from '$lib/utils/image';
 	import { refreshScrollTriggers } from '$lib/utils/gsap';
 	import { loading } from '$lib/utils/loading.svelte';
-	import { visitorPath, type VisitorPath } from '$lib/utils/visitor-path.svelte';
+	import { pathGate, visitorPath, type VisitorPath } from '$lib/utils/visitor-path.svelte';
 	import Button from './button.svelte';
 	import Icon from './icon.svelte';
 	import RichText from './rich-text.svelte';
@@ -66,6 +66,7 @@
 		arrive = !loading.done;
 		landing = true;
 		veiled = true;
+		pathGate.waiting = true;
 		if (!arrive) return;
 		measure();
 		document.fonts.ready.then(measure);
@@ -123,7 +124,11 @@
 	data-lenis-prevent
 	style:--arrive-delay={arrive ? '0.3s' : undefined}
 	{onclick}
-	onclose={() => opened && (veiled = false)}
+	onclose={() => {
+		if (!opened) return;
+		veiled = false;
+		pathGate.waiting = false;
+	}}
 >
 	<div class="panel" bind:this={panel} {@attach gradientBorder({ rayTrace: 'border' })}>
 		<Button

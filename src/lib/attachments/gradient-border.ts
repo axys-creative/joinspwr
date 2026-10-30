@@ -1,4 +1,5 @@
 import type { Attachment } from 'svelte/attachments';
+import { hasMouse, pointer, trackPointer } from '$lib/utils/pointer';
 import './gradient-border.scss';
 
 export type GradientBorderOptions = {
@@ -20,74 +21,123 @@ export type GradientBorderOptions = {
 	rayReach?: number;
 };
 
-type Tracked = { el: HTMLElement; reach?: number };
+type Tracked = {
+	el: HTMLElement;
+	reach?: number;
+	/** `rayTrace: true`: a glow that reacts from anywhere, not a border ring that reacts only near the pointer. */
+	glow: boolean;
+	box?: DOMRect;
+	lit: boolean;
+};
+
+// A ring ignores a pointer farther than its reach (the default ray size) plus a margin for boxes that moved since they were measured.
+const RANGE = 160;
+const MARGIN = 80;
 
 const tracked = new Map<Element, Tracked>();
 const visible = new Set<Tracked>();
 let observer: IntersectionObserver | undefined;
-let pointerX = 0;
-let pointerY = 0;
+let stopPointer: (() => void) | undefined;
 let frame = 0;
-let maxDistance = 0;
+let stale = true;
 
-function updateRayTrace() {
+const markStale = () => (stale = true);
+
+const gap = (box: DOMRect) =>
+	Math.hypot(
+		Math.max(box.left - pointer.x, 0, pointer.x - box.right),
+		Math.max(box.top - pointer.y, 0, pointer.y - box.bottom)
+	);
+
+const percent = (value: number, size: number) => `${(value / size) * 100}%`;
+
+function update() {
 	frame = 0;
 
-	// Every measurement comes before any write, so many tracked elements cost one layout, not one each.
+	// Boxes are measured again only after a scroll or resize, so a pointer move reads layout only for the elements it is near.
+	if (stale) {
+		for (const item of visible) item.box = item.el.getBoundingClientRect();
+		stale = false;
+	}
+
+	// Every read comes before any write, so the few elements near the pointer cost one layout, not one each.
 	const writes: [HTMLElement, string, string][] = [];
+	const maxDistance = Math.hypot(innerWidth, innerHeight);
 
-	for (const { el, reach } of visible) {
+	for (const item of visible) {
+		const { el, reach, glow } = item;
+		const limit = reach ?? RANGE;
+
+		// Out of range: switched off once, then left alone.
+		const off = () => {
+			if (!item.lit) return;
+			item.lit = false;
+			writes.push([el, '--gradient-ray-opacity', '0']);
+		};
+
+		if (!glow && item.box && gap(item.box) > limit + MARGIN) {
+			off();
+			continue;
+		}
+
 		const rect = el.getBoundingClientRect();
+		const centerX = rect.left + rect.width / 2;
+		const centerY = rect.top + rect.height / 2;
 
-		if (reach) {
-			const centerX = rect.left + rect.width / 2;
-			const centerY = rect.top + rect.height / 2;
-			const outside = Math.hypot(
-				Math.max(Math.abs(pointerX - centerX) - rect.width / 2, 0),
-				Math.max(Math.abs(pointerY - centerY) - rect.height / 2, 0)
-			);
-			let x = pointerX;
-			let y = pointerY;
-			if (outside > 0) {
-				const length = Math.hypot(pointerX - centerX, pointerY - centerY);
-				const radius = Math.min(rect.width, rect.height) / 2;
-				x = centerX + ((pointerX - centerX) / length) * radius;
-				y = centerY + ((pointerY - centerY) / length) * radius;
-			}
+		if (glow) {
+			const intensity =
+				1 - Math.min(Math.hypot(pointer.x - centerX, pointer.y - centerY) / maxDistance, 1);
 			writes.push(
-				[el, '--gradient-x', `${((x - rect.left) / rect.width) * 100}%`],
-				[el, '--gradient-y', `${((y - rect.top) / rect.height) * 100}%`],
-				[el, '--gradient-ray-opacity', String(Math.max(1 - outside / reach, 0))]
+				[el, '--gradient-x', percent(pointer.x - rect.left, rect.width)],
+				[el, '--gradient-y', percent(pointer.y - rect.top, rect.height)],
+				[el, '--gradient-opacity', String(0.3 + intensity * 0.7)]
 			);
 			continue;
 		}
 
-		const distance = Math.hypot(
-			pointerX - (rect.left + rect.width / 2),
-			pointerY - (rect.top + rect.height / 2)
-		);
-		const intensity = 1 - Math.min(distance / maxDistance, 1);
-
+		// Outside the element the spot rests on the border, in the pointer's direction.
+		const outside = gap(rect);
+		if (outside > limit) {
+			off();
+			continue;
+		}
+		let x = pointer.x;
+		let y = pointer.y;
+		if (outside > 0) {
+			const length = Math.hypot(pointer.x - centerX, pointer.y - centerY);
+			const radius = Math.min(rect.width, rect.height) / 2;
+			x = centerX + ((pointer.x - centerX) / length) * radius;
+			y = centerY + ((pointer.y - centerY) / length) * radius;
+		}
+		item.lit = true;
 		writes.push(
-			[el, '--gradient-x', `${((pointerX - rect.left) / rect.width) * 100}%`],
-			[el, '--gradient-y', `${((pointerY - rect.top) / rect.height) * 100}%`],
-			[el, '--gradient-opacity', String(0.3 + intensity * 0.7)]
+			[el, '--gradient-x', percent(x - rect.left, rect.width)],
+			[el, '--gradient-y', percent(y - rect.top, rect.height)],
+			[el, '--gradient-ray-opacity', String(reach ? Math.max(1 - outside / reach, 0) : 1)]
 		);
 	}
 
 	for (const [el, name, value] of writes) el.style.setProperty(name, value);
 }
 
-const onPointerMove = (event: PointerEvent) => {
-	if (event.pointerType === 'touch') return;
-	pointerX = event.clientX;
-	pointerY = event.clientY;
-	if (!frame) frame = requestAnimationFrame(updateRayTrace);
+const onMove = () => (frame ||= requestAnimationFrame(update));
+
+// A ring left lit when the mouse leaves the window would stay lit.
+const onLeave = () => {
+	for (const item of tracked.values()) {
+		if (!item.lit) continue;
+		item.lit = false;
+		item.el.style.setProperty('--gradient-ray-opacity', '0');
+	}
 };
 
-// Only the elements on (or just off) the screen are measured, so a page full of tiles costs what the visible ones do.
-const watch = (entry: Tracked) => {
-	observer ??= new IntersectionObserver(
+// Only the elements on (or just off) the screen are looked at, so a page full of tiles costs what the visible ones do.
+function start() {
+	stopPointer = trackPointer(onMove);
+	addEventListener('scroll', markStale, { passive: true, capture: true });
+	addEventListener('resize', markStale, { passive: true });
+	document.documentElement.addEventListener('mouseleave', onLeave);
+	observer = new IntersectionObserver(
 		(entries) => {
 			for (const { target, isIntersecting } of entries) {
 				const item = tracked.get(target);
@@ -95,13 +145,22 @@ const watch = (entry: Tracked) => {
 				if (isIntersecting) visible.add(item);
 				else visible.delete(item);
 			}
+			stale = true;
 		},
 		{ rootMargin: '200px' }
 	);
-	observer.observe(entry.el);
-};
+}
 
-const onResize = () => (maxDistance = Math.hypot(innerWidth, innerHeight));
+function stop() {
+	stopPointer?.();
+	removeEventListener('scroll', markStale, { capture: true });
+	removeEventListener('resize', markStale);
+	document.documentElement.removeEventListener('mouseleave', onLeave);
+	cancelAnimationFrame(frame);
+	frame = 0;
+	observer?.disconnect();
+	observer = undefined;
+}
 
 export function gradientBorder({
 	width,
@@ -134,35 +193,29 @@ export function gradientBorder({
 			if (value) el.style.setProperty(name, value);
 		}
 
-		const entry: Tracked = { el, reach: rayTrace === 'border' ? rayReach : undefined };
+		const entry: Tracked = {
+			el,
+			reach: rayTrace === 'border' ? rayReach : undefined,
+			glow: rayTrace === true,
+			lit: false
+		};
 		// The border ring shows only with a mouse and motion allowed, so otherwise it is never tracked.
 		const live =
 			rayTrace === true ||
 			(rayTrace === 'border' &&
-				matchMedia('(hover: hover) and (pointer: fine)').matches &&
+				hasMouse() &&
 				matchMedia('(prefers-reduced-motion: no-preference)').matches);
 		if (live) {
-			if (!tracked.size) {
-				onResize();
-				addEventListener('pointermove', onPointerMove, { passive: true });
-				addEventListener('resize', onResize, { passive: true });
-			}
+			if (!tracked.size) start();
 			tracked.set(el, entry);
-			watch(entry);
+			observer?.observe(el);
 		}
 
 		return () => {
 			if (tracked.delete(el)) {
 				visible.delete(entry);
 				observer?.unobserve(el);
-				if (!tracked.size) {
-					removeEventListener('pointermove', onPointerMove);
-					removeEventListener('resize', onResize);
-					cancelAnimationFrame(frame);
-					frame = 0;
-					observer?.disconnect();
-					observer = undefined;
-				}
+				if (!tracked.size) stop();
 			}
 			el.classList.remove(...classes);
 			for (const name of [

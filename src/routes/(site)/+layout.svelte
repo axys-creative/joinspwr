@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import { bgDust } from '$lib/attachments/bg-dust';
 	import AlertStack from '$lib/components/alert-stack.svelte';
+	import Announcement, { type AnnouncementProps } from '$lib/components/announcement.svelte';
 	import LoaderLogo from '$lib/components/loader-logo.svelte';
 	import FooterGnomon, { type FooterGnomonProps } from '$lib/components/footer-gnomon.svelte';
 	import ChoosePath, { type ChoosePathProps } from '$lib/components/choose-path.svelte';
@@ -11,6 +12,7 @@
 	import SideShadows from '$lib/components/side-shadows.svelte';
 	import SmoothScroll from '$lib/components/smooth-scroll.svelte';
 	import HeaderBasic, { type HeaderBasicProps } from '$lib/components/header-basic.svelte';
+	import announcement from '$lib/content/global/announcement.json';
 	import choosePath from '$lib/content/global/choose-path.json';
 	import logo from '$lib/content/global/logo.json';
 	import social from '$lib/content/global/social-media.json';
@@ -42,6 +44,7 @@
 <SideShadows />
 <ScrollProgress />
 <AlertStack />
+<Announcement {...announcement as AnnouncementProps} />
 <ChoosePath {...choosePath as ChoosePathProps} />
 
 <style lang="scss">
