@@ -95,7 +95,6 @@ function update() {
 			continue;
 		}
 
-		// Outside the element the spot rests on the border, in the pointer's direction.
 		const outside = gap(rect);
 		if (outside > limit) {
 			off();
@@ -103,7 +102,8 @@ function update() {
 		}
 		let x = pointer.x;
 		let y = pointer.y;
-		if (outside > 0) {
+		// With a `reach` the spot rests on the border in the pointer's direction; without one the glow follows the pointer itself, so it fades in as the pointer closes in.
+		if (outside > 0 && reach) {
 			const length = Math.hypot(pointer.x - centerX, pointer.y - centerY);
 			const radius = Math.min(rect.width, rect.height) / 2;
 			x = centerX + ((pointer.x - centerX) / length) * radius;

@@ -192,7 +192,8 @@
 			class="close"
 			iconStart="x-lg"
 			textDescription="Close search"
-			type="text"
+			type="outline"
+			size="sm"
 			onclick={() => (dismissed = true)}
 		/>
 		<div class="field" {@attach gradientBorder({ rayTrace: 'border' })}>
@@ -235,10 +236,6 @@
 
 	.title {
 		@include mixins.h5;
-	}
-
-	.logo-search :global(.close) {
-		margin: -8px -8px 0 0;
 	}
 
 	.field {

@@ -14,18 +14,26 @@
 			"logo": {
 				"src": "/uploads/tools-logo-enzy.svg",
 				"alt": "Enzy"
+			},
+			"link": {
+				"text": "Visit site",
+				"url": "https://enzy.ai/"
 			}
 		},
 		{
 			"title": "Captivate IQ",
 			"description": "CaptivateIQ is the solution for managing sales commissions. Customized to our needs and structure, CIQ simplifies our pay process so reps are paid more accurately, more quickly, and more transparently.",
 			"image": {
-				"src": "/uploads/platform-tools-3ciq.webp",
+				"src": "/uploads/tools-captivateiq.png",
 				"alt": "Captivate IQ"
 			},
 			"logo": {
 				"src": "/uploads/platform-tools-3logociq.svg",
 				"alt": "Captivate IQ"
+			},
+			"link": {
+				"text": "Visit site",
+				"url": "https://www.captivateiq.com/"
 			}
 		},
 		{

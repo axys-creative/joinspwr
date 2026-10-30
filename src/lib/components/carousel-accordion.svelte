@@ -6,6 +6,8 @@
 		image?: { src: string; alt?: string };
 		/** Drawn over the picture's bottom left on a dark gradient, so use a light logo. */
 		logo?: { src: string; alt?: string };
+		/** A link under the description. Leave `url` empty to hide it. */
+		link?: { text?: string; url?: string };
 	};
 
 	export type CarouselAccordionProps = {
@@ -23,6 +25,7 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import Button from '$lib/components/button.svelte';
 	import Icon from '$lib/components/icon.svelte';
 	import RichText from '$lib/components/rich-text.svelte';
 	import { imageProps } from '$lib/utils/image';
@@ -135,6 +138,16 @@
 					>
 						<div class="body">
 							{#if item.description}<p><RichText text={item.description} /></p>{/if}
+							{#if item.link?.url}
+								<Button
+									class="link"
+									size="sm"
+									url={item.link.url}
+									text={item.link.text || 'Visit site'}
+									newTab
+									iconEnd="new-tab"
+								/>
+							{/if}
 						</div>
 					</div>
 					{#if open && running}
@@ -339,6 +352,10 @@
 			margin: 0;
 			padding-block-end: 20px;
 			color: var(--color-text-muted);
+		}
+
+		:global(.link) {
+			margin-block-end: 20px;
 		}
 	}
 

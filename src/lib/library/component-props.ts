@@ -36,9 +36,17 @@ export const buttonProps = props(
 		'iconEndAttach',
 		'An attachment for the end icon alone, such as `magnet({ x: 1, y: 1 })`, so only the icon follows the mouse.'
 	],
+	[
+		'magnet',
+		'A boolean or Magnet options (see the Magnet attachment). `solid` and `outline` buttons follow the mouse a little by default, a button that is only an icon pulls the same as the menu button and the social icons, and one with text pulls three times as much up and down as across, since it is wide and short; `underline` and `text` links do not. `true` or `false` overrides that for this one, and an object such as `{ x: 0.5, y: 1 }` overrides the pull.'
+	],
+	[
+		'roll',
+		"A boolean or Roll options (see the Roll attachment). The text rolls on hover: `solid` and `outline` buttons as one line, `underline` and `text` links by character, and a button with no text does not roll. `false` turns it off for this one, and an object such as `{ split: 'words' }` overrides it."
+	],
 	['class', 'A string of extra classes.'],
 	['onclick', 'A click handler for the `<button>` version.'],
-	['...rest', 'Any other attribute, including attachments: `<Button {@attach magnet()} />`.']
+	['...rest', 'Any other attribute, including attachments: `<Button {@attach glitchHover()} />`.']
 );
 
 export const ctaGroupProps = props(
@@ -642,7 +650,7 @@ export const imageShuffleProps = props(
 	],
 	[
 		'type',
-		'`roll | fade`. `roll` slides the new image up from below as the old one leaves upward, like Text Roll; `fade` crossfades. Defaults to `roll`.'
+		'`roll | fade`. `roll` slides the new image up from below as the old one leaves upward, like Roll; `fade` crossfades. Defaults to `roll`.'
 	],
 	[
 		'interval',
@@ -922,7 +930,7 @@ export const counterProps = props(
 export const carouselAccordionProps = props(
 	[
 		'items',
-		"An array of `{ title, description, image, logo }`, two or more. One is open at a time, and each opens its own picture beside the list (`image` is `{ src, alt }`). An optional `logo` (`{ src, alt }`) is drawn at the picture's bottom left on a dark gradient, so use a light one. Required."
+		"An array of `{ title, description, image, logo }`, two or more. One is open at a time, and each opens its own picture beside the list (`image` is `{ src, alt }`). An optional `logo` (`{ src, alt }`) is drawn at the picture's bottom left on a dark gradient, so use a light one. An optional `link` (`{ text, url }`) puts an underline button under the description that opens in a new tab; `text` defaults to `Visit site`. Required."
 	],
 	[
 		'interval',
@@ -1187,11 +1195,11 @@ export const scrollStackProps = props(
 export const copyColumnsProps = props(
 	[
 		'items',
-		'An array of `{ title, content }`, one block each. `title` is the heading and `content` is the trusted HTML under it: paragraphs, lists, `<h3>` sub-headings and links. Required.'
+		'An array of `{ title, content }`, one block each. `title` is the heading and `content` is the trusted HTML under it: paragraphs, lists, tables, `<h3>` sub-headings and links. A paragraph that starts with a bold `In short:` shows the rest in italics, and a table row whose first cell starts with a letter or number and a period (`A. Identifiers`) hangs that marker in the margin so wrapped lines stay clear of it. Links use the Underline attachment, and the line above each block draws across as it scrolls into view. Required.'
 	],
 	[
 		'toc, tocTitle',
-		'`toc` is a boolean. A table of contents of links to each block: pinned on the left from `lg` up, stopping a quarter of the screen short of the bottom and scrolling inside, with the blocks taking the other 75%, and a collapsible list above them below `lg`. The link of the block on screen is marked. `tocTitle` is its heading and defaults to `On this page`. `toc` defaults to `false`.'
+		'`toc` is a boolean. A table of contents of links to each block: pinned on the left from `lg` up with the same gap above and below it, scrolling inside and fading at the ends, with the blocks taking the other 75%, and a collapsible list above them below `lg`. The link of the block on screen is marked. `tocTitle` is its heading and defaults to `On this page`. `toc` defaults to `false`.'
 	],
 	['id', 'A string, the anchor a link or the CMS preview can point to.'],
 	['class', 'A string of extra classes, such as `full` on a Library page.']
@@ -1805,6 +1813,10 @@ export const statsProps = props(
 	[
 		'stats',
 		"An array of `{ digit, prefix, suffix, label, comma }`, the Counter component's options (see the Components page), in its digital count-up style. They sit at the right in a two by two grid, their top level with the title, in the H1 look but not H1 markup. Below `md` the title stacks above them. Required."
+	],
+	[
+		'cta',
+		"An object `{ primary }` of a Button's props (`text`, `url` and so on), shown as a solid button under the stats. When `pinned` it fades in after the last stat appears; otherwise it is always there."
 	],
 	[
 		'pinned',

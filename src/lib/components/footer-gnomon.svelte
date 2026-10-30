@@ -34,7 +34,6 @@
 </script>
 
 <script lang="ts">
-	import { textRoll } from '$lib/attachments/text-roll';
 	import site from '$lib/content/meta/site.json';
 	import { notchedBoxPath, roundedBoxPath } from '$lib/utils/gnomon';
 	import Button from './button.svelte';
@@ -135,7 +134,7 @@
 						><RichText text={title} /></svelte:element
 					>
 				{/if}
-				{#if cta}<Button {...cta} {@attach textRoll()} />{/if}
+				{#if cta}<Button {...cta} />{/if}
 			</div>
 
 			{#if linksets.length}

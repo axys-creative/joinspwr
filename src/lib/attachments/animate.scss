@@ -31,6 +31,13 @@
 		&--scale {
 			scale: 0.9;
 		}
+
+		// A line draws across from the left, so it never fades.
+		&--line {
+			opacity: 1;
+			scale: 0 1;
+			transform-origin: left;
+		}
 	}
 
 	.animate.animated {

@@ -187,6 +187,7 @@
 		text-underline-offset: 0.2em;
 	}
 
+	// The same colors as the open navigation button: white at rest, royal blue on hover and focus.
 	.announcement :global(.close) {
 		--btn-padding-icon: 4px;
 
@@ -194,8 +195,20 @@
 		top: 50%;
 		right: 8px;
 		translate: 0 -50%;
-		background: var(--color-accent);
-		color: var(--color-on-accent);
+		border: 1px solid var(--btn-nav-border);
+		border-radius: var(--radius-btn);
+		background: var(--btn-nav-background);
+		color: var(--btn-nav-on-background);
+
+		@include mixins.mq-motion-allow {
+			transition: 0.24s ease;
+		}
+
+		@include mixins.desktop-hover {
+			border-color: var(--btn-nav-hover-border);
+			background: var(--btn-nav-hover-background);
+			color: var(--btn-nav-hover-on-background);
+		}
 	}
 
 	.preview-alert {

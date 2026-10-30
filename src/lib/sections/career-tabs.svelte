@@ -113,9 +113,12 @@
 		align-self: center;
 		scrollbar-width: none;
 
-		// Scrolling clips the ray trace border, so only the narrow layout scrolls and its ring sits just inside.
+		// Scrolling clips a ring on the border, so the narrow layout draws its border inside the padding edge, where the ring sits, instead of stacking a second line.
 		@include mixins.max-md {
 			overflow-x: auto;
+			padding: 5px;
+			border: 0;
+			box-shadow: inset 0 0 0 1px var(--color-border);
 
 			&:global(.gradient-border)::before {
 				inset: 0;

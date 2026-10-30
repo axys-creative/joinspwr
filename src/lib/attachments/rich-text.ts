@@ -34,7 +34,12 @@ export function richTextBehaviors(text?: string): Attachment<HTMLElement> {
 				const kind = span.dataset.richText ?? '';
 				const options: ScribbleOptions = kind.startsWith('scribble-circle')
 					? { type: 'circle', scale: circleScales[kind], thickness: 0.2, scroll, once: false }
-					: { curve: 'random', thickness: 0.2, scroll, once: false };
+					: {
+							curve: kind === 'scribble-zigzag' ? 'zigzag' : 'random',
+							thickness: 0.2,
+							scroll,
+							once: false
+						};
 				const cleanup = scribble(options)(span);
 				if (typeof cleanup === 'function') cleanups.push(cleanup);
 			}

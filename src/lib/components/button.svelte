@@ -1,6 +1,8 @@
 <script module lang="ts">
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes, MouseEventHandler } from 'svelte/elements';
+	import type { MagnetOptions } from '$lib/attachments/magnet';
+	import type { RollOptions } from '$lib/attachments/roll';
 
 	export type ButtonProps = {
 		text?: string;
@@ -22,12 +24,18 @@
 		iconCircle?: boolean;
 		/** An attachment for the end icon alone, e.g. `magnet()` to make only the icon follow the mouse. */
 		iconEndAttach?: Attachment<HTMLElement>;
+		/** `solid` and `outline` buttons follow the mouse a little, and a button that is only an icon pulls like the menu button, and one with text pulls three times as much up and down as across; `underline` and `text` links do not. `true` or `false` overrides that for this one, and an object overrides the Magnet options. */
+		magnet?: boolean | MagnetOptions;
+		/** The text rolls on hover: `solid` and `outline` as one line, `underline` and `text` by character. `false` turns it off for this one; an object overrides the Roll options. */
+		roll?: boolean | RollOptions;
 		class?: string;
 		onclick?: MouseEventHandler<HTMLButtonElement>;
 	} & Omit<HTMLAttributes<HTMLElement>, 'class' | 'children' | 'onclick'>;
 </script>
 
 <script lang="ts">
+	import { magnet as magnetAttachment, squareMagnet, wideMagnet } from '$lib/attachments/magnet';
+	import { roll as rollAttachment } from '$lib/attachments/roll';
 	import { isCurrentPage, onCurrentPageClick } from '$lib/utils/current-page';
 	import Icon from './icon.svelte';
 
@@ -48,6 +56,8 @@
 		iconEnd,
 		iconCircle = false,
 		iconEndAttach,
+		magnet,
+		roll,
 		class: className,
 		onclick,
 		...rest
@@ -57,6 +67,19 @@
 
 	const label = $derived(
 		textDescription && newTab ? `${textDescription} (opens in a new tab)` : textDescription
+	);
+	const linkLike = $derived(type === 'underline' || type === 'text');
+	// A button that is only an icon is a square, and every square pulls the same.
+	const square = $derived(!text);
+	const pull = $derived(
+		(magnet ?? (square || !linkLike))
+			? magnetAttachment(typeof magnet === 'object' ? magnet : square ? squareMagnet : wideMagnet)
+			: undefined
+	);
+	const rolling = $derived(
+		(roll ?? !!text)
+			? rollAttachment(typeof roll === 'object' ? roll : linkLike ? {} : { split: 'line' })
+			: undefined
 	);
 	const classes = $derived(
 		`button ${type} ${special ? 'special' : ''} ${size} ${text ? '' : 'icon-only'} ${className ?? ''}`
@@ -96,6 +119,8 @@
 		onclick={onCurrentPage ? onCurrentPageClick : undefined}
 		target={newTab ? '_blank' : undefined}
 		rel={newTab ? 'noopener noreferrer' : undefined}
+		{@attach pull}
+		{@attach rolling}
 	>
 		{@render content()}
 	</a>
@@ -110,6 +135,8 @@
 		aria-controls={controls}
 		{disabled}
 		{onclick}
+		{@attach pull}
+		{@attach rolling}
 	>
 		{@render content()}
 	</button>
@@ -139,8 +166,7 @@
 			transition:
 				background var(--duration) var(--ease),
 				color var(--duration) var(--ease),
-				border-color var(--duration) var(--ease),
-				scale var(--duration) var(--ease);
+				border-color var(--duration) var(--ease);
 		}
 
 		&:disabled {
@@ -185,10 +211,6 @@
 
 		@include mixins.desktop-hover {
 			color: var(--color-accent-text);
-
-			@include mixins.mq-motion-allow {
-				scale: 0.96;
-			}
 		}
 	}
 

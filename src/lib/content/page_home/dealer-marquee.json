@@ -7,63 +7,93 @@
 	"logos": [
 		{
 			"src": "/uploads/dealers-logo-action-solar.svg",
-			"alt": "Action Solar"
+			"alt": "Action Solar",
+			"url": "https://www.actionsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-bright-planet-solar.svg",
-			"alt": "Bright Planet Solar"
+			"alt": "Bright Planet Solar",
+			"url": "https://www.brightplanetsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-brilliant-solar.svg",
-			"alt": "Brilliant Solar"
+			"alt": "Brilliant Solar",
+			"url": "https://mybrilliantsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-empower-solar.svg",
-			"alt": "Empower Solar"
+			"alt": "Empower Solar",
+			"url": "https://www.empower-solar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-fastrac-energy-services.svg",
-			"alt": "Fastrac Energy Services"
+			"alt": "Fastrac Energy Services",
+			"url": "https://fastracsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-good-power.svg",
-			"alt": "Good Power"
+			"alt": "Good Power",
+			"url": "https://www.goodpwr.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-icon-power.svg",
-			"alt": "Icon Power"
+			"alt": "Icon Power",
+			"url": "https://iconpower.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-ilum-energy-solutions.svg",
-			"alt": "Ilum Energy Solutions"
+			"alt": "Ilum Energy Solutions",
+			"url": "https://www.ilumsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-malama-solar.svg",
-			"alt": "Malama Solar"
+			"alt": "Malama Solar",
+			"url": "https://www.malamasolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-mayer.svg",
-			"alt": "Mayer"
+			"alt": "Mayer",
+			"url": "https://mayersolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-nlitn.svg",
-			"alt": "NLITN"
+			"alt": "NLITN",
+			"url": "https://www.nlitnenergysolutions.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-oc-solar.svg",
-			"alt": "OC Solar"
+			"alt": "OC Solar",
+			"url": "https://ocsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-our-world-energy.svg",
-			"alt": "Our World Energy"
+			"alt": "Our World Energy",
+			"url": "https://ourworldenergy.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-plug-pv.svg",
-			"alt": "Plug PV"
+			"alt": "Plug PV",
+			"url": "https://plugpv.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-skyline-smart-energy.svg",
-			"alt": "Skyline Smart Energy"
+			"alt": "Skyline Smart Energy",
+			"url": "https://skylinesmartenergy.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-snslr.svg",
@@ -71,27 +101,39 @@
 		},
 		{
 			"src": "/uploads/dealers-logo-spring-solar.svg",
-			"alt": "Spring Solar"
+			"alt": "Spring Solar",
+			"url": "https://gospringsolarnow.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-standard-solar.svg",
-			"alt": "Standard Solar"
+			"alt": "Standard Solar",
+			"url": "https://www.standardsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-sun-vena-solar.svg",
-			"alt": "Sun Vena Solar"
+			"alt": "Sun Vena Solar",
+			"url": "https://www.sunvena.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-sun-solar-solutions.svg",
-			"alt": "Sun Solar Solutions"
+			"alt": "Sun Solar Solutions",
+			"url": "https://sunsolarsolutions.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-trismart-solar.svg",
-			"alt": "TriSmart Solar"
+			"alt": "TriSmart Solar",
+			"url": "https://www.trismartsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/dealers-logo-unicity-solar-energy.svg",
-			"alt": "Unicity Solar Energy"
+			"alt": "Unicity Solar Energy",
+			"url": "https://unicitysolar.com",
+			"newTab": true
 		}
 	],
 	"cta": {

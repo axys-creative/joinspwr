@@ -7,31 +7,45 @@
 	"logos": [
 		{
 			"src": "/uploads/logo-finance-1.svg",
-			"alt": "Finance partner 1"
+			"alt": "Finance partner 1",
+			"url": "https://enfin.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/logo-finance-2.svg",
-			"alt": "Finance partner 2"
+			"alt": "Finance partner 2",
+			"url": "https://www.everbrightsolar.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/logo-finance-3.svg",
-			"alt": "Finance partner 3"
+			"alt": "Finance partner 3",
+			"url": "https://www.goodleap.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/logo-finance-4.svg",
-			"alt": "Finance partner 4"
+			"alt": "Finance partner 4",
+			"url": "https://www.igs.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/logo-finance-5.svg",
-			"alt": "Finance partner 5"
+			"alt": "Finance partner 5",
+			"url": "https://www.lightreach.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/logo-finance-6.svg",
-			"alt": "Finance partner 6"
+			"alt": "Finance partner 6",
+			"url": "https://www.posigen.com",
+			"newTab": true
 		},
 		{
 			"src": "/uploads/logo-finance-7.svg",
-			"alt": "Finance partner 7"
+			"alt": "Finance partner 7",
+			"url": "https://www.sunrun.com",
+			"newTab": true
 		}
 	],
 	"cta": {
@@ -43,7 +57,7 @@
 			"iconEnd": ""
 		}
 	},
-	"searchTitle": "Find your financing",
+	"searchTitle": "Find a finance partner",
 	"searchLabel": "Search finance options",
 	"searchMinimum": 12,
 	"side": "left"

@@ -369,32 +369,37 @@
 							core.set(el, { scale: k, x: center * (k - 1) });
 						});
 					};
-					const chase = () => {
+					let lagging = false;
+					const follow = (_time: number, delta: number) => {
 						const zoom = Number(core.getProperty(scaler!, 'scale'));
+						const seconds = delta / 1000;
+						lagging = false;
 						slideEls.forEach((_, at) => {
 							const distance = Math.abs(at - index);
-							core.killTweensOf(own, String(at));
 							if (distance < 1 || distance > 2) {
 								own[at] = zoom;
 								return;
 							}
-							core.to(own, {
-								[at]: zoom,
-								duration: trail * distance,
-								ease: 'power2.out',
-								onUpdate: place,
-								onComplete: () => sync?.()
-							});
+							const eased = zoom + (own[at] - zoom) * Math.exp((-3 * seconds) / (trail * distance));
+							own[at] = Math.abs(eased - zoom) < 0.0005 ? zoom : eased;
+							if (own[at] !== zoom) lagging = true;
 						});
 						place();
+						if (!lagging) core.ticker.remove(follow);
+					};
+					const chase = () => {
+						lagging = true;
+						core.ticker.add(follow);
 					};
 					settle = () => {
-						core.killTweensOf(own);
+						core.ticker.remove(follow);
+						lagging = false;
 						own.fill(1);
 						core.set(slideEls, { clearProps: 'transform' });
 					};
+					cleanups.push(() => core.ticker.remove(follow));
 					sync = () => {
-						if (core.getTweensOf(own).some((tween) => tween.progress() < 1)) return;
+						if (lagging) return;
 						const zoom = Number(core.getProperty(scaler!, 'scale'));
 						if (own.every((value) => Math.abs(value - zoom) < 0.0005)) return;
 						own.fill(zoom);

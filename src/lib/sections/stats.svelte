@@ -1,4 +1,5 @@
 <script module lang="ts">
+	import type { ButtonProps } from '$lib/components/button.svelte';
 	import type { CounterProps } from '$lib/components/counter.svelte';
 
 	export type StatItem = Pick<CounterProps, 'digit' | 'prefix' | 'suffix' | 'label' | 'comma'> & {
@@ -13,6 +14,8 @@
 		image?: { src: string; alt?: string };
 		/** Four fit the two by two grid; more continue in rows of two. */
 		stats: StatItem[];
+		/** A solid button under the stats. When `pinned` it fades in after the last stat appears. */
+		cta?: { primary: Omit<ButtonProps, 'type'> };
 		/** Pins the section while the page scrolls: each stat counts up in turn as its picture drops onto the stack. Wider than `md` only. */
 		pinned?: boolean;
 		/** Count up again each time the grid scrolls into view, instead of only the first time. */
@@ -26,6 +29,7 @@
 </script>
 
 <script lang="ts">
+	import Button from '$lib/components/button.svelte';
 	import Counter from '$lib/components/counter.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
 	import { imageProps } from '$lib/utils/image';
@@ -35,6 +39,7 @@
 		title,
 		image,
 		stats,
+		cta,
 		repeat = false,
 		pinned = false,
 		fullScreen = false,
@@ -161,21 +166,28 @@
 			{/if}
 		</div>
 
-		<ul class="stats">
-			{#each stats as { digit, prefix, suffix, label, comma }, index (index)}
-				<li class="stat" data-stat>
-					<Counter
-						{digit}
-						{prefix}
-						{suffix}
-						{label}
-						{comma}
-						once={!repeat && !live}
-						active={!live || index < revealed}
-					/>
-				</li>
-			{/each}
-		</ul>
+		<div class="numbers">
+			<ul class="stats">
+				{#each stats as { digit, prefix, suffix, label, comma }, index (index)}
+					<li class="stat" data-stat>
+						<Counter
+							{digit}
+							{prefix}
+							{suffix}
+							{label}
+							{comma}
+							once={!repeat && !live}
+							active={!live || index < revealed}
+						/>
+					</li>
+				{/each}
+			</ul>
+			{#if cta?.primary?.text}
+				<div class="cta" class:waiting={live && revealed < stats.length}>
+					<Button {...cta.primary} type="solid" />
+				</div>
+			{/if}
+		</div>
 	</div>
 </section>
 
@@ -253,6 +265,26 @@
 		box-shadow: 0 16px 40px rgb(0 0 0 / 0.35);
 		object-fit: cover;
 		rotate: var(--tilt);
+	}
+
+	.numbers {
+		display: flex;
+		flex-direction: column;
+		gap: 48px;
+	}
+
+	.cta {
+		@include mixins.mq-motion-allow {
+			transition:
+				opacity 0.6s var(--ease),
+				visibility 0.6s;
+		}
+
+		&.waiting {
+			visibility: hidden;
+			opacity: 0;
+			pointer-events: none;
+		}
 	}
 
 	.stats {

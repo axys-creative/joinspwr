@@ -76,7 +76,8 @@
 		class="close"
 		iconStart="x-lg"
 		textDescription="Close alert"
-		type="text"
+		type="outline"
+		size="sm"
 		onclick={() => onclose?.()}
 	/>
 
@@ -162,13 +163,11 @@
 		content: none !important;
 	}
 
+	// Centered on the title's line whatever the button's height is: a percentage in `translate` is the button's own.
 	.alert :global(.close) {
-		--btn-padding-icon: 4px;
-
 		align-self: flex-start;
 		margin-inline-start: auto;
-		block-size: var(--title-line);
-		color: var(--color-text);
+		translate: 0 calc((var(--title-line) - 100%) / 2);
 	}
 
 	.timer {

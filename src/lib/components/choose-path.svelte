@@ -133,7 +133,8 @@
 	<div class="panel" bind:this={panel} {@attach gradientBorder({ rayTrace: 'border' })}>
 		<Button
 			class="close"
-			type="text"
+			type="outline"
+			size="sm"
 			iconStart="x-lg"
 			textDescription="Close"
 			onclick={() => !inline && dialog?.close()}

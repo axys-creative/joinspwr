@@ -82,8 +82,8 @@ function segments(kind: 'zigzag' | 'notch', rand: () => number) {
 	}
 
 	const zigs = rand() < 0.5 ? 1 : 2;
-	const half = 7 + rand() * 4;
-	const amp = HEIGHT * (0.3 + rand() * 0.15);
+	const half = 9 + rand() * 5;
+	const amp = HEIGHT * (0.12 + rand() * 0.06);
 	const start = 8 + rand() * (WIDTH - 16 - (zigs * 2 + 1) * half);
 	const points = [
 		[0, mid],

@@ -20,6 +20,9 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { animate } from '$lib/attachments/animate';
+	import { underline } from '$lib/attachments/underline';
+	import Icon from '$lib/components/icon.svelte';
 
 	let {
 		items,
@@ -36,6 +39,22 @@
 			.replace(/[^a-z0-9]+/g, '-')
 			.replace(/^-|-$/g, '')}-${index + 1}`;
 	const anchors = $derived(items.map((item, index) => slug(item.title, index)));
+
+	// The words after a paragraph's bold "In short:" are italic, whatever the CMS text holds.
+	const italicShort = (html: string) =>
+		html.replace(
+			/(<p>\s*<strong>\s*In short:?\s*<\/strong>)([\s\S]*?)(<\/p>)/gi,
+			'$1<em>$2</em>$3'
+		);
+
+	// A table row that opens with a marker ("A. Identifiers") hangs it in the margin, so wrapped lines stay clear of it.
+	const hangMarkers = (html: string) =>
+		html.replace(
+			/(<tr>\s*)<td>\s*([A-Za-z]|\d{1,2})([.)])\s+/g,
+			'$1<td class="has-marker"><span class="marker">$2$3</span>'
+		);
+
+	const prepare = (html: string) => hangMarkers(italicShort(html));
 
 	let current = $state('');
 	let blocks: HTMLElement;
@@ -114,7 +133,9 @@
 				</div>
 			</nav>
 			<details class="toc-small">
-				<summary>{tocTitle}</summary>
+				<summary>
+					<Icon name="/uploads/icon-arrow-right.svg" class="arrow" />{tocTitle}
+				</summary>
 				{@render links()}
 			</details>
 		{/if}
@@ -122,10 +143,15 @@
 		<div class="blocks" bind:this={blocks}>
 			{#each items as item, index (index)}
 				<article class="block" id={toc ? anchors[index] : undefined}>
+					<span
+						class="divider"
+						aria-hidden="true"
+						{@attach animate({ variant: 'line', duration: 1 })}
+					></span>
 					<h2 class="title">{item.title}</h2>
-					<div class="copy">
+					<div class="copy" {@attach underline({ selector: 'a' })}>
 						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-						{@html item.content}
+						{@html prepare(item.content)}
 					</div>
 				</article>
 			{/each}
@@ -157,14 +183,19 @@
 		@include mixins.min-lg {
 			display: flex;
 			flex-direction: column;
+			// Pinned, it keeps the same gap from the top and the bottom of the screen.
+			--toc-gap: 120px;
+
 			position: sticky;
-			top: 120px;
-			max-height: calc(75lvh - 120px);
+			top: var(--toc-gap);
+			max-height: calc(100lvh - var(--toc-gap) * 2);
 			padding-block: 48px;
 		}
 	}
 
 	.toc-list {
+		--fade: 80px;
+
 		position: relative;
 		flex: 1;
 		min-height: 0;
@@ -173,19 +204,19 @@
 		scrollbar-width: thin;
 
 		&.fade-top {
-			mask-image: linear-gradient(to bottom, transparent, #000 40px);
+			mask-image: linear-gradient(to bottom, transparent, #000 var(--fade));
 		}
 
 		&.fade-bottom {
-			mask-image: linear-gradient(to top, transparent, #000 40px);
+			mask-image: linear-gradient(to top, transparent, #000 var(--fade));
 		}
 
 		&.fade-top.fade-bottom {
 			mask-image: linear-gradient(
 				to bottom,
 				transparent,
-				#000 40px,
-				#000 calc(100% - 40px),
+				#000 var(--fade),
+				#000 calc(100% - var(--fade)),
 				transparent
 			);
 		}
@@ -205,16 +236,34 @@
 	}
 
 	.toc-small {
-		margin-block-end: 24px;
 		padding: 16px 0;
-		border-block: 1px solid var(--color-border);
+		border-block-start: 1px solid var(--color-border);
 
 		@include mixins.min-lg {
 			display: none;
 		}
 
 		summary {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			list-style: none;
 			cursor: pointer;
+
+			&::-webkit-details-marker {
+				display: none;
+			}
+
+			// The arrow turns down when the list opens, like the triangle it replaces.
+			:global(.arrow) {
+				@include mixins.mq-motion-allow {
+					transition: rotate var(--duration) var(--ease);
+				}
+			}
+		}
+
+		&[open] summary :global(.arrow) {
+			rotate: 90deg;
 		}
 
 		.links {
@@ -257,9 +306,17 @@
 	.block {
 		display: grid;
 		gap: 24px;
+		position: relative;
 		padding-block: 48px;
-		border-top: 1px solid var(--color-border);
 		scroll-margin-top: 80px;
+	}
+
+	// The line between sections draws across when it scrolls into view.
+	.divider {
+		position: absolute;
+		inset: 0 0 auto;
+		height: 1px;
+		background: var(--color-border);
 	}
 
 	.title {
@@ -313,15 +370,38 @@
 			color: var(--color-text);
 		}
 
+		// The marker takes a fixed width and the cell's text starts after it, so every line lines up beside it.
+		:global(td.has-marker) {
+			padding-inline-start: 2.5ch;
+			text-indent: -2.5ch;
+		}
+
+		:global(td.has-marker .marker) {
+			display: inline-block;
+			width: 2.5ch;
+			text-indent: 0;
+		}
+
 		:global(a) {
 			color: var(--color-text);
 			font-family: inherit;
 			text-decoration: underline;
 			text-underline-offset: 0.2em;
 
+			// The underline attachment animates `background-size`, so it stays in this list.
+			@include mixins.mq-motion-allow {
+				transition:
+					color 0.5s var(--ease),
+					background-size var(--duration) var(--ease);
+			}
+
 			&:hover {
 				color: var(--color-accent-text);
 			}
+		}
+
+		:global(a.underline-effect) {
+			text-decoration: none;
 		}
 	}
 </style>

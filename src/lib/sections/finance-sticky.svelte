@@ -3,8 +3,13 @@
 	import type { SectionCopyProps } from '$lib/components/section-copy.svelte';
 
 	export type FinanceStickyProps = Omit<SectionCopyProps, 'level' | 'layout' | 'align'> & {
-		/** The logos, two across, each fading in as it scrolls into view. */
-		logos: MarqueeImage[];
+		/** The logos, two across, each fading in as it scrolls into view. Tiles with a `url` show a "Visit site" link on hover. */
+		logos: (MarqueeImage & {
+			/** The partner's website. */
+			url?: string;
+			/** Opens the link in a new tab. */
+			newTab?: boolean;
+		})[];
 		/** Label of the search box that follows the section, such as "Search dealer network". Leave empty for no search. */
 		searchLabel?: string;
 		/** The search box shows only with at least this many logos. Defaults to `12`. */
@@ -23,9 +28,9 @@
 
 <script lang="ts">
 	import LogoSearch from '$lib/components/logo-search.svelte';
+	import LogoTile from '$lib/components/logo-tile.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
 	import { animate } from '$lib/attachments/animate';
-	import { gradientBorder } from '$lib/attachments/gradient-border';
 
 	let {
 		logos,
@@ -80,16 +85,14 @@
 
 		<ul class="logos" bind:this={list}>
 			{#each logos as logo, index (index)}
-				<li
-					{@attach animate({ variant: 'up', delay: (index % 2) * 0.12 })}
-					{@attach gradientBorder({ rayTrace: 'border', rayReach: 180 })}
-				>
-					<img
+				<li {@attach animate({ variant: 'up', delay: (index % 2) * 0.12 })}>
+					<LogoTile
 						src={logo.src}
-						alt={logo.alt ?? ''}
-						loading="lazy"
-						class:match={matches?.has(index)}
-						class:dim={matches && !matches.has(index)}
+						alt={logo.alt}
+						url={logo.url}
+						newTab={logo.newTab}
+						match={matches?.has(index)}
+						dim={!!matches && !matches.has(index)}
 					/>
 				</li>
 			{/each}
@@ -163,55 +166,11 @@
 	}
 
 	li {
-		--gradient-ray-size: 90px;
-
-		aspect-ratio: 3 / 2;
-		border-radius: 16px;
-
-		// The ring follows the logo's search dim and highlight.
-		&:global(.gradient-border)::before {
-			@include mixins.mq-motion-allow {
-				transition:
-					opacity 0.3s var(--ease),
-					scale 0.3s var(--ease);
-			}
-		}
-
-		&:has(.dim)::before {
-			opacity: 0.2;
-		}
-
-		&:has(.match)::before {
-			scale: 1.04;
-		}
-	}
-
-	img {
-		box-sizing: border-box;
-		width: 100%;
-		height: 100%;
-		padding: 32px;
-		@include mixins.glass-card($blur: 0);
-
-		object-fit: contain;
-
-		@include mixins.mq-motion-allow {
-			transition:
-				opacity 0.3s var(--ease),
-				scale 0.3s var(--ease);
-		}
-
-		&.dim {
-			opacity: 0.2;
-		}
-
-		&.match {
-			border-color: var(--color-accent);
-			scale: 1.04;
-		}
+		--tile-ratio: 3 / 2;
+		--tile-padding: 32px;
 
 		@include mixins.max-md {
-			padding: 16px;
+			--tile-padding: 16px;
 		}
 	}
 </style>

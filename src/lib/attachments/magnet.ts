@@ -16,15 +16,27 @@ export type MagnetOptions = {
 	returnEase?: string;
 };
 
+/** The pull of every square control (the menu button, a button that is only an icon, a social icon), so they all feel alike. */
+export const squareMagnet: MagnetOptions = {
+	x: 0.75,
+	y: 0.75,
+	followDuration: 500,
+	returnDuration: 350,
+	returnEase: 'cubic-bezier(0, 1.64, 0.63, 1.92)'
+};
+
+/** The pull of a button with text: wide and short, so it pulls three times as much up and down as the default to be felt on that axis. */
+export const wideMagnet: MagnetOptions = { y: 0.75 };
+
 const canHover = '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
 
 export function magnet({
-	x = 0.5,
-	y = 0.5,
+	x = 0.25,
+	y = 0.25,
 	followDuration = 640,
 	followEase = 'cubic-bezier(0.18, 0.97, 0.47, 1)',
-	returnDuration = 220,
-	returnEase = 'cubic-bezier(0.16, 1, 0.3, 1)'
+	returnDuration = 350,
+	returnEase = 'cubic-bezier(0, 1.64, 0.63, 1.92)'
 }: MagnetOptions = {}): Attachment<HTMLElement> {
 	return (el) => {
 		if (!matchMedia(canHover).matches) return;

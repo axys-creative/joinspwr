@@ -388,8 +388,18 @@
 									"required": false,
 									"hint": "Replaces the main image while this tab is selected.",
 									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image", "required": false },
-										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
 									]
 								}
 							]
@@ -481,6 +491,47 @@
 							"label": "Statement",
 							"widget": "text",
 							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+						},
+						{
+							"name": "quote",
+							"label": "Credit",
+							"widget": "object",
+							"required": false,
+							"hint": "Who said it. Leave the name empty for a plain headline without quotes.",
+							"fields": [
+								{
+									"name": "name",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "role",
+									"label": "Role",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Photo",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
 						}
 					]
 				},
@@ -583,7 +634,11 @@
 							"label_singular": "Tab",
 							"summary": "{{fields.label}}",
 							"fields": [
-								{ "name": "label", "label": "Toggle text", "widget": "string" },
+								{
+									"name": "label",
+									"label": "Toggle text",
+									"widget": "string"
+								},
 								{
 									"name": "image",
 									"label": "Image",
@@ -591,8 +646,18 @@
 									"required": false,
 									"hint": "Shown wide under the toggle.",
 									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image", "required": false },
-										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
 									]
 								},
 								{
@@ -639,7 +704,12 @@
 							"required": false,
 							"hint": "Style words with [words]{.secondary-alt}. Use {.br} for a line break."
 						},
-						{ "name": "description", "label": "Description", "widget": "text", "required": false },
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
 						{
 							"name": "slides",
 							"label": "Slides",
@@ -648,7 +718,11 @@
 							"label_singular": "Slide",
 							"summary": "{{fields.title}}",
 							"fields": [
-								{ "name": "title", "label": "Title", "widget": "string" },
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string"
+								},
 								{
 									"name": "description",
 									"label": "Description",
@@ -661,8 +735,18 @@
 									"widget": "object",
 									"required": false,
 									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image", "required": false },
-										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
 									]
 								}
 							]
@@ -932,8 +1016,18 @@
 							"required": false,
 							"hint": "A picture under the title.",
 							"fields": [
-								{ "name": "src", "label": "Image", "widget": "image", "required": false },
-								{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": false
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
 							]
 						},
 						{
@@ -973,7 +1067,12 @@
 									"required": false,
 									"hint": "Off for a year such as 1985."
 								},
-								{ "name": "label", "label": "Label", "widget": "string", "required": false },
+								{
+									"name": "label",
+									"label": "Label",
+									"widget": "string",
+									"required": false
+								},
 								{
 									"name": "image",
 									"label": "Image",
@@ -981,11 +1080,71 @@
 									"required": false,
 									"hint": "Lands on the stack with this stat when the section is pinned.",
 									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image", "required": false },
-										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
 									]
 								}
 							]
+						},
+						{
+							"name": "cta",
+							"label": "Call to action (optional)",
+							"widget": "object",
+							"fields": [
+								{
+									"name": "primary",
+									"label": "Button",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "textDescription",
+											"label": "Accessible description",
+											"widget": "string",
+											"required": false,
+											"hint": "Optional aria-label for screen readers"
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "newTab",
+											"label": "Open in new tab",
+											"widget": "boolean",
+											"default": false,
+											"required": false
+										},
+										{
+											"name": "iconEnd",
+											"label": "Icon after text",
+											"widget": "string",
+											"required": false,
+											"hint": "Icon file name without .svg (e.g. chevron-right). See /style-guide for examples."
+										}
+									]
+								}
+							],
+							"required": false,
+							"hint": "A button under the numbers that fades in after the last one. Leave the text empty for none."
 						},
 						{
 							"name": "pinned",
@@ -1033,8 +1192,16 @@
 							"required": false,
 							"hint": "Style words with [words]{.secondary-alt}. Use {.br} for a line break."
 						},
-						{ "name": "primaryLabel", "label": "First column heading", "widget": "string" },
-						{ "name": "secondaryLabel", "label": "Second column heading", "widget": "string" },
+						{
+							"name": "primaryLabel",
+							"label": "First column heading",
+							"widget": "string"
+						},
+						{
+							"name": "secondaryLabel",
+							"label": "Second column heading",
+							"widget": "string"
+						},
 						{
 							"name": "rows",
 							"label": "Rows",
@@ -1043,7 +1210,11 @@
 							"summary": "{{fields.label}}",
 							"min": 1,
 							"fields": [
-								{ "name": "label", "label": "Row name", "widget": "string" },
+								{
+									"name": "label",
+									"label": "Row name",
+									"widget": "string"
+								},
 								{
 									"name": "primary",
 									"label": "First column",
@@ -1213,6 +1384,20 @@
 									"label": "Name",
 									"widget": "string",
 									"required": false
+								},
+								{
+									"name": "url",
+									"label": "Link",
+									"widget": "string",
+									"required": false,
+									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
+								},
+								{
+									"name": "newTab",
+									"label": "Open in new tab",
+									"widget": "boolean",
+									"default": false,
+									"required": false
 								}
 							]
 						},
@@ -1369,6 +1554,20 @@
 									"name": "alt",
 									"label": "Name",
 									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "url",
+									"label": "Link",
+									"widget": "string",
+									"required": false,
+									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
+								},
+								{
+									"name": "newTab",
+									"label": "Open in new tab",
+									"widget": "boolean",
+									"default": false,
 									"required": false
 								}
 							]
@@ -1605,8 +1804,18 @@
 							"widget": "string",
 							"required": false
 						},
-						{ "name": "title", "label": "Title", "widget": "string", "required": false },
-						{ "name": "description", "label": "Description", "widget": "text", "required": false },
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
 						{
 							"name": "accordion",
 							"label": "Accordion options",
@@ -1636,15 +1845,25 @@
 							"summary": "{{fields.label}}",
 							"hint": "Each group is a set of questions. One group shows no toggle; add a second and a toggle appears. A group's visitor path, if set, opens it first for that visitor.",
 							"fields": [
-								{ "name": "label", "label": "Group name (toggle text)", "widget": "string" },
+								{
+									"name": "label",
+									"label": "Group name (toggle text)",
+									"widget": "string"
+								},
 								{
 									"name": "path",
 									"label": "Visitor path",
 									"widget": "select",
 									"required": false,
 									"options": [
-										{ "label": "New to sales", "value": "new" },
-										{ "label": "Experienced", "value": "experienced" }
+										{
+											"label": "New to sales",
+											"value": "new"
+										},
+										{
+											"label": "Experienced",
+											"value": "experienced"
+										}
 									]
 								},
 								{
@@ -1653,7 +1872,11 @@
 									"widget": "list",
 									"summary": "{{fields.title}}",
 									"fields": [
-										{ "name": "title", "label": "Question", "widget": "string" },
+										{
+											"name": "title",
+											"label": "Question",
+											"widget": "string"
+										},
 										{
 											"name": "content",
 											"label": "Answer",
@@ -2828,6 +3051,28 @@
 											"required": false
 										}
 									]
+								},
+								{
+									"name": "link",
+									"label": "Link",
+									"widget": "object",
+									"required": false,
+									"hint": "A link under the description, opening in a new tab. Leave the URL empty for none.",
+									"fields": [
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"default": "Visit site",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": false
+										}
+									]
 								}
 							]
 						}
@@ -2896,7 +3141,7 @@
 									"label": "Link",
 									"widget": "string",
 									"required": false,
-									"hint": "The partner's website. With it, the card is a link."
+									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
 								},
 								{
 									"name": "newTab",
@@ -3003,7 +3248,7 @@
 									"label": "Link",
 									"widget": "string",
 									"required": false,
-									"hint": "The partner's website. With it, the card is a link."
+									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
 								},
 								{
 									"name": "newTab",
@@ -3108,15 +3353,25 @@
 							"summary": "{{fields.label}}",
 							"hint": "Each group is a set of questions. One group shows no toggle; add a second and a toggle appears. A group's visitor path, if set, opens it first for that visitor.",
 							"fields": [
-								{ "name": "label", "label": "Group name (toggle text)", "widget": "string" },
+								{
+									"name": "label",
+									"label": "Group name (toggle text)",
+									"widget": "string"
+								},
 								{
 									"name": "path",
 									"label": "Visitor path",
 									"widget": "select",
 									"required": false,
 									"options": [
-										{ "label": "New to sales", "value": "new" },
-										{ "label": "Experienced", "value": "experienced" }
+										{
+											"label": "New to sales",
+											"value": "new"
+										},
+										{
+											"label": "Experienced",
+											"value": "experienced"
+										}
 									]
 								},
 								{
@@ -3125,7 +3380,11 @@
 									"widget": "list",
 									"summary": "{{fields.title}}",
 									"fields": [
-										{ "name": "title", "label": "Question", "widget": "string" },
+										{
+											"name": "title",
+											"label": "Question",
+											"widget": "string"
+										},
 										{
 											"name": "content",
 											"label": "Answer",
@@ -3357,6 +3616,47 @@
 							"label": "Statement",
 							"widget": "text",
 							"hint": "Style words with [words]{.secondary-alt}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
+						},
+						{
+							"name": "quote",
+							"label": "Credit",
+							"widget": "object",
+							"required": false,
+							"hint": "Who said it. Leave the name empty for a plain headline without quotes.",
+							"fields": [
+								{
+									"name": "name",
+									"label": "Name",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "role",
+									"label": "Role",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Photo",
+									"widget": "object",
+									"required": false,
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
 						}
 					]
 				},
@@ -3620,8 +3920,18 @@
 							"required": false,
 							"hint": "A picture under the title.",
 							"fields": [
-								{ "name": "src", "label": "Image", "widget": "image", "required": false },
-								{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image",
+									"required": false
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
 							]
 						},
 						{
@@ -3661,7 +3971,12 @@
 									"required": false,
 									"hint": "Off for a year such as 1985."
 								},
-								{ "name": "label", "label": "Label", "widget": "string", "required": false },
+								{
+									"name": "label",
+									"label": "Label",
+									"widget": "string",
+									"required": false
+								},
 								{
 									"name": "image",
 									"label": "Image",
@@ -3669,8 +3984,18 @@
 									"required": false,
 									"hint": "Lands on the stack with this stat when the section is pinned.",
 									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image", "required": false },
-										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
 									]
 								}
 							]
@@ -4003,8 +4328,16 @@
 							"min": 1,
 							"hint": "The key names the field each row reads. Keep emblem, year and location unless the rows change too.",
 							"fields": [
-								{ "name": "key", "label": "Key", "widget": "string" },
-								{ "name": "label", "label": "Header text", "widget": "string" },
+								{
+									"name": "key",
+									"label": "Key",
+									"widget": "string"
+								},
+								{
+									"name": "label",
+									"label": "Header text",
+									"widget": "string"
+								},
 								{
 									"name": "type",
 									"label": "Type",
@@ -4065,7 +4398,12 @@
 									"widget": "object",
 									"required": false,
 									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": false
+										},
 										{
 											"name": "alt",
 											"label": "Description",
@@ -4074,8 +4412,16 @@
 										}
 									]
 								},
-								{ "name": "year", "label": "Year", "widget": "string" },
-								{ "name": "location", "label": "Location", "widget": "string" },
+								{
+									"name": "year",
+									"label": "Year",
+									"widget": "string"
+								},
+								{
+									"name": "location",
+									"label": "Location",
+									"widget": "string"
+								},
 								{
 									"name": "content",
 									"label": "Content",
@@ -4089,8 +4435,18 @@
 									"widget": "object",
 									"required": false,
 									"fields": [
-										{ "name": "text", "label": "Text", "widget": "string", "required": false },
-										{ "name": "url", "label": "URL", "widget": "string", "required": false }
+										{
+											"name": "text",
+											"label": "Text",
+											"widget": "string",
+											"required": false
+										},
+										{
+											"name": "url",
+											"label": "URL",
+											"widget": "string",
+											"required": false
+										}
 									]
 								},
 								{
@@ -4107,7 +4463,12 @@
 											"required": false,
 											"hint": "A Mux playback ID, an HLS stream or a video file URL."
 										},
-										{ "name": "title", "label": "Title", "widget": "string", "required": false },
+										{
+											"name": "title",
+											"label": "Title",
+											"widget": "string",
+											"required": false
+										},
 										{
 											"name": "poster",
 											"label": "Poster image",
@@ -4122,7 +4483,11 @@
 									"widget": "list",
 									"required": false,
 									"fields": [
-										{ "name": "src", "label": "Image", "widget": "image" },
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image"
+										},
 										{
 											"name": "alt",
 											"label": "Description",
@@ -4315,8 +4680,16 @@
 							"required": false,
 							"summary": "{{fields.text}}",
 							"fields": [
-								{ "name": "text", "label": "Text", "widget": "string" },
-								{ "name": "url", "label": "URL", "widget": "string" }
+								{
+									"name": "text",
+									"label": "Text",
+									"widget": "string"
+								},
+								{
+									"name": "url",
+									"label": "URL",
+									"widget": "string"
+								}
 							]
 						},
 						{
@@ -4407,15 +4780,25 @@
 							"summary": "{{fields.label}}",
 							"hint": "Each group is a set of questions. One group shows no toggle; add a second and a toggle appears. A group's visitor path, if set, opens it first for that visitor.",
 							"fields": [
-								{ "name": "label", "label": "Group name (toggle text)", "widget": "string" },
+								{
+									"name": "label",
+									"label": "Group name (toggle text)",
+									"widget": "string"
+								},
 								{
 									"name": "path",
 									"label": "Visitor path",
 									"widget": "select",
 									"required": false,
 									"options": [
-										{ "label": "New to sales", "value": "new" },
-										{ "label": "Experienced", "value": "experienced" }
+										{
+											"label": "New to sales",
+											"value": "new"
+										},
+										{
+											"label": "Experienced",
+											"value": "experienced"
+										}
 									]
 								},
 								{
@@ -4424,7 +4807,11 @@
 									"widget": "list",
 									"summary": "{{fields.title}}",
 									"fields": [
-										{ "name": "title", "label": "Question", "widget": "string" },
+										{
+											"name": "title",
+											"label": "Question",
+											"widget": "string"
+										},
 										{
 											"name": "content",
 											"label": "Answer",
@@ -4616,7 +5003,7 @@
 							"widget": "boolean",
 							"default": false,
 							"required": false,
-							"hint": "Pinned on the left with a link to each block."
+							"hint": "A link to each block. From large screens up the list is pinned on the left and scrolls inside; on smaller screens it is a collapsible list above the blocks."
 						},
 						{
 							"name": "tocTitle",
@@ -4630,7 +5017,7 @@
 							"widget": "list",
 							"min": 1,
 							"summary": "{{fields.title}}",
-							"hint": "The title sits on the left and the copy on the right.",
+							"hint": "One block each, with its title above its copy. A line between blocks draws across as it scrolls into view.",
 							"fields": [
 								{
 									"name": "title",
@@ -4641,7 +5028,7 @@
 									"name": "content",
 									"label": "Copy",
 									"widget": "text",
-									"hint": "HTML. Wrap paragraphs in <p></p>; lists, <h3> sub-headings, links and bold are allowed."
+									"hint": "HTML. Wrap paragraphs in <p></p>; lists, tables, <h3> sub-headings, links and bold are allowed. A paragraph that starts with a bold 'In short:' shows the rest of it in italics. In a table, a first cell that starts with a letter or number and a period ('A. Identifiers') hangs that marker in the margin so wrapped lines stay clear of it."
 								}
 							]
 						}
@@ -4706,7 +5093,7 @@
 							"widget": "boolean",
 							"default": false,
 							"required": false,
-							"hint": "Pinned on the left with a link to each block."
+							"hint": "A link to each block. From large screens up the list is pinned on the left and scrolls inside; on smaller screens it is a collapsible list above the blocks."
 						},
 						{
 							"name": "tocTitle",
@@ -4720,7 +5107,7 @@
 							"widget": "list",
 							"min": 1,
 							"summary": "{{fields.title}}",
-							"hint": "The title sits on the left and the copy on the right.",
+							"hint": "One block each, with its title above its copy. A line between blocks draws across as it scrolls into view.",
 							"fields": [
 								{
 									"name": "title",
@@ -4731,7 +5118,7 @@
 									"name": "content",
 									"label": "Copy",
 									"widget": "text",
-									"hint": "HTML. Wrap paragraphs in <p></p>; lists, <h3> sub-headings, links and bold are allowed."
+									"hint": "HTML. Wrap paragraphs in <p></p>; lists, tables, <h3> sub-headings, links and bold are allowed. A paragraph that starts with a bold 'In short:' shows the rest of it in italics. In a table, a first cell that starts with a letter or number and a period ('A. Identifiers') hangs that marker in the margin so wrapped lines stay clear of it."
 								}
 							]
 						}
@@ -5191,8 +5578,14 @@
 							"label": "Type",
 							"widget": "select",
 							"options": [
-								{ "label": "Banner (scrolling text across the top)", "value": "banner" },
-								{ "label": "Alert (a card in the bottom right)", "value": "alert" }
+								{
+									"label": "Banner (scrolling text across the top)",
+									"value": "banner"
+								},
+								{
+									"label": "Alert (a card in the bottom right)",
+									"value": "alert"
+								}
 							],
 							"default": "banner"
 						},
@@ -5225,10 +5618,22 @@
 							"label": "Alert look",
 							"widget": "select",
 							"options": [
-								{ "label": "Info", "value": "info" },
-								{ "label": "Success", "value": "success" },
-								{ "label": "Warning", "value": "warning" },
-								{ "label": "Error", "value": "error" }
+								{
+									"label": "Info",
+									"value": "info"
+								},
+								{
+									"label": "Success",
+									"value": "success"
+								},
+								{
+									"label": "Warning",
+									"value": "warning"
+								},
+								{
+									"label": "Error",
+									"value": "error"
+								}
 							],
 							"default": "info",
 							"required": false,
@@ -5241,8 +5646,18 @@
 							"required": false,
 							"hint": "Shown after the banner's text, or under the alert's message. Leave the text or the URL empty for no link.",
 							"fields": [
-								{ "name": "text", "label": "Text", "widget": "string", "required": false },
-								{ "name": "url", "label": "URL", "widget": "string", "required": false },
+								{
+									"name": "text",
+									"label": "Text",
+									"widget": "string",
+									"required": false
+								},
+								{
+									"name": "url",
+									"label": "URL",
+									"widget": "string",
+									"required": false
+								},
 								{
 									"name": "newTab",
 									"label": "Open in new tab",
@@ -5272,7 +5687,8 @@
 						{
 							"name": "title",
 							"label": "Title",
-							"widget": "string"
+							"widget": "string",
+							"hint": "Style words with [words]{.scribble}. Classes: .h1 .h2 .h3 .h4 .h5 .h6 .italic .primary .roll .scribble .scribble-circle .scribble-circle-tight .scribble-circle-wide .secondary .secondary-alt .stroke .strong. Use {.br} for a line break."
 						},
 						{
 							"name": "options",
@@ -5293,8 +5709,14 @@
 									"widget": "select",
 									"required": false,
 									"options": [
-										{ "label": "New to sales", "value": "new" },
-										{ "label": "Already selling", "value": "experienced" }
+										{
+											"label": "New to sales",
+											"value": "new"
+										},
+										{
+											"label": "Already selling",
+											"value": "experienced"
+										}
 									],
 									"hint": "Shows that path's sections on the home page and closes the modal. Leave empty to use the URL instead."
 								},
@@ -5339,15 +5761,42 @@
 											"required": false,
 											"default": "center",
 											"options": [
-												{ "label": "Center", "value": "center" },
-												{ "label": "Top", "value": "center top" },
-												{ "label": "Bottom", "value": "center bottom" },
-												{ "label": "Left", "value": "left center" },
-												{ "label": "Right", "value": "right center" },
-												{ "label": "Top left", "value": "left top" },
-												{ "label": "Top right", "value": "right top" },
-												{ "label": "Bottom left", "value": "left bottom" },
-												{ "label": "Bottom right", "value": "right bottom" }
+												{
+													"label": "Center",
+													"value": "center"
+												},
+												{
+													"label": "Top",
+													"value": "center top"
+												},
+												{
+													"label": "Bottom",
+													"value": "center bottom"
+												},
+												{
+													"label": "Left",
+													"value": "left center"
+												},
+												{
+													"label": "Right",
+													"value": "right center"
+												},
+												{
+													"label": "Top left",
+													"value": "left top"
+												},
+												{
+													"label": "Top right",
+													"value": "right top"
+												},
+												{
+													"label": "Bottom left",
+													"value": "left bottom"
+												},
+												{
+													"label": "Bottom right",
+													"value": "right bottom"
+												}
 											],
 											"hint": "Which part of the picture stays visible when it is cropped."
 										}
@@ -5467,8 +5916,14 @@
 											"widget": "select",
 											"required": false,
 											"options": [
-												{ "label": "New to sales", "value": "new" },
-												{ "label": "Already selling", "value": "experienced" }
+												{
+													"label": "New to sales",
+													"value": "new"
+												},
+												{
+													"label": "Already selling",
+													"value": "experienced"
+												}
 											],
 											"hint": "Shows that path's sections on the home page Leave empty to use the URL instead."
 										},

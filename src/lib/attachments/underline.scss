@@ -1,29 +1,26 @@
 @use 'base/mixins';
 
+// The line is the element's own background, so it follows each line of a wrapped link and has no hit area of its own.
 .underline-effect {
-	position: relative;
+	background-image: linear-gradient(currentColor, currentColor);
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	background-size: 100% 1px;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
 
-	&::after {
-		content: '';
-		position: absolute;
-		inset: auto auto 0 0;
-		width: 100%;
-		height: 1px;
-		background: currentColor;
-
-		@include mixins.mq-motion-allow {
-			transition:
-				width var(--duration) var(--ease),
-				inset var(--duration) var(--ease);
-		}
+	@include mixins.mq-motion-allow {
+		transition: background-size var(--duration) var(--ease);
 	}
 }
 
-:hover > .underline-effect::after,
-:focus-visible > .underline-effect::after,
-.underline-effect:is(:hover, :focus-visible)::after {
+// Only the size animates: hovering anchors the line to the right so it shrinks that way, and leaving anchors it to the left so it grows from there.
+// A label reacts to its hovered parent (a Button); a link found by `selector` reacts only to itself, not to the text around it.
+:hover > .underline-effect:not(.underline-effect--self),
+:focus-visible > .underline-effect:not(.underline-effect--self),
+.underline-effect:is(:hover, :focus-visible) {
 	@media (hover: hover) and (pointer: fine) {
-		inset: auto 0 0 auto;
-		width: 0;
+		background-position: 100% 100%;
+		background-size: 0 1px;
 	}
 }

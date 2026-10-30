@@ -2,7 +2,8 @@ import type { Attachment } from 'svelte/attachments';
 import './animate.scss';
 
 export type AnimateOptions = {
-	variant?: 'fade' | 'up' | 'down' | 'left' | 'right' | 'scale';
+	/** `line` draws the element's width from 0 to full, from the left, for dividers. */
+	variant?: 'fade' | 'up' | 'down' | 'left' | 'right' | 'scale' | 'line';
 	/** Animate in once (default) or replay every time the element re-enters the viewport. */
 	once?: boolean;
 	/** Seconds to wait before animating in. */

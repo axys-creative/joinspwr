@@ -5,7 +5,6 @@
 	import { glitchHover } from '$lib/attachments/glitch-hover';
 	import { magnet } from '$lib/attachments/magnet';
 	import { toggleSlider } from '$lib/attachments/toggle-slider';
-	import { textRoll } from '$lib/attachments/text-roll';
 	import { underline } from '$lib/attachments/underline';
 	import Button from '$lib/components/button.svelte';
 	import CtaGroup from '$lib/components/cta-group.svelte';
@@ -209,20 +208,13 @@
 				text="Solid custom 2"
 				url="/"
 				iconEnd="new-tab"
-				{@attach magnet({ x: 0.25, y: 0.75 })}
 				{@attach glitchHover({ newText: 'Let’s do this!' })}
 				{@attach underline()}
 				{@attach cursorHide()}
 			/>
 		</div>
 		<div class="row">
-			<Button
-				text="Outline custom"
-				url="/"
-				type="outline"
-				iconEnd="chevron-right"
-				{@attach textRoll()}
-			/>
+			<Button text="Outline custom" url="/" type="outline" iconEnd="chevron-right" />
 			<Button
 				text="Icon end circle"
 				type="text"

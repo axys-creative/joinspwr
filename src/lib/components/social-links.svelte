@@ -3,6 +3,8 @@
 </script>
 
 <script lang="ts">
+	import { magnet, squareMagnet } from '$lib/attachments/magnet';
+	import { roll } from '$lib/attachments/roll';
 	import Icon from './icon.svelte';
 
 	let {
@@ -21,6 +23,8 @@
 					target="_blank"
 					rel="noopener noreferrer"
 					aria-label="{title} (opens in a new tab)"
+					{@attach roll({ split: 'whole', duration: 0.5 })}
+					{@attach magnet(squareMagnet)}
 				>
 					<Icon name={icon} size="lg" />
 				</a>

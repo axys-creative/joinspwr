@@ -40,5 +40,14 @@
 		}
 	],
 	"pinned": true,
-	"fullScreen": true
+	"fullScreen": true,
+	"cta": {
+		"primary": {
+			"text": "Learn more",
+			"textDescription": "Learn more about the SPWR platform",
+			"url": "/platform",
+			"newTab": false,
+			"iconEnd": ""
+		}
+	}
 }

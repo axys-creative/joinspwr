@@ -13,6 +13,7 @@
 </script>
 
 <script lang="ts">
+	import { underline } from '$lib/attachments/underline';
 	import Button from './button.svelte';
 	import FormChoice from './form-choice.svelte';
 
@@ -47,7 +48,7 @@
 		onclick={() => (open = !open)}
 	/>
 	{#if links.length}
-		<p class="links">
+		<p class="links" {@attach underline({ selector: 'a' })}>
 			View our
 			{#each parts as part, index (index)}{#if part.url}<a href={part.url}>{part.value}</a
 					>{:else}{part.value}{/if}{/each}.
@@ -56,6 +57,8 @@
 </div>
 
 <style lang="scss">
+	@use 'base/mixins';
+
 	.consent {
 		display: grid;
 		grid-template-columns: 1fr auto;
@@ -93,11 +96,22 @@
 		margin-inline-start: 2em;
 	}
 
+	// The same links as the policy pages: the underline attachment draws the line, and the color fades.
 	.links a {
 		color: var(--color-text);
 		font-family: inherit;
 		text-decoration: underline;
 		text-underline-offset: 0.2em;
+
+		@include mixins.mq-motion-allow {
+			transition:
+				color 0.5s var(--ease),
+				background-size var(--duration) var(--ease);
+		}
+
+		&:global(.underline-effect) {
+			text-decoration: none;
+		}
 
 		&:hover {
 			color: var(--color-accent-text);

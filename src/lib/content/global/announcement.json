@@ -2,11 +2,11 @@
 	"enabled": true,
 	"type": "alert",
 	"delay": 3,
-	"title": "Registration is open",
+	"title": "Register for OSS",
 	"text": "Operation SPWR Serves: sign up now, before registration closes on December 15.",
 	"alertType": "success",
 	"link": {
-		"text": "Register for OSS",
+		"text": "Register Now",
 		"url": "/oss",
 		"newTab": false
 	},

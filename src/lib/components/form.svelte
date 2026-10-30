@@ -38,7 +38,6 @@
 
 <script lang="ts">
 	import { dev } from '$app/environment';
-	import { magnet } from '$lib/attachments/magnet';
 	import { alerts } from '$lib/utils/alerts.svelte';
 	import Button from './button.svelte';
 	import FormChoice from './form-choice.svelte';
@@ -246,7 +245,6 @@
 			textDescription={submitLabel}
 			htmlType="submit"
 			disabled={sending}
-			{@attach magnet({ x: 0.5, y: 1 })}
 		/>
 	</div>
 </form>

@@ -1,0 +1,84 @@
+@use 'base/mixins';
+
+.roll {
+	--roll-x: 0%;
+	--roll-y: -100%;
+
+	&.roll--down {
+		--roll-y: 100%;
+	}
+
+	&.roll--left {
+		--roll-x: -100%;
+		--roll-y: 0%;
+	}
+
+	&.roll--right {
+		--roll-x: 100%;
+		--roll-y: 0%;
+	}
+}
+
+.roll__chars,
+.roll__whole {
+	display: inline-flex;
+	overflow: hidden;
+}
+
+.roll__chars {
+	white-space: pre;
+}
+
+.roll__space {
+	white-space: pre;
+}
+
+// Each piece clips its own copy, so a sideways roll never covers its neighbors.
+.roll__cell {
+	display: inline-flex;
+	overflow: hidden;
+}
+
+.roll__char {
+	position: relative;
+	display: inline-block;
+	transition: translate var(--roll-duration, 0.6s) var(--ease)
+		calc(var(--roll-index) * var(--roll-stagger, 0.02s));
+
+	&::after {
+		content: attr(data-char);
+		position: absolute;
+		left: calc(var(--roll-x) * -1);
+		top: calc(var(--roll-y) * -1);
+	}
+}
+
+.roll__slide {
+	position: relative;
+	display: inline-flex;
+	transition: translate var(--roll-duration, 0.6s) var(--ease);
+}
+
+.roll__back {
+	position: absolute;
+	left: calc(var(--roll-x) * -1);
+	top: calc(var(--roll-y) * -1);
+}
+
+// With `rewind: false` the script plays the roll instead, so it never has a way back.
+.roll:not(.roll--forward) {
+	@include mixins.desktop-hover {
+		.roll__char,
+		.roll__slide {
+			translate: var(--roll-x) var(--roll-y);
+		}
+	}
+
+	&:focus-visible,
+	&:has(:focus-visible) {
+		.roll__char,
+		.roll__slide {
+			translate: var(--roll-x) var(--roll-y);
+		}
+	}
+}

@@ -33,7 +33,6 @@
 	import { textFade } from '$lib/attachments/text-fade';
 	import { textFill } from '$lib/attachments/text-fill';
 	import { textFlip } from '$lib/attachments/text-flip';
-	import { textRoll } from '$lib/attachments/text-roll';
 	import { textRollLoop } from '$lib/attachments/text-roll-loop';
 	import { textReveal } from '$lib/attachments/text-reveal';
 	import { textScale } from '$lib/attachments/text-scale';
@@ -93,7 +92,8 @@
 		'down',
 		'left',
 		'right',
-		'scale'
+		'scale',
+		'line'
 	];
 	const scrollProps = (defaults: { start: string; end: string; scrub?: string }) => [
 		{
@@ -164,12 +164,8 @@
 		props={[
 			{
 				name: 'variant',
-				description: '`fade | up | down | left | right | scale`. Defaults to `up`.'
-			},
-			{
-				name: 'delay',
 				description:
-					'For `scroll`: seconds to wait before drawing in, so the stroke is seen being drawn. Defaults to `0.2` for a circle and `0` for an underline.'
+					'`fade | up | down | left | right | scale | line`. `line` draws the width from 0 to full, from the left, for a divider. Defaults to `up`.'
 			},
 			{
 				name: 'once',
@@ -843,14 +839,14 @@
 	<LibrarySection
 		title="Magnet"
 		type="Attachment"
-		description="Pulls an element toward the pointer while it is hovered. Mouse and reduced-motion aware. A CSS transition follows the pointer while a script settles it back, which together give the soft return."
+		description="Pulls an element toward the pointer while it is hovered. Every Button has it already, with these defaults. Mouse and reduced-motion aware. A CSS transition follows the pointer while a script settles it back, which together give the soft return."
 		props={[
 			{
 				name: 'x',
 				description:
-					"A number, the horizontal pull as a fraction of the pointer's distance from the center. Defaults to `0.5`."
+					"A number, the horizontal pull as a fraction of the pointer's distance from the center. Defaults to `0.25`."
 			},
-			{ name: 'y', description: 'A number, the vertical pull. Defaults to `0.5`.' },
+			{ name: 'y', description: 'A number, the vertical pull. Defaults to `0.25`.' },
 			{
 				name: 'followDuration',
 				description:
@@ -862,26 +858,17 @@
 			},
 			{
 				name: 'returnDuration',
-				description: 'A number, milliseconds the target takes to travel back. Defaults to `220`.'
+				description: 'A number, milliseconds the target takes to travel back. Defaults to `350`.'
 			},
 			{
 				name: 'returnEase',
 				description:
-					'`cubic-bezier(...)`, `linear`, `ease`, `ease-out` or `ease-in-out`. Values above 1 overshoot. Try `cubic-bezier(0, 1.64, 0.63, 1.92)` for a bounce.'
+					'`cubic-bezier(...)`, `linear`, `ease`, `ease-out` or `ease-in-out`. Values above 1 overshoot. Defaults to the bounce `cubic-bezier(0, 1.64, 0.63, 1.92)`.'
 			}
 		]}
 		propsLabel="options"
 	>
-		<Button
-			text="Magnet Button"
-			{@attach magnet({
-				x: 0.5,
-				y: 1.25,
-				followDuration: 500,
-				returnDuration: 350,
-				returnEase: 'cubic-bezier(0, 1.64, 0.63, 1.92)'
-			})}
-		/>
+		<Button text="Magnet Button" magnet={{ x: 0.5, y: 1.25, followDuration: 500 }} />
 		<div class="magnet-boxes">
 			<div class="magnet-box" {@attach magnet()}>Default Magnet</div>
 			<div
@@ -968,6 +955,69 @@
 				<img src="/images/img-sample-1.jpg" alt="" width="1920" height="1080" loading="lazy" />
 			</figure>
 			<Button text="Hover Me" {@attach push()} />
+		</div>
+	</LibrarySection>
+
+	<LibrarySection
+		title="Roll"
+		type="Attachment"
+		description="On hover or keyboard focus, the content of a link, button or icon leaves one side and an identical copy takes its place from the other. Plain CSS and a little script, no GSAP. Screen readers get the original text. Off with reduced motion. Do not combine it with a glitch attachment on the same text. Every Button rolls its text with it (solid and outline buttons by line, underline and text links by character), and so do the social icons."
+		props={[
+			{
+				name: 'split',
+				description:
+					'`chars | words | line | whole`. What rolls: each character, each word, the text as one `line`, or the whole target at once, which is for icons and any markup. Defaults to `chars`.'
+			},
+			{
+				name: 'from',
+				description:
+					'`start | end | center | edges | random`. Where the roll starts, for `chars` and `words`. `center` rolls outward, `edges` inward, and `random` picks a new order every time. Defaults to `start`.'
+			},
+			{
+				name: 'direction',
+				description:
+					'`up | down | left | right`. The way the content leaves; the copy arrives from the other side. Defaults to `up`.'
+			},
+			{
+				name: 'rewind',
+				description:
+					'A boolean. `false` never rolls back: each time the pointer or focus arrives it rolls on to the next copy, the same way. Defaults to `true`.'
+			},
+			{
+				name: 'stagger',
+				description: 'A number, seconds between each piece starting. Defaults to `0.02`.'
+			},
+			{ name: 'duration', description: 'A number, seconds each piece takes. Defaults to `0.6`.' },
+			{
+				name: 'target',
+				description:
+					'A selector or element that holds the content. Defaults to a `.label` (as in Button), else the element itself. For `whole`, the target is what rolls, so a link with an icon rolls the icon and keeps its box still.'
+			}
+		]}
+		propsLabel="options"
+	>
+		<div class="row">
+			<Button text="Primary: by line" />
+			<Button text="Secondary: by line" type="outline" iconEnd="chevron-right" />
+			<Button text="Underline: by letter" type="underline" />
+			<Button text="Slow line" roll={{ split: 'line', duration: 1.2 }} />
+		</div>
+		<div class="row">
+			<Button text="By letter" roll={{ stagger: 0.04 }} />
+			<Button text="From the center" roll={{ from: 'center' }} />
+			<Button text="Rolls down" roll={{ direction: 'down' }} />
+			<Button text="Rolls sideways" roll={{ direction: 'right', stagger: 0.03 }} />
+			<Button text="Random order" roll={{ from: 'random' }} />
+			<Button text="Never rolls back" roll={{ rewind: false }} />
+			<Button text="Whole words" roll={{ split: 'words' }} />
+		</div>
+		<div class="row">
+			<Button
+				iconStart="orbit"
+				textDescription="Icon roll"
+				type="outline"
+				roll={{ split: 'whole', duration: 0.5 }}
+			/>
 		</div>
 	</LibrarySection>
 
@@ -1361,31 +1411,6 @@
 			<p {@attach textReveal({ from: 'top', scrub: true, end: 'bottom 60%' })}>
 				This reveals from the top instead of the bottom.
 			</p>
-		</div>
-	</LibrarySection>
-
-	<LibrarySection
-		title="Text Roll"
-		type="Attachment"
-		description="Each letter rolls up and out on hover or keyboard focus, replaced by a copy rising from below, one after another. Plain CSS and a little script, no GSAP. Screen readers get the original text. Off with reduced motion. Do not combine it with a glitch attachment on the same text."
-		props={[
-			{
-				name: 'stagger',
-				description: 'A number, seconds between each letter starting. Defaults to `0.02`.'
-			},
-			{ name: 'duration', description: 'A number, seconds each letter takes. Defaults to `0.6`.' },
-			{
-				name: 'target',
-				description:
-					'A selector or element that holds the text. Defaults to a `.label` (as in Button), else the element itself.'
-			}
-		]}
-		propsLabel="options"
-	>
-		<div class="row">
-			<Button text="Outline roll" type="outline" iconEnd="chevron-right" {@attach textRoll()} />
-			<Button text="Underline roll" type="underline" {@attach textRoll({ stagger: 0.04 })} />
-			<Button text="Slow roll" {@attach textRoll({ duration: 1.2 })} />
 		</div>
 	</LibrarySection>
 

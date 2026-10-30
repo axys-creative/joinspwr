@@ -368,6 +368,10 @@
 		border-radius: 6px 6px 0 0;
 		background: color-mix(in srgb, var(--spwr-royal-light) 45%, transparent);
 
+		@include mixins.max-md {
+			width: min(100%, 32px);
+		}
+
 		@include mixins.mq-motion-allow {
 			transition:
 				background-color 0.5s var(--ease),

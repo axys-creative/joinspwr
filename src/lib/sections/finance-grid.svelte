@@ -3,14 +3,14 @@
 	import type { SectionCopyProps } from '$lib/components/section-copy.svelte';
 
 	export type FinanceGridLogo = MarqueeImage & {
-		/** Makes the card a link to the partner's site. */
+		/** The partner's website, shown as a "Visit site" link on the tile. */
 		url?: string;
 		/** Opens the link in a new tab. */
 		newTab?: boolean;
 	};
 
 	export type FinanceGridProps = Omit<SectionCopyProps, 'level' | 'layout' | 'align'> & {
-		/** Every logo, laid out in rows that alternate four and three across. Cards with a `url` are links. */
+		/** Every logo, laid out in rows that alternate four and three across. Tiles with a `url` show a "Visit site" link on hover. */
 		logos: FinanceGridLogo[];
 		/** Label of the search box that follows the section, such as "Search finance options". Leave empty for no search. */
 		searchLabel?: string;
@@ -28,8 +28,8 @@
 
 <script lang="ts">
 	import LogoSearch from '$lib/components/logo-search.svelte';
+	import LogoTile from '$lib/components/logo-tile.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
-	import { gradientBorder } from '$lib/attachments/gradient-border';
 
 	// Rows alternate four and three; a last row of three that would follow a four-row tapers to two, then one.
 	function rowSizes(count: number) {
@@ -89,24 +89,15 @@
 
 		<ul class="logos" bind:this={list}>
 			{#each logos as logo, index (index)}
-				<li
-					style:--col={starts[index]}
-					class:match={matches?.has(index)}
-					class:dim={matches && !matches.has(index)}
-				>
-					<svelte:element
-						this={logo.url ? 'a' : 'div'}
-						class="item"
-						href={logo.url || undefined}
-						target={logo.url && logo.newTab ? '_blank' : undefined}
-						rel={logo.url && logo.newTab ? 'noopener noreferrer' : undefined}
-					>
-						<div class="card" {@attach gradientBorder({ rayTrace: 'border', rayReach: 180 })}>
-							<img src={logo.src} alt={logo.alt ?? ''} loading="lazy" />
-						</div>
-						{#if logo.url && logo.newTab}<span class="visually-hidden">(opens in a new tab)</span
-							>{/if}
-					</svelte:element>
+				<li style:--col={starts[index]}>
+					<LogoTile
+						src={logo.src}
+						alt={logo.alt}
+						url={logo.url}
+						newTab={logo.newTab}
+						match={matches?.has(index)}
+						dim={!!matches && !matches.has(index)}
+					/>
 				</li>
 			{/each}
 		</ul>
@@ -187,72 +178,13 @@
 		}
 
 		li {
-			@include mixins.mq-motion-allow {
-				transition:
-					opacity 0.3s var(--ease),
-					scale 0.3s var(--ease);
-			}
-
-			&.dim {
-				opacity: 0.2;
-			}
-
-			&.match {
-				scale: 1.04;
-			}
-
-			&.match .card {
-				border-color: var(--color-accent);
-			}
-		}
-
-		.card {
-			--gradient-ray-size: 90px;
-
-			box-sizing: border-box;
-			display: block;
-			aspect-ratio: 16 / 9;
-			padding: 24px;
-			@include mixins.glass-card;
+			--tile-ratio: 16 / 9;
+			--tile-padding: 24px;
 
 			@include mixins.max-md {
-				aspect-ratio: 3 / 2;
-				padding: 12px;
+				--tile-ratio: 3 / 2;
+				--tile-padding: 12px;
 			}
-
-			@include mixins.mq-motion-allow {
-				transition:
-					background-color 0.2s var(--ease),
-					scale 0.2s var(--ease);
-			}
-
-			// The ring sits on the card's own border, not just inside it.
-			&:global(.gradient-border)::before {
-				inset: -1px;
-			}
-		}
-
-		.item {
-			display: block;
-			border-radius: var(--radius);
-		}
-
-		a.item {
-			&:hover .card,
-			&:focus-visible .card {
-				background: var(--color-glass-hover);
-			}
-
-			&:active .card {
-				scale: 0.95;
-			}
-		}
-
-		img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: contain;
 		}
 	}
 </style>

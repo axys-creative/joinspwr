@@ -34,7 +34,6 @@
 	import { glass } from '$lib/attachments/glass';
 	import { push } from '$lib/attachments/push';
 	import { scribble } from '$lib/attachments/scribble';
-	import { textRoll } from '$lib/attachments/text-roll';
 	import { isCurrentPage } from '$lib/utils/current-page';
 	import { imageProps } from '$lib/utils/image';
 	import Button from './button.svelte';
@@ -117,7 +116,7 @@
 	{#if ctas.length}
 		<div class="ctas">
 			{#each ctas as cta (`${cta.url}|${cta.text}`)}
-				<Button {...cta} {@attach textRoll()} />
+				<Button {...cta} />
 			{/each}
 		</div>
 	{/if}
@@ -153,7 +152,7 @@
 			{#if footerLinks.length}
 				<ul class="footer-links">
 					{#each footerLinks as link (`${link.url}|${link.text}`)}
-						<li><Button {...link} type="underline" size="sm" {@attach textRoll()} /></li>
+						<li><Button {...link} type="underline" size="sm" /></li>
 					{/each}
 				</ul>
 			{/if}
@@ -222,7 +221,7 @@
 				{#if footerLinks.length}
 					<ul class="footer-links">
 						{#each footerLinks as link (`${link.url}|${link.text}`)}
-							<li><Button {...link} type="underline" size="sm" {@attach textRoll()} /></li>
+							<li><Button {...link} type="underline" size="sm" /></li>
 						{/each}
 					</ul>
 				{/if}
