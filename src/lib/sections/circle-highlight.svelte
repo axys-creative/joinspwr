@@ -99,7 +99,14 @@
 	let finale = $state(false);
 	let away = $state(false);
 	let active = $state(0);
+	let hovered = $state(-1);
 	let seek: ((index: number) => void) | undefined;
+
+	const revealed = (index: number) => armed && started && !away && index <= active;
+
+	function hover(event: PointerEvent, index: number) {
+		if (event.pointerType === 'mouse' && revealed(index)) hovered = index;
+	}
 
 	// A click, tap or keyboard focus on a slice scrolls the pin to that slice's step, so the page scroll and the ring never
 	// disagree. The state is set at once because the scrolled position only catches up a frame later.
@@ -174,11 +181,15 @@
 
 {#snippet captions()}
 	{#each slices as slice, index (index)}
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
 			class="caption"
 			class:current={index === active}
+			class:open={index === hovered}
 			class:near-left={callouts && leaders[index].side < 0}
 			class:past={index < active}
+			onpointerenter={(event) => hover(event, index)}
+			onpointerleave={() => (hovered = -1)}
 			style="--slice-angle: {shapes[index].middle}; --card-y: {leaders[index].y.toFixed(
 				2
 			)}; --depth: {active - index}"
@@ -226,6 +237,8 @@
 							role={armed ? 'button' : undefined}
 							tabindex={armed ? 0 : undefined}
 							aria-label={armed ? slices[index].title : undefined}
+							onpointerenter={(event) => hover(event, index)}
+							onpointerleave={() => (hovered = -1)}
 							onclick={() => select(index)}
 							onfocus={() => select(index)}
 							onkeydown={(event) => onSliceKey(event, index)}
@@ -678,6 +691,16 @@
 
 				p {
 					opacity: 0;
+				}
+			}
+		}
+
+		&.callouts .caption.open .more {
+			@include mixins.min-lg {
+				grid-template-rows: 1fr;
+
+				p {
+					opacity: 1;
 				}
 			}
 		}

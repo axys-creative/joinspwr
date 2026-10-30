@@ -140,6 +140,30 @@
 			-webkit-mask: none;
 		}
 	}
+
+	// Ray border: only the border ring lights up, near the pointer.
+	&--ray-border {
+		--gradient-border-color: var(--color-text);
+
+		@include mixins.mq-motion-allow {
+			@media (hover: hover) and (pointer: fine) {
+				&::before {
+					z-index: 1;
+					background: radial-gradient(
+							circle var(--gradient-ray-size, 160px) at var(--gradient-x, -999px)
+								var(--gradient-y, -999px),
+							color-mix(
+								in srgb,
+								var(--gradient-border-color) calc(var(--gradient-ray-opacity, 1) * 100%),
+								transparent
+							),
+							transparent
+						)
+						border-box;
+				}
+			}
+		}
+	}
 }
 
 @keyframes gradient-border-sweep {

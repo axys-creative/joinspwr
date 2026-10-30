@@ -9,7 +9,7 @@ const circleScales: Record<string, number> = {
 	'scribble-circle-wide': 1.2
 };
 
-/** Starts the behavior of the rich-text spans that need one: the scribble under `.scribble` and around `.scribble-circle` (`-tight` and `-wide` sit closer and farther out), drawn in each time it scrolls into view. `.roll` words roll their letters up every few seconds. */
+/** Starts the behavior of the rich-text spans that need one: the scribble under `.scribble` (a different curve for each word) and around `.scribble-circle` (`-tight` and `-wide` sit closer and farther out), drawn in each time it scrolls into view. `.roll` words roll their letters up every few seconds. */
 export function richTextBehaviors(text?: string): Attachment<HTMLElement> {
 	return (el) => {
 		if (!text) return;
@@ -34,7 +34,7 @@ export function richTextBehaviors(text?: string): Attachment<HTMLElement> {
 				const kind = span.dataset.richText ?? '';
 				const options: ScribbleOptions = kind.startsWith('scribble-circle')
 					? { type: 'circle', scale: circleScales[kind], thickness: 0.2, scroll, once: false }
-					: { curve: 'zigzag', thickness: 0.2, scroll, once: false };
+					: { curve: 'random', thickness: 0.2, scroll, once: false };
 				const cleanup = scribble(options)(span);
 				if (typeof cleanup === 'function') cleanups.push(cleanup);
 			}

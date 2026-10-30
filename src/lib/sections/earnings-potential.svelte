@@ -34,6 +34,7 @@
 	import { Tween } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
 	import SectionCopy from '$lib/components/section-copy.svelte';
+	import { gradientBorder } from '$lib/attachments/gradient-border';
 	import { tabs as tabsAttachment } from '$lib/attachments/tabs';
 	import { toggleSlider } from '$lib/attachments/toggle-slider';
 
@@ -111,7 +112,7 @@
 	bind:this={section}
 >
 	<div class="inner">
-		<figure class="card">
+		<figure class="card" {@attach gradientBorder({ rayTrace: 'border' })}>
 			<figcaption class="head">
 				<span class="caption">
 					{chartLabel}
@@ -254,6 +255,11 @@
 		@include mixins.max-md {
 			padding: 24px 20px;
 		}
+
+		// The ring sits on the card's own border, not just inside it.
+		&:global(.gradient-border)::before {
+			inset: -1px;
+		}
 	}
 
 	.head {
@@ -360,7 +366,7 @@
 		max-width: 100%;
 		height: var(--h);
 		border-radius: 6px 6px 0 0;
-		background: color-mix(in srgb, var(--color-text) 22%, transparent);
+		background: color-mix(in srgb, var(--spwr-royal-light) 45%, transparent);
 
 		@include mixins.mq-motion-allow {
 			transition:
@@ -374,7 +380,7 @@
 	}
 
 	.column:not(.on):hover .bar {
-		background: color-mix(in srgb, var(--color-text) 36%, transparent);
+		background: color-mix(in srgb, var(--spwr-royal-light) 70%, transparent);
 	}
 
 	.armed:not(.revealed) .bar {

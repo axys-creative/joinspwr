@@ -1,0 +1,73 @@
+{
+	"hidden": false,
+	"eyebrowText": "",
+	"title": "How reps get [involved]{.secondary-alt}",
+	"description": "Every rep has a path to join an OSS trip. Here is how it works.",
+	"events": [
+		{
+			"date": "Step 1",
+			"title": "Express interest",
+			"description": "Tell us you want to serve. Sign-ups open before each trip.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-1.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "Step 2",
+			"title": "Get selected",
+			"description": "We confirm the team based on [TO CONFIRM: qualification criteria].",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-2.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "Step 3",
+			"title": "Prepare together",
+			"description": "Meet your team, learn about the community you will serve and get everything you need ready.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-3.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "Step 4",
+			"title": "Travel and serve",
+			"description": "Spend the week building, donating and volunteering side by side with the community.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-4.webp",
+				"alt": ""
+			}
+		},
+		{
+			"date": "Step 5",
+			"title": "Bring it home",
+			"description": "Share what you saw with the team, and help plan the next trip.",
+			"image": {
+				"src": "/uploads/spwr-img-landscape-5.webp",
+				"alt": ""
+			}
+		}
+	],
+	"imagesBefore": [
+		{
+			"src": "/uploads/spwr-img-landscape-7.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-8.webp",
+			"alt": ""
+		}
+	],
+	"imagesAfter": [
+		{
+			"src": "/uploads/spwr-img-landscape-9.webp",
+			"alt": ""
+		},
+		{
+			"src": "/uploads/spwr-img-landscape-10.webp",
+			"alt": ""
+		}
+	]
+}

@@ -15,6 +15,8 @@
 </script>
 
 <script lang="ts">
+	import { gradientBorder } from '$lib/attachments/gradient-border';
+
 	let {
 		name,
 		label,
@@ -29,20 +31,25 @@
 </script>
 
 <label class="choice {type} {className ?? ''}" class:disabled>
-	{#if type === 'radio'}
-		<input type="radio" {name} {value} {disabled} {required} bind:group />
-	{:else}
-		<input
-			type="checkbox"
-			role={type === 'switch' ? 'switch' : undefined}
-			{name}
-			{value}
-			{disabled}
-			{required}
-			bind:checked
-		/>
-	{/if}
-	<span>{label}</span>
+	<span
+		class="box"
+		{@attach disabled ? undefined : gradientBorder({ rayTrace: 'border', rayReach: 120 })}
+	>
+		{#if type === 'radio'}
+			<input type="radio" {name} {value} {disabled} {required} bind:group />
+		{:else}
+			<input
+				type="checkbox"
+				role={type === 'switch' ? 'switch' : undefined}
+				{name}
+				{value}
+				{disabled}
+				{required}
+				bind:checked
+			/>
+		{/if}
+	</span>
+	<span class="text">{label}</span>
 </label>
 
 <style lang="scss">
@@ -61,6 +68,22 @@
 			opacity: 0.5;
 			cursor: not-allowed;
 		}
+	}
+
+	.box {
+		--gradient-ray-size: calc(var(--size) * 0.7);
+
+		display: flex;
+		flex-shrink: 0;
+		border-radius: 4px;
+	}
+
+	.radio .box {
+		border-radius: 50%;
+	}
+
+	.switch .box {
+		border-radius: var(--size);
 	}
 
 	input {
@@ -126,11 +149,16 @@
 	.radio input {
 		border-radius: 50%;
 
+		// Full-size dot shrunk by `scale` from its center, so it stays centered at any size.
 		&::before {
-			width: 0.6em;
-			height: 0.6em;
+			width: calc(var(--size) - 2px);
+			height: calc(var(--size) - 2px);
 			border-radius: 50%;
 			background: var(--color-accent);
+		}
+
+		&:checked::before {
+			scale: 0.5;
 		}
 	}
 

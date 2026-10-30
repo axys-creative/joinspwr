@@ -6,7 +6,9 @@
 	let { data } = $props();
 </script>
 
-<HeroSimple {...hero} />
+{#if !hero.hidden}
+	<HeroSimple {...hero} />
+{/if}
 
 <section class="posts">
 	{#each data.posts as post, index (post.slug)}

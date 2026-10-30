@@ -70,11 +70,11 @@
 		align-items: flex-start;
 	}
 
-	.consent :global(.choice input) {
+	.consent :global(.choice .box) {
 		margin-block-start: 0.15em;
 	}
 
-	.consent :global(.choice span) {
+	.consent :global(.choice .text) {
 		display: -webkit-box;
 		overflow: hidden;
 		-webkit-box-orient: vertical;
@@ -82,7 +82,7 @@
 		line-clamp: 2;
 	}
 
-	.open :global(.choice span) {
+	.open :global(.choice .text) {
 		display: block;
 		-webkit-line-clamp: unset;
 		line-clamp: unset;

@@ -1,29 +1,44 @@
 {
+	"hidden": false,
 	"title": "By the [numbers]{.roll}",
-	"image": {
-		"src": "/uploads/spwr-img-portrait-5.webp",
-		"alt": ""
-	},
 	"stats": [
 		{
 			"digit": 1985,
-			"label": "Founded"
+			"label": "Founded",
+			"image": {
+				"src": "/uploads/spwr-img-portrait-5.webp",
+				"alt": ""
+			}
 		},
 		{
 			"digit": 2400,
 			"comma": true,
 			"suffix": "+",
-			"label": "Active reps"
+			"label": "Active reps",
+			"image": {
+				"src": "/uploads/spwr-img-portrait-6.webp",
+				"alt": ""
+			}
 		},
 		{
 			"digit": 38,
-			"label": "States"
+			"label": "States",
+			"image": {
+				"src": "/uploads/spwr-img-portrait-7.webp",
+				"alt": ""
+			}
 		},
 		{
 			"digit": 48,
 			"prefix": "$",
 			"suffix": "M",
-			"label": "Paid to reps in 2025"
+			"label": "Paid to reps in 2025",
+			"image": {
+				"src": "/uploads/spwr-img-portrait-8.webp",
+				"alt": ""
+			}
 		}
-	]
+	],
+	"pinned": true,
+	"fullScreen": true
 }

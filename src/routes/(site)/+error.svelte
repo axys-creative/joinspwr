@@ -10,4 +10,6 @@
 	};
 </script>
 
-<HeroSimple {...page.status === 404 ? notFound : problem} />
+{#if page.status !== 404 || !notFound.hidden}
+	<HeroSimple {...page.status === 404 ? notFound : problem} />
+{/if}

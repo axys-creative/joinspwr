@@ -18,12 +18,24 @@
 	};
 </script>
 
-<HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={12} />
-<Headline id="headline" fullScreen {...headline} />
-<GalleryHorizontal id="leadership" {...gallery} />
-<ScrollTimeline id="timeline" variant="circle" {...timeline} />
-<Stats id="stats" {...stats} />
-<Oss id="oss" {...oss} />
+{#if !hero.hidden}
+	<HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={12} />
+{/if}
+{#if !headline.hidden}
+	<Headline id="headline" fullScreen {...headline} />
+{/if}
+{#if !gallery.hidden}
+	<GalleryHorizontal id="leadership" {...gallery} />
+{/if}
+{#if !timeline.hidden}
+	<ScrollTimeline id="timeline" variant="circle" {...timeline} />
+{/if}
+{#if !stats.hidden}
+	<Stats id="stats" {...stats} />
+{/if}
+{#if !oss.hidden}
+	<Oss id="oss" {...oss} />
+{/if}
 
 <style lang="scss">
 	:global(#leadership),

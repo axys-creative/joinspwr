@@ -52,6 +52,7 @@
 			showPhone
 			showAddress
 			showDiscovery
+			showExperience
 			showRecaptcha
 			{consent}
 			{consentLinks}

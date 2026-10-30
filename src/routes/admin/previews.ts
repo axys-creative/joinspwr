@@ -207,6 +207,10 @@ const previews: Record<string, Preview> = {
 			columns: (data.columns as number[] | undefined)?.length ? data.columns : undefined
 		})
 	},
+	oss_timeline: {
+		component: ScrollTimeline as unknown as Section,
+		props: (data) => ({ ...data, events: data.events ?? [], variant: 'circle' })
+	},
 	scroll_timeline: {
 		component: ScrollTimeline as unknown as Section,
 		props: (data) => ({

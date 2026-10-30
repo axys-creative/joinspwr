@@ -13,12 +13,24 @@
 	import PhotoColumns from '$lib/sections/photo-columns.svelte';
 </script>
 
-<HeroGnomon {...hero} />
-<PhotoColumns id="photos" {...photoColumns} />
-<Headline id="headline" fullScreen {...headline} />
-<CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
-<EarningsPotential id="earnings" {...earnings} />
-<Oss id="oss" {...oss} />
+{#if !hero.hidden}
+	<HeroGnomon {...hero} />
+{/if}
+{#if !photoColumns.hidden}
+	<PhotoColumns id="photos" {...photoColumns} />
+{/if}
+{#if !headline.hidden}
+	<Headline id="headline" fullScreen {...headline} />
+{/if}
+{#if !carousel.hidden}
+	<CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
+{/if}
+{#if !earnings.hidden}
+	<EarningsPotential id="earnings" {...earnings} />
+{/if}
+{#if !oss.hidden}
+	<Oss id="oss" {...oss} />
+{/if}
 
 <style lang="scss">
 	@use 'base/mixins';

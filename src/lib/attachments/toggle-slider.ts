@@ -1,4 +1,5 @@
 import type { Attachment } from 'svelte/attachments';
+import { gradientBorder } from './gradient-border';
 import './toggle-slider.scss';
 
 export type ToggleSliderOptions = {
@@ -8,6 +9,8 @@ export type ToggleSliderOptions = {
 	trigger?: 'click' | 'hover';
 	/** A selector for the options inside the element. Defaults to its direct children, except a `<legend>`. */
 	options?: string;
+	/** Lights the border near the pointer (the Gradient Border attachment's ray trace). Defaults to `true` for `solid`, which has a border. */
+	rayTrace?: boolean;
 };
 
 const SELECTED =
@@ -21,7 +24,8 @@ const SELECTED =
 export function toggleSlider({
 	variant = 'solid',
 	trigger = 'click',
-	options: selector
+	options: selector,
+	rayTrace = variant === 'solid'
 }: ToggleSliderOptions = {}): Attachment<HTMLElement> {
 	return (el) => {
 		const slider = document.createElement('div');
@@ -30,6 +34,7 @@ export function toggleSlider({
 		el.prepend(slider);
 		el.classList.add('toggle-slider', `toggle-slider--${variant}`);
 		el.dataset.toggleTrigger = trigger;
+		const stopRayTrace = rayTrace ? gradientBorder({ rayTrace: 'border' })(el) : undefined;
 
 		const options = () =>
 			(selector
@@ -132,6 +137,7 @@ export function toggleSlider({
 			el.removeEventListener('focusin', over);
 			el.removeEventListener('pointerleave', away);
 			el.removeEventListener('focusout', away);
+			if (typeof stopRayTrace === 'function') stopRayTrace();
 			slider.remove();
 			el.classList.remove('toggle-slider', `toggle-slider--${variant}`);
 			delete el.dataset.toggleTrigger;

@@ -25,6 +25,7 @@
 	import LogoSearch from '$lib/components/logo-search.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
 	import { animate } from '$lib/attachments/animate';
+	import { gradientBorder } from '$lib/attachments/gradient-border';
 
 	let {
 		logos,
@@ -46,7 +47,11 @@
 	let list = $state<HTMLElement>();
 	let copy = $state<HTMLElement>();
 	let matches = $state<Set<number> | null>(null);
+	let viewport = $state(0);
+	let pinHeight = $state(0);
 </script>
+
+<svelte:window bind:innerHeight={viewport} />
 
 <section
 	{id}
@@ -56,7 +61,11 @@
 >
 	<div class="inner">
 		<div class="copy" bind:this={copy}>
-			<div class="pin">
+			<div
+				class="pin"
+				bind:clientHeight={pinHeight}
+				style:--pin-top="{Math.max(0, (viewport - pinHeight) / 2)}px"
+			>
 				<SectionCopy
 					level={2}
 					{eyebrowText}
@@ -71,7 +80,10 @@
 
 		<ul class="logos" bind:this={list}>
 			{#each logos as logo, index (index)}
-				<li {@attach animate({ variant: 'up', delay: (index % 2) * 0.12 })}>
+				<li
+					{@attach animate({ variant: 'up', delay: (index % 2) * 0.12 })}
+					{@attach gradientBorder({ rayTrace: 'border', rayReach: 180 })}
+				>
 					<img
 						src={logo.src}
 						alt={logo.alt ?? ''}
@@ -115,17 +127,15 @@
 		@include mixins.min-lg {
 			grid-template-columns: repeat(2, 1fr);
 			gap: var(--body-padding);
-			padding-block: 0;
+			padding-block: 0 25svh;
 		}
 	}
 
 	.pin {
 		@include mixins.min-lg {
 			position: sticky;
-			top: 0;
-			display: flex;
-			align-items: center;
-			min-height: 100svh;
+			top: var(--pin-top, 0);
+			margin-top: 25svh;
 		}
 	}
 
@@ -144,7 +154,7 @@
 		list-style: none;
 
 		@include mixins.min-lg {
-			margin-block: 25svh;
+			margin-top: 25svh;
 		}
 
 		@include mixins.max-md {
@@ -153,7 +163,27 @@
 	}
 
 	li {
+		--gradient-ray-size: 90px;
+
 		aspect-ratio: 3 / 2;
+		border-radius: 16px;
+
+		// The ring follows the logo's search dim and highlight.
+		&:global(.gradient-border)::before {
+			@include mixins.mq-motion-allow {
+				transition:
+					opacity 0.3s var(--ease),
+					scale 0.3s var(--ease);
+			}
+		}
+
+		&:has(.dim)::before {
+			opacity: 0.2;
+		}
+
+		&:has(.match)::before {
+			scale: 1.04;
+		}
 	}
 
 	img {

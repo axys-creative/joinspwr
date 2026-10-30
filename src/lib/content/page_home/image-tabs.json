@@ -1,4 +1,5 @@
 {
+	"hidden": false,
 	"title": "You’ll have a [team]{.secondary-alt.roll} with you the whole time",
 	"image": { "src": "/uploads/spwr-img-portrait-1.webp", "alt": "" },
 	"autoplay": true,

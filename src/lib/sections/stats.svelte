@@ -93,8 +93,16 @@
 					const tilt = Number(photo.dataset.tilt);
 					timeline.fromTo(
 						photo,
-						{ autoAlpha: 0, scale: 1.7, y: -48, rotation: tilt + (index % 2 ? -28 : 28) },
-						{ autoAlpha: 1, scale: 1, y: 0, rotation: tilt, duration: 0.9, ease: 'power3.out' },
+						{ autoAlpha: 0, scale: 1.7, x: 0, y: -48, rotation: tilt + (index % 2 ? -28 : 28) },
+						{
+							autoAlpha: 1,
+							scale: 1,
+							x: index * 32,
+							y: index * 32,
+							rotation: tilt,
+							duration: 0.9,
+							ease: 'power3.out'
+						},
 						index
 					);
 				});
@@ -226,6 +234,10 @@
 	.stack {
 		position: relative;
 		aspect-ratio: 3 / 4;
+
+		@include mixins.min-md {
+			margin-top: 24px;
+		}
 
 		@include mixins.max-md {
 			aspect-ratio: 4 / 3;

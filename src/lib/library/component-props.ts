@@ -328,6 +328,10 @@ export const formProps = props(
 		'A boolean. Adds a message textarea with a 250 character limit. Defaults to `false`.'
 	],
 	['showDiscovery', 'A boolean. Adds a "how did you hear about us" textarea. Defaults to `false`.'],
+	[
+		'showExperience',
+		'A boolean. Adds an "I have experience in sales (optional)" checkbox above the consent, sent as `sales-experience`. Checking it opens four radios (less than 1 year, 1 to 3, 3 to 5, 5+) sent as `sales-experience-years`. The radios are always in the page so Netlify finds them, and are `inert` and `disabled` until the box is checked. Defaults to `false`.'
+	],
 	['maxCountDiscovery', 'A number, the character limit of the discovery textarea.'],
 	['showRecaptcha', "A boolean. Adds Netlify's reCAPTCHA widget. Defaults to `false`."],
 	['submitText', 'A string, the button label. Defaults to `Send message`.'],
@@ -771,6 +775,10 @@ export const toggleSliderProps = props(
 	[
 		'options',
 		'A string, a selector for the options inside the element. Defaults to its direct children, except a `<legend>`.'
+	],
+	[
+		'rayTrace',
+		'A boolean. Lights the frame around the row near the pointer (Gradient Border, ray trace `border`). Defaults to `true` for `solid`; `underline` has no frame.'
 	]
 );
 
@@ -1272,7 +1280,7 @@ export const contactFormProps = props(
 	],
 	[
 		'form',
-		'An object of Form props (see Components) that overrides the defaults: `name` `join`, `variant` `outline`, `glass`, `splitName`, `showPhone`, `showAddress`, `showDiscovery` and `showRecaptcha`.'
+		'An object of Form props (see Components) that overrides the defaults: `name` `join`, `variant` `outline`, `glass`, `splitName`, `showPhone`, `showAddress`, `showDiscovery`, `showExperience` and `showRecaptcha`.'
 	],
 	[
 		'hero',
@@ -1646,7 +1654,10 @@ export const richTextProps = props(
 		'.roll',
 		'The letters roll up and out every 5 seconds, replaced from below. Each `.roll` is offset from the others (see Text Roll Loop under Attachments).'
 	],
-	['.scribble', 'A thin hand-drawn zigzag underline (see Scribble under Attachments).'],
+	[
+		'.scribble',
+		'A thin hand-drawn underline, a different curve for each word: swoosh, wave, dip, flat, zigzag or notch (see Scribble under Attachments).'
+	],
 	['.scribble-circle', 'A thin hand-drawn loop around the words (see Scribble under Attachments).'],
 	['.scribble-circle-tight', 'The same loop drawn closer to the words (scale 0.8).'],
 	['.scribble-circle-wide', 'The same loop drawn farther from the words (scale 1.2).'],
@@ -1784,7 +1795,7 @@ export const statsProps = props(
 	],
 	[
 		'pinned',
-		"A boolean. From `md` up, pins the section while the page scrolls: the stats appear one at a time and count up, and each stat's own `image` drops onto the stack in the left column, larger and turned, then settles (the first upright, then tilted left, right, and so on). Needs an `image` on each stat. Below `md`, or with reduced motion, everything just shows, tilted in a pile. Defaults to `false`."
+		"A boolean. From `md` up, pins the section while the page scrolls: the stats appear one at a time and count up, and each stat's own `image` drops onto the stack in the left column, larger and turned, then settles (the first upright, then tilted left, right, and so on), each 32px further down and to the right than the one before. Needs an `image` on each stat. Below `md`, or with reduced motion, everything just shows, tilted in a pile. Defaults to `false`."
 	],
 	[
 		'repeat',
@@ -1847,11 +1858,11 @@ export const financeGridProps = props(
 	],
 	[
 		'logos',
-		'An array of `{ src, alt, url, newTab }`, every logo at once in the same bordered, rounded boxes as Finance Marquee. From `md` up the rows alternate four and three across, repeating (a final row of three after a row of four tapers to two, then one), across the content width, with the boxes shrinking with the screen; below `md` it is two across. With a `url` the box becomes a link (`newTab` opens it in a new tab); every box is pushed a little by the mouse (see the Push attachment). Required.'
+		'An array of `{ src, alt, url, newTab }`, every logo at once in the same bordered, rounded boxes as Finance Marquee. From `md` up the rows alternate four and three across, repeating (a final row of three after a row of four tapers to two, then one), across the content width, with the boxes shrinking with the screen; below `md` it is two across. With a `url` the box becomes a link (`newTab` opens it in a new tab); every box lights its border near the mouse (see the Gradient Border attachment). Required.'
 	],
 	[
 		'searchLabel',
-		'A string, the label of a search box that pops up at the bottom of the screen from when the top of the logo grid reaches 75% down the screen until the bottom of the grid reaches 66%. Typing highlights the logos whose name matches (every word found, or the letters in order) and dims the rest. When exactly one logo matches the page scrolls to it, unless it is already in clear view. Leave empty for no search.'
+		'A string, the label of a search box that pops up at the bottom of the screen from when the top of the logo grid reaches 50% down the screen until the bottom of the grid reaches 75%. Typing highlights the logos whose name matches (every word found, or the letters in order) and dims the rest. When exactly one logo matches the page scrolls to it, unless it is already in clear view. Leave empty for no search.'
 	],
 	[
 		'searchMinimum',
@@ -1902,7 +1913,7 @@ export const financeStickyProps = props(
 	['side', '`left` (default) or `right`, which side the pinned copy sits on from `lg` up.'],
 	[
 		'searchLabel',
-		'A string, the label of a search box that pops up at the bottom of the screen from when the top of the logo grid reaches 75% down the screen until the bottom of the grid reaches 66%. Typing highlights the logos whose name matches (every word found, or the letters in order) and dims the rest. When exactly one logo matches the page scrolls to it, unless it is already in clear view. Leave empty for no search.'
+		'A string, the label of a search box that pops up at the bottom of the screen from when the top of the logo grid reaches 50% down the screen until the bottom of the grid reaches 75%. Typing highlights the logos whose name matches (every word found, or the letters in order) and dims the rest. When exactly one logo matches the page scrolls to it, unless it is already in clear view. Leave empty for no search.'
 	],
 	[
 		'searchMinimum',

@@ -705,9 +705,14 @@
 			},
 			{ name: 'duration', description: 'A number, seconds per sweep. Defaults to `2.5`.' },
 			{
+				name: 'rayReach',
+				description:
+					'A number, px. With `rayTrace: border`, how far the pointer can be from the element and still light it. The glow stays on the nearest part of the border, sized by `--gradient-ray-size`, and fades with distance. Form checkboxes and radios use it.'
+			},
+			{
 				name: 'rayTrace',
 				description:
-					'A boolean. A glow that follows the pointer. Give the element its own background.'
+					'`true | border`. `true` is a glow behind the element that follows the pointer (give the element its own background). `border` lights only the border ring near the pointer, so it works over glass and blurred backgrounds; form fields use it.'
 			}
 		]}
 		propsLabel="options"
@@ -766,6 +771,9 @@
 			</div>
 			<div class="border-box round" {@attach gradientBorder({ rayTrace: true })}>
 				OMG so it's good
+			</div>
+			<div class="border-box round" {@attach gradientBorder({ rayTrace: 'border' })}>
+				Border only
 			</div>
 			<div
 				class="border-box square"

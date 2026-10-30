@@ -19,18 +19,32 @@
 	};
 </script>
 
-<HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={12} />
-<Headline id="headline" fullScreen {...headline} />
-<CircleHighlight
-	id="circle-highlight"
-	{...circleHighlight}
-	captionPlacement="cards"
-	orientation="tilted-left"
-/>
-<Tools id="tools" {...tools} />
-<FinanceGrid id="finance" {...financeGrid} />
-<FinanceGrid id="dealers" {...dealerGrid} />
-<FaqTabs id="faq" {...faq} groups={faq.groups as FaqGroup[]} />
+{#if !hero.hidden}
+	<HeroImageCircle id="hero" {...hero} {cta} direction="left" offset={12} />
+{/if}
+{#if !headline.hidden}
+	<Headline id="headline" fullScreen {...headline} />
+{/if}
+{#if !circleHighlight.hidden}
+	<CircleHighlight
+		id="circle-highlight"
+		{...circleHighlight}
+		captionPlacement="cards"
+		orientation="tilted-left"
+	/>
+{/if}
+{#if !tools.hidden}
+	<Tools id="tools" {...tools} />
+{/if}
+{#if !financeGrid.hidden}
+	<FinanceGrid id="finance" {...financeGrid} />
+{/if}
+{#if !dealerGrid.hidden}
+	<FinanceGrid id="dealers" {...dealerGrid} />
+{/if}
+{#if !faq.hidden}
+	<FaqTabs id="faq" {...faq} groups={faq.groups as FaqGroup[]} />
+{/if}
 
 <style lang="scss">
 	:global(#circle-highlight),

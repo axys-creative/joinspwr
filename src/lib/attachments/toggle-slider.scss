@@ -48,6 +48,11 @@
 	scale: var(--toggle-scale-down);
 }
 
+// The ray trace ring sits on the border itself, not just inside it.
+.toggle-slider--solid.gradient-border--ray-border::before {
+	inset: -1px;
+}
+
 .toggle-slider__slider {
 	position: absolute;
 	z-index: -1;

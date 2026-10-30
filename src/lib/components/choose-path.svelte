@@ -19,8 +19,9 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { tilt } from '$lib/attachments/tilt';
+	import { gradientBorder } from '$lib/attachments/gradient-border';
 	import { imageProps } from '$lib/utils/image';
+	import { refreshScrollTriggers } from '$lib/utils/gsap';
 	import { loading } from '$lib/utils/loading.svelte';
 	import { visitorPath, type VisitorPath } from '$lib/utils/visitor-path.svelte';
 	import Button from './button.svelte';
@@ -28,8 +29,6 @@
 	import RichText from './rich-text.svelte';
 
 	let { static: inline = false, title, options }: ChoosePathProps = $props();
-
-	const tiltOptions = { max: 8, scale: 1.02, glare: true, maxGlare: 0.25 };
 
 	let dialog = $state<HTMLDialogElement>();
 	let panel = $state<HTMLElement>();
@@ -77,6 +76,7 @@
 		if (!landing || !loading.done || opened || !dialog) return;
 		opened = true;
 		dialog.showModal();
+		refreshScrollTriggers({ immediate: true });
 		document.dispatchEvent(new CustomEvent('top-layer-open'));
 		setTimeout(clearBox, 2000);
 	});
@@ -125,7 +125,7 @@
 	{onclick}
 	onclose={() => opened && (veiled = false)}
 >
-	<div class="panel" bind:this={panel}>
+	<div class="panel" bind:this={panel} {@attach gradientBorder({ rayTrace: 'border' })}>
 		<Button
 			class="close"
 			type="text"
@@ -133,27 +133,21 @@
 			textDescription="Close"
 			onclick={() => !inline && dialog?.close()}
 		/>
-		<h2 id="choose-path-title">{title}</h2>
+		<h2 id="choose-path-title"><RichText text={title} /></h2>
 		<ul>
 			{#each options as option, index (option.text)}
-				<li style:--i={index}>
+				<li style:--i={index} {@attach gradientBorder({ rayTrace: 'border' })}>
 					{#if option.url}
 						<a
 							class="option"
 							href={option.url}
 							target={option.newTab ? '_blank' : undefined}
 							rel={option.newTab ? 'noopener noreferrer' : undefined}
-							{@attach tilt(tiltOptions)}
 						>
 							{@render card(option)}
 						</a>
 					{:else}
-						<button
-							class="option"
-							type="button"
-							onclick={() => choose(option)}
-							{@attach tilt(tiltOptions)}
-						>
+						<button class="option" type="button" onclick={() => choose(option)}>
 							{@render card(option)}
 						</button>
 					{/if}
@@ -253,6 +247,11 @@
 		width: min(100%, 1040px);
 		padding: 72px 40px 40px;
 
+		// The ring sits on the panel's own border, not just inside it.
+		&::before {
+			inset: -1px;
+		}
+
 		@include mixins.max-md {
 			gap: 20px;
 			padding: 64px 20px 20px;
@@ -282,6 +281,8 @@
 	}
 
 	li {
+		border-radius: 16px;
+
 		@include mixins.mq-motion-allow {
 			.choose-path[open] & {
 				transition:
@@ -291,7 +292,7 @@
 
 				@starting-style {
 					opacity: 0;
-					translate: 0 40px;
+					translate: 0 20px;
 				}
 			}
 		}
@@ -312,6 +313,10 @@
 		text-align: left;
 		text-decoration: none;
 		cursor: pointer;
+
+		@include mixins.mq-motion-allow {
+			transition: background-color 0.25s ease;
+		}
 
 		@include mixins.desktop-hover {
 			background: var(--color-glass-hover);

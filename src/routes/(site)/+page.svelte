@@ -47,44 +47,78 @@
 	});
 </script>
 
-<HeroImageCircle id="hero" {...hero} {cta} direction="center" />
-{#if visitorPath.current === 'new'}
-	<Tools id="steps" {...steps} />
-	<ImageTabs id="support" {...imageTabs} />
+{#if !hero.hidden}
+	<HeroImageCircle id="hero" {...hero} {cta} direction="center" />
 {/if}
-<VideoSection
-	id="video"
-	fullScreen
-	{...videoSection}
-	video={{
-		...videoSection.video,
-		track: 'ticks',
-		playButton: false,
-		sideControls: { side: 'left', volume: true, fullscreen: true }
-	}}
-/>
-<Headline id="headline" fullScreen {...headline} />
-<Stats id="stats" {...stats} />
-<EarningsPotential id="earnings" fullScreen {...earnings} />
-<CareerTabs id="career" fullScreen {...careerTabs} />
-<CarouselSpotlight id="competitions" fullScreen {...carouselSpotlight} />
+{#if visitorPath.current === 'new'}
+	{#if !steps.hidden}
+		<Tools id="steps" {...steps} />
+	{/if}
+	{#if !imageTabs.hidden}
+		<ImageTabs id="support" {...imageTabs} />
+	{/if}
+{/if}
+{#if !videoSection.hidden}
+	<VideoSection
+		id="video"
+		fullScreen
+		{...videoSection}
+		video={{
+			...videoSection.video,
+			track: 'ticks',
+			playButton: false,
+			sideControls: { side: 'left', volume: true, fullscreen: true }
+		}}
+	/>
+{/if}
+{#if !headline.hidden}
+	<Headline id="headline" fullScreen {...headline} />
+{/if}
+{#if !stats.hidden}
+	<Stats id="stats" {...stats} />
+{/if}
+{#if !earnings.hidden}
+	<EarningsPotential id="earnings" fullScreen {...earnings} />
+{/if}
+{#if !careerTabs.hidden}
+	<CareerTabs id="career" fullScreen {...careerTabs} />
+{/if}
+{#if !carouselSpotlight.hidden}
+	<CarouselSpotlight id="competitions" fullScreen {...carouselSpotlight} />
+{/if}
 {#if !gallery.hidden}
 	<GalleryHorizontal id="gallery" {...gallery} />
 {/if}
-<CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
-{#if visitorPath.current !== 'new'}
-	<ComparisonTable id="comparison" {...comparisonTable} />
-	<FinanceSticky id="dealers" {...dealerMarquee} side={dealerMarquee.side as 'left' | 'right'} />
-	<FinanceSticky id="finance" {...financeMarquee} side={financeMarquee.side as 'left' | 'right'} />
+{#if !carousel.hidden}
+	<CarouselTunnel id="carousel" {...carousel} autoplay={{ interval: 2400, quickStart: true }} />
 {/if}
-<Oss id="oss" {...oss} />
-<FaqTabs
-	id="faq"
-	fullScreen
-	path={visitorPath.current}
-	{...faqTabs}
-	groups={faqTabs.groups as FaqGroup[]}
-/>
+{#if visitorPath.current !== 'new'}
+	{#if !comparisonTable.hidden}
+		<ComparisonTable id="comparison" {...comparisonTable} />
+	{/if}
+	{#if !dealerMarquee.hidden}
+		<FinanceSticky id="dealers" {...dealerMarquee} side={dealerMarquee.side as 'left' | 'right'} />
+	{/if}
+	{#if !financeMarquee.hidden}
+		<FinanceSticky
+			id="finance"
+			{...financeMarquee}
+			side={financeMarquee.side as 'left' | 'right'}
+		/>
+	{/if}
+{/if}
+{#if !oss.hidden}
+	<Oss id="oss" {...oss} />
+{/if}
+{#if !faqTabs.hidden}
+	<FaqTabs
+		id="faq"
+		fullScreen
+		path={visitorPath.current}
+		{...faqTabs}
+		groups={faqTabs.groups as FaqGroup[]}
+	/>
+{/if}
 
 <style lang="scss">
 	:global(#steps),

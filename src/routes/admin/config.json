@@ -18,10 +18,18 @@
 			"files": [
 				{
 					"name": "hero_image_circle",
-					"label": "Hero",
+					"label": "Section - Hero",
 					"file": "src/lib/content/page_home/hero-image-circle.json",
 					"preview_path": "#hero",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowImage",
 							"label": "Eyebrow image",
@@ -191,10 +199,18 @@
 				},
 				{
 					"name": "tools",
-					"label": "Steps (new to sales)",
+					"label": "Section - Steps (new to sales)",
 					"file": "src/lib/content/page_home/steps.json",
 					"preview_path": "#steps",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -286,10 +302,18 @@
 				},
 				{
 					"name": "image_tabs",
-					"label": "Image Tabs (new to sales)",
+					"label": "Section - Image Tabs (new to sales)",
 					"file": "src/lib/content/page_home/image-tabs.json",
 					"preview_path": "#support",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -374,10 +398,18 @@
 				},
 				{
 					"name": "video_section",
-					"label": "Video",
+					"label": "Section - Video",
 					"file": "src/lib/content/page_home/video-section.json",
 					"preview_path": "#video",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -419,10 +451,18 @@
 				},
 				{
 					"name": "headline",
-					"label": "Headline",
+					"label": "Section - Headline",
 					"file": "src/lib/content/page_home/headline.json",
 					"preview_path": "#headline",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -446,10 +486,18 @@
 				},
 				{
 					"name": "earnings_potential",
-					"label": "Earnings",
+					"label": "Section - Earnings",
 					"file": "src/lib/content/page_home/earnings-potential.json",
 					"preview_path": "#earnings",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -508,10 +556,18 @@
 				},
 				{
 					"name": "career_tabs",
-					"label": "Career Tabs",
+					"label": "Section - Career Tabs",
 					"file": "src/lib/content/page_home/career-tabs.json",
 					"preview_path": "#career",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -558,10 +614,18 @@
 				},
 				{
 					"name": "carousel_spotlight",
-					"label": "Competitions Carousel",
+					"label": "Section - Competitions Carousel",
 					"file": "src/lib/content/page_home/carousel-spotlight.json",
 					"preview_path": "#competitions",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -645,17 +709,17 @@
 				},
 				{
 					"name": "gallery_horizontal",
-					"label": "Gallery",
+					"label": "Section - Gallery",
 					"file": "src/lib/content/page_home/gallery-horizontal.json",
 					"preview_path": "#gallery",
 					"fields": [
 						{
 							"name": "hidden",
-							"label": "Hide this section",
+							"label": "Hide this section (optional)",
 							"widget": "boolean",
 							"default": false,
 							"required": false,
-							"hint": "Takes the Gallery off the home page without deleting its content."
+							"hint": "Takes this section off the page without deleting its content."
 						},
 						{
 							"name": "eyebrowIcon",
@@ -734,10 +798,18 @@
 				},
 				{
 					"name": "carousel_tunnel",
-					"label": "Carousel",
+					"label": "Section - Carousel",
 					"file": "src/lib/content/page_home/carousel-tunnel.json",
 					"preview_path": "#carousel",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -834,10 +906,18 @@
 				},
 				{
 					"name": "stats",
-					"label": "Stats",
+					"label": "Section - Stats",
 					"file": "src/lib/content/page_home/stats.json",
 					"preview_path": "#stats",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -934,10 +1014,18 @@
 				},
 				{
 					"name": "comparison_table",
-					"label": "Comparison Table",
+					"label": "Section - Comparison Table",
 					"file": "src/lib/content/page_home/comparison-table.json",
 					"preview_path": "#comparison",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -1070,10 +1158,18 @@
 				},
 				{
 					"name": "finance_marquee",
-					"label": "Finance List",
+					"label": "Section - Finance List",
 					"file": "src/lib/content/page_home/finance-marquee.json",
 					"preview_path": "#finance",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -1219,10 +1315,18 @@
 				},
 				{
 					"name": "dealer_marquee",
-					"label": "Dealer List",
+					"label": "Section - Dealer List",
 					"file": "src/lib/content/page_home/dealer-marquee.json",
 					"preview_path": "#dealers",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -1368,10 +1472,18 @@
 				},
 				{
 					"name": "oss",
-					"label": "OSS",
+					"label": "Section - OSS",
 					"file": "src/lib/content/page_home/oss.json",
 					"preview_path": "#oss",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -1475,10 +1587,18 @@
 				},
 				{
 					"name": "faq_tabs",
-					"label": "FAQ",
+					"label": "Section - FAQ",
 					"file": "src/lib/content/page_home/faq-tabs.json",
 					"preview_path": "#faq",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -1554,10 +1674,18 @@
 			"files": [
 				{
 					"name": "hero_gnomon",
-					"label": "Hero",
+					"label": "Section - Hero",
 					"file": "src/lib/content/page_culture/hero-gnomon.json",
 					"preview_path": "culture",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -1732,10 +1860,18 @@
 				},
 				{
 					"name": "headline",
-					"label": "Headline",
+					"label": "Section - Headline",
 					"file": "src/lib/content/page_culture/headline.json",
 					"preview_path": "culture#headline",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -1800,10 +1936,18 @@
 				},
 				{
 					"name": "photo_columns",
-					"label": "Photo columns",
+					"label": "Section - Photo columns",
 					"file": "src/lib/content/page_culture/photo-columns.json",
 					"preview_path": "culture#photos",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -1910,10 +2054,18 @@
 				},
 				{
 					"name": "carousel_tunnel",
-					"label": "Carousel",
+					"label": "Section - Carousel",
 					"file": "src/lib/content/page_culture/carousel-tunnel.json",
 					"preview_path": "culture#carousel",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -2010,10 +2162,18 @@
 				},
 				{
 					"name": "earnings_potential",
-					"label": "Earnings",
+					"label": "Section - Earnings",
 					"file": "src/lib/content/page_culture/earnings-potential.json",
 					"preview_path": "culture#earnings",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -2072,10 +2232,18 @@
 				},
 				{
 					"name": "oss",
-					"label": "OSS",
+					"label": "Section - OSS",
 					"file": "src/lib/content/page_culture/oss.json",
 					"preview_path": "culture#oss",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -2185,10 +2353,18 @@
 			"files": [
 				{
 					"name": "hero_image_circle_left",
-					"label": "Hero",
+					"label": "Section - Hero",
 					"file": "src/lib/content/page_platform/hero-image-circle.json",
 					"preview_path": "platform",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowImage",
 							"label": "Eyebrow image",
@@ -2358,10 +2534,18 @@
 				},
 				{
 					"name": "headline",
-					"label": "Headline",
+					"label": "Section - Headline",
 					"file": "src/lib/content/page_platform/headline.json",
 					"preview_path": "platform#headline",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -2426,10 +2610,18 @@
 				},
 				{
 					"name": "circle_highlight",
-					"label": "Circle highlight",
+					"label": "Section - Circle highlight",
 					"file": "src/lib/content/page_platform/circle-highlight.json",
 					"preview_path": "platform#circle-highlight",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -2541,10 +2733,18 @@
 				},
 				{
 					"name": "tools",
-					"label": "Tools",
+					"label": "Section - Tools",
 					"file": "src/lib/content/page_platform/tools.json",
 					"preview_path": "platform#tools",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -2635,10 +2835,18 @@
 				},
 				{
 					"name": "finance_grid",
-					"label": "Finance Grid",
+					"label": "Section - Finance Grid",
 					"file": "src/lib/content/page_platform/finance-grid.json",
 					"preview_path": "platform#finance",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -2734,10 +2942,18 @@
 				},
 				{
 					"name": "dealer_grid",
-					"label": "Dealer Grid",
+					"label": "Section - Dealer Grid",
 					"file": "src/lib/content/page_platform/dealer-grid.json",
 					"preview_path": "platform#dealers",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -2833,10 +3049,18 @@
 				},
 				{
 					"name": "faq_tabs",
-					"label": "FAQ",
+					"label": "Section - FAQ",
 					"file": "src/lib/content/page_platform/faq-tabs.json",
 					"preview_path": "platform#faq",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -2922,10 +3146,18 @@
 			"files": [
 				{
 					"name": "hero_image_circle_left",
-					"label": "Hero",
+					"label": "Section - Hero",
 					"file": "src/lib/content/page_about/hero-image-circle.json",
 					"preview_path": "about",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowImage",
 							"label": "Eyebrow image",
@@ -3095,10 +3327,18 @@
 				},
 				{
 					"name": "headline",
-					"label": "Headline",
+					"label": "Section - Headline",
 					"file": "src/lib/content/page_about/headline.json",
 					"preview_path": "about#headline",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -3122,10 +3362,18 @@
 				},
 				{
 					"name": "gallery_horizontal",
-					"label": "Gallery",
+					"label": "Section - Gallery",
 					"file": "src/lib/content/page_about/gallery-horizontal.json",
 					"preview_path": "about#leadership",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -3218,10 +3466,18 @@
 				},
 				{
 					"name": "scroll_timeline",
-					"label": "Timeline",
+					"label": "Section - Timeline",
 					"file": "src/lib/content/page_about/scroll-timeline.json",
 					"preview_path": "about#timeline",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -3338,10 +3594,18 @@
 				},
 				{
 					"name": "stats",
-					"label": "Stats",
+					"label": "Section - Stats",
 					"file": "src/lib/content/page_about/stats.json",
 					"preview_path": "about#stats",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -3397,8 +3661,27 @@
 									"required": false,
 									"hint": "Off for a year such as 1985."
 								},
-								{ "name": "label", "label": "Label", "widget": "string", "required": false }
+								{ "name": "label", "label": "Label", "widget": "string", "required": false },
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"required": false,
+									"hint": "Lands on the stack with this stat when the section is pinned.",
+									"fields": [
+										{ "name": "src", "label": "Image", "widget": "image", "required": false },
+										{ "name": "alt", "label": "Description", "widget": "string", "required": false }
+									]
+								}
 							]
+						},
+						{
+							"name": "pinned",
+							"label": "Pin and reveal on scroll",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Pins the section on larger screens: each stat counts up in turn as its image drops onto the stack. Give every stat an image."
 						},
 						{
 							"name": "repeat",
@@ -3419,10 +3702,18 @@
 				},
 				{
 					"name": "oss",
-					"label": "OSS",
+					"label": "Section - OSS",
 					"file": "src/lib/content/page_about/oss.json",
 					"preview_path": "about#oss",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowIcon",
 							"label": "Eyebrow icon",
@@ -3532,10 +3823,18 @@
 			"files": [
 				{
 					"name": "hero_image_wave",
-					"label": "Hero",
+					"label": "Section - Hero",
 					"file": "src/lib/content/page_oss/hero-image-wave.json",
 					"preview_path": "oss",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -3642,10 +3941,18 @@
 				},
 				{
 					"name": "accordion_table",
-					"label": "History",
+					"label": "Section - History",
 					"file": "src/lib/content/page_oss/accordion-table.json",
 					"preview_path": "oss#history",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "title",
 							"label": "Title",
@@ -3827,6 +4134,134 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "oss_timeline",
+					"label": "Section - Get Involved",
+					"file": "src/lib/content/page_oss/scroll-timeline.json",
+					"preview_path": "oss#get-involved",
+					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
+						{
+							"name": "eyebrowIcon",
+							"label": "Eyebrow icon",
+							"widget": "image",
+							"required": false,
+							"hint": "An SVG icon; it takes the eyebrow color."
+						},
+						{
+							"name": "eyebrowText",
+							"label": "Eyebrow text",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "title",
+							"label": "Title",
+							"widget": "string",
+							"required": false
+						},
+						{
+							"name": "description",
+							"label": "Description",
+							"widget": "text",
+							"required": false
+						},
+						{
+							"name": "events",
+							"label": "Events",
+							"widget": "list",
+							"min": 2,
+							"hint": "In order. Each needs an image, which is its card on the circle.",
+							"fields": [
+								{
+									"name": "date",
+									"label": "Date",
+									"widget": "string",
+									"required": true,
+									"hint": "Shown under its circle on the timeline, e.g. 2019."
+								},
+								{
+									"name": "title",
+									"label": "Title",
+									"widget": "string",
+									"required": true
+								},
+								{
+									"name": "description",
+									"label": "Description",
+									"widget": "text",
+									"required": false
+								},
+								{
+									"name": "image",
+									"label": "Image",
+									"widget": "object",
+									"fields": [
+										{
+											"name": "src",
+											"label": "Image",
+											"widget": "image",
+											"required": true
+										},
+										{
+											"name": "alt",
+											"label": "Description",
+											"widget": "string",
+											"required": false
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "imagesBefore",
+							"label": "Extra images before",
+							"widget": "list",
+							"required": false,
+							"hint": "Pictures on the circle before the first event. Two fill the visible arc.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						},
+						{
+							"name": "imagesAfter",
+							"label": "Extra images after",
+							"widget": "list",
+							"required": false,
+							"hint": "Pictures on the circle after the last event. Two fill the visible arc.",
+							"fields": [
+								{
+									"name": "src",
+									"label": "Image",
+									"widget": "image"
+								},
+								{
+									"name": "alt",
+									"label": "Description",
+									"widget": "string",
+									"required": false
+								}
+							]
+						}
+					]
 				}
 			]
 		},
@@ -3836,10 +4271,18 @@
 			"files": [
 				{
 					"name": "contact_form",
-					"label": "Hero and contact form",
+					"label": "Section - Hero and contact form",
 					"file": "src/lib/content/page_join/contact-form.json",
 					"preview_path": "join",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -3905,10 +4348,18 @@
 				},
 				{
 					"name": "faq_tabs",
-					"label": "FAQ",
+					"label": "Section - FAQ",
 					"file": "src/lib/content/page_join/faq-tabs.json",
 					"preview_path": "join#faq",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -4074,10 +4525,18 @@
 			"files": [
 				{
 					"name": "hero_simple",
-					"label": "Hero",
+					"label": "Section - Hero",
 					"file": "src/lib/content/page_blog/hero-simple.json",
 					"preview_path": "blog",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",
@@ -4106,9 +4565,17 @@
 			"files": [
 				{
 					"name": "hero_simple",
-					"label": "Hero",
+					"label": "Section - Hero",
 					"file": "src/lib/content/page_404/hero-simple.json",
 					"fields": [
+						{
+							"name": "hidden",
+							"label": "Hide this section (optional)",
+							"widget": "boolean",
+							"default": false,
+							"required": false,
+							"hint": "Takes this section off the page without deleting its content."
+						},
 						{
 							"name": "eyebrowText",
 							"label": "Eyebrow text",

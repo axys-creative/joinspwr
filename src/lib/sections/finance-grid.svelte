@@ -29,7 +29,7 @@
 <script lang="ts">
 	import LogoSearch from '$lib/components/logo-search.svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
-	import { push } from '$lib/attachments/push';
+	import { gradientBorder } from '$lib/attachments/gradient-border';
 
 	// Rows alternate four and three; a last row of three that would follow a four-row tapers to two, then one.
 	function rowSizes(count: number) {
@@ -101,7 +101,7 @@
 						target={logo.url && logo.newTab ? '_blank' : undefined}
 						rel={logo.url && logo.newTab ? 'noopener noreferrer' : undefined}
 					>
-						<div class="card" {@attach push({ strength: 8, restore: 0.08, maxRotate: 8 })}>
+						<div class="card" {@attach gradientBorder({ rayTrace: 'border', rayReach: 180 })}>
 							<img src={logo.src} alt={logo.alt ?? ''} loading="lazy" />
 						</div>
 						{#if logo.url && logo.newTab}<span class="visually-hidden">(opens in a new tab)</span
@@ -207,6 +207,8 @@
 		}
 
 		.card {
+			--gradient-ray-size: 90px;
+
 			box-sizing: border-box;
 			display: block;
 			aspect-ratio: 16 / 9;
@@ -223,10 +225,13 @@
 					background-color 0.2s var(--ease),
 					scale 0.2s var(--ease);
 			}
+
+			// The ring sits on the card's own border, not just inside it.
+			&:global(.gradient-border)::before {
+				inset: -1px;
+			}
 		}
 
-		// The link stays put while the card inside is pushed, so the hover and the click never lose the pointer as the card
-		// slides away from it.
 		.item {
 			display: block;
 			border-radius: var(--radius);

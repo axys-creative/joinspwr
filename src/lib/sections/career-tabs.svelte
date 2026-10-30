@@ -111,8 +111,16 @@
 
 		max-width: 100%;
 		align-self: center;
-		overflow-x: auto;
 		scrollbar-width: none;
+
+		// Scrolling clips the ray trace border, so only the narrow layout scrolls and its ring sits just inside.
+		@include mixins.max-md {
+			overflow-x: auto;
+
+			&:global(.gradient-border)::before {
+				inset: 0;
+			}
+		}
 	}
 
 	.tab {

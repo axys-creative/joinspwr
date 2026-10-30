@@ -5,8 +5,12 @@
 	import ContactForm from '$lib/sections/contact-form.svelte';
 </script>
 
-<ContactForm id="contact" hero {...contactForm} />
-<FaqTabs id="faq" {...faq} groups={faq.groups as FaqGroup[]} />
+{#if !contactForm.hidden}
+	<ContactForm id="contact" hero {...contactForm} />
+{/if}
+{#if !faq.hidden}
+	<FaqTabs id="faq" {...faq} groups={faq.groups as FaqGroup[]} />
+{/if}
 
 <style lang="scss">
 	:global(#faq) {

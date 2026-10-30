@@ -17,6 +17,8 @@
 		showMessage?: boolean;
 		/** A "how did you hear about us" textarea. */
 		showDiscovery?: boolean;
+		/** An unchecked "I have experience in sales" checkbox, above the consent. */
+		showExperience?: boolean;
 		/** Character limit of the discovery textarea. */
 		maxCountDiscovery?: number;
 		/** Netlify's reCAPTCHA widget. */
@@ -39,6 +41,7 @@
 	import { magnet } from '$lib/attachments/magnet';
 	import { alerts } from '$lib/utils/alerts.svelte';
 	import Button from './button.svelte';
+	import FormChoice from './form-choice.svelte';
 	import FormConsent from './form-consent.svelte';
 	import FormField from './form-field.svelte';
 
@@ -56,6 +59,7 @@
 		showMessage = false,
 		showDiscovery = false,
 		maxCountDiscovery,
+		showExperience = false,
 		showRecaptcha = false,
 		submitText = 'Send message',
 		submitLabel,
@@ -63,11 +67,15 @@
 		successMessage = 'We’ll get back to you shortly.',
 		errorTitle = 'Something went wrong',
 		errorMessage = 'Please try again.',
-		duplicateMessage = 'This email has already been submitted.',
+		duplicateMessage = "It looks like we've already received a form submission with this email address.",
 		class: className
 	}: FormProps = $props();
 
+	const experienceYears = ['Less than 1 year', '1 to 3 years', '3 to 5 years', '5+ years'];
+
 	let sending = $state(false);
+	let experienced = $state(false);
+	let years = $state<string>();
 
 	const used = (): string[] => {
 		try {
@@ -91,7 +99,7 @@
 				type: 'warning',
 				title: 'Already submitted',
 				message: duplicateMessage,
-				autoClose: 8000,
+				autoClose: 20000,
 				timer: true
 			});
 			return;
@@ -114,16 +122,18 @@
 				type: 'success',
 				title: successTitle,
 				message: successMessage,
-				autoClose: 8000,
+				autoClose: 20000,
 				timer: true
 			});
 			form.reset();
+			experienced = false;
+			years = undefined;
 		} catch {
 			alerts.show({
 				type: 'error',
 				title: errorTitle,
 				message: errorMessage,
-				autoClose: 8000,
+				autoClose: 20000,
 				timer: true
 			});
 		} finally {
@@ -178,7 +188,6 @@
 				{glass}
 				name="zip"
 				label="Zip"
-				type="number"
 				inputmode="numeric"
 				autocomplete="postal-code"
 			/>
@@ -198,6 +207,33 @@
 			type="textarea"
 			maxLength={maxCountDiscovery}
 		/>
+	{/if}
+
+	{#if showExperience}
+		<div class="experience">
+			<FormChoice
+				name="sales-experience"
+				label="I have experience in sales (optional)"
+				bind:checked={experienced}
+			/>
+			<div class="years" class:open={experienced}>
+				<div class="years-inner" inert={!experienced}>
+					<fieldset>
+						<legend class="visually-hidden">Years of sales experience</legend>
+						{#each experienceYears as option (option)}
+							<FormChoice
+								type="radio"
+								name="sales-experience-years"
+								label={option}
+								value={option}
+								disabled={!experienced}
+								bind:group={years}
+							/>
+						{/each}
+					</fieldset>
+				</div>
+			</div>
+		</div>
 	{/if}
 
 	{#if consent}<FormConsent text={consent} links={consentLinks} />{/if}
@@ -231,6 +267,41 @@
 		display: flex;
 		gap: 12px;
 		width: 100%;
+	}
+
+	.experience {
+		width: 100%;
+		font-size: 0.875em;
+		color: var(--color-text-muted);
+	}
+
+	.years {
+		display: grid;
+		grid-template-rows: 0fr;
+
+		@include mixins.mq-motion-allow {
+			transition: grid-template-rows 0.3s ease;
+		}
+
+		&.open {
+			grid-template-rows: 1fr;
+		}
+	}
+
+	.years-inner {
+		min-height: 0;
+		margin: -4px;
+		padding: 4px;
+		overflow: hidden;
+
+		fieldset {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px 24px;
+			margin: 0;
+			padding: 1em 0 0 2em;
+			border: 0;
+		}
 	}
 
 	.recaptcha {

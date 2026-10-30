@@ -2,7 +2,7 @@
 	export type LogoSearchProps = {
 		/** The names to search, in the same order as the logos. */
 		names: string[];
-		/** The grid of logos the box follows: it shows from when the grid's top reaches 75% down the screen until its bottom reaches 66%. */
+		/** The grid of logos the box follows: it shows from when the grid's top reaches 50% down the screen until its bottom reaches 75%. */
 		grid?: HTMLElement;
 		/** From `lg` up, the box centers on this element's column instead of the screen, such as the pinned copy. */
 		alignTo?: HTMLElement;
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 	import { cubicInOut } from 'svelte/easing';
+	import { gradientBorder } from '$lib/attachments/gradient-border';
 	import type { TransitionConfig } from 'svelte/transition';
 	import { searchNames } from '$lib/utils/logo-search';
 	import { searchQueue } from '$lib/utils/logo-search-queue.svelte';
@@ -77,21 +78,31 @@
 	$effect(() => {
 		if (!grid) return;
 
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting === inView) return;
-				inView = entry.isIntersecting;
-				if (inView) searchQueue.enter(id);
-				else {
-					searchQueue.leave(id);
-					dismissed = false;
-				}
-			},
-			{ rootMargin: '-66% 0px -25% 0px' }
-		);
-		observer.observe(grid);
+		let frame = 0;
+
+		const update = () => {
+			frame = 0;
+			const rect = grid.getBoundingClientRect();
+			const next = rect.top <= innerHeight * 0.5 && rect.bottom > innerHeight * 0.75;
+			if (next === inView) return;
+			inView = next;
+			if (inView) searchQueue.enter(id);
+			else {
+				searchQueue.leave(id);
+				dismissed = false;
+			}
+		};
+		const schedule = () => {
+			if (!frame) frame = requestAnimationFrame(update);
+		};
+
+		update();
+		addEventListener('scroll', schedule, { passive: true });
+		addEventListener('resize', schedule);
 		return () => {
-			observer.disconnect();
+			cancelAnimationFrame(frame);
+			removeEventListener('scroll', schedule);
+			removeEventListener('resize', schedule);
 			searchQueue.leave(id);
 		};
 	});
@@ -126,7 +137,7 @@
 
 		const middle = rect.top + rect.height / 2;
 		const toGridBottom = grid.getBoundingClientRect().bottom - middle;
-		const at = Math.min(view * 0.6, Math.max(view * 0.5, view * 0.7 - toGridBottom));
+		const at = Math.min(view * 0.6, Math.max(view * 0.5, view * 0.79 - toGridBottom));
 		const top = scrollY + middle - at;
 
 		// smooth-scroll.svelte answers this with Lenis; without it the browser scrolls itself.
@@ -184,7 +195,7 @@
 			type="text"
 			onclick={() => (dismissed = true)}
 		/>
-		<div class="field">
+		<div class="field" {@attach gradientBorder({ rayTrace: 'border' })}>
 			<input
 				type="search"
 				aria-label={label}
@@ -233,6 +244,7 @@
 	.field {
 		position: relative;
 		grid-column: 1 / -1;
+		border-radius: var(--radius);
 	}
 
 	input {

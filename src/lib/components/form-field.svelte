@@ -48,6 +48,7 @@
 </script>
 
 <script lang="ts">
+	import { gradientBorder } from '$lib/attachments/gradient-border';
 	import Icon from './icon.svelte';
 
 	let {
@@ -86,9 +87,9 @@
 			.join(' ') || undefined
 	);
 
-	// A phone number is digits only.
+	// A phone number or a numeric field is digits only.
 	const oninput = () => {
-		if (type === 'tel') value = value.replace(/\D/g, '');
+		if (type === 'tel' || inputmode === 'numeric') value = value.replace(/\D/g, '');
 	};
 
 	const normalize = (option: string | { value: string; label?: string; disabled?: boolean }) =>
@@ -106,74 +107,79 @@
 	class:has-glass={glass}
 	class:textarea={type === 'textarea'}
 >
-	{#if type === 'textarea'}
-		<textarea
-			{id}
-			{name}
-			{required}
-			{disabled}
-			{autocomplete}
-			maxlength={maxLength}
-			spellcheck="true"
-			placeholder=" "
-			aria-invalid={error ? 'true' : undefined}
-			aria-describedby={describedBy}
-			bind:value></textarea>
-	{:else if type === 'select'}
-		<select
-			{id}
-			{name}
-			{required}
-			{disabled}
-			{autocomplete}
-			aria-invalid={error ? 'true' : undefined}
-			aria-describedby={describedBy}
-			bind:value
-		>
-			<option value="" disabled hidden></option>
-			{#each options as option, index (index)}
-				{#if typeof option === 'object' && 'group' in option}
-					<optgroup label={option.group}>
-						{#each option.options as grouped, groupedIndex (groupedIndex)}
-							{@render choice(grouped)}
-						{/each}
-					</optgroup>
-				{:else}
-					{@render choice(option)}
-				{/if}
-			{/each}
-		</select>
-		<Icon name="chevron-down" class="chevron" />
-	{:else}
-		<input
-			{id}
-			{name}
-			{required}
-			{disabled}
-			{type}
-			{autocomplete}
-			{inputmode}
-			list={datalist ? `${id}-list` : undefined}
-			placeholder=" "
-			aria-invalid={error ? 'true' : undefined}
-			aria-describedby={describedBy}
-			{oninput}
-			bind:value
-		/>
-		{#if datalist}
-			<datalist id="{id}-list">
-				{#each datalist as suggestion (suggestion)}<option value={suggestion}></option>{/each}
-			</datalist>
+	<div
+		class="control"
+		{@attach variant === 'outline' ? gradientBorder({ rayTrace: 'border' }) : undefined}
+	>
+		{#if type === 'textarea'}
+			<textarea
+				{id}
+				{name}
+				{required}
+				{disabled}
+				{autocomplete}
+				maxlength={maxLength}
+				spellcheck="true"
+				placeholder=" "
+				aria-invalid={error ? 'true' : undefined}
+				aria-describedby={describedBy}
+				bind:value></textarea>
+		{:else if type === 'select'}
+			<select
+				{id}
+				{name}
+				{required}
+				{disabled}
+				{autocomplete}
+				aria-invalid={error ? 'true' : undefined}
+				aria-describedby={describedBy}
+				bind:value
+			>
+				<option value="" disabled hidden></option>
+				{#each options as option, index (index)}
+					{#if typeof option === 'object' && 'group' in option}
+						<optgroup label={option.group}>
+							{#each option.options as grouped, groupedIndex (groupedIndex)}
+								{@render choice(grouped)}
+							{/each}
+						</optgroup>
+					{:else}
+						{@render choice(option)}
+					{/if}
+				{/each}
+			</select>
+			<Icon name="chevron-down" class="chevron" />
+		{:else}
+			<input
+				{id}
+				{name}
+				{required}
+				{disabled}
+				{type}
+				{autocomplete}
+				{inputmode}
+				list={datalist ? `${id}-list` : undefined}
+				placeholder=" "
+				aria-invalid={error ? 'true' : undefined}
+				aria-describedby={describedBy}
+				{oninput}
+				bind:value
+			/>
+			{#if datalist}
+				<datalist id="{id}-list">
+					{#each datalist as suggestion (suggestion)}<option value={suggestion}></option>{/each}
+				</datalist>
+			{/if}
 		{/if}
-	{/if}
-	<label for={id}>
-		{label}{#if required}<span class="visually-hidden"> (required)</span>{/if}
-		{#if counter}
-			<span class="count" class:out={remaining === 0} id="{id}-count" aria-live="polite">
-				{counter}
-			</span>
-		{/if}
-	</label>
+		<label for={id}>
+			{label}{#if required}<span class="visually-hidden"> (required)</span>{/if}
+			{#if counter}
+				<span class="count" class:out={remaining === 0} id="{id}-count" aria-live="polite">
+					{counter}
+				</span>
+			{/if}
+		</label>
+	</div>
 	{#if hint && !error}<p class="message" id="{id}-hint">{hint}</p>{/if}
 	{#if error}<p class="message error" id="{id}-error">{error}</p>{/if}
 </div>
@@ -191,6 +197,11 @@
 		padding-block-start: 0.5em;
 	}
 
+	.control {
+		position: relative;
+		border-radius: var(--radius-btn);
+	}
+
 	input,
 	textarea,
 	select {
@@ -204,7 +215,9 @@
 		appearance: none;
 
 		@include mixins.mq-motion-allow {
-			transition: border-color 0.25s ease;
+			transition:
+				border-color 0.25s ease,
+				background-color 0.25s ease;
 		}
 
 		&:hover {
@@ -268,7 +281,7 @@
 		}
 
 		label {
-			top: calc(0.5em + 1.2em);
+			top: 1.2em;
 			left: 0;
 		}
 	}
@@ -283,7 +296,7 @@
 		}
 
 		label {
-			top: calc(0.5em + 0.85em);
+			top: 0.85em;
 			left: 1em;
 		}
 
@@ -292,7 +305,7 @@
 		textarea:focus ~ label,
 		textarea:not(:placeholder-shown) ~ label,
 		&.floated label {
-			top: 0.5em;
+			top: 0;
 			left: 0.75em;
 			padding-inline: 0.35em;
 			translate: 0 -50%;
@@ -306,6 +319,7 @@
 		textarea,
 		select {
 			padding: 1.45em 1em 0.4em;
+			line-height: 1.5;
 			border-color: var(--color-border);
 			background: var(--color-glass);
 			backdrop-filter: blur(12px);
@@ -319,12 +333,17 @@
 			}
 		}
 
+		&:not(.textarea):not(.floated) input:placeholder-shown:not(:focus) ~ label {
+			top: 1.675em;
+			translate: 0 -50%;
+		}
+
 		input:focus ~ label,
 		input:not(:placeholder-shown) ~ label,
 		textarea:focus ~ label,
 		textarea:not(:placeholder-shown) ~ label,
 		&.floated label {
-			top: calc(0.5em + 0.35em);
+			top: 0.35em;
 			left: 1em;
 			padding-inline: 0;
 			translate: none;
@@ -364,7 +383,7 @@
 		textarea:focus ~ label,
 		textarea:not(:placeholder-shown) ~ label,
 		&.floated label {
-			top: calc(0.5em + 0.2em);
+			top: 0.2em;
 		}
 	}
 

@@ -92,6 +92,7 @@
 
 	.alert {
 		--accent: var(--color-text);
+		--title-line: calc(22px * 1.3);
 
 		position: relative;
 		display: flex;
@@ -100,7 +101,7 @@
 		width: 100%;
 		padding: 12px 8px 12px 12px;
 		overflow: hidden;
-		border-radius: var(--radius);
+		border-radius: var(--radius-btn);
 		background: var(--color-surface);
 		box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
 		pointer-events: auto;
@@ -126,10 +127,10 @@
 		border-inline-start: 6px solid var(--accent);
 	}
 
-	.alert :global(.icon) {
+	.alert > :global(.icon) {
 		--icon-size: 2ch;
 
-		margin-block-start: 2px;
+		margin-block-start: calc((var(--title-line) - 2ch) / 2);
 		background: var(--accent);
 	}
 
@@ -139,6 +140,10 @@
 		flex-direction: column;
 		gap: 6px;
 		min-width: 0;
+
+		strong {
+			@include mixins.h5;
+		}
 
 		p {
 			opacity: 0.85;
@@ -153,7 +158,9 @@
 	.alert :global(.close) {
 		--btn-padding-icon: 4px;
 
+		align-self: flex-start;
 		margin-inline-start: auto;
+		block-size: var(--title-line);
 		color: var(--color-text);
 	}
 
