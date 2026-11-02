@@ -371,6 +371,7 @@
 					};
 					let lagging = false;
 					const follow = (_time: number, delta: number) => {
+						if (!scaler?.isConnected) return core.ticker.remove(follow);
 						const zoom = Number(core.getProperty(scaler!, 'scale'));
 						const seconds = delta / 1000;
 						lagging = false;
