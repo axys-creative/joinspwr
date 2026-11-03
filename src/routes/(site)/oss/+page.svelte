@@ -17,7 +17,7 @@
 </script>
 
 {#if !hero.hidden}
-	<HeroImageWave {...heroProps} images={heroImages} {accent} />
+	<HeroImageWave id="hero" {...heroProps} images={heroImages} {accent} />
 {/if}
 {#if !history.hidden}
 	<AccordionTableSection id="history" {...history} {columns} />

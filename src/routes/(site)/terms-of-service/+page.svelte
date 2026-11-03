@@ -6,7 +6,7 @@
 </script>
 
 {#if !hero.hidden}
-	<HeroSimple {...hero} />
+	<HeroSimple id="hero" {...hero} />
 {/if}
 {#if !copy.hidden}
 	<CopyColumns id="terms" {...copy} />

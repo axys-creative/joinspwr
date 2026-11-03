@@ -1899,7 +1899,7 @@
 					"name": "hero_gnomon",
 					"label": "Section - Hero",
 					"file": "src/lib/content/page_culture/hero-gnomon.json",
-					"preview_path": "culture",
+					"preview_path": "culture#hero",
 					"fields": [
 						{
 							"name": "hidden",
@@ -2578,7 +2578,7 @@
 					"name": "hero_image_circle_left",
 					"label": "Section - Hero",
 					"file": "src/lib/content/page_platform/hero-image-circle.json",
-					"preview_path": "platform",
+					"preview_path": "platform#hero",
 					"fields": [
 						{
 							"name": "hidden",
@@ -3407,7 +3407,7 @@
 					"name": "hero_image_circle_left",
 					"label": "Section - Hero",
 					"file": "src/lib/content/page_about/hero-image-circle.json",
-					"preview_path": "about",
+					"preview_path": "about#hero",
 					"fields": [
 						{
 							"name": "hidden",
@@ -4150,7 +4150,7 @@
 					"name": "hero_image_wave",
 					"label": "Section - Hero",
 					"file": "src/lib/content/page_oss/hero-image-wave.json",
-					"preview_path": "oss",
+					"preview_path": "oss#hero",
 					"fields": [
 						{
 							"name": "hidden",
@@ -4638,7 +4638,7 @@
 					"name": "contact_form",
 					"label": "Section - Hero and contact form",
 					"file": "src/lib/content/page_join/contact-form.json",
-					"preview_path": "join",
+					"preview_path": "join#contact",
 					"fields": [
 						{
 							"name": "hidden",
@@ -4914,7 +4914,7 @@
 					"name": "hero_simple",
 					"label": "Section - Hero",
 					"file": "src/lib/content/page_blog/hero-simple.json",
-					"preview_path": "blog",
+					"preview_path": "blog#hero",
 					"fields": [
 						{
 							"name": "hidden",
@@ -4954,7 +4954,7 @@
 					"name": "hero_simple",
 					"label": "Section - Hero",
 					"file": "src/lib/content/page_privacy/hero-simple.json",
-					"preview_path": "privacy-policy",
+					"preview_path": "privacy-policy#hero",
 					"fields": [
 						{
 							"name": "hidden",
@@ -5044,7 +5044,7 @@
 					"name": "hero_simple",
 					"label": "Section - Hero",
 					"file": "src/lib/content/page_terms/hero-simple.json",
-					"preview_path": "terms-of-service",
+					"preview_path": "terms-of-service#hero",
 					"fields": [
 						{
 							"name": "hidden",

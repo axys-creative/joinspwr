@@ -10,6 +10,7 @@
 		/** At least the height of the screen: the copy is centered above the wave. Taller content still grows past it. */
 		fullScreen?: boolean;
 		class?: string;
+		id?: string;
 	};
 </script>
 
@@ -19,6 +20,7 @@
 	import SectionCopy, { type SectionCopyProps } from '$lib/components/section-copy.svelte';
 
 	let {
+		id,
 		images,
 		accent,
 		wave,
@@ -28,7 +30,7 @@
 	}: HeroImageWaveProps = $props();
 </script>
 
-<section class="hero-image-wave {className ?? ''}" class:full-screen={fullScreen}>
+<section {id} class="hero-image-wave {className ?? ''}" class:full-screen={fullScreen}>
 	<div class="inner">
 		<div class="copy">
 			{#if accent}<span class="accent" aria-hidden="true"><RichText text={accent} /></span>{/if}

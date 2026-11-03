@@ -14,7 +14,7 @@
 </script>
 
 {#if !hero.hidden}
-	<HeroGnomon {...hero} />
+	<HeroGnomon id="hero" {...hero} />
 {/if}
 {#if !photoColumns.hidden}
 	<PhotoColumns id="photos" {...photoColumns} />

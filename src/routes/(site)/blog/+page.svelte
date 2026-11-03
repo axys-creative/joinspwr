@@ -7,7 +7,7 @@
 </script>
 
 {#if !hero.hidden}
-	<HeroSimple {...hero} />
+	<HeroSimple id="hero" {...hero} />
 {/if}
 
 <section class="posts">

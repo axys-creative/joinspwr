@@ -22,6 +22,8 @@ let refreshTimer: ReturnType<typeof setTimeout> | undefined;
 let lastScroll = 0;
 let listening = false;
 let urgent = false;
+let watching = false;
+let lastHeight = 0;
 const SCROLL_IDLE = 300;
 
 let resolveReady: () => void;
@@ -55,7 +57,22 @@ export function refreshScrollTriggers({ immediate = false } = {}) {
 		urgent = false;
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		ScrollTrigger.refresh();
+		lastHeight = document.body.offsetHeight;
 	}, 200);
+}
+
+// Content that grows or shrinks (an accordion opening, an image loading) moves every pin below it, so a change in the
+// page's height measures them again, with no call needed from the thing that changed.
+function watchLayout() {
+	if (watching) return;
+	watching = true;
+	lastHeight = document.body.offsetHeight;
+	new ResizeObserver(() => {
+		const height = document.body.offsetHeight;
+		if (Math.abs(height - lastHeight) < 1) return;
+		lastHeight = height;
+		refreshScrollTriggers();
+	}).observe(document.body);
 }
 
 /**
@@ -77,6 +94,9 @@ export async function loadGsap(...plugins: PluginName[]) {
 			return pending;
 		})
 	);
-	if (plugins.includes('scrollTrigger')) resolveReady();
+	if (plugins.includes('scrollTrigger')) {
+		resolveReady();
+		watchLayout();
+	}
 	return gsap;
 }

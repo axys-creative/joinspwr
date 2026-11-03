@@ -4,6 +4,7 @@
 	import config from './config.json';
 	import site from '$lib/content/meta/site.json';
 	import { loadIdentity } from '$lib/utils/identity';
+	import { cardThumbnails } from './card-thumbnails';
 	import { sideToggleControls } from './view-controls';
 
 	type Cms = {
@@ -35,6 +36,7 @@
 
 	onMount(() => {
 		const stopControls = sideToggleControls();
+		const stopThumbnails = cardThumbnails();
 		let script: HTMLScriptElement | undefined;
 
 		const preload = document.body.getAttribute('data-sveltekit-preload-data');
@@ -67,6 +69,7 @@
 
 		return () => {
 			stopControls();
+			stopThumbnails();
 			script?.remove();
 			if (preload) document.body.setAttribute('data-sveltekit-preload-data', preload);
 			document.body.removeAttribute('data-sveltekit-reload');
