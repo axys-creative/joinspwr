@@ -12,7 +12,6 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { cursorHide } from '$lib/attachments/cursor-hide';
 	import { watchScroll } from '$lib/attachments/watch-scroll';
 
 	let {
@@ -94,7 +93,6 @@
 	onpointerdown={allowClick ? onpointerdown : undefined}
 	onpointermove={allowClick ? onpointermove : undefined}
 	{@attach watchScroll({ idle: 500 })}
-	{@attach allowClick ? cursorHide() : undefined}
 >
 	<div class="bar" bind:this={bar}></div>
 </div>

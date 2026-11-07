@@ -64,62 +64,6 @@
 			"crawlPage": true
 		},
 		{
-			"path": "/style-guide",
-			"title": "Style Guide",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
-			"path": "/advanced",
-			"title": "Advanced",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
-			"path": "/components",
-			"title": "Components",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
-			"path": "/attachments",
-			"title": "Attachments",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
-			"path": "/combos",
-			"title": "Combos",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
-			"path": "/intros",
-			"title": "Intros",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
-			"path": "/sections",
-			"title": "Sections",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
-			"path": "/transitions",
-			"title": "Transitions",
-			"description": "",
-			"ogImage": "",
-			"crawlPage": false
-		},
-		{
 			"path": "/404",
 			"title": "Page Not Found",
 			"description": "The page you are looking for cannot be found. Check the address or return to the home page.",

@@ -3,7 +3,7 @@
 	import type { SectionCopyProps } from '$lib/components/section-copy.svelte';
 
 	export type FinanceStickyProps = Omit<SectionCopyProps, 'level' | 'layout' | 'align'> & {
-		/** The logos, two across, each fading in as it scrolls into view. Tiles with a `url` show a "Visit site" link on hover. */
+		/** The logos, two across, each fading in as it scrolls into view. Tiles with a `url` are links. */
 		logos: (MarqueeImage & {
 			/** The partner's website. */
 			url?: string;

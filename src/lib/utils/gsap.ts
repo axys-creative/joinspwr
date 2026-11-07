@@ -71,7 +71,7 @@ function watchLayout() {
 		const height = document.body.offsetHeight;
 		if (Math.abs(height - lastHeight) < 1) return;
 		lastHeight = height;
-		refreshScrollTriggers();
+		refreshScrollTriggers({ immediate: true });
 	}).observe(document.body);
 }
 

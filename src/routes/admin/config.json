@@ -1390,7 +1390,7 @@
 									"label": "Link",
 									"widget": "string",
 									"required": false,
-									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
+									"hint": "The partner's website. With it, the whole tile is a link."
 								},
 								{
 									"name": "newTab",
@@ -1561,7 +1561,7 @@
 									"label": "Link",
 									"widget": "string",
 									"required": false,
-									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
+									"hint": "The partner's website. With it, the whole tile is a link."
 								},
 								{
 									"name": "newTab",
@@ -3141,7 +3141,7 @@
 									"label": "Link",
 									"widget": "string",
 									"required": false,
-									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
+									"hint": "The partner's website. With it, the whole tile is a link."
 								},
 								{
 									"name": "newTab",
@@ -3248,7 +3248,7 @@
 									"label": "Link",
 									"widget": "string",
 									"required": false,
-									"hint": "The partner's website. With it, the tile shows a \"Visit site\" link on hover."
+									"hint": "The partner's website. With it, the whole tile is a link."
 								},
 								{
 									"name": "newTab",

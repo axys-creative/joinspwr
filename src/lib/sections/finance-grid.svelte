@@ -3,14 +3,14 @@
 	import type { SectionCopyProps } from '$lib/components/section-copy.svelte';
 
 	export type FinanceGridLogo = MarqueeImage & {
-		/** The partner's website, shown as a "Visit site" link on the tile. */
+		/** The partner's website, which makes the whole tile a link. */
 		url?: string;
 		/** Opens the link in a new tab. */
 		newTab?: boolean;
 	};
 
 	export type FinanceGridProps = Omit<SectionCopyProps, 'level' | 'layout' | 'align'> & {
-		/** Every logo, laid out in rows that alternate four and three across. Tiles with a `url` show a "Visit site" link on hover. */
+		/** Every logo, laid out in rows that alternate four and three across. Tiles with a `url` are links. */
 		logos: FinanceGridLogo[];
 		/** Label of the search box that follows the section, such as "Search finance options". Leave empty for no search. */
 		searchLabel?: string;

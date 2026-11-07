@@ -2,7 +2,7 @@
 	export type LogoTileProps = {
 		src: string;
 		alt?: string;
-		/** The partner's website. With it, a "Visit site" link appears at the bottom left on hover or focus. */
+		/** The partner's website. With it, the whole tile is a link. */
 		url?: string;
 		/** Opens the link in a new tab. */
 		newTab?: boolean;
@@ -15,30 +15,24 @@
 
 <script lang="ts">
 	import { gradientBorder } from '$lib/attachments/gradient-border';
-	import Button from './button.svelte';
 
 	let { src, alt = '', url, newTab = false, match = false, dim = false }: LogoTileProps = $props();
 </script>
 
-<div
+<svelte:element
+	this={url ? 'a' : 'div'}
 	class="logo-tile"
+	class:link={!!url}
 	class:match
 	class:dim
+	href={url}
+	target={url && newTab ? '_blank' : undefined}
+	rel={url && newTab ? 'noopener noreferrer' : undefined}
+	aria-label={url && alt ? `Visit ${alt}'s site` : undefined}
 	{@attach gradientBorder({ rayTrace: 'border', rayReach: 300 })}
 >
 	<img {src} {alt} loading="lazy" />
-	{#if url}
-		<div class="visit">
-			<Button
-				text="Visit site"
-				textDescription={alt ? `Visit ${alt}'s site` : 'Visit site'}
-				{url}
-				{newTab}
-				size="sm"
-			/>
-		</div>
-	{/if}
-</div>
+</svelte:element>
 
 <style lang="scss">
 	@use 'base/mixins';
@@ -64,6 +58,24 @@
 			inset: -1px;
 		}
 
+		&.link {
+			display: block;
+			color: inherit;
+			text-decoration: none;
+			cursor: pointer;
+
+			&:focus-visible,
+			&:active {
+				scale: 0.98;
+			}
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					scale: 0.98;
+				}
+			}
+		}
+
 		&.dim {
 			opacity: 0.2;
 		}
@@ -79,32 +91,5 @@
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
-	}
-
-	.visit {
-		position: absolute;
-		inset-block-end: 12px;
-		inset-inline-start: 12px;
-		z-index: 2;
-
-		@include mixins.mq-motion-allow {
-			transition:
-				opacity 0.3s var(--ease),
-				translate 0.3s var(--ease);
-		}
-
-		// Touch has no hover, so the button is always there.
-		@media (hover: hover) and (pointer: fine) {
-			opacity: 0;
-			translate: 0 4px;
-		}
-	}
-
-	@media (hover: hover) and (pointer: fine) {
-		.logo-tile:hover .visit,
-		.logo-tile:focus-within .visit {
-			opacity: 1;
-			translate: 0 0;
-		}
 	}
 </style>
