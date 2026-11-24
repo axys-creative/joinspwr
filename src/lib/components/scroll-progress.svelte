@@ -38,7 +38,7 @@
 		const update = () => {
 			const scrollable = document.documentElement.scrollHeight - viewportHeight();
 			const progress = scrollable > 0 ? Math.min(1, Math.max(0, scrollY / scrollable)) : 0;
-			bar!.style.setProperty('--progress', String(progress));
+			bar?.style.setProperty('--progress', String(progress));
 		};
 
 		update();
@@ -59,7 +59,8 @@
 
 	// Scrolls to the point that was clicked, measured along the bar.
 	const seek = (event: PointerEvent, behavior: ScrollBehavior) => {
-		const rect = track!.getBoundingClientRect();
+		if (!track) return;
+		const rect = track.getBoundingClientRect();
 		const fraction =
 			placement === 'bottom'
 				? (event.clientX - rect.left) / rect.width
@@ -75,12 +76,12 @@
 	};
 
 	const onpointerdown = (event: PointerEvent) => {
-		track!.setPointerCapture(event.pointerId);
+		track?.setPointerCapture(event.pointerId);
 		seek(event, 'smooth');
 	};
 
 	const onpointermove = (event: PointerEvent) => {
-		if (track!.hasPointerCapture(event.pointerId)) seek(event, 'auto');
+		if (track?.hasPointerCapture(event.pointerId)) seek(event, 'auto');
 	};
 </script>
 

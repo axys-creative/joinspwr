@@ -78,13 +78,13 @@
 
 	const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 	const step = () => {
-		const children = track!.children;
-		return children.length > 1
+		const children = track?.children;
+		return children && children.length > 1
 			? children[1].getBoundingClientRect().left - children[0].getBoundingClientRect().left
 			: 1;
 	};
-	const maxScroll = () => track!.scrollWidth - track!.clientWidth;
-	const rawIndex = () => Math.round(track!.scrollLeft / step());
+	const maxScroll = () => (track ? track.scrollWidth - track.clientWidth : 0);
+	const rawIndex = () => (track ? Math.round(track.scrollLeft / step()) : 0);
 	const pageCount = () =>
 		looping ? count : maxScroll() > 1 ? Math.round(maxScroll() / step()) + 1 : 1;
 	const currentPage = () => {
@@ -96,11 +96,11 @@
 
 	// Keeps the viewport inside the middle set of slides, which looks identical.
 	const normalize = () => {
-		if (!looping) return;
+		if (!looping || !track) return;
 		const setWidth = count * step();
-		const position = track!.scrollLeft;
-		if (position < setWidth - SNAP_TOLERANCE) track!.scrollLeft = position + setWidth;
-		else if (position >= setWidth * 2 - SNAP_TOLERANCE) track!.scrollLeft = position - setWidth;
+		const position = track.scrollLeft;
+		if (position < setWidth - SNAP_TOLERANCE) track.scrollLeft = position + setWidth;
+		else if (position >= setWidth * 2 - SNAP_TOLERANCE) track.scrollLeft = position - setWidth;
 	};
 
 	const easeInOut = (progress: number) =>
@@ -114,16 +114,18 @@
 	// Native smooth scroll has a fixed duration, so the slide change is animated here with snap off.
 	const animateTo = (left: number) => {
 		stopAnimation();
-		const from = track!.scrollLeft;
+		const element = track;
+		if (!element) return;
+		const from = element.scrollLeft;
 		if (reducedMotion() || duration <= 0 || Math.abs(left - from) < 1) {
-			track!.scrollLeft = left;
+			element.scrollLeft = left;
 			return;
 		}
 		animating = true;
 		const start = performance.now();
 		const tick = (now: number) => {
 			const progress = Math.min(1, (now - start) / duration);
-			track!.scrollLeft = from + (left - from) * easeInOut(progress);
+			element.scrollLeft = from + (left - from) * easeInOut(progress);
 			if (progress < 1) frame = requestAnimationFrame(tick);
 			else animating = false;
 		};
@@ -148,11 +150,12 @@
 	};
 
 	const progressValue = () => {
+		if (!track) return 0;
 		if (looping) {
 			const setWidth = count * step();
-			return ((((track!.scrollLeft - setWidth) / setWidth) % 1) + 1) % 1;
+			return ((((track.scrollLeft - setWidth) / setWidth) % 1) + 1) % 1;
 		}
-		return maxScroll() > 1 ? track!.scrollLeft / maxScroll() : 0;
+		return maxScroll() > 1 ? track.scrollLeft / maxScroll() : 0;
 	};
 
 	const update = () => {
@@ -209,11 +212,11 @@
 
 	const onPointerdown = (event: PointerEvent) => {
 		stopAnimation();
-		if (event.pointerType !== 'mouse' || event.button !== 0) return;
+		if (!track || event.pointerType !== 'mouse' || event.button !== 0) return;
 		pointerDown = true;
 		moved = false;
 		startX = event.clientX;
-		startScroll = track!.scrollLeft;
+		startScroll = track.scrollLeft;
 	};
 
 	// A drag should not click whatever the pointer ends on.
@@ -223,7 +226,8 @@
 	};
 
 	onMount(() => {
-		const element = track!;
+		const element = track;
+		if (!element) return;
 
 		const onPointermove = (event: PointerEvent) => {
 			if (!pointerDown) return;

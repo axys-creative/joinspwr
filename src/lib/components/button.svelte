@@ -78,7 +78,10 @@
 	);
 	const rolling = $derived(
 		(roll ?? !!text)
-			? rollAttachment(typeof roll === 'object' ? roll : linkLike ? {} : { split: 'line' })
+			? rollAttachment({
+					...(typeof roll === 'object' ? roll : linkLike ? {} : { split: 'line' }),
+					key: text
+				})
 			: undefined
 	);
 	const classes = $derived(

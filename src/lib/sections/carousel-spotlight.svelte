@@ -71,18 +71,20 @@
 	const active = $derived(count ? (((raw - offset) % count) + count) % count : 0);
 
 	const step = () => {
-		const cards = track!.children;
+		if (!track) return 1;
+		const cards = track.children;
 		return cards.length > 1
 			? cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
-			: track!.clientWidth;
+			: track.clientWidth;
 	};
-	const dragging = () => track!.hasAttribute('data-dragging');
+	const dragging = () => !!track?.hasAttribute('data-dragging');
 	const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-	const current = () => Math.round(track!.scrollLeft / step());
+	const current = () => (track ? Math.round(track.scrollLeft / step()) : 0);
 
 	function goTo(index: number) {
+		if (!track) return;
 		const last = count * sets.length - 1;
-		track!.scrollTo({
+		track.scrollTo({
 			left: Math.min(last, Math.max(0, index)) * step(),
 			behavior: reduced() ? 'auto' : 'smooth'
 		});
@@ -90,11 +92,11 @@
 
 	// Keeps the row inside the middle copy, which looks the same as the others.
 	function normalize() {
-		if (!looping || dragging()) return;
+		if (!looping || !track || dragging()) return;
 		const width = count * step();
-		const left = track!.scrollLeft;
-		if (left < width - SNAP_TOLERANCE) track!.scrollLeft = left + width;
-		else if (left >= width * 2 - SNAP_TOLERANCE) track!.scrollLeft = left - width;
+		const left = track.scrollLeft;
+		if (left < width - SNAP_TOLERANCE) track.scrollLeft = left + width;
+		else if (left >= width * 2 - SNAP_TOLERANCE) track.scrollLeft = left - width;
 	}
 
 	function settle() {
@@ -134,7 +136,8 @@
 	});
 
 	onMount(() => {
-		const element = track!;
+		const element = track;
+		if (!element) return;
 		let width = element.clientWidth;
 		if (looping) element.scrollLeft = count * step();
 		raw = current();

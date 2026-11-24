@@ -16,6 +16,8 @@ export type RollOptions = {
 	duration?: number;
 	/** The element that holds the content: a selector inside, or an element. Defaults to a `.label` (as in Button), else the element itself. */
 	target?: string | HTMLElement;
+	/** Pass the text so the roll is rebuilt when it changes (the attachment re-runs on a new value). */
+	key?: unknown;
 };
 
 /** Where in the order a piece rolls, for each of `count` pieces. */

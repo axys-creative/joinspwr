@@ -112,7 +112,7 @@
 			inView = entry.isIntersecting;
 			apply?.();
 		});
-		observer.observe(el!);
+		observer.observe(el);
 
 		return () => {
 			apply = undefined;
