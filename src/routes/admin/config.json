@@ -627,6 +627,17 @@
 							"hint": "Style words with [words]{.secondary-alt}. Use {.br} for a line break."
 						},
 						{
+							"name": "order",
+							"label": "Panel order",
+							"widget": "select",
+							"options": [
+								{ "label": "Linear (earlier panels stack on the left)", "value": "linear" },
+								{ "label": "Loop (selected first, the rest follow)", "value": "loop" }
+							],
+							"default": "linear",
+							"required": false
+						},
+						{
 							"name": "tabs",
 							"label": "Tabs",
 							"widget": "list",

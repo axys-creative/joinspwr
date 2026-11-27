@@ -154,8 +154,9 @@
 	const QUICK_START_DELAY = 1000;
 
 	const step = () => {
-		const first = track!.children[0] as HTMLElement;
-		return first.offsetWidth + (parseFloat(getComputedStyle(track!).columnGap) || 0);
+		const first = track?.children[0] as HTMLElement | undefined;
+		if (!track || !first) return 1;
+		return first.offsetWidth + (parseFloat(getComputedStyle(track).columnGap) || 0);
 	};
 
 	// Slides are placed in the track's own pixels, so the zoom (on the scaler around it) never moves the active one.
@@ -280,7 +281,9 @@
 			addEventListener('resize', onResize);
 			cleanups.push(() => removeEventListener('resize', onResize));
 
-			if (!motion || !pin || !scaler) {
+			const trackEl = track;
+			const scalerEl = scaler;
+			if (!motion || !pin || !scalerEl || !trackEl) {
 				revealed = true;
 				return;
 			}
@@ -305,13 +308,14 @@
 			});
 
 			// Enough zoom that the active slide covers the whole frame, whatever its size and shape.
-			const slide = track!.children[cloneCount] as HTMLElement;
+			const slide = trackEl.children[cloneCount] as HTMLElement | undefined;
+			if (!slide) return;
 			const start = Math.max(
 				pin.offsetWidth / slide.offsetWidth,
 				pin.offsetHeight / slide.offsetHeight,
 				1
 			);
-			core.set(scaler, { scale: start });
+			core.set(scalerEl, { scale: start });
 
 			// Loaded or refreshed below the section, the scrub has to be finished already, not caught up with.
 			let settle: (() => void) | undefined;
@@ -351,17 +355,17 @@
 						}
 					}
 				});
-				timeline.to(scaler!, { scale: 1, ease: 'power2.out', duration: scaleDuration }, 0);
+				timeline.to(scalerEl, { scale: 1, ease: 'power2.out', duration: scaleDuration }, 0);
 				if (trail > 0) {
 					// Each slide has its own scale chasing the scaler's, so the neighbors trail while scrolling and catch up when
 					// it stops. A slide's extra scale and shift, around the scaler's center, make it land on that scale.
 					const pull = { progress: 0 };
-					const slideEls = Array.from(track!.children) as HTMLElement[];
+					const slideEls = Array.from(trackEl.children) as HTMLElement[];
 					const own = slideEls.map(() => start);
 					const place = () => {
-						const zoom = Number(core.getProperty(scaler!, 'scale'));
-						const trackX = Number(core.getProperty(track!, 'x')) || 0;
-						const middle = scaler!.offsetWidth / 2;
+						const zoom = Number(core.getProperty(scalerEl, 'scale'));
+						const trackX = Number(core.getProperty(trackEl, 'x')) || 0;
+						const middle = scalerEl.offsetWidth / 2;
 						slideEls.forEach((el, at) => {
 							const k = own[at] / zoom;
 							if (Math.abs(k - 1) < 0.0005) return core.set(el, { clearProps: 'transform' });
@@ -372,7 +376,7 @@
 					let lagging = false;
 					const follow = (_time: number, delta: number) => {
 						if (!scaler?.isConnected) return core.ticker.remove(follow);
-						const zoom = Number(core.getProperty(scaler!, 'scale'));
+						const zoom = Number(core.getProperty(scalerEl, 'scale'));
 						const seconds = delta / 1000;
 						lagging = false;
 						slideEls.forEach((_, at) => {
@@ -401,7 +405,7 @@
 					cleanups.push(() => core.ticker.remove(follow));
 					sync = () => {
 						if (lagging) return;
-						const zoom = Number(core.getProperty(scaler!, 'scale'));
+						const zoom = Number(core.getProperty(scalerEl, 'scale'));
 						if (own.every((value) => Math.abs(value - zoom) < 0.0005)) return;
 						own.fill(zoom);
 						place();
@@ -417,7 +421,7 @@
 			}, pin);
 			cleanups.push(() => {
 				context.revert();
-				core.set(track!.children, { clearProps: 'transform' });
+				core.set(trackEl.children, { clearProps: 'transform' });
 			});
 			// A refresh can end with the slides' own scales left at the zoomed-in size while the zoom itself is done.
 			const { ScrollTrigger } = await import('gsap/ScrollTrigger');

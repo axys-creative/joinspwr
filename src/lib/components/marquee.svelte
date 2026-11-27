@@ -61,33 +61,35 @@
 
 	onMount(() => {
 		still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const root = marquee;
+		if (!root) return;
 
 		// One copy of the content sets the size. The row repeats it enough times to fill the screen, twice over, so
 		// the loop (a move of exactly one half) resets without a seam.
 		const measure = () => {
-			const item = marquee!.querySelector<HTMLElement>('.item');
+			const item = root.querySelector<HTMLElement>('.item');
 			if (!item) return;
 			const width = item.getBoundingClientRect().width;
 			if (!width) return;
-			copies = Math.max(1, Math.ceil(marquee!.clientWidth / width));
+			copies = Math.max(1, Math.ceil(root.clientWidth / width));
 			halfWidth = width * copies;
 		};
 		measure();
 
 		const resize = new ResizeObserver(measure);
-		resize.observe(marquee!);
-		marquee!.querySelectorAll('.item').forEach((item) => resize.observe(item));
+		resize.observe(root);
+		root.querySelectorAll('.item').forEach((item) => resize.observe(item));
 		document.fonts?.ready.then(measure);
 
 		const intersect = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting));
-		intersect.observe(marquee!);
+		intersect.observe(root);
 
 		// CSS can run a row forwards but not backwards or with a scroll offset and still wrap seamlessly, so with
 		// `reverse` or `scrub` the script moves the rows instead, as the Image Wave does.
 		let frame = 0;
 		if (!still && (reverse || scrub > 0)) {
 			driven = true;
-			const tracks = Array.from(marquee!.querySelectorAll<HTMLElement>('.track'));
+			const tracks = Array.from(root.querySelectorAll<HTMLElement>('.track'));
 			let idle = 0;
 			let offset = scrollY * scrub;
 			let heading = 1;

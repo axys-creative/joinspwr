@@ -55,7 +55,7 @@
 	let selected = $state(pathIndex(path));
 	// svelte-ignore state_referenced_locally
 	let shown = $state(pathIndex(path));
-	let panel: HTMLElement;
+	let panel: HTMLElement | undefined;
 	let revealed = false;
 	let animated = false;
 	let busy = false;
@@ -64,7 +64,7 @@
 	const ENTER = { duration: 320, stagger: 40 };
 	const EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-	const rows = () => Array.from(panel.querySelectorAll<HTMLElement>('.accordion > .item'));
+	const rows = () => Array.from(panel?.querySelectorAll<HTMLElement>('.accordion > .item') ?? []);
 
 	const play = (from: Keyframe, to: Keyframe, { duration, stagger }: typeof LEAVE) => {
 		const items = rows();
@@ -158,7 +158,7 @@
 
 	onMount(() => {
 		animated = !matchMedia('(prefers-reduced-motion: reduce)').matches;
-		if (!animated) return;
+		if (!animated || !panel) return;
 
 		hide();
 		const observer = new IntersectionObserver(

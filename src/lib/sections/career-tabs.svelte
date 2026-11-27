@@ -4,7 +4,7 @@
 	export type CareerTab = {
 		/** The toggle's button text, such as `Senior rep`. */
 		label: string;
-		/** The wide picture under the toggle. */
+		/** The picture: wide when selected, a thin dimmed crop beside the others on desktop. */
 		image?: { src: string; alt?: string };
 		description?: string;
 	};
@@ -13,6 +13,8 @@
 		tabs: CareerTab[];
 		/** The tab that starts selected, counting from 0. */
 		defaultTab?: number;
+		/** `linear` keeps the tab order, so earlier pictures stack up on the left. `loop` always puts the selected one first and the rest after it, wrapping round. */
+		order?: 'linear' | 'loop';
 		/** At least the height of the screen, with the content centered. Taller content still grows past it. */
 		fullScreen?: boolean;
 		/** The section's anchor, so a link or the CMS preview can point to `#id`. */
@@ -22,6 +24,7 @@
 </script>
 
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import SectionCopy from '$lib/components/section-copy.svelte';
 	import { tabs as tabsAttachment } from '$lib/attachments/tabs';
 	import { toggleSlider } from '$lib/attachments/toggle-slider';
@@ -31,10 +34,19 @@
 		title,
 		tabs,
 		defaultTab = 0,
+		order = 'linear',
 		fullScreen = false,
 		id,
 		class: className
 	}: CareerTabsProps = $props();
+
+	let list = $state<HTMLElement>();
+	let active = $state(untrack(() => defaultTab));
+
+	const place = (index: number) => (index - active + tabs.length) % tabs.length;
+
+	const choose = (index: number) =>
+		list?.querySelectorAll<HTMLElement>('[role="tab"]')[index]?.click();
 </script>
 
 <section {id} class="career-tabs {className ?? ''}" class:full-screen={fullScreen}>
@@ -48,8 +60,12 @@
 			showCta={false}
 		/>
 
-		<div class="tabset" {@attach tabsAttachment({ defaultTab })}>
+		<div
+			class="tabset"
+			{@attach tabsAttachment({ defaultTab, onChange: (index) => (active = index) })}
+		>
 			<div
+				bind:this={list}
 				class="list"
 				role="tablist"
 				aria-label={title}
@@ -60,17 +76,35 @@
 				{/each}
 			</div>
 
-			{#each tabs as tab, index (index)}
-				<div class="panel" role="tabpanel" hidden={index !== defaultTab}>
-					{#if tab.image?.src}
-						<figure class="picture">
+			<div class="strip">
+				{#each tabs as tab, index (index)}
+					<div
+						class="slice"
+						class:active={index === active}
+						style:order={order === 'loop' ? place(index) : undefined}
+					>
+						{#if tab.image?.src}
 							<img
 								{...imageProps(tab.image.src, { sizes: '(min-width: 1280px) 1200px, 100vw' })}
-								alt={tab.image.alt ?? ''}
+								alt={index === active ? (tab.image.alt ?? '') : ''}
 								loading="lazy"
 							/>
-						</figure>
-					{/if}
+						{/if}
+						{#if index !== active}
+							<button
+								type="button"
+								class="expand"
+								tabindex="-1"
+								aria-hidden="true"
+								onclick={() => choose(index)}
+							></button>
+						{/if}
+					</div>
+				{/each}
+			</div>
+
+			{#each tabs as tab, index (index)}
+				<div class="panel" role="tabpanel" hidden={index !== defaultTab}>
 					{#if tab.description}<p>{tab.description}</p>{/if}
 				</div>
 			{/each}
@@ -159,10 +193,6 @@
 	}
 
 	.panel {
-		display: flex;
-		flex-direction: column;
-		gap: 32px;
-
 		&[hidden] {
 			display: none;
 		}
@@ -179,22 +209,87 @@
 		}
 	}
 
-	.picture {
-		margin: 0;
+	.strip {
+		--sliver: 12px;
+		--sliver-hover: 24px;
+
+		container-type: inline-size;
+		display: grid;
+		gap: 4px;
+		aspect-ratio: 4 / 3;
+
+		@include mixins.min-md {
+			display: flex;
+			aspect-ratio: 21 / 9;
+		}
+	}
+
+	.slice {
+		position: relative;
+		min-width: 0;
 		overflow: hidden;
-		aspect-ratio: 21 / 9;
 		@include mixins.glass-card($radius: var(--radius-lg), $blur: 0);
 
+		@include mixins.min-md {
+			flex: 0 0 var(--sliver);
+
+			&.active {
+				flex-grow: 1;
+			}
+
+			@include mixins.mq-motion-allow {
+				transition:
+					flex-grow 0.6s var(--ease),
+					flex-basis 0.3s var(--ease),
+					border-color var(--duration) var(--ease);
+			}
+		}
+
 		@include mixins.max-md {
-			aspect-ratio: 4 / 3;
+			&:not(.active) {
+				display: none;
+			}
 		}
 
 		img {
+			position: absolute;
+			top: 0;
+			left: 50%;
 			display: block;
-			width: 100%;
+			width: 100cqw;
+			max-width: none;
 			height: 100%;
+			translate: -50% 0;
 			object-fit: cover;
+
+			@include mixins.mq-motion-allow {
+				transition: filter var(--duration) var(--ease);
+			}
 		}
+
+		&:not(.active) img {
+			filter: brightness(0.5);
+		}
+
+		@include mixins.desktop-hover {
+			&:not(.active):hover {
+				flex-basis: var(--sliver-hover);
+				border-color: var(--color-accent);
+
+				img {
+					filter: brightness(0.75);
+				}
+			}
+		}
+	}
+
+	.expand {
+		position: absolute;
+		inset: 0;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
 	}
 
 	@keyframes fade-up {

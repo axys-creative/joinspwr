@@ -54,11 +54,12 @@
 			animated = true;
 			return;
 		}
+		if (!fan) return;
 
 		const observer = new IntersectionObserver(([entry]) => (animated = entry.isIntersecting), {
 			rootMargin: '0px 0px -2% 0px'
 		});
-		observer.observe(fan!);
+		observer.observe(fan);
 		return () => observer.disconnect();
 	});
 </script>

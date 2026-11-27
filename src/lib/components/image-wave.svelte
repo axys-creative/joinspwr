@@ -56,7 +56,10 @@
 	onMount(() => {
 		if ((scrub <= 0 && !reverse) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-		const firstSet = wave!.querySelector<HTMLElement>('.set')!;
+		const container = wave;
+		const strip = track;
+		const firstSet = container?.querySelector<HTMLElement>('.set');
+		if (!container || !strip || !firstSet) return;
 		let setWidth = firstSet.getBoundingClientRect().width;
 		let idle = 0;
 		let bobClock = 0;
@@ -72,7 +75,7 @@
 		const resize = new ResizeObserver(() => (setWidth = firstSet.getBoundingClientRect().width));
 		resize.observe(firstSet);
 		const intersect = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting));
-		intersect.observe(wave!);
+		intersect.observe(container);
 
 		const tick = (now: number) => {
 			const elapsed = now - last;
@@ -90,9 +93,9 @@
 				idle += heading * (setWidth / speed) * (elapsed / 1000);
 				bobClock += heading * (elapsed / 1000);
 				const x = (((idle + offset) % setWidth) + setWidth) % setWidth;
-				track!.style.translate = `${-x}px 0`;
+				strip.style.translate = `${-x}px 0`;
 				const clock = reverse ? bobClock : 0;
-				wave!.style.setProperty('--phase', `${clock + (offset / 1000) * duration}s`);
+				container.style.setProperty('--phase', `${clock + (offset / 1000) * duration}s`);
 			} else if (!visible) {
 				// Off screen the offset keeps up with the page, so it does not have to catch up when it comes into view.
 				offset = scrollY * scrub;

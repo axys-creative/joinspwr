@@ -57,7 +57,7 @@
 	const prepare = (html: string) => hangMarkers(italicShort(html));
 
 	let current = $state('');
-	let blocks: HTMLElement;
+	let blocks: HTMLElement | undefined;
 	let list = $state<HTMLElement>();
 	let fadeTop = $state(false);
 	let fadeBottom = $state(false);
@@ -91,7 +91,7 @@
 
 	// The link of the block nearest the top of the screen is the one marked.
 	onMount(() => {
-		if (!toc) return;
+		if (!toc || !blocks) return;
 		const observer = new IntersectionObserver(
 			(entries) => {
 				const seen = entries.find((entry) => entry.isIntersecting);

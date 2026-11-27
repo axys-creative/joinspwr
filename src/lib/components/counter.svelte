@@ -70,7 +70,7 @@
 	const display = $derived(ready ? format(shown) : finalText);
 
 	onMount(() => {
-		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
 		let frame = 0;
 		let hasPlayed = false;

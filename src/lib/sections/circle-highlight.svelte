@@ -135,14 +135,15 @@
 		let revert: (() => void) | undefined;
 
 		loadGsap('scrollTrigger').then((gsap) => {
-			if (cancelled || !pin) return;
+			const frame = pin;
+			if (cancelled || !frame) return;
 			armed = true;
 			const steps = slices.length + 1;
 
 			const context = gsap.context(() => {
-				const tween = gsap.to(pin!, {
+				const tween = gsap.to(frame, {
 					scrollTrigger: {
-						trigger: pin,
+						trigger: frame,
 						start: 'top top',
 						end: `+=${steps * DWELL}%`,
 						pin: true,
@@ -165,7 +166,7 @@
 					const top = trigger.start + ((index + 0.5) / steps) * (trigger.end - trigger.start);
 					window.scrollTo({ top, behavior: 'instant' });
 				};
-			}, pin);
+			}, frame);
 			revert = () => {
 				seek = undefined;
 				context.revert();

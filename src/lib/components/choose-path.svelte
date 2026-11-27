@@ -39,13 +39,14 @@
 
 	// The loader shrinks to this box when it leaves, so it is measured before the dialog is shown.
 	const measure = () => {
-		if (!dialog || !panel || dialog.open) return;
+		const element = dialog;
+		if (!element || !panel || element.open) return;
 		const hide = { visibility: 'hidden', position: 'fixed', inset: '0' };
-		Object.assign(dialog.style, hide);
-		dialog.show();
+		Object.assign(element.style, hide);
+		element.show();
 		const box = panel.getBoundingClientRect();
-		dialog.close();
-		Object.keys(hide).forEach((name) => dialog!.style.removeProperty(name));
+		element.close();
+		Object.keys(hide).forEach((name) => element.style.removeProperty(name));
 		const root = document.documentElement.style;
 		root.setProperty('--cp-top', `${box.top}px`);
 		root.setProperty('--cp-left', `${box.left}px`);

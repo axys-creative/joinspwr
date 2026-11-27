@@ -126,14 +126,15 @@
 
 		loadGsap('scrollTrigger').then(async (gsap) => {
 			const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-			if (cancelled || !grid) return;
+			const element = grid;
+			if (cancelled || !element) return;
 
 			const match = gsap.matchMedia();
 			match.add(
 				{ maxMd: '(max-width: 767px)', maxLg: '(max-width: 1023px)', minLg: '(min-width: 1024px)' },
 				() => {
 					// Slots hidden at this size (display: none) are not part of any column.
-					const items = Array.from(grid!.querySelectorAll<HTMLElement>('.item')).filter(
+					const items = Array.from(element.querySelectorAll<HTMLElement>('.item')).filter(
 						(item) => getComputedStyle(item).display !== 'none'
 					);
 					if (items.length < 2) return;
@@ -159,7 +160,7 @@
 					const delta = (index: number) => heights()[index] - Math.min(...heights());
 
 					const syncHeight = () => {
-						grid!.style.height = `${Math.min(...heights())}px`;
+						element.style.height = `${Math.min(...heights())}px`;
 					};
 					syncHeight();
 					ScrollTrigger.addEventListener('refreshInit', syncHeight);
@@ -197,7 +198,7 @@
 
 					return () => {
 						ScrollTrigger.removeEventListener('refreshInit', syncHeight);
-						grid!.style.height = '';
+						element.style.height = '';
 					};
 				}
 			);
